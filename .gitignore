@@ -1,5 +1,13 @@
 # See https://www.dartlang.org/guides/libraries/private-files
 
+android/.gradle/
+android/gradle/
+android/*.iml
+
+.idea/
+*.iml
+*/.DS_Store
+
 # Files and directories created by pub
 .dart_tool/
 .packages
@@ -8,7 +16,7 @@ build/
 pubspec.lock
 
 # Directory created by dartdoc
-# If you don't generate documentation locally you can remove this line.
+# If you don't generate do  cumentation locally you can remove this line.
 doc/api/
 
 # Avoid committing generated Javascript files:
