@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:marvel/ui/characters/characters_screen.dart';
 import 'package:marvel/ui/comics/comics_screen.dart';
+import 'package:marvel/ui/commons/custom_appbar.dart';
 
 import 'package:marvel/ui/commons/custom_bottomnavigationbar.dart';
 import 'package:marvel/ui/series/series_screen.dart';
 import 'package:marvel/ui/stories/stories_screen.dart';
-import 'home_grid.dart';
-import 'home_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -58,25 +57,23 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/placeholder.png',
-              fit: BoxFit.contain,
-              height: 120,
-            ),
-          ],
-        ),
-      ),
-      body: IndexedStack(
-        index: _currentIndex,
+      appBar: CustomAppBar(),
+      body: Column(
         children: [
-          CharactersScreen(),
-          ComicsScreen(),
-          SeriesScreen(),
-          StoriesScreen()
+          Expanded(
+            child: Container(
+              child: IndexedStack(
+                index: _currentIndex,
+                children: [
+                  CharactersScreen(),
+                  ComicsScreen(),
+                  SeriesScreen(),
+                  StoriesScreen()
+                ],
+              ),
+            ),
+          ),
+          Text("Data provided by Marvel. © 2014 Marvel"),
         ],
       ),
       bottomNavigationBar: _buildCustomBottomNavigationBar(),
