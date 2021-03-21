@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:marvel/core/model/Character.dart';
 import '../characters/character_detail_screen.dart';
 
-class HomeListElement extends StatelessWidget {
-  const HomeListElement({Key key, this.index, this.character})
+class HomeGridElement extends StatelessWidget {
+  const HomeGridElement({Key key, this.index, this.character})
       : super(key: key);
 
   final int index;
@@ -15,23 +15,23 @@ class HomeListElement extends StatelessWidget {
       color: index % 2 == 1 ? Colors.grey[300] : Colors.grey[500],
       child: InkWell(
         child: Center(
-          child: Row(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(
+                height: 10,
+              ),
               Text(
                 character.title,
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 15,
                   color: Colors.black,
                 ),
-              ),
-              SizedBox(
-                width: 20,
               ),
               Image.asset(
                 'assets/images/placeholder.png',
                 fit: BoxFit.contain,
-                height: 150,
+                height: 80,
               ),
             ],
           ),

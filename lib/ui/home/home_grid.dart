@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
-import 'home_list_element.dart';
+import 'package:marvel/core/model/Character.dart';
+import 'package:marvel/ui/home/home_grid_element.dart';
 
 class HomeGridView extends StatelessWidget {
-  const HomeGridView({Key key}) : super(key: key);
+  const HomeGridView({Key key, @required this.characters}) : super(key: key);
+
+  final List<Character> characters;
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: 9,
+      itemCount: characters.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, childAspectRatio: 2),
+          crossAxisCount: 3, childAspectRatio: 1),
       itemBuilder: (context, index) {
-        return HomeListElement(index: index);
+        return HomeGridElement(
+          index: index,
+          character: characters[index],
+        );
       },
     );
   }

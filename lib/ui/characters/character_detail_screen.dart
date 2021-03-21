@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HeroDetailScreen extends StatelessWidget {
-  static const String routeName = "heroe-details/";
+class CharacterDetailScreen extends StatelessWidget {
+  static const String routeName = "character-details/";
 
   @override
   Widget build(BuildContext context) {
