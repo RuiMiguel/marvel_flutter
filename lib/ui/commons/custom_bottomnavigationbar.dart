@@ -1,0 +1,96 @@
+import 'package:flutter/material.dart';
+
+class CustomBottomNavigationBar extends StatefulWidget {
+  CustomBottomNavigationBar(
+      {Key key, @required this.children, this.onChange, this.currentIndex = 0})
+      : super(key: key);
+
+  final List<CustomBottomNavigationItem> children;
+  final int currentIndex;
+
+  @override
+  _CustomBottomNavigationBarState createState() =>
+      _CustomBottomNavigationBarState();
+
+  final Function(int) onChange;
+}
+
+class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    _currentIndex = widget.currentIndex;
+    super.initState();
+  }
+
+  void _changeIndex(int index) {
+    if (widget.onChange != null) {
+      widget.onChange(index);
+      setState(() {
+        _currentIndex = index;
+      });
+    }
+  }
+
+  Color _getSelectedItemColor() {
+    Color color;
+    switch (_currentIndex) {
+      case 0:
+        color = Colors.blue[200];
+        break;
+      case 1:
+        color = Colors.green[200];
+        break;
+      case 2:
+        color = Colors.yellow[200];
+        break;
+      case 3:
+        color = Colors.red[200];
+        break;
+      default:
+        color = Theme.of(context).accentColor;
+    }
+    return color;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      unselectedItemColor: Colors.grey[600],
+      selectedItemColor: _getSelectedItemColor(),
+      selectedLabelStyle: TextStyle(fontFamily: "Oswald"),
+      iconSize: 32,
+      selectedFontSize: 12,
+      unselectedFontSize: 12,
+      type: BottomNavigationBarType.fixed,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
+      currentIndex: _currentIndex,
+      backgroundColor: Theme.of(context).primaryColor,
+      onTap: _changeIndex,
+      items: widget.children
+          .map(
+            (element) => BottomNavigationBarItem(
+              label: element.label,
+              icon: Image.asset(
+                element.image,
+                fit: BoxFit.contain,
+                height: 40,
+                color: element.color,
+              ),
+            ),
+          )
+          .toList(),
+    );
+  }
+}
+
+class CustomBottomNavigationItem {
+  final String label;
+  final String image;
+  final Color color;
+
+  CustomBottomNavigationItem(
+      {@required this.image, @required this.label, this.color});
+}
