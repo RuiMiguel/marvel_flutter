@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/core/model/Character.dart';
-import '../characters/character_detail_screen.dart';
+import 'package:marvel/core/model/character.dart';
+import 'package:marvel/ui/characters/character_detail_screen.dart';
 
 class HomeGridElement extends StatelessWidget {
-  const HomeGridElement({Key key, this.index, this.character})
+  const HomeGridElement(
+      {Key? key, required this.index, required this.character})
       : super(key: key);
 
   final int index;

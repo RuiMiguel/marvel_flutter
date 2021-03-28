@@ -5,7 +5,7 @@ import 'package:marvel/ui/home/home_list.dart';
 import 'package:provider/provider.dart';
 
 class CharactersScreen extends StatelessWidget {
-  const CharactersScreen({Key key}) : super(key: key);
+  const CharactersScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

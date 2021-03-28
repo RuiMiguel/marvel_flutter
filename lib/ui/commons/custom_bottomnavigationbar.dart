@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
-  CustomBottomNavigationBar(
-      {Key key, @required this.children, this.onChange, this.currentIndex = 0})
-      : super(key: key);
+  CustomBottomNavigationBar({
+    Key? key,
+    required this.children,
+    required this.onChange,
+    this.currentIndex = 0,
+  }) : super(key: key);
 
   final List<CustomBottomNavigationItem> children;
   final int currentIndex;
@@ -25,28 +28,26 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   }
 
   void _changeIndex(int index) {
-    if (widget.onChange != null) {
-      widget.onChange(index);
-      setState(() {
-        _currentIndex = index;
-      });
-    }
+    widget.onChange(index);
+    setState(() {
+      _currentIndex = index;
+    });
   }
 
   Color _getSelectedItemColor() {
     Color color;
     switch (_currentIndex) {
       case 0:
-        color = Colors.blue[200];
+        color = Colors.blue[200]!;
         break;
       case 1:
-        color = Colors.green[200];
+        color = Colors.green[200]!;
         break;
       case 2:
-        color = Colors.yellow[200];
+        color = Colors.yellow[200]!;
         break;
       case 3:
-        color = Colors.red[200];
+        color = Colors.red[200]!;
         break;
       default:
         color = Theme.of(context).accentColor;
@@ -57,7 +58,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: kBottomNavigationBarHeight + 16,
+      height: kBottomNavigationBarHeight + 50,
       child: Column(
         children: [
           Container(
@@ -107,5 +108,5 @@ class CustomBottomNavigationItem {
   final Color color;
 
   CustomBottomNavigationItem(
-      {@required this.image, @required this.label, this.color});
+      {required this.image, required this.label, required this.color});
 }

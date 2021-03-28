@@ -5,7 +5,7 @@ import 'package:marvel/ui/home/home_list.dart';
 import 'package:provider/provider.dart';
 
 class SeriesScreen extends StatelessWidget {
-  const SeriesScreen({Key key}) : super(key: key);
+  const SeriesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

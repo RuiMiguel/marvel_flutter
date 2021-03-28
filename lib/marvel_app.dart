@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marvel/core/controllers/characters_controller.dart';
+import 'package:marvel/data/repository/characters_repository.dart';
+import 'package:marvel/data/service/character_api_client.dart';
 import 'package:marvel/router.dart';
 import 'package:marvel/themes.dart';
 import 'package:marvel/ui/home/home_screen.dart';
@@ -7,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MarvelApp extends StatelessWidget {
-  const MarvelApp({Key key, this.prefs}) : super(key: key);
+  const MarvelApp({Key? key, required this.prefs}) : super(key: key);
 
   final SharedPreferences prefs;
 
@@ -16,7 +18,9 @@ class MarvelApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => CharactersController(),
+          create: (context) => CharactersController(CharactersRepository(
+            CharacterApiClient(),
+          )),
         )
       ],
       child: MaterialApp(

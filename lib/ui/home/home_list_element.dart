@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/core/model/Character.dart';
+import 'package:marvel/core/model/character.dart';
 import '../characters/character_detail_screen.dart';
 
 class HomeListElement extends StatelessWidget {
-  const HomeListElement({Key key, this.index, this.character})
+  const HomeListElement(
+      {Key? key, required this.index, required this.character})
       : super(key: key);
 
   final int index;
