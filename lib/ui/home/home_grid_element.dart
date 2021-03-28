@@ -23,7 +23,7 @@ class HomeGridElement extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                character.title,
+                character.name,
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.black,

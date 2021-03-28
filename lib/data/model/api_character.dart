@@ -16,7 +16,7 @@ class ApiResult {
   factory ApiResult.fromJson(Map<String, dynamic> json) =>
       _$ApiResultFromJson(json);
 
-  final String code;
+  final int code;
   final String status;
   final String copyright;
   final String attributionText;
@@ -38,10 +38,10 @@ class ApiData {
   factory ApiData.fromJson(Map<String, dynamic> json) =>
       _$ApiDataFromJson(json);
 
-  final String offset;
-  final String limit;
-  final String total;
-  final String count;
+  final int offset;
+  final int limit;
+  final int total;
+  final int count;
   final List<ApiCharacter> results;
 }
 
@@ -60,7 +60,7 @@ class ApiCharacter {
   factory ApiCharacter.fromJson(Map<String, dynamic> json) =>
       _$ApiCharacterFromJson(json);
 
-  final String id;
+  final int id;
   final String name;
   final String description;
   final String modified;

@@ -1,4 +1,5 @@
 import 'package:marvel/core/model/character.dart';
+import 'package:marvel/data/mapper/data2domain_mapper.dart';
 import 'package:marvel/data/service/character_api_client.dart';
 
 class CharactersRepository {
@@ -7,7 +8,7 @@ class CharactersRepository {
   CharactersRepository(this._characterApiClient);
 
   Future<List<Character>> getCharacters() async {
-    final characters = await _characterApiClient.getCharacters();
-    return characters;
+    final apiCharacters = await _characterApiClient.getCharacters();
+    return apiCharacters.toCharacters();
   }
 }

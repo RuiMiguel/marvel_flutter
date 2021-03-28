@@ -20,7 +20,7 @@ class HomeListElement extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                character.title,
+                character.name,
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.black,

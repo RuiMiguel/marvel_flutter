@@ -8,7 +8,7 @@ part of 'api_character.dart';
 
 ApiResult _$ApiResultFromJson(Map<String, dynamic> json) {
   return ApiResult(
-    code: json['code'] as String,
+    code: json['code'] as int,
     status: json['status'] as String,
     copyright: json['copyright'] as String,
     attributionText: json['attributionText'] as String,
@@ -30,10 +30,10 @@ Map<String, dynamic> _$ApiResultToJson(ApiResult instance) => <String, dynamic>{
 
 ApiData _$ApiDataFromJson(Map<String, dynamic> json) {
   return ApiData(
-    offset: json['offset'] as String,
-    limit: json['limit'] as String,
-    total: json['total'] as String,
-    count: json['count'] as String,
+    offset: json['offset'] as int,
+    limit: json['limit'] as int,
+    total: json['total'] as int,
+    count: json['count'] as int,
     results: (json['results'] as List<dynamic>)
         .map((e) => ApiCharacter.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -50,7 +50,7 @@ Map<String, dynamic> _$ApiDataToJson(ApiData instance) => <String, dynamic>{
 
 ApiCharacter _$ApiCharacterFromJson(Map<String, dynamic> json) {
   return ApiCharacter(
-    id: json['id'] as String,
+    id: json['id'] as int,
     name: json['name'] as String,
     description: json['description'] as String,
     modified: json['modified'] as String,

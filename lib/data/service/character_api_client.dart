@@ -18,7 +18,7 @@ class CharacterApiClient {
     return md5.convert(utf8.encode(input)).toString();
   }
 
-  Future<List<Character>> getCharacters() async {
+  Future<List<ApiCharacter>> getCharacters() async {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
     final hash = generateMd5("$timestamp$PRIVATE_KEY$PUBLIC_KEY");
     final apikey = PUBLIC_KEY;
@@ -41,8 +41,7 @@ class CharacterApiClient {
       print("RESPONSE: ${charactersResponse.body}");
     }
 
-    var list = jsonDecode(charactersResponse.body);
-
-    return List.generate(100, (index) => Character(title: "Heroe $index"));
+    var json = jsonDecode(charactersResponse.body);
+    return ApiResult.fromJson(json).data.results;
   }
 }
