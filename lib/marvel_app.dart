@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marvel/core/controllers/characters_controller.dart';
 import 'package:marvel/core/controllers/comics_controller.dart';
+import 'package:marvel/core/controllers/under_construction_controller.dart';
 import 'package:marvel/data/repository/characters_repository.dart';
 import 'package:marvel/data/repository/comics_repository.dart';
 import 'package:marvel/data/service/character_api_client.dart';
@@ -20,6 +21,9 @@ class MarvelApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (context) => UnderConstructionController(),
+        ),
         ChangeNotifierProvider(
           create: (context) => ComicsController(
             ComicsRepository(

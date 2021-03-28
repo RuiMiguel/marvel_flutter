@@ -27,22 +27,22 @@ class _HomeScreenState extends State<HomeScreen> {
     var children2 = [
       CustomBottomNavigationItem(
         label: "Characters",
-        image: "assets/images/Captain-America.png",
+        image: "assets/images/menu/Captain-America.png",
         color: _currentIndex == 0 ? Colors.blue[200]! : Colors.grey[600]!,
       ),
       CustomBottomNavigationItem(
         label: "Comics",
-        image: "assets/images/Hulk.png",
+        image: "assets/images/menu/Hulk.png",
         color: _currentIndex == 1 ? Colors.green[200]! : Colors.grey[600]!,
       ),
       CustomBottomNavigationItem(
         label: "Series",
-        image: "assets/images/Thor.png",
+        image: "assets/images/menu/Thor.png",
         color: _currentIndex == 2 ? Colors.yellow[200]! : Colors.grey[600]!,
       ),
       CustomBottomNavigationItem(
         label: "Stories",
-        image: "assets/images/Iron-Man.png",
+        image: "assets/images/menu/Iron-Man.png",
         color: _currentIndex == 3 ? Colors.red[200]! : Colors.grey[600]!,
       ),
     ];

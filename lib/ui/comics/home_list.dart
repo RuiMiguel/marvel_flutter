@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marvel/core/model/character.dart';
-import 'package:marvel/ui/home/home_list_element.dart';
+import 'package:marvel/ui/comics/home_list_element.dart';
 
 class HomeListView extends StatelessWidget {
   const HomeListView({Key? key, required this.characters}) : super(key: key);
