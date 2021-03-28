@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
-import 'package:marvel/core/model/character.dart';
 import 'package:http/http.dart' as http;
 import 'package:marvel/data/model/api_character.dart';
+import 'package:marvel/data/model/api_result.dart';
 
 class CharacterApiClient {
   static const _baseUrl = 'gateway.marvel.com:443';
@@ -42,6 +42,9 @@ class CharacterApiClient {
     }
 
     var json = jsonDecode(charactersResponse.body);
-    return ApiResult.fromJson(json).data.results;
+    return ApiResult<ApiCharacter>.fromJson(
+      json,
+      (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
+    ).data.results;
   }
 }

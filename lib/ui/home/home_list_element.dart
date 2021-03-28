@@ -28,6 +28,12 @@ class HomeListElement extends StatelessWidget {
                     : Image.network(
                         '${character.thumbnail.path}/landscape_amazing.${character.thumbnail.extension}',
                         fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            'assets/images/placeholder.png',
+                            fit: BoxFit.contain,
+                          );
+                        },
                       ),
               ),
               Positioned(

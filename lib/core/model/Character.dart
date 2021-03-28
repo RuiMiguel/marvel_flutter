@@ -1,3 +1,5 @@
+import 'package:marvel/core/model/result.dart';
+
 class Character {
   const Character({
     required this.id,
@@ -15,7 +17,7 @@ class Character {
   final String modified;
   final String resourceURI;
   final List<CharacterUrl> urls;
-  final CharacterThumbnail thumbnail;
+  final Thumbnail thumbnail;
 }
 
 class CharacterUrl {
@@ -26,14 +28,4 @@ class CharacterUrl {
 
   final String type;
   final String url;
-}
-
-class CharacterThumbnail {
-  const CharacterThumbnail({
-    required this.path,
-    required this.extension,
-  });
-
-  final String path;
-  final String extension;
 }

@@ -1,49 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
+
+import 'api_result.dart';
 part 'api_character.g.dart';
-
-@JsonSerializable()
-class ApiResult {
-  const ApiResult({
-    required this.code,
-    required this.status,
-    required this.copyright,
-    required this.attributionText,
-    required this.attributionHTML,
-    required this.data,
-    required this.etag,
-  });
-
-  factory ApiResult.fromJson(Map<String, dynamic> json) =>
-      _$ApiResultFromJson(json);
-
-  final int code;
-  final String status;
-  final String copyright;
-  final String attributionText;
-  final String attributionHTML;
-  final ApiData data;
-  final String etag;
-}
-
-@JsonSerializable()
-class ApiData {
-  const ApiData({
-    required this.offset,
-    required this.limit,
-    required this.total,
-    required this.count,
-    required this.results,
-  });
-
-  factory ApiData.fromJson(Map<String, dynamic> json) =>
-      _$ApiDataFromJson(json);
-
-  final int offset;
-  final int limit;
-  final int total;
-  final int count;
-  final List<ApiCharacter> results;
-}
 
 @JsonSerializable()
 class ApiCharacter {
@@ -66,7 +24,7 @@ class ApiCharacter {
   final String modified;
   final String resourceURI;
   final List<ApiCharacterUrl> urls;
-  final ApiCharacterThumbnail thumbnail;
+  final ApiThumbnail thumbnail;
 }
 
 @JsonSerializable()
@@ -81,18 +39,4 @@ class ApiCharacterUrl {
 
   final String type;
   final String url;
-}
-
-@JsonSerializable()
-class ApiCharacterThumbnail {
-  const ApiCharacterThumbnail({
-    required this.path,
-    required this.extension,
-  });
-
-  factory ApiCharacterThumbnail.fromJson(Map<String, dynamic> json) =>
-      _$ApiCharacterThumbnailFromJson(json);
-
-  final String path;
-  final String extension;
 }

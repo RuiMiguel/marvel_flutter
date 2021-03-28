@@ -1,5 +1,7 @@
 import 'package:marvel/core/model/character.dart';
+import 'package:marvel/core/model/result.dart';
 import 'package:marvel/data/model/api_character.dart';
+import 'package:marvel/data/model/api_result.dart';
 
 extension CharactersMapper on List<ApiCharacter> {
   List<Character> toCharacters() {
@@ -18,7 +20,7 @@ extension CharacterMapper on ApiCharacter {
       modified: modified,
       resourceURI: resourceURI,
       urls: urls.toCharactersUrl(),
-      thumbnail: thumbnail.toCharacterThumbnail(),
+      thumbnail: thumbnail.toThumbnail(),
     );
   }
 }
@@ -38,9 +40,9 @@ extension CharacterUrlMapper on ApiCharacterUrl {
   }
 }
 
-extension CharacterThumbnailMapper on ApiCharacterThumbnail {
-  CharacterThumbnail toCharacterThumbnail() {
-    return new CharacterThumbnail(
+extension ThumbnailMapper on ApiThumbnail {
+  Thumbnail toThumbnail() {
+    return new Thumbnail(
       path: path,
       extension: extension,
     );

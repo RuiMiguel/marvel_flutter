@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/core/controllers/characters_controller.dart';
+import 'package:marvel/core/controllers/comics_controller.dart';
 import 'package:marvel/ui/home/home_grid.dart';
 import 'package:marvel/ui/home/home_list.dart';
 import 'package:provider/provider.dart';
@@ -9,17 +9,17 @@ class ComicsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = context.watch<CharactersController>();
+    var controller = context.watch<ComicsController>();
 
     return OrientationBuilder(
       builder: (context, orientation) {
         if (orientation == Orientation.landscape) {
           return HomeListView(
-            characters: controller.characters,
+            characters: List.empty(),
           );
         } else {
           return HomeGridView(
-            characters: controller.characters,
+            characters: List.empty(),
           );
         }
       },
