@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:marvel/core/controllers/characters_controller.dart';
+import 'package:marvel/core/controllers/comics_controller.dart';
 import 'package:marvel/data/repository/characters_repository.dart';
+import 'package:marvel/data/repository/comics_repository.dart';
 import 'package:marvel/data/service/character_api_client.dart';
+import 'package:marvel/data/service/comic_api_client.dart';
 import 'package:marvel/router.dart';
 import 'package:marvel/themes.dart';
 import 'package:marvel/ui/home/home_screen.dart';
@@ -18,9 +21,18 @@ class MarvelApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => CharactersController(CharactersRepository(
-            CharacterApiClient(),
-          )),
+          create: (context) => ComicsController(
+            ComicsRepository(
+              ComicsApiClient(),
+            ),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CharactersController(
+            CharactersRepository(
+              CharacterApiClient(),
+            ),
+          ),
         )
       ],
       child: MaterialApp(

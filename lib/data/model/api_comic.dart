@@ -44,23 +44,23 @@ class ApiComic {
   final String issn;
   final String format;
   final String pageCount;
-  final List<ApiTextObjects> textObjects;
+  final List<ApiTextObject> textObjects;
   final String resourceURI;
-  final List<ApiUrls> urls;
-  final List<ApiPrices> prices;
+  final List<ApiUrl> urls;
+  final List<ApiPrice> prices;
   final ApiThumbnail thumbnail;
-  final List<ApiImages> images;
+  final List<ApiImage> images;
 }
 
 @JsonSerializable()
-class ApiTextObjects {
-  const ApiTextObjects({
+class ApiTextObject {
+  const ApiTextObject({
     required this.type,
     required this.language,
     required this.text,
   });
 
-  factory ApiTextObjects.fromJson(Map<String, dynamic> json) =>
+  factory ApiTextObject.fromJson(Map<String, dynamic> json) =>
       _$ApiTextObjectsFromJson(json);
 
   final String type;
@@ -69,27 +69,26 @@ class ApiTextObjects {
 }
 
 @JsonSerializable()
-class ApiUrls {
-  const ApiUrls({
+class ApiUrl {
+  const ApiUrl({
     required this.type,
     required this.url,
   });
 
-  factory ApiUrls.fromJson(Map<String, dynamic> json) =>
-      _$ApiUrlsFromJson(json);
+  factory ApiUrl.fromJson(Map<String, dynamic> json) => _$ApiUrlsFromJson(json);
 
   final String type;
   final String url;
 }
 
 @JsonSerializable()
-class ApiPrices {
-  const ApiPrices({
+class ApiPrice {
+  const ApiPrice({
     required this.type,
     required this.price,
   });
 
-  factory ApiPrices.fromJson(Map<String, dynamic> json) =>
+  factory ApiPrice.fromJson(Map<String, dynamic> json) =>
       _$ApiPricesFromJson(json);
 
   final String type;
@@ -97,13 +96,13 @@ class ApiPrices {
 }
 
 @JsonSerializable()
-class ApiImages {
-  const ApiImages({
+class ApiImage {
+  const ApiImage({
     required this.path,
     required this.extension,
   });
 
-  factory ApiImages.fromJson(Map<String, dynamic> json) =>
+  factory ApiImage.fromJson(Map<String, dynamic> json) =>
       _$ApiImagesFromJson(json);
 
   final String path;

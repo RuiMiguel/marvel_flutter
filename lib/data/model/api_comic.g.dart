@@ -23,18 +23,18 @@ ApiComic _$ApiComicFromJson(Map<String, dynamic> json) {
     format: json['format'] as String,
     pageCount: json['pageCount'] as String,
     textObjects: (json['textObjects'] as List<dynamic>)
-        .map((e) => ApiTextObjects.fromJson(e as Map<String, dynamic>))
+        .map((e) => ApiTextObject.fromJson(e as Map<String, dynamic>))
         .toList(),
     resourceURI: json['resourceURI'] as String,
     urls: (json['urls'] as List<dynamic>)
-        .map((e) => ApiUrls.fromJson(e as Map<String, dynamic>))
+        .map((e) => ApiUrl.fromJson(e as Map<String, dynamic>))
         .toList(),
     prices: (json['prices'] as List<dynamic>)
-        .map((e) => ApiPrices.fromJson(e as Map<String, dynamic>))
+        .map((e) => ApiPrice.fromJson(e as Map<String, dynamic>))
         .toList(),
     thumbnail: ApiThumbnail.fromJson(json['thumbnail'] as Map<String, dynamic>),
     images: (json['images'] as List<dynamic>)
-        .map((e) => ApiImages.fromJson(e as Map<String, dynamic>))
+        .map((e) => ApiImage.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 }
@@ -62,53 +62,53 @@ Map<String, dynamic> _$ApiComicToJson(ApiComic instance) => <String, dynamic>{
       'images': instance.images,
     };
 
-ApiTextObjects _$ApiTextObjectsFromJson(Map<String, dynamic> json) {
-  return ApiTextObjects(
+ApiTextObject _$ApiTextObjectsFromJson(Map<String, dynamic> json) {
+  return ApiTextObject(
     type: json['type'] as String,
     language: json['language'] as String,
     text: json['text'] as String,
   );
 }
 
-Map<String, dynamic> _$ApiTextObjectsToJson(ApiTextObjects instance) =>
+Map<String, dynamic> _$ApiTextObjectsToJson(ApiTextObject instance) =>
     <String, dynamic>{
       'type': instance.type,
       'language': instance.language,
       'text': instance.text,
     };
 
-ApiUrls _$ApiUrlsFromJson(Map<String, dynamic> json) {
-  return ApiUrls(
+ApiUrl _$ApiUrlsFromJson(Map<String, dynamic> json) {
+  return ApiUrl(
     type: json['type'] as String,
     url: json['url'] as String,
   );
 }
 
-Map<String, dynamic> _$ApiUrlsToJson(ApiUrls instance) => <String, dynamic>{
+Map<String, dynamic> _$ApiUrlsToJson(ApiUrl instance) => <String, dynamic>{
       'type': instance.type,
       'url': instance.url,
     };
 
-ApiPrices _$ApiPricesFromJson(Map<String, dynamic> json) {
-  return ApiPrices(
+ApiPrice _$ApiPricesFromJson(Map<String, dynamic> json) {
+  return ApiPrice(
     type: json['type'] as String,
     price: json['price'] as String,
   );
 }
 
-Map<String, dynamic> _$ApiPricesToJson(ApiPrices instance) => <String, dynamic>{
+Map<String, dynamic> _$ApiPricesToJson(ApiPrice instance) => <String, dynamic>{
       'type': instance.type,
       'price': instance.price,
     };
 
-ApiImages _$ApiImagesFromJson(Map<String, dynamic> json) {
-  return ApiImages(
+ApiImage _$ApiImagesFromJson(Map<String, dynamic> json) {
+  return ApiImage(
     path: json['path'] as String,
     extension: json['extension'] as String,
   );
 }
 
-Map<String, dynamic> _$ApiImagesToJson(ApiImages instance) => <String, dynamic>{
+Map<String, dynamic> _$ApiImagesToJson(ApiImage instance) => <String, dynamic>{
       'path': instance.path,
       'extension': instance.extension,
     };
