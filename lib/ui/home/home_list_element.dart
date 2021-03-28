@@ -15,24 +15,38 @@ class HomeListElement extends StatelessWidget {
     return Material(
       color: index % 2 == 1 ? Colors.grey[300] : Colors.grey[500],
       child: InkWell(
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+        child: Container(
+          height: 150,
+          child: Stack(
             children: [
-              Text(
-                character.name,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
+              Positioned.fill(
+                child: character.thumbnail == null
+                    ? Image.asset(
+                        'assets/images/placeholder.png',
+                        fit: BoxFit.contain,
+                      )
+                    : Image.network(
+                        '${character.thumbnail.path}/landscape_amazing.${character.thumbnail.extension}',
+                        fit: BoxFit.cover,
+                      ),
+              ),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: Container(
+                  color: Colors.red.shade300.withOpacity(0.4),
+                  alignment: Alignment.bottomCenter,
+                  padding: EdgeInsets.all(5),
+                  child: Text(
+                    character.name,
+                    style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Image.asset(
-                'assets/images/placeholder.png',
-                fit: BoxFit.contain,
-                height: 150,
               ),
             ],
           ),
