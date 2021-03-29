@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:marvel/core/model/result.dart';
 
 class Comic {
@@ -24,10 +26,10 @@ class Comic {
     required this.images,
   });
 
-  final String id;
-  final String digitalId;
+  final int id;
+  final int digitalId;
   final String title;
-  final String issueNumber;
+  final double issueNumber;
   final String variantDescription;
   final String description;
   final String modified;
@@ -37,7 +39,7 @@ class Comic {
   final String ean;
   final String issn;
   final String format;
-  final String pageCount;
+  final int pageCount;
   final List<TextObject> textObjects;
   final String resourceURI;
   final List<Url> urls;
@@ -75,7 +77,7 @@ class Price {
   });
 
   final String type;
-  final String price;
+  final double price;
 }
 
 class Image {

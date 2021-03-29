@@ -43,8 +43,9 @@ class CharacterApiClient {
 
     var json = jsonDecode(charactersResponse.body);
     return ApiResult<ApiCharacter>.fromJson(
-      json,
-      (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
-    ).data.results;
+          json,
+          (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
+        ).data?.results ??
+        List.empty();
   }
 }

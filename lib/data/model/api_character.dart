@@ -6,37 +6,37 @@ part 'api_character.g.dart';
 @JsonSerializable()
 class ApiCharacter {
   const ApiCharacter({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.modified,
-    required this.resourceURI,
-    required this.urls,
-    required this.thumbnail,
+    this.id,
+    this.name,
+    this.description,
+    this.modified,
+    this.resourceURI,
+    this.urls,
+    this.thumbnail,
   });
 
   factory ApiCharacter.fromJson(Map<String, dynamic> json) =>
       _$ApiCharacterFromJson(json);
 
-  final int id;
-  final String name;
-  final String description;
-  final String modified;
-  final String resourceURI;
-  final List<ApiCharacterUrl> urls;
-  final ApiThumbnail thumbnail;
+  final int? id;
+  final String? name;
+  final String? description;
+  final String? modified;
+  final String? resourceURI;
+  final List<ApiCharacterUrl>? urls;
+  final ApiThumbnail? thumbnail;
 }
 
 @JsonSerializable()
 class ApiCharacterUrl {
   const ApiCharacterUrl({
-    required this.type,
-    required this.url,
+    this.type,
+    this.url,
   });
 
   factory ApiCharacterUrl.fromJson(Map<String, dynamic> json) =>
       _$ApiCharacterUrlFromJson(json);
 
-  final String type;
-  final String url;
+  final String? type;
+  final String? url;
 }

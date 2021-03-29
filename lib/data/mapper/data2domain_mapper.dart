@@ -5,11 +5,11 @@ import 'package:marvel/data/model/api_character.dart';
 import 'package:marvel/data/model/api_comic.dart';
 import 'package:marvel/data/model/api_result.dart';
 
-extension ThumbnailMapper on ApiThumbnail {
+extension ThumbnailMapper on ApiThumbnail? {
   Thumbnail toThumbnail() {
     return new Thumbnail(
-      path: path,
-      extension: extension,
+      path: this?.path ?? "",
+      extension: this?.extension ?? "",
     );
   }
 }
@@ -26,12 +26,12 @@ extension CharacterListMapper on List<ApiCharacter> {
 extension CharacterMapper on ApiCharacter {
   Character toCharacter() {
     return new Character(
-      id: id,
-      name: name,
-      description: description,
-      modified: modified,
-      resourceURI: resourceURI,
-      urls: urls.toCharactersUrl(),
+      id: id ?? 0,
+      name: name ?? "",
+      description: description ?? "",
+      modified: modified ?? "",
+      resourceURI: resourceURI ?? "",
+      urls: urls?.toCharactersUrl() ?? List.empty(),
       thumbnail: thumbnail.toThumbnail(),
     );
   }
@@ -46,8 +46,8 @@ extension CharacterListUrlMapper on List<ApiCharacterUrl> {
 extension CharacterUrlMapper on ApiCharacterUrl {
   CharacterUrl toCharacterUrl() {
     return new CharacterUrl(
-      type: type,
-      url: url,
+      type: type ?? "",
+      url: url ?? "",
     );
   }
 }
@@ -65,26 +65,26 @@ extension ComicListMapper on List<ApiComic> {
 extension ComicMapper on ApiComic {
   Comic toComic() {
     return new Comic(
-      id: id,
-      digitalId: digitalId,
-      title: title,
-      issueNumber: issueNumber,
-      variantDescription: variantDescription,
-      description: description,
-      modified: modified,
-      isbn: isbn,
-      upc: upc,
-      diamondCode: diamondCode,
-      ean: ean,
-      issn: issn,
-      format: format,
-      pageCount: pageCount,
-      textObjects: textObjects.toTextObjects(),
-      resourceURI: resourceURI,
-      urls: urls.toUrls(),
-      prices: prices.toPrices(),
+      id: id ?? 0,
+      digitalId: digitalId ?? 0,
+      title: title ?? "",
+      issueNumber: issueNumber ?? 0,
+      variantDescription: variantDescription ?? "",
+      description: description ?? "",
+      modified: modified ?? "",
+      isbn: isbn ?? "",
+      upc: upc ?? "",
+      diamondCode: diamondCode ?? "",
+      ean: ean ?? "",
+      issn: issn ?? "",
+      format: format ?? "",
+      pageCount: pageCount ?? 0,
+      textObjects: textObjects?.toTextObjects() ?? List.empty(),
+      resourceURI: resourceURI ?? "",
+      urls: urls?.toUrls() ?? List.empty(),
+      prices: prices?.toPrices() ?? List.empty(),
       thumbnail: thumbnail.toThumbnail(),
-      images: images.toImages(),
+      images: images?.toImages() ?? List.empty(),
     );
   }
 }
@@ -100,9 +100,9 @@ extension TextObjectListMapper on List<ApiTextObject> {
 extension TextObjectMapper on ApiTextObject {
   TextObject toTextObject() {
     return new TextObject(
-      type: type,
-      language: language,
-      text: text,
+      type: type ?? "",
+      language: language ?? "",
+      text: text ?? "",
     );
   }
 }
@@ -118,8 +118,8 @@ extension UrlListMapper on List<ApiUrl> {
 extension UrlMapper on ApiUrl {
   Url toUrl() {
     return new Url(
-      type: type,
-      url: url,
+      type: type ?? "",
+      url: url ?? "",
     );
   }
 }
@@ -135,8 +135,8 @@ extension PriceListMapper on List<ApiPrice> {
 extension PriceMapper on ApiPrice {
   Price toPrice() {
     return new Price(
-      type: type,
-      price: price,
+      type: type ?? "",
+      price: price ?? 0,
     );
   }
 }
@@ -152,8 +152,8 @@ extension ImageListMapper on List<ApiImage> {
 extension ImageMapper on ApiImage {
   Image toImage() {
     return new Image(
-      path: path,
-      extension: extension,
+      path: path ?? "",
+      extension: extension ?? "",
     );
   }
 }

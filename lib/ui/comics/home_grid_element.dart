@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/core/model/character.dart';
-import 'package:marvel/ui/characters/character_detail_screen.dart';
+import 'package:marvel/core/model/comic.dart' hide Image;
+import 'package:marvel/ui/comics/comic_detail_screen.dart';
 
 class HomeGridElement extends StatelessWidget {
-  const HomeGridElement(
-      {Key? key, required this.index, required this.character})
+  const HomeGridElement({Key? key, required this.index, required this.comic})
       : super(key: key);
 
   final int index;
-  final Character character;
+  final Comic comic;
 
   @override
   Widget build(BuildContext context) {
@@ -16,17 +15,17 @@ class HomeGridElement extends StatelessWidget {
       color: index % 2 == 1 ? Colors.grey[300] : Colors.grey[500],
       child: InkWell(
         child: Container(
-          height: 120,
+          height: 150,
           child: Stack(
             children: [
               Positioned.fill(
-                child: character.thumbnail == null
+                child: comic.thumbnail.path.isEmpty
                     ? Image.asset(
                         'assets/images/placeholder.png',
                         fit: BoxFit.fill,
                       )
                     : Image.network(
-                        '${character.thumbnail.path}/portrait_incredible.${character.thumbnail.extension}',
+                        '${comic.thumbnail.path}/portrait_incredible.${comic.thumbnail.extension}',
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return Image.asset(
@@ -45,7 +44,7 @@ class HomeGridElement extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   padding: EdgeInsets.all(5),
                   child: Text(
-                    character.name,
+                    comic.title,
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
@@ -61,7 +60,7 @@ class HomeGridElement extends StatelessWidget {
         highlightColor: Colors.red[300],
         onTap: () {
           Navigator.of(context).pushNamed(
-            CharacterDetailScreen.routeName,
+            ComicDetailScreen.routeName,
           );
         },
       ),

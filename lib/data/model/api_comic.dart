@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:json_annotation/json_annotation.dart';
 import 'api_result.dart';
 part 'api_comic.g.dart';
@@ -5,106 +7,106 @@ part 'api_comic.g.dart';
 @JsonSerializable()
 class ApiComic {
   const ApiComic({
-    required this.id,
-    required this.digitalId,
-    required this.title,
-    required this.issueNumber,
-    required this.variantDescription,
-    required this.description,
-    required this.modified,
-    required this.isbn,
-    required this.upc,
-    required this.diamondCode,
-    required this.ean,
-    required this.issn,
-    required this.format,
-    required this.pageCount,
-    required this.textObjects,
-    required this.resourceURI,
-    required this.urls,
-    required this.prices,
-    required this.thumbnail,
-    required this.images,
+    this.id,
+    this.digitalId,
+    this.title,
+    this.issueNumber,
+    this.variantDescription,
+    this.description,
+    this.modified,
+    this.isbn,
+    this.upc,
+    this.diamondCode,
+    this.ean,
+    this.issn,
+    this.format,
+    this.pageCount,
+    this.textObjects,
+    this.resourceURI,
+    this.urls,
+    this.prices,
+    this.thumbnail,
+    this.images,
   });
 
   factory ApiComic.fromJson(Map<String, dynamic> json) =>
       _$ApiComicFromJson(json);
 
-  final String id;
-  final String digitalId;
-  final String title;
-  final String issueNumber;
-  final String variantDescription;
-  final String description;
-  final String modified;
-  final String isbn;
-  final String upc;
-  final String diamondCode;
-  final String ean;
-  final String issn;
-  final String format;
-  final String pageCount;
-  final List<ApiTextObject> textObjects;
-  final String resourceURI;
-  final List<ApiUrl> urls;
-  final List<ApiPrice> prices;
-  final ApiThumbnail thumbnail;
-  final List<ApiImage> images;
+  final int? id;
+  final int? digitalId;
+  final String? title;
+  final double? issueNumber;
+  final String? variantDescription;
+  final String? description;
+  final String? modified;
+  final String? isbn;
+  final String? upc;
+  final String? diamondCode;
+  final String? ean;
+  final String? issn;
+  final String? format;
+  final int? pageCount;
+  final List<ApiTextObject>? textObjects;
+  final String? resourceURI;
+  final List<ApiUrl>? urls;
+  final List<ApiPrice>? prices;
+  final ApiThumbnail? thumbnail;
+  final List<ApiImage>? images;
 }
 
 @JsonSerializable()
 class ApiTextObject {
   const ApiTextObject({
-    required this.type,
-    required this.language,
-    required this.text,
+    this.type,
+    this.language,
+    this.text,
   });
 
   factory ApiTextObject.fromJson(Map<String, dynamic> json) =>
-      _$ApiTextObjectsFromJson(json);
+      _$ApiTextObjectFromJson(json);
 
-  final String type;
-  final String language;
-  final String text;
+  final String? type;
+  final String? language;
+  final String? text;
 }
 
 @JsonSerializable()
 class ApiUrl {
   const ApiUrl({
-    required this.type,
-    required this.url,
+    this.type,
+    this.url,
   });
 
-  factory ApiUrl.fromJson(Map<String, dynamic> json) => _$ApiUrlsFromJson(json);
+  factory ApiUrl.fromJson(Map<String, dynamic> json) => _$ApiUrlFromJson(json);
 
-  final String type;
-  final String url;
+  final String? type;
+  final String? url;
 }
 
 @JsonSerializable()
 class ApiPrice {
   const ApiPrice({
-    required this.type,
-    required this.price,
+    this.type,
+    this.price,
   });
 
   factory ApiPrice.fromJson(Map<String, dynamic> json) =>
-      _$ApiPricesFromJson(json);
+      _$ApiPriceFromJson(json);
 
-  final String type;
-  final String price;
+  final String? type;
+  final double? price;
 }
 
 @JsonSerializable()
 class ApiImage {
   const ApiImage({
-    required this.path,
-    required this.extension,
+    this.path,
+    this.extension,
   });
 
   factory ApiImage.fromJson(Map<String, dynamic> json) =>
-      _$ApiImagesFromJson(json);
+      _$ApiImageFromJson(json);
 
-  final String path;
-  final String extension;
+  final String? path;
+  final String? extension;
 }

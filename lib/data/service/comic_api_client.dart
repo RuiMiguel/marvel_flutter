@@ -43,8 +43,9 @@ class ComicsApiClient {
 
     var json = jsonDecode(comicsResponse.body);
     return ApiResult<ApiComic>.fromJson(
-      json,
-      (data) => ApiComic.fromJson(data as Map<String, dynamic>),
-    ).data.results;
+          json,
+          (data) => ApiComic.fromJson(data as Map<String, dynamic>),
+        ).data?.results ??
+        List.empty();
   }
 }

@@ -5,13 +5,13 @@ part 'api_result.g.dart';
     genericArgumentFactories: true, fieldRename: FieldRename.snake)
 class ApiResult<T> {
   const ApiResult({
-    required this.code,
-    required this.status,
-    required this.copyright,
-    required this.attributionText,
-    required this.attributionHTML,
-    required this.data,
-    required this.etag,
+    this.code,
+    this.status,
+    this.copyright,
+    this.attributionText,
+    this.attributionHTML,
+    this.data,
+    this.etag,
   });
 
   factory ApiResult.fromJson(
@@ -24,36 +24,36 @@ class ApiResult<T> {
       _$ApiResultToJson(this, toJsonT);
 
   @JsonKey(name: "code")
-  final int code;
+  final int? code;
 
   @JsonKey(name: "status")
-  final String status;
+  final String? status;
 
   @JsonKey(name: "copyright")
-  final String copyright;
+  final String? copyright;
 
   @JsonKey(name: "attributionText")
-  final String attributionText;
+  final String? attributionText;
 
   @JsonKey(name: "attributionHTML")
-  final String attributionHTML;
+  final String? attributionHTML;
 
   @JsonKey(name: "data")
-  final ApiData<T> data;
+  final ApiData<T>? data;
 
   @JsonKey(name: "etag")
-  final String etag;
+  final String? etag;
 }
 
 @JsonSerializable(
     genericArgumentFactories: true, fieldRename: FieldRename.snake)
 class ApiData<T> {
   const ApiData({
-    required this.offset,
-    required this.limit,
-    required this.total,
-    required this.count,
-    required this.results,
+    this.offset,
+    this.limit,
+    this.total,
+    this.count,
+    this.results,
   });
 
   factory ApiData.fromJson(
@@ -66,34 +66,34 @@ class ApiData<T> {
       _$ApiDataToJson(this, toJsonT);
 
   @JsonKey(name: "offset")
-  final int offset;
+  final int? offset;
 
   @JsonKey(name: "limit")
-  final int limit;
+  final int? limit;
 
   @JsonKey(name: "total")
-  final int total;
+  final int? total;
 
   @JsonKey(name: "count")
-  final int count;
+  final int? count;
 
   @JsonKey(name: "results")
-  final List<T> results;
+  final List<T>? results;
 }
 
 @JsonSerializable()
 class ApiThumbnail {
   const ApiThumbnail({
-    required this.path,
-    required this.extension,
+    this.path,
+    this.extension,
   });
 
   factory ApiThumbnail.fromJson(Map<String, dynamic> json) =>
       _$ApiThumbnailFromJson(json);
 
   @JsonKey(name: "path")
-  final String path;
+  final String? path;
 
   @JsonKey(name: "extension")
-  final String extension;
+  final String? extension;
 }

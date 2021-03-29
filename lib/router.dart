@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:marvel/ui/characters/character_detail_screen.dart';
+import 'package:marvel/ui/comics/comic_detail_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case CharacterDetailScreen.routeName:
       return MaterialPageRoute(
         builder: (_) => CharacterDetailScreen(),
+      );
+      break;
+
+    case ComicDetailScreen.routeName:
+      return MaterialPageRoute(
+        builder: (_) => ComicDetailScreen(),
       );
       break;
 

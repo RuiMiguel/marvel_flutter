@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/core/model/character.dart';
+import 'package:marvel/core/model/comic.dart';
 import 'package:marvel/ui/comics/home_list_element.dart';
 
 class HomeListView extends StatelessWidget {
-  const HomeListView({Key? key, required this.characters}) : super(key: key);
+  const HomeListView({Key? key, required this.comics}) : super(key: key);
 
-  final List<Character> characters;
+  final List<Comic> comics;
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      itemCount: characters.length,
+      itemCount: comics.length,
       itemBuilder: (context, index) {
         return HomeListElement(
           index: index,
-          character: characters[index],
+          comic: comics[index],
         );
       },
       separatorBuilder: (context, index) {

@@ -11,14 +11,16 @@ ApiResult<T> _$ApiResultFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) {
   return ApiResult<T>(
-    code: json['code'] as int,
-    status: json['status'] as String,
-    copyright: json['copyright'] as String,
-    attributionText: json['attributionText'] as String,
-    attributionHTML: json['attributionHTML'] as String,
-    data: ApiData.fromJson(
-        json['data'] as Map<String, dynamic>, (value) => fromJsonT(value)),
-    etag: json['etag'] as String,
+    code: json['code'] as int?,
+    status: json['status'] as String?,
+    copyright: json['copyright'] as String?,
+    attributionText: json['attributionText'] as String?,
+    attributionHTML: json['attributionHTML'] as String?,
+    data: json['data'] == null
+        ? null
+        : ApiData.fromJson(
+            json['data'] as Map<String, dynamic>, (value) => fromJsonT(value)),
+    etag: json['etag'] as String?,
   );
 }
 
@@ -32,7 +34,7 @@ Map<String, dynamic> _$ApiResultToJson<T>(
       'copyright': instance.copyright,
       'attributionText': instance.attributionText,
       'attributionHTML': instance.attributionHTML,
-      'data': instance.data.toJson(
+      'data': instance.data?.toJson(
         (value) => toJsonT(value),
       ),
       'etag': instance.etag,
@@ -43,11 +45,11 @@ ApiData<T> _$ApiDataFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) {
   return ApiData<T>(
-    offset: json['offset'] as int,
-    limit: json['limit'] as int,
-    total: json['total'] as int,
-    count: json['count'] as int,
-    results: (json['results'] as List<dynamic>).map(fromJsonT).toList(),
+    offset: json['offset'] as int?,
+    limit: json['limit'] as int?,
+    total: json['total'] as int?,
+    count: json['count'] as int?,
+    results: (json['results'] as List<dynamic>?)?.map(fromJsonT).toList(),
   );
 }
 
@@ -60,13 +62,13 @@ Map<String, dynamic> _$ApiDataToJson<T>(
       'limit': instance.limit,
       'total': instance.total,
       'count': instance.count,
-      'results': instance.results.map(toJsonT).toList(),
+      'results': instance.results?.map(toJsonT).toList(),
     };
 
 ApiThumbnail _$ApiThumbnailFromJson(Map<String, dynamic> json) {
   return ApiThumbnail(
-    path: json['path'] as String,
-    extension: json['extension'] as String,
+    path: json['path'] as String?,
+    extension: json['extension'] as String?,
   );
 }
 

@@ -16,11 +16,11 @@ class HomeGridElement extends StatelessWidget {
       color: index % 2 == 1 ? Colors.grey[300] : Colors.grey[500],
       child: InkWell(
         child: Container(
-          height: 120,
+          height: 150,
           child: Stack(
             children: [
               Positioned.fill(
-                child: character.thumbnail == null
+                child: character.thumbnail.path.isEmpty
                     ? Image.asset(
                         'assets/images/placeholder.png',
                         fit: BoxFit.fill,

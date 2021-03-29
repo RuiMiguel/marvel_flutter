@@ -15,11 +15,11 @@ class ComicsScreen extends StatelessWidget {
       builder: (context, orientation) {
         if (orientation == Orientation.landscape) {
           return HomeListView(
-            characters: List.empty(),
+            comics: controller.comics,
           );
         } else {
           return HomeGridView(
-            characters: List.empty(),
+            comics: controller.comics,
           );
         }
       },

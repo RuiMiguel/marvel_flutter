@@ -20,7 +20,7 @@ class HomeListElement extends StatelessWidget {
           child: Stack(
             children: [
               Positioned.fill(
-                child: character.thumbnail == null
+                child: character.thumbnail.path.isEmpty
                     ? Image.asset(
                         'assets/images/placeholder.png',
                         fit: BoxFit.contain,
