@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:marvel/core/controllers/comics_controller.dart';
 import 'package:marvel/ui/comics/home_grid.dart';
 import 'package:marvel/ui/comics/home_list.dart';
+import 'package:marvel/ui/commons/legal_info.dart';
 import 'package:provider/provider.dart';
 
 class ComicsScreen extends StatelessWidget {
@@ -36,7 +37,11 @@ class ComicsScreen extends StatelessWidget {
               },
             ),
           ),
-          Text(controller.legal),
+          LegalInfo(
+            legal: controller.legal,
+            count: controller.count,
+            total: controller.total,
+          ),
         ],
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:marvel/core/model/comic.dart';
-import 'package:marvel/core/model/result.dart';
+import 'package:marvel/core/model/data_result.dart';
 import 'package:marvel/data/mapper/data2domain_mapper.dart';
 import 'package:marvel/data/service/comic_api_client.dart';
 

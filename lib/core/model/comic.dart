@@ -1,6 +1,4 @@
-import 'dart:ffi';
-
-import 'package:marvel/core/model/result.dart';
+import 'package:marvel/core/model/data_result.dart';
 
 class Comic {
   const Comic({

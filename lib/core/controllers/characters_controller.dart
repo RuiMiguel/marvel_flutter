@@ -7,26 +7,31 @@ class CharactersController extends ChangeNotifier {
 
   int _limit = 50;
   int _offset = 0;
+  int total = 0;
+  int count = 0;
   List<Character> characters = List.empty();
   String legal = "";
 
   CharactersController(this._charactersRepository) {
-    getCharactersResult();
+    _loadCharactersResult();
+  }
+
+  Future<void> _loadCharactersResult() async {
+    var results =
+        await _charactersRepository.getCharactersResult(_limit, _offset);
+    total = results.data.total;
+    count = results.data.count;
+    characters = results.data.results;
+    legal = results.attributionText;
+    notifyListeners();
   }
 
   Future<void> getMore() async {
     _offset = _offset + _limit;
     var moreResults =
         await _charactersRepository.getCharactersResult(_limit, _offset);
+    count = moreResults.data.offset;
     characters.addAll(moreResults.data.results);
-    notifyListeners();
-  }
-
-  Future<void> getCharactersResult() async {
-    var results =
-        await _charactersRepository.getCharactersResult(_limit, _offset);
-    characters = results.data.results;
-    legal = results.attributionText;
     notifyListeners();
   }
 }

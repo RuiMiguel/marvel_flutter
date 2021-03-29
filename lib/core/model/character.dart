@@ -1,4 +1,4 @@
-import 'package:marvel/core/model/result.dart';
+import 'package:marvel/core/model/data_result.dart';
 
 class Character {
   const Character({
