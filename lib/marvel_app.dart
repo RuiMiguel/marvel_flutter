@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/core/controllers/characters_controller.dart';
-import 'package:marvel/core/controllers/comics_controller.dart';
-import 'package:marvel/core/controllers/under_construction_controller.dart';
-import 'package:marvel/data/repository/characters_repository.dart';
-import 'package:marvel/data/repository/comics_repository.dart';
-import 'package:marvel/data/service/character_api_client.dart';
-import 'package:marvel/data/service/comic_api_client.dart';
+import 'package:marvel/providers.dart';
 import 'package:marvel/router.dart';
 import 'package:marvel/themes.dart';
 import 'package:marvel/ui/home/home_screen.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MarvelApp extends StatelessWidget {
@@ -19,27 +12,9 @@ class MarvelApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => UnderConstructionController(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => ComicsController(
-            ComicsRepository(
-              ComicsApiClient(),
-            ),
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => CharactersController(
-            CharactersRepository(
-              CharacterApiClient(),
-            ),
-          ),
-        )
-      ],
-      child: MaterialApp(
+    return buildMultiProvider(
+      context: context,
+      widget: MaterialApp(
         home: HomeScreen(),
         debugShowCheckedModeBanner: false,
         theme: lightThemeData(),
