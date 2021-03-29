@@ -1,4 +1,5 @@
 import 'package:marvel/core/model/comic.dart';
+import 'package:marvel/core/model/result.dart';
 import 'package:marvel/data/mapper/data2domain_mapper.dart';
 import 'package:marvel/data/service/comic_api_client.dart';
 
@@ -7,8 +8,11 @@ class ComicsRepository {
 
   ComicsRepository(this._comicApiClient);
 
-  Future<List<Comic>> getComics() async {
-    final apiComics = await _comicApiClient.getComics();
-    return apiComics.toComics();
+  Future<DataResult<Comic>> getComicsResult(
+    int limit,
+    int offset,
+  ) async {
+    final apiResult = await _comicApiClient.getComicsResult(limit, offset);
+    return apiResult.toResultComic();
   }
 }

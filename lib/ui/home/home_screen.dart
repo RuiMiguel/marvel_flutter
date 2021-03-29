@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:marvel/ui/characters/characters_screen.dart';
 import 'package:marvel/ui/comics/comics_screen.dart';
 import 'package:marvel/ui/commons/custom_appbar.dart';
-
 import 'package:marvel/ui/commons/custom_bottomnavigationbar.dart';
 import 'package:marvel/ui/series/series_screen.dart';
 import 'package:marvel/ui/stories/stories_screen.dart';
@@ -59,23 +58,16 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              child: IndexedStack(
-                index: _currentIndex,
-                children: [
-                  CharactersScreen(),
-                  ComicsScreen(),
-                  SeriesScreen(),
-                  StoriesScreen()
-                ],
-              ),
-            ),
-          ),
-          Text("Data provided by Marvel. © 2014 Marvel"),
-        ],
+      body: Container(
+        child: IndexedStack(
+          index: _currentIndex,
+          children: [
+            CharactersScreen(),
+            ComicsScreen(),
+            SeriesScreen(),
+            StoriesScreen()
+          ],
+        ),
       ),
       bottomNavigationBar: _buildCustomBottomNavigationBar(),
     );

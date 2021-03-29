@@ -20,8 +20,7 @@ class CharacterApiClient {
     return md5.convert(utf8.encode(input)).toString();
   }
 
-  Future<List<ApiCharacter>> getCharacters(
-      {int limit = 50, int offset = 0}) async {
+  Future<List<ApiCharacter>> getCharacters(int limit, int offset) async {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
     final hash = generateMd5("$timestamp$PRIVATE_KEY$PUBLIC_KEY");
     final apikey = PUBLIC_KEY;
@@ -48,5 +47,34 @@ class CharacterApiClient {
           (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
         ).data?.results ??
         List.empty();
+  }
+
+  Future<ApiResult<ApiCharacter>> getCharactersResult(
+      int limit, int offset) async {
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    final hash = generateMd5("$timestamp$PRIVATE_KEY$PUBLIC_KEY");
+    final apikey = PUBLIC_KEY;
+
+    final charactersRequest =
+        Uri.https(_baseUrl, CHARACTERS_ENDPOINT, <String, String>{
+      'ts': "$timestamp",
+      'hash': hash,
+      'apikey': apikey,
+      'limit': "$limit",
+      'offset': "$offset"
+    });
+    final charactersResponse = await _httpClient.get(charactersRequest);
+
+    if (charactersResponse.statusCode != 200) {
+      print("ERROR http");
+    } else {
+      print("RESPONSE: ${charactersResponse.body}");
+    }
+
+    var json = jsonDecode(charactersResponse.body);
+    return ApiResult<ApiCharacter>.fromJson(
+      json,
+      (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
+    );
   }
 }

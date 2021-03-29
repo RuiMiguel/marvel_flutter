@@ -57,46 +57,48 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: kBottomNavigationBarHeight + 50,
-      child: Column(
-        children: [
-          Container(
-            height: 2,
-            color: Theme.of(context).accentColor,
-          ),
-          new Theme(
-            data: Theme.of(context).copyWith(
-              canvasColor: Theme.of(context).primaryColor,
+    return SafeArea(
+      child: Container(
+        height: kBottomNavigationBarHeight + 16,
+        child: Column(
+          children: [
+            Container(
+              height: 2,
+              color: Theme.of(context).accentColor,
             ),
-            child: BottomNavigationBar(
-              unselectedItemColor: Colors.grey[600],
-              selectedItemColor: _getSelectedItemColor(),
-              selectedLabelStyle: TextStyle(fontFamily: "Oswald"),
-              iconSize: 32,
-              selectedFontSize: 12,
-              unselectedFontSize: 12,
-              type: BottomNavigationBarType.fixed,
-              showSelectedLabels: true,
-              showUnselectedLabels: true,
-              currentIndex: _currentIndex,
-              onTap: _changeIndex,
-              items: widget.children
-                  .map(
-                    (element) => BottomNavigationBarItem(
-                      label: element.label,
-                      icon: Image.asset(
-                        element.image,
-                        fit: BoxFit.contain,
-                        height: 40,
-                        color: element.color,
+            new Theme(
+              data: Theme.of(context).copyWith(
+                canvasColor: Theme.of(context).primaryColor,
+              ),
+              child: BottomNavigationBar(
+                unselectedItemColor: Colors.grey[600],
+                selectedItemColor: _getSelectedItemColor(),
+                selectedLabelStyle: TextStyle(fontFamily: "Oswald"),
+                iconSize: 32,
+                selectedFontSize: 12,
+                unselectedFontSize: 12,
+                type: BottomNavigationBarType.fixed,
+                showSelectedLabels: true,
+                showUnselectedLabels: true,
+                currentIndex: _currentIndex,
+                onTap: _changeIndex,
+                items: widget.children
+                    .map(
+                      (element) => BottomNavigationBarItem(
+                        label: element.label,
+                        icon: Image.asset(
+                          element.image,
+                          fit: BoxFit.contain,
+                          height: 40,
+                          color: element.color,
+                        ),
                       ),
-                    ),
-                  )
-                  .toList(),
+                    )
+                    .toList(),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

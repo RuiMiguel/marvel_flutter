@@ -1,4 +1,5 @@
 import 'package:marvel/core/model/character.dart';
+import 'package:marvel/core/model/result.dart';
 import 'package:marvel/data/mapper/data2domain_mapper.dart';
 import 'package:marvel/data/service/character_api_client.dart';
 
@@ -7,8 +8,12 @@ class CharactersRepository {
 
   CharactersRepository(this._characterApiClient);
 
-  Future<List<Character>> getCharacters() async {
-    final apiCharacters = await _characterApiClient.getCharacters();
-    return apiCharacters.toCharacters();
+  Future<DataResult<Character>> getCharactersResult(
+    int limit,
+    int offset,
+  ) async {
+    final apiResult =
+        await _characterApiClient.getCharactersResult(limit, offset);
+    return apiResult.toResultCharacter();
   }
 }

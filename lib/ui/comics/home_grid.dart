@@ -12,7 +12,7 @@ class HomeGridView extends StatelessWidget {
     return GridView.builder(
       itemCount: comics.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, childAspectRatio: 1),
+          crossAxisCount: 2, childAspectRatio: 1),
       itemBuilder: (context, index) {
         return HomeGridElement(
           index: index,

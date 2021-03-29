@@ -5,6 +5,63 @@ import 'package:marvel/data/model/api_character.dart';
 import 'package:marvel/data/model/api_comic.dart';
 import 'package:marvel/data/model/api_result.dart';
 
+/* #region Result */
+extension DataResultMapper on ApiResult {
+  DataResult<Character> toResultCharacter() {
+    return new DataResult<Character>(
+      code: this.code ?? 0,
+      status: this.status ?? "",
+      copyright: this.copyright ?? "",
+      attributionText: this.attributionText ?? "",
+      attributionHTML: this.attributionHTML ?? "",
+      data: this.data.toDataCharacter(),
+      etag: this.etag ?? "",
+    );
+  }
+
+  DataResult<Comic> toResultComic() {
+    return new DataResult<Comic>(
+      code: this.code ?? 0,
+      status: this.status ?? "",
+      copyright: this.copyright ?? "",
+      attributionText: this.attributionText ?? "",
+      attributionHTML: this.attributionHTML ?? "",
+      data: this.data.toDataComic(),
+      etag: this.etag ?? "",
+    );
+  }
+}
+
+extension DataMapper on ApiData? {
+  Data<Character> toDataCharacter() {
+    return new Data<Character>(
+      offset: this?.offset ?? 0,
+      limit: this?.limit ?? 0,
+      total: this?.total ?? 0,
+      count: this?.count ?? 0,
+      results: this
+              ?.results
+              ?.map((element) => (element as ApiCharacter).toCharacter())
+              .toList() ??
+          List.empty(),
+    );
+  }
+
+  Data<Comic> toDataComic() {
+    return new Data<Comic>(
+      offset: this?.offset ?? 0,
+      limit: this?.limit ?? 0,
+      total: this?.total ?? 0,
+      count: this?.count ?? 0,
+      results: this
+              ?.results
+              ?.map((element) => (element as ApiComic).toComic())
+              .toList() ??
+          List.empty(),
+    );
+  }
+}
+
 extension ThumbnailMapper on ApiThumbnail? {
   Thumbnail toThumbnail() {
     return new Thumbnail(
@@ -13,6 +70,7 @@ extension ThumbnailMapper on ApiThumbnail? {
     );
   }
 }
+/* #endregion */
 
 /* #region Character */
 extension CharacterListMapper on List<ApiCharacter> {
