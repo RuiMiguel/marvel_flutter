@@ -10,6 +10,8 @@ class ComicsApiClient {
   static const PRIVATE_KEY = "97b51487577e39179296e9cb2dccc9507198686c";
   static const PUBLIC_KEY = "585b45a00ec83ed8a2af91101942872e";
 
+  static const COMICS_ENDPOINT = '/v1/public/comics';
+
   final http.Client _httpClient = http.Client();
 
   ComicsApiClient();
@@ -18,15 +20,12 @@ class ComicsApiClient {
     return md5.convert(utf8.encode(input)).toString();
   }
 
-  Future<List<ApiComic>> getComics() async {
+  Future<List<ApiComic>> getComics({int limit = 50, int offset = 0}) async {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
     final hash = generateMd5("$timestamp$PRIVATE_KEY$PUBLIC_KEY");
     final apikey = PUBLIC_KEY;
-    final limit = 10;
-    final offset = 0;
 
-    final comicsRequest =
-        Uri.https(_baseUrl, '/v1/public/comics', <String, String>{
+    final comicsRequest = Uri.https(_baseUrl, COMICS_ENDPOINT, <String, String>{
       'ts': "$timestamp",
       'hash': hash,
       'apikey': apikey,
