@@ -1,6 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UnderConstructionController extends ChangeNotifier {
   final List<String> _sentences = [
@@ -36,8 +36,10 @@ class UnderConstructionController extends ChangeNotifier {
     "You're still here? It's over. Go home! Oh, you're expecting a teaser for Deadpool 2**. Well, we don't have that kind of money. What are you expecting? Sam Jackson showing up in an eyepatch and a saucy little leather number? Go!",
   ];
 
-  String getSentence() {
+  String getSentence(BuildContext context) {
     var index = Random().nextInt(_sentences.length);
+    //TODO: check internationalization for this messages
+    //AppLocalizations.of(context)!.under_construction,
     return _sentences[index];
   }
 }

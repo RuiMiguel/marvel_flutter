@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LegalInfo extends StatelessWidget {
   final String legal;
@@ -39,7 +40,7 @@ class LegalInfo extends StatelessWidget {
             bottom: 0,
             child: Center(
               child: Text(
-                "$count of $total",
+                "$count ${AppLocalizations.of(context)!.of_message} $total",
                 style: TextStyle(fontSize: 10),
               ),
             ),
