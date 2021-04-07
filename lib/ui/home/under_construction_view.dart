@@ -10,38 +10,40 @@ class UnderConstructionView extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = context.read<UnderConstructionController>();
 
-    return Column(
-      children: [
-        Expanded(
-          child: Container(
-            color: Colors.white,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      AppLocalizations.of(context)!.under_construction,
-                      style: TextStyle(fontSize: 30, color: Colors.black),
+    return SafeArea(
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              color: Colors.white,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        AppLocalizations.of(context)!.under_construction,
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
                     ),
-                  ),
-                  Image.asset(
-                    "assets/images/Deadpool-wait.jpeg",
-                    fit: BoxFit.fill,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      controller.getSentence(context),
-                      style: TextStyle(fontSize: 20, color: Colors.black),
+                    Image.asset(
+                      "assets/images/Deadpool-wait.jpeg",
+                      fit: BoxFit.fill,
                     ),
-                  )
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        controller.getSentence(context),
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

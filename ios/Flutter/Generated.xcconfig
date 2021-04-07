@@ -1,8 +1,8 @@
 // This is a generated file; do not edit or check into version control.
 FLUTTER_ROOT=/opt/flutter
-FLUTTER_APPLICATION_PATH=/Users/ralonsda/dev/flutter/marvel
+FLUTTER_APPLICATION_PATH=/Users/ralonsda/dev/flutter/personal/marvel
 COCOAPODS_PARALLEL_CODE_SIGN=true
-FLUTTER_TARGET=/Users/ralonsda/dev/flutter/marvel/lib/main.dart
+FLUTTER_TARGET=/Users/ralonsda/dev/flutter/personal/marvel/lib/main.dart
 FLUTTER_BUILD_DIR=build
 SYMROOT=${SOURCE_ROOT}/../build/ios
 FLUTTER_BUILD_NAME=1.0.0
@@ -12,4 +12,4 @@ DART_DEFINES=Zmx1dHRlci5pbnNwZWN0b3Iuc3RydWN0dXJlZEVycm9ycz10cnVl,RkxVVFRFUl9XRU
 DART_OBFUSCATION=false
 TRACK_WIDGET_CREATION=true
 TREE_SHAKE_ICONS=false
-PACKAGE_CONFIG=/Users/ralonsda/dev/flutter/marvel/.dart_tool/package_config.json
+PACKAGE_CONFIG=/Users/ralonsda/dev/flutter/personal/marvel/.dart_tool/package_config.json

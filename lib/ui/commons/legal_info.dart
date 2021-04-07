@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:marvel/themes.dart';
 
 class LegalInfo extends StatelessWidget {
   final String legal;
@@ -13,7 +14,7 @@ class LegalInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 35,
-      color: Colors.grey[800],
+      color: grey,
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -30,7 +31,7 @@ class LegalInfo extends StatelessWidget {
             child: Container(
               child: Text(
                 legal,
-                style: TextStyle(fontSize: 18),
+                style: Theme.of(context).textTheme.subtitle1,
               ),
             ),
           ),
@@ -41,7 +42,7 @@ class LegalInfo extends StatelessWidget {
             child: Center(
               child: Text(
                 "$count ${AppLocalizations.of(context)!.of_message} $total",
-                style: TextStyle(fontSize: 10),
+                style: Theme.of(context).textTheme.subtitle2,
               ),
             ),
           ),

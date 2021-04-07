@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marvel/themes.dart';
 import 'package:marvel/ui/characters/characters_screen.dart';
 import 'package:marvel/ui/comics/comics_screen.dart';
 import 'package:marvel/ui/commons/custom_appbar.dart';
@@ -24,30 +25,30 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   CustomBottomNavigationBar _buildCustomBottomNavigationBar() {
-    var children2 = [
+    var items = [
       CustomBottomNavigationItem(
         label: AppLocalizations.of(context)!.menu_characters,
         image: "assets/images/menu/Captain-America.png",
-        color: _currentIndex == 0 ? Colors.blue[200]! : Colors.grey[600]!,
+        color: _currentIndex == 0 ? lightBlue : lightGrey,
       ),
       CustomBottomNavigationItem(
         label: AppLocalizations.of(context)!.menu_comics,
         image: "assets/images/menu/Hulk.png",
-        color: _currentIndex == 1 ? Colors.green[200]! : Colors.grey[600]!,
+        color: _currentIndex == 1 ? lightGreen : lightGrey,
       ),
       CustomBottomNavigationItem(
         label: AppLocalizations.of(context)!.menu_series,
         image: "assets/images/menu/Thor.png",
-        color: _currentIndex == 2 ? Colors.yellow[200]! : Colors.grey[600]!,
+        color: _currentIndex == 2 ? lightYellow : lightGrey,
       ),
       CustomBottomNavigationItem(
         label: AppLocalizations.of(context)!.menu_stories,
         image: "assets/images/menu/Iron-Man.png",
-        color: _currentIndex == 3 ? Colors.red[200]! : Colors.grey[600]!,
+        color: _currentIndex == 3 ? lightRed : lightGrey,
       ),
     ];
     return CustomBottomNavigationBar(
-      children: children2,
+      children: items,
       currentIndex: _currentIndex,
       onChange: (index) {
         _changeIndex(index);
@@ -57,20 +58,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(),
-      body: Container(
-        child: IndexedStack(
-          index: _currentIndex,
-          children: [
-            CharactersScreen(),
-            ComicsScreen(),
-            SeriesScreen(),
-            StoriesScreen()
-          ],
+    setStatusBarTheme(
+      color: Theme.of(context).accentColor,
+      brightness: Brightness.light,
+    );
+
+    return SafeArea(
+      child: Scaffold(
+        appBar: CustomAppBar(),
+        body: Container(
+          child: IndexedStack(
+            index: _currentIndex,
+            children: [
+              CharactersScreen(),
+              ComicsScreen(),
+              SeriesScreen(),
+              StoriesScreen()
+            ],
+          ),
         ),
+        bottomNavigationBar: _buildCustomBottomNavigationBar(),
       ),
-      bottomNavigationBar: _buildCustomBottomNavigationBar(),
     );
   }
 }
