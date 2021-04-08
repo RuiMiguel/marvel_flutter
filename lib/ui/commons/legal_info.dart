@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:marvel/themes.dart';
 
 class LegalInfo extends StatelessWidget {
   final String legal;
@@ -14,7 +13,7 @@ class LegalInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 35,
-      color: grey,
+      color: Theme.of(context).shadowColor,
       child: Stack(
         fit: StackFit.expand,
         children: [

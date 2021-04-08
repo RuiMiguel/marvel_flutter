@@ -46,11 +46,7 @@ class HomeListElement extends StatelessWidget {
                   padding: EdgeInsets.all(5),
                   child: Text(
                     character.name,
-                    style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ),
               ),

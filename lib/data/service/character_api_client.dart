@@ -2,28 +2,32 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
+import 'package:marvel/data/datastore_manager.dart';
 import 'package:marvel/data/model/api_character.dart';
 import 'package:marvel/data/model/api_result.dart';
 
 class CharacterApiClient {
+  final DatastoreManager datastore;
+  late String _privateKey;
+  late String _publicKey;
+
   static const _baseUrl = 'gateway.marvel.com:443';
-  static const PRIVATE_KEY = "97b51487577e39179296e9cb2dccc9507198686c";
-  static const PUBLIC_KEY = "585b45a00ec83ed8a2af91101942872e";
-
   static const CHARACTERS_ENDPOINT = '/v1/public/characters';
-
   final http.Client _httpClient = http.Client();
 
-  CharacterApiClient();
+  CharacterApiClient(this.datastore) {
+    _privateKey = datastore.getPrivateKey();
+    _publicKey = datastore.getPublicKey();
+  }
 
-  String generateMd5(String input) {
+  String _generateMd5(String input) {
     return md5.convert(utf8.encode(input)).toString();
   }
 
   Future<List<ApiCharacter>> getCharacters(int limit, int offset) async {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final hash = generateMd5("$timestamp$PRIVATE_KEY$PUBLIC_KEY");
-    final apikey = PUBLIC_KEY;
+    final hash = _generateMd5("$timestamp$_privateKey$_publicKey");
+    final apikey = _publicKey;
 
     final charactersRequest =
         Uri.https(_baseUrl, CHARACTERS_ENDPOINT, <String, String>{
@@ -52,8 +56,8 @@ class CharacterApiClient {
   Future<ApiResult<ApiCharacter>> getCharactersResult(
       int limit, int offset) async {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final hash = generateMd5("$timestamp$PRIVATE_KEY$PUBLIC_KEY");
-    final apikey = PUBLIC_KEY;
+    final hash = _generateMd5("$timestamp$_privateKey$_publicKey");
+    final apikey = _publicKey;
 
     final charactersRequest =
         Uri.https(_baseUrl, CHARACTERS_ENDPOINT, <String, String>{

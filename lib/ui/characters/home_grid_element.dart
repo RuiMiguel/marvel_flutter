@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marvel/core/model/character.dart';
+import 'package:marvel/styles/colors.dart';
 import 'package:marvel/ui/characters/character_detail_screen.dart';
 
 class HomeGridElement extends StatelessWidget {
@@ -13,7 +14,7 @@ class HomeGridElement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: index % 2 == 1 ? Colors.grey[300] : Colors.grey[500],
+      color: index % 2 == 1 ? lightGrey : grey,
       child: InkWell(
         child: Container(
           height: 150,
@@ -46,19 +47,15 @@ class HomeGridElement extends StatelessWidget {
                   padding: EdgeInsets.all(5),
                   child: Text(
                     character.name,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ),
               ),
             ],
           ),
         ),
-        splashColor: Colors.red[500],
-        highlightColor: Colors.red[300],
+        splashColor: red,
+        highlightColor: lightRed,
         onTap: () {
           Navigator.of(context).pushNamed(
             CharacterDetailScreen.routeName,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marvel/core/model/comic.dart' hide Image;
+import 'package:marvel/styles/colors.dart';
 import 'package:marvel/ui/comics/comic_detail_screen.dart';
 
 class HomeListElement extends StatelessWidget {
@@ -12,7 +13,7 @@ class HomeListElement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: index % 2 == 1 ? Colors.grey[300] : Colors.grey[500],
+      color: index % 2 == 1 ? lightGrey : grey,
       child: InkWell(
         child: Container(
           height: 180,
@@ -40,24 +41,20 @@ class HomeListElement extends StatelessWidget {
                 right: 0,
                 bottom: 0,
                 child: Container(
-                  color: Colors.grey.shade800.withOpacity(0.4),
+                  color: grey.withOpacity(0.4),
                   alignment: Alignment.bottomCenter,
                   padding: EdgeInsets.all(5),
                   child: Text(
                     comic.title,
-                    style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ),
               ),
             ],
           ),
         ),
-        splashColor: Colors.red[500],
-        highlightColor: Colors.red[300],
+        splashColor: red,
+        highlightColor: lightRed,
         onTap: () {
           Navigator.of(context).pushNamed(
             ComicDetailScreen.routeName,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/themes.dart';
+import 'package:marvel/styles/colors.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   CustomBottomNavigationBar({
@@ -36,24 +36,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   }
 
   Color _getSelectedItemColor() {
-    Color color;
-    switch (_currentIndex) {
-      case 0:
-        color = Colors.blue[200]!;
-        break;
-      case 1:
-        color = Colors.green[200]!;
-        break;
-      case 2:
-        color = Colors.yellow[200]!;
-        break;
-      case 3:
-        color = Colors.red[200]!;
-        break;
-      default:
-        color = Theme.of(context).accentColor;
-    }
-    return color;
+    return widget.children[_currentIndex].color;
   }
 
   @override

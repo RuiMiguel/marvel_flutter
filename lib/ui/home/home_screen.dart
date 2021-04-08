@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/themes.dart';
+import 'package:marvel/styles/colors.dart';
+import 'package:marvel/styles/themes.dart';
 import 'package:marvel/ui/characters/characters_screen.dart';
 import 'package:marvel/ui/comics/comics_screen.dart';
 import 'package:marvel/ui/commons/custom_appbar.dart';
@@ -29,24 +30,25 @@ class _HomeScreenState extends State<HomeScreen> {
       CustomBottomNavigationItem(
         label: AppLocalizations.of(context)!.menu_characters,
         image: "assets/images/menu/Captain-America.png",
-        color: _currentIndex == 0 ? lightBlue : lightGrey,
+        color: _currentIndex == 0 ? Section.characters.color : lightGrey,
       ),
       CustomBottomNavigationItem(
         label: AppLocalizations.of(context)!.menu_comics,
         image: "assets/images/menu/Hulk.png",
-        color: _currentIndex == 1 ? lightGreen : lightGrey,
+        color: _currentIndex == 1 ? Section.comics.color : lightGrey,
       ),
       CustomBottomNavigationItem(
         label: AppLocalizations.of(context)!.menu_series,
         image: "assets/images/menu/Thor.png",
-        color: _currentIndex == 2 ? lightYellow : lightGrey,
+        color: _currentIndex == 2 ? Section.series.color : lightGrey,
       ),
       CustomBottomNavigationItem(
         label: AppLocalizations.of(context)!.menu_stories,
         image: "assets/images/menu/Iron-Man.png",
-        color: _currentIndex == 3 ? lightRed : lightGrey,
+        color: _currentIndex == 3 ? Section.stories.color : lightGrey,
       ),
     ];
+
     return CustomBottomNavigationBar(
       children: items,
       currentIndex: _currentIndex,
@@ -59,8 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     setStatusBarTheme(
-      color: Theme.of(context).accentColor,
-      brightness: Brightness.light,
+      color: Theme.of(context).primaryColor,
     );
 
     return SafeArea(

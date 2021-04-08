@@ -1,19 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-const red = Color(0xFFEC1D24);
-const lightRed = Color(0xFFEF9A9A);
-const white = Colors.white;
-const black = Colors.black;
-const grey = Color(0xFF202020);
-const lightGrey = Color(0xFF757575);
-const lightBlue = Color(0xFF90CAF9);
-const lightYellow = Color(0xFFFFF59D);
-const lightGreen = Color(0xFFA5D6A7);
+import 'package:marvel/styles/colors.dart';
 
 setStatusBarTheme({
   Color? color = white,
-  Brightness? brightness = Brightness.dark,
+  Brightness? brightness = Brightness.light,
 }) {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -25,7 +16,7 @@ setStatusBarTheme({
 
 setSystemNavigationTheme({
   Color? color = white,
-  Brightness? brightness = Brightness.dark,
+  Brightness? brightness = Brightness.light,
 }) {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -39,6 +30,7 @@ ThemeData lightThemeData() {
   return ThemeData(
     primaryColor: white,
     accentColor: red,
+    shadowColor: lightGrey,
     brightness: Brightness.light,
     fontFamily: 'Oswald',
     textTheme: _textTheme(),
@@ -51,6 +43,7 @@ ThemeData darkThemeData() {
   return ThemeData(
     primaryColor: black,
     accentColor: red,
+    shadowColor: grey,
     brightness: Brightness.dark,
     fontFamily: 'Oswald',
     textTheme: _textTheme(),
@@ -72,6 +65,13 @@ TextTheme _textTheme() {
       fontSize: 22,
       color: black,
       fontWeight: FontWeight.normal,
+      height: 1.4,
+      decoration: TextDecoration.none,
+    ),
+    bodyText2: TextStyle(
+      fontSize: 22,
+      color: white,
+      fontWeight: FontWeight.bold,
       height: 1.4,
       decoration: TextDecoration.none,
     ),
