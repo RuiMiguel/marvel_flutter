@@ -9,8 +9,7 @@ class DatastoreManager {
   static const String PUBLICK_KEY = 'public_key';
 
   String getPrivateKey() {
-    //return preferences.getString(PRIVATE_KEY) ?? "";
-    return "97b51487577e39179296e9cb2dccc9507198686c";
+    return preferences.getString(PRIVATE_KEY) ?? "";
   }
 
   Future<bool> setPrivateKey(String privateKey) async {
@@ -18,8 +17,7 @@ class DatastoreManager {
   }
 
   String getPublicKey() {
-    //return preferences.getString(PUBLICK_KEY) ?? "";
-    return "585b45a00ec83ed8a2af91101942872e";
+    return preferences.getString(PUBLICK_KEY) ?? "";
   }
 
   Future<bool> setPublicKey(String publicKey) async {

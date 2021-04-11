@@ -4,6 +4,10 @@
     "menu_series": "Series",
     "menu_stories": "Historias",
     "of_message": "de",
+    "add_your_developer_credentials_to_login": "Añade tus credenciales de desarrollador Marvel para acceder al Api de Marvel Api. Si no tienes, por favor visita https://developer.marvel.com/account",
+    "private_key": "Clave privada",
+    "public_key": "Clave pública",
+    "login": "Entrar",
 
     "under_construction": "Estamos en construcción.",
     "deadpool_message1": "House blowing up builds character.",

@@ -1,9 +1,18 @@
+import 'package:flutter/material.dart';
 import 'package:marvel/data/datastore_manager.dart';
 
-class LoginController {
+enum AuthStatus {
+  UNINITIALIZED,
+  AUTHENTICATED,
+  UNAUTHENTICATED,
+}
+
+class LoginController extends ChangeNotifier {
   final DatastoreManager datastore;
 
   LoginController(this.datastore);
+
+  AuthStatus currentAuthStatus = AuthStatus.UNINITIALIZED;
 
   static const String PRIVATE_KEY = 'private_key';
   static const String PUBLICK_KEY = 'public_key';
@@ -14,15 +23,28 @@ class LoginController {
     return (privateKey.isNotEmpty && publicKey.isNotEmpty);
   }
 
-  Future<bool> login(String privateKey, String publicKey) async {
-    bool privateKeySaved = await datastore.setPrivateKey(privateKey);
-    bool publicKeySaved = await datastore.setPublicKey(privateKey);
-    return privateKeySaved && publicKeySaved;
+  String getPrivateKey() {
+    return datastore.getPrivateKey();
   }
 
-  Future<bool> logout() async {
-    bool privateKeySaved = await datastore.setPrivateKey("");
-    bool publicKeySaved = await datastore.setPublicKey("");
-    return privateKeySaved && publicKeySaved;
+  String getPublicKey() {
+    return datastore.getPublicKey();
+  }
+
+  Future<void> login(
+      {required String privateKey, required String publicKey}) async {
+    bool privateKeySaved = await datastore.setPrivateKey(privateKey);
+    bool publicKeySaved = await datastore.setPublicKey(publicKey);
+    currentAuthStatus = (privateKeySaved && publicKeySaved)
+        ? AuthStatus.AUTHENTICATED
+        : AuthStatus.UNAUTHENTICATED;
+    notifyListeners();
+  }
+
+  Future<void> logout() async {
+    await datastore.setPrivateKey("");
+    await datastore.setPublicKey("");
+    currentAuthStatus = AuthStatus.UNAUTHENTICATED;
+    notifyListeners();
   }
 }

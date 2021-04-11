@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:marvel/ui/login/login_screen.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 
-  const CustomAppBar({Key? key}) : super(key: key);
+  const CustomAppBar({Key? key, this.userActions = false}) : super(key: key);
+
+  final bool userActions;
 
   @override
   Widget build(BuildContext context) {
+    if (userActions) {
+      return _userAppBar(context);
+    } else {
+      return _normalAppBar(context);
+    }
+  }
+
+  AppBar _userAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: Theme.of(context).primaryColor,
       bottom: PreferredSize(
@@ -17,15 +28,39 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
         ),
         preferredSize: Size.fromHeight(2),
       ),
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/images/placeholder.png',
-            fit: BoxFit.contain,
-            height: 120,
-          ),
-        ],
+      centerTitle: true,
+      title: Image.asset(
+        'assets/images/placeholder.png',
+        fit: BoxFit.contain,
+        height: 120,
+      ),
+      actions: [
+        IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+        IconButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed(LoginScreen.routeName);
+          },
+          icon: Icon(Icons.verified_user),
+        ),
+      ],
+    );
+  }
+
+  AppBar _normalAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: Theme.of(context).primaryColor,
+      bottom: PreferredSize(
+        child: Container(
+          height: 2,
+          color: Theme.of(context).accentColor,
+        ),
+        preferredSize: Size.fromHeight(2),
+      ),
+      centerTitle: true,
+      title: Image.asset(
+        'assets/images/placeholder.png',
+        fit: BoxFit.contain,
+        height: 120,
       ),
     );
   }

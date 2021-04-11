@@ -33,7 +33,7 @@ ThemeData lightThemeData() {
     shadowColor: lightGrey,
     brightness: Brightness.light,
     fontFamily: 'Oswald',
-    textTheme: _textTheme(),
+    textTheme: _lightTextTheme(),
     elevatedButtonTheme: _elevatedButtonTheme(),
     snackBarTheme: _snackbarTheme(),
   );
@@ -46,43 +46,53 @@ ThemeData darkThemeData() {
     shadowColor: grey,
     brightness: Brightness.dark,
     fontFamily: 'Oswald',
-    textTheme: _textTheme(),
+    textTheme: _darkTextTheme(),
     elevatedButtonTheme: _elevatedButtonTheme(),
     snackBarTheme: _snackbarTheme(),
   );
 }
 
-TextTheme _textTheme() {
+TextTheme _lightTextTheme() {
+  return _textTheme(black);
+}
+
+TextTheme _darkTextTheme() {
+  return _textTheme(white);
+}
+
+TextTheme _textTheme(Color textColor) {
   return TextTheme(
     headline1: TextStyle(
       fontSize: 30,
-      color: black,
+      color: textColor,
       fontWeight: FontWeight.bold,
       height: 1.2,
       decoration: TextDecoration.none,
     ),
     bodyText1: TextStyle(
       fontSize: 22,
-      color: black,
+      color: textColor,
       fontWeight: FontWeight.normal,
       height: 1.4,
       decoration: TextDecoration.none,
     ),
     bodyText2: TextStyle(
-      fontSize: 22,
-      color: white,
+      fontSize: 20,
+      color: textColor,
       fontWeight: FontWeight.bold,
       height: 1.4,
       decoration: TextDecoration.none,
     ),
     subtitle1: TextStyle(
       fontSize: 16,
+      color: textColor,
       fontWeight: FontWeight.normal,
       height: 1.4,
       decoration: TextDecoration.none,
     ),
     subtitle2: TextStyle(
       fontSize: 10,
+      color: textColor,
       fontWeight: FontWeight.normal,
       height: 1.4,
       decoration: TextDecoration.none,
@@ -94,10 +104,11 @@ ElevatedButtonThemeData _elevatedButtonTheme() {
   return ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       primary: red,
-      padding: EdgeInsets.symmetric(horizontal: 23, vertical: 13),
+      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
       textStyle: TextStyle(
-        fontSize: 18,
+        fontSize: 20,
         color: white,
+        fontFamily: 'Oswald',
         fontWeight: FontWeight.bold,
         height: 1.2,
       ),

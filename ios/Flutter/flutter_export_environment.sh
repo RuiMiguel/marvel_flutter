@@ -3,7 +3,7 @@
 export "FLUTTER_ROOT=/opt/flutter"
 export "FLUTTER_APPLICATION_PATH=/Users/ralonsda/dev/flutter/personal/marvel"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
-export "FLUTTER_TARGET=/Users/ralonsda/dev/flutter/personal/marvel/lib/main.dart"
+export "FLUTTER_TARGET=/Users/ralonsda/dev/flutter/personal/marvel/lib/marvel_app.dart"
 export "FLUTTER_BUILD_DIR=build"
 export "SYMROOT=${SOURCE_ROOT}/../build/ios"
 export "FLUTTER_BUILD_NAME=1.0.0"

@@ -3,7 +3,7 @@ import 'package:marvel/styles/colors.dart';
 import 'package:marvel/styles/themes.dart';
 
 class CharacterDetailScreen extends StatelessWidget {
-  static const String routeName = "character-details/";
+  static const String routeName = "character-details";
 
   @override
   Widget build(BuildContext context) {

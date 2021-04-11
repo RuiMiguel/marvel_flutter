@@ -1,0 +1,127 @@
+import 'package:flutter/material.dart';
+import 'package:marvel/core/controllers/login_controller.dart';
+import 'package:marvel/ui/commons/custom_appbar.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
+  static const String routeName = "login";
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  late TextEditingController privateKeyEditingController;
+  late TextEditingController publicKeyEditingController;
+  final _formKey = GlobalKey<FormState>();
+  bool loading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    var controller = context.read<LoginController>();
+
+    privateKeyEditingController =
+        TextEditingController(text: controller.getPrivateKey());
+    publicKeyEditingController = TextEditingController(
+      text: controller.getPublicKey(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: CustomAppBar(
+          userActions: false,
+        ),
+        body: Container(
+          color: Theme.of(context).shadowColor,
+          padding: EdgeInsets.all(30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                AppLocalizations.of(context)!
+                    .add_your_developer_credentials_to_login,
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              const SizedBox(height: 30),
+              Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextFormField(
+                      controller: privateKeyEditingController,
+                      autocorrect: false,
+                      cursorColor: Theme.of(context).textTheme.bodyText1!.color,
+                      style: Theme.of(context).textTheme.bodyText2,
+                      decoration: InputDecoration(
+                        hintText: "*****",
+                        labelText: AppLocalizations.of(context)!.public_key,
+                        hintStyle: Theme.of(context).textTheme.subtitle1,
+                        labelStyle: Theme.of(context).textTheme.subtitle1,
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Theme.of(context).accentColor),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Theme.of(context).accentColor),
+                        ),
+                        border: UnderlineInputBorder(),
+                      ),
+                      onEditingComplete: () {},
+                    ),
+                    const SizedBox(height: 30),
+                    TextFormField(
+                      controller: publicKeyEditingController,
+                      autocorrect: false,
+                      cursorColor: Theme.of(context).textTheme.bodyText1!.color,
+                      style: Theme.of(context).textTheme.bodyText2,
+                      decoration: InputDecoration(
+                        hintText: "*****",
+                        labelText: AppLocalizations.of(context)!.public_key,
+                        hintStyle: Theme.of(context).textTheme.subtitle1,
+                        labelStyle: Theme.of(context).textTheme.subtitle1,
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Theme.of(context).accentColor),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Theme.of(context).accentColor),
+                        ),
+                        border: UnderlineInputBorder(),
+                      ),
+                      onEditingComplete: () {},
+                    ),
+                    const SizedBox(height: 80),
+                    ElevatedButton(
+                      style: Theme.of(context).elevatedButtonTheme.style,
+                      onPressed: () async {
+                        await context.read<LoginController>().login(
+                              privateKey: privateKeyEditingController.text,
+                              publicKey: publicKeyEditingController.text,
+                            );
+                        //private "97b51487577e39179296e9cb2dccc9507198686c";
+                        //public "585b45a00ec83ed8a2af91101942872e";
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.login,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

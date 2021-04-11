@@ -15,7 +15,7 @@ class UnderConstructionView extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              color: Colors.white,
+              color: Theme.of(context).shadowColor,
               child: SingleChildScrollView(
                 child: Column(
                   children: [

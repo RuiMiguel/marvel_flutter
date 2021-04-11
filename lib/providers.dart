@@ -36,7 +36,7 @@ MultiProvider _buildDataProvider({
         create: (context) =>
             DatastoreManager(context.read<SharedPreferences>()),
       ),
-      Provider(
+      ChangeNotifierProvider(
         create: (context) => LoginController(context.read<DatastoreManager>()),
       ),
       Provider(

@@ -11,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+  static const String routeName = "home";
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -66,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: CustomAppBar(),
+        appBar: CustomAppBar(userActions: true),
         body: Container(
           child: IndexedStack(
             index: _currentIndex,
