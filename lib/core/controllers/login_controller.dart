@@ -10,9 +10,15 @@ enum AuthStatus {
 class LoginController extends ChangeNotifier {
   final DatastoreManager datastore;
 
-  LoginController(this.datastore);
-
   AuthStatus currentAuthStatus = AuthStatus.UNINITIALIZED;
+
+  LoginController(this.datastore) {
+    if (hasCredentials()) {
+      currentAuthStatus = AuthStatus.AUTHENTICATED;
+    } else {
+      currentAuthStatus = AuthStatus.UNINITIALIZED;
+    }
+  }
 
   static const String PRIVATE_KEY = 'private_key';
   static const String PUBLICK_KEY = 'public_key';

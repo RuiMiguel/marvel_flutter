@@ -35,6 +35,7 @@ dependencies:
   provider: ^5.0.0
   shared_preferences: ^2.0.4  
   flutter_launcher_icons: ^0.9.0
+  flutter_linkify: ^5.0.0
 
 dev_dependencies:
   flutter_test:

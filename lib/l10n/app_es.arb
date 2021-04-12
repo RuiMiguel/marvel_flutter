@@ -8,6 +8,9 @@
     "private_key": "Clave privada",
     "public_key": "Clave pública",
     "login": "Entrar",
+    "save": "Guardar",
+    "logout": "Salir",
+
 
     "under_construction": "Estamos en construcción.",
     "deadpool_message1": "House blowing up builds character.",

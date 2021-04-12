@@ -2,7 +2,7 @@
 FLUTTER_ROOT=/opt/flutter
 FLUTTER_APPLICATION_PATH=/Users/ralonsda/dev/flutter/personal/marvel
 COCOAPODS_PARALLEL_CODE_SIGN=true
-FLUTTER_TARGET=/Users/ralonsda/dev/flutter/personal/marvel/lib/marvel_app.dart
+FLUTTER_TARGET=/Users/ralonsda/dev/flutter/personal/marvel/lib/main.dart
 FLUTTER_BUILD_DIR=build
 SYMROOT=${SOURCE_ROOT}/../build/ios
 FLUTTER_BUILD_NAME=1.0.0
