@@ -3,6 +3,7 @@ import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:marvel/core/controllers/login_controller.dart';
 import 'package:marvel/styles/colors.dart';
 import 'package:marvel/ui/commons/custom_appbar.dart';
+import 'package:marvel/ui/commons/webview_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -43,15 +44,17 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     } else {
       return Linkify(
-        text: AppLocalizations.of(context)!
-            .add_your_developer_credentials_to_login,
-        style: Theme.of(context).textTheme.bodyText1,
-        linkStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
-              fontSize: 24,
-              color: red,
-            ),
-        onOpen: (link) => print("Clicked ${link.url}!"),
-      );
+          text: AppLocalizations.of(context)!
+              .add_your_developer_credentials_to_login,
+          style: Theme.of(context).textTheme.bodyText1,
+          linkStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+                fontSize: 24,
+                color: red,
+              ),
+          onOpen: (link) => Navigator.of(context).pushNamed(
+                WebViewScreen.routeName,
+                arguments: link.url,
+              ));
     }
   }
 

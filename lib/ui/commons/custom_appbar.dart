@@ -12,13 +12,13 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     if (userActions) {
-      return _userAppBar(context);
+      return _authenticatedAppBar(context);
     } else {
-      return _normalAppBar(context);
+      return _unauthenticatedAppBar(context);
     }
   }
 
-  AppBar _userAppBar(BuildContext context) {
+  AppBar _authenticatedAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: Theme.of(context).primaryColor,
       bottom: PreferredSize(
@@ -46,7 +46,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     );
   }
 
-  AppBar _normalAppBar(BuildContext context) {
+  AppBar _unauthenticatedAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: Theme.of(context).primaryColor,
       bottom: PreferredSize(
