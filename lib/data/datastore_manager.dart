@@ -13,7 +13,16 @@ class DatastoreManager {
   }
 
   Future<bool> setPrivateKey(String privateKey) async {
-    return preferences.setString(PRIVATE_KEY, privateKey);
+    preferences.setString(PRIVATE_KEY, privateKey);
+    if (privateKey.isEmpty)
+      return false;
+    else
+      return true;
+  }
+
+  Future<bool> clearPrivateKey() async {
+    preferences.setString(PRIVATE_KEY, "");
+    return true;
   }
 
   String getPublicKey() {
@@ -21,6 +30,15 @@ class DatastoreManager {
   }
 
   Future<bool> setPublicKey(String publicKey) async {
-    return preferences.setString(PUBLICK_KEY, publicKey);
+    preferences.setString(PUBLICK_KEY, publicKey);
+    if (publicKey.isEmpty)
+      return false;
+    else
+      return true;
+  }
+
+  Future<bool> clearPublicKey() async {
+    preferences.setString(PUBLICK_KEY, "");
+    return true;
   }
 }

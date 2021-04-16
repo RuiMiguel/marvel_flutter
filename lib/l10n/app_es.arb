@@ -4,12 +4,14 @@
     "menu_series": "Series",
     "menu_stories": "Historias",
     "of_message": "de",
+    "your_current_credentials": "Estas son tus credenciales",
     "add_your_developer_credentials_to_login": "Añade tus credenciales de desarrollador Marvel para acceder al Api de Marvel Api. Si no tienes, por favor visita https://developer.marvel.com/account",
     "private_key": "Clave privada",
     "public_key": "Clave pública",
     "login": "Entrar",
     "save": "Guardar",
     "logout": "Salir",
+    "login_fail": "Error al logarse (._. )",
 
 
     "under_construction": "Estamos en construcción.",

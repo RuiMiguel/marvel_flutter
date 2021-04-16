@@ -35,6 +35,26 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  Widget _loginDescription() {
+    if (controller.hasCredentials()) {
+      return Text(
+        AppLocalizations.of(context)!.your_current_credentials,
+        style: Theme.of(context).textTheme.bodyText1,
+      );
+    } else {
+      return Linkify(
+        text: AppLocalizations.of(context)!
+            .add_your_developer_credentials_to_login,
+        style: Theme.of(context).textTheme.bodyText1,
+        linkStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+              fontSize: 24,
+              color: red,
+            ),
+        onOpen: (link) => print("Clicked ${link.url}!"),
+      );
+    }
+  }
+
   Widget _loginButtons() {
     if (controller.hasCredentials()) {
       return Row(
@@ -43,10 +63,19 @@ class _LoginScreenState extends State<LoginScreen> {
           ElevatedButton(
             style: Theme.of(context).elevatedButtonTheme.style,
             onPressed: () async {
-              await context.read<LoginController>().login(
+              var logged = await context.read<LoginController>().login(
                     privateKey: privateKeyEditingController.text,
                     publicKey: publicKeyEditingController.text,
                   );
+              if (!logged) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(AppLocalizations.of(context)!.login_fail),
+                  ),
+                );
+              } else {
+                Navigator.of(context).pop();
+              }
             },
             child: Text(
               AppLocalizations.of(context)!.save,
@@ -69,14 +98,17 @@ class _LoginScreenState extends State<LoginScreen> {
       return ElevatedButton(
         style: Theme.of(context).elevatedButtonTheme.style,
         onPressed: () async {
-          await context.read<LoginController>().login(
-              privateKey:
-                  "97b51487577e39179296e9cb2dccc9507198686c", //privateKeyEditingController.text,
-              publicKey:
-                  "585b45a00ec83ed8a2af91101942872e" //publicKeyEditingController.text,
+          var logged = await context.read<LoginController>().login(
+                privateKey: privateKeyEditingController.text,
+                publicKey: publicKeyEditingController.text,
               );
-          //private "97b51487577e39179296e9cb2dccc9507198686c";
-          //public "585b45a00ec83ed8a2af91101942872e";
+          if (!logged) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(AppLocalizations.of(context)!.login_fail),
+              ),
+            );
+          }
         },
         child: Text(
           AppLocalizations.of(context)!.login,
@@ -102,17 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Linkify(
-                            text: AppLocalizations.of(context)!
-                                .add_your_developer_credentials_to_login,
-                            style: Theme.of(context).textTheme.bodyText1,
-                            linkStyle:
-                                Theme.of(context).textTheme.bodyText1!.copyWith(
-                                      fontSize: 24,
-                                      color: red,
-                                    ),
-                            onOpen: (link) => print("Clicked ${link.url}!"),
-                          ),
+                          _loginDescription(),
                           const SizedBox(height: 20),
                           Form(
                             key: _formKey,

@@ -37,19 +37,21 @@ class LoginController extends ChangeNotifier {
     return datastore.getPublicKey();
   }
 
-  Future<void> login(
+  Future<bool> login(
       {required String privateKey, required String publicKey}) async {
     bool privateKeySaved = await datastore.setPrivateKey(privateKey);
     bool publicKeySaved = await datastore.setPublicKey(publicKey);
-    currentAuthStatus = (privateKeySaved && publicKeySaved)
-        ? AuthStatus.AUTHENTICATED
-        : AuthStatus.UNAUTHENTICATED;
+
+    var logged = (privateKeySaved && publicKeySaved);
+    currentAuthStatus =
+        (logged) ? AuthStatus.AUTHENTICATED : AuthStatus.UNAUTHENTICATED;
     notifyListeners();
+    return logged;
   }
 
   Future<void> logout() async {
-    await datastore.setPrivateKey("");
-    await datastore.setPublicKey("");
+    await datastore.clearPrivateKey();
+    await datastore.clearPublicKey();
     currentAuthStatus = AuthStatus.UNAUTHENTICATED;
     notifyListeners();
   }
