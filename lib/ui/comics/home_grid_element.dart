@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marvel/core/model/comic.dart' hide Image;
 import 'package:marvel/styles/colors.dart';
-import 'package:marvel/styles/themes.dart';
 import 'package:marvel/ui/comics/comic_detail_screen.dart';
 
 class HomeGridElement extends StatelessWidget {
@@ -59,6 +58,7 @@ class HomeGridElement extends StatelessWidget {
         onTap: () {
           Navigator.of(context).pushNamed(
             ComicDetailScreen.routeName,
+            arguments: comic,
           );
         },
       ),

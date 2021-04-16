@@ -58,6 +58,7 @@ class HomeListElement extends StatelessWidget {
         onTap: () {
           Navigator.of(context).pushNamed(
             ComicDetailScreen.routeName,
+            arguments: comic,
           );
         },
       ),

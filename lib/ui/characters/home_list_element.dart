@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marvel/core/model/character.dart';
+import 'package:marvel/styles/colors.dart';
 import 'package:marvel/ui/characters/character_detail_screen.dart';
 
 class HomeListElement extends StatelessWidget {
@@ -13,7 +14,7 @@ class HomeListElement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: index % 2 == 1 ? Colors.grey[300] : Colors.grey[500],
+      color: index % 2 == 1 ? lightGrey : grey,
       child: InkWell(
         child: Container(
           height: 150,
@@ -58,6 +59,7 @@ class HomeListElement extends StatelessWidget {
         onTap: () {
           Navigator.of(context).pushNamed(
             CharacterDetailScreen.routeName,
+            arguments: character,
           );
         },
       ),

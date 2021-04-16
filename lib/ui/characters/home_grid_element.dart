@@ -59,6 +59,7 @@ class HomeGridElement extends StatelessWidget {
         onTap: () {
           Navigator.of(context).pushNamed(
             CharacterDetailScreen.routeName,
+            arguments: character,
           );
         },
       ),
