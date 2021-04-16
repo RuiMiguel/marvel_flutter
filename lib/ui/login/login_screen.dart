@@ -57,6 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
             style: Theme.of(context).elevatedButtonTheme.style,
             onPressed: () {
               context.read<LoginController>().logout();
+              Navigator.of(context).pop();
             },
             child: Text(
               AppLocalizations.of(context)!.logout,
@@ -69,8 +70,10 @@ class _LoginScreenState extends State<LoginScreen> {
         style: Theme.of(context).elevatedButtonTheme.style,
         onPressed: () async {
           await context.read<LoginController>().login(
-                privateKey: privateKeyEditingController.text,
-                publicKey: publicKeyEditingController.text,
+              privateKey:
+                  "97b51487577e39179296e9cb2dccc9507198686c", //privateKeyEditingController.text,
+              publicKey:
+                  "585b45a00ec83ed8a2af91101942872e" //publicKeyEditingController.text,
               );
           //private "97b51487577e39179296e9cb2dccc9507198686c";
           //public "585b45a00ec83ed8a2af91101942872e";
