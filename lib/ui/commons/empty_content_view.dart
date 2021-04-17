@@ -19,12 +19,11 @@ class EmptyContentView extends StatelessWidget {
           title,
           style: Theme.of(context).textTheme.headline1,
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 10),
         Text(
           AppLocalizations.of(context)!.no_content,
           style: Theme.of(context).textTheme.bodyText1,
         ),
-        const SizedBox(height: 20),
       ],
     );
   }

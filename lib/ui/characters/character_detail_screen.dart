@@ -109,13 +109,6 @@ class CharacterDetailScreen extends StatelessWidget {
                 expandedHeight: 400,
                 floating: false,
                 pinned: true,
-                actions: [
-                  IconButton(
-                    icon: Icon(Icons.star, color: Section.comics.color),
-                    onPressed: () => null,
-                  )
-                ],
-                //iconTheme: IconThemeData(color: Section.comics.color),
                 backgroundColor: Section.characters.color,
                 flexibleSpace: FlexibleSpaceBar(
                   centerTitle: false,
