@@ -69,6 +69,13 @@ TextTheme _textTheme(Color textColor) {
       height: 1.2,
       decoration: TextDecoration.none,
     ),
+    headline2: TextStyle(
+      fontSize: 24,
+      color: textColor,
+      fontWeight: FontWeight.bold,
+      height: 1.2,
+      decoration: TextDecoration.none,
+    ),
     bodyText1: TextStyle(
       fontSize: 22,
       color: textColor,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marvel/styles/themes.dart';
 import 'package:marvel/ui/commons/custom_appbar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

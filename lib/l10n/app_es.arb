@@ -13,7 +13,14 @@
     "logout": "Salir",
     "login_fail": "Error al logarse (._. )",
 
+    "no_content": "No hay información",
+    "description": "Descripción",
+    "last_modified": "Última modificación:",
+    "links": "Enlaces",
+    "prices": "Precios",
+    "images": "Imágenes",
 
+    
     "under_construction": "Estamos en construcción.",
     "deadpool_message1": "House blowing up builds character.",
     "deadpool_message2": "Bad Deadpool... Good Deadpool!",

@@ -42,7 +42,7 @@ class HomeListElement extends StatelessWidget {
                 right: 0,
                 bottom: 0,
                 child: Container(
-                  color: Colors.red.shade300.withOpacity(0.4),
+                  color: red.withOpacity(0.4),
                   alignment: Alignment.bottomCenter,
                   padding: EdgeInsets.all(5),
                   child: Text(
@@ -54,8 +54,8 @@ class HomeListElement extends StatelessWidget {
             ],
           ),
         ),
-        splashColor: Colors.red[500],
-        highlightColor: Colors.red[300],
+        splashColor: red,
+        highlightColor: lightRed,
         onTap: () {
           Navigator.of(context).pushNamed(
             CharacterDetailScreen.routeName,

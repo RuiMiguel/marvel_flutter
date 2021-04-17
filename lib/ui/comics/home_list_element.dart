@@ -41,7 +41,7 @@ class HomeListElement extends StatelessWidget {
                 right: 0,
                 bottom: 0,
                 child: Container(
-                  color: grey.withOpacity(0.4),
+                  color: green.withOpacity(0.4),
                   alignment: Alignment.bottomCenter,
                   padding: EdgeInsets.all(5),
                   child: Text(

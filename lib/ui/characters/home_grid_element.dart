@@ -42,7 +42,7 @@ class HomeGridElement extends StatelessWidget {
                 right: 0,
                 bottom: 0,
                 child: Container(
-                  color: Colors.red.shade300.withOpacity(0.4),
+                  color: red.withOpacity(0.4),
                   alignment: Alignment.bottomCenter,
                   padding: EdgeInsets.all(5),
                   child: Text(
