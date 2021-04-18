@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:marvel/data/datastore_manager.dart';
 import 'package:marvel/data/model/api_character.dart';
+import 'package:marvel/data/model/api_error.dart';
 import 'package:marvel/data/model/api_result.dart';
 import 'package:marvel/data/service/base_api_client_http.dart';
 
@@ -38,19 +39,18 @@ class CharacterApiClient extends BaseApiClientHttp {
       'offset': "$offset"
     });
 
-    return requestGet(
-      charactersRequest,
-      (success) {
-        return ApiResult<ApiCharacter>.fromJson(
-              success,
-              (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
-            ).data?.results ??
-            List.empty();
-      },
-      (code, error) {
-        return List.empty();
-      },
-    );
+    return requestGet(charactersRequest, (success) {
+      return ApiResult<ApiCharacter>.fromJson(
+            success,
+            (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
+          ).data?.results ??
+          List.empty();
+    }, (code, error) {
+      ApiError.fromJson(error);
+      return List.empty();
+    }, (exception) {
+      return List.empty();
+    });
   }
 
   Future<ApiResult<ApiCharacter>> getCharactersResult(int limit, int offset) {
@@ -67,17 +67,16 @@ class CharacterApiClient extends BaseApiClientHttp {
       'offset': "$offset"
     });
 
-    return requestGet(
-      charactersRequest,
-      (success) {
-        return ApiResult<ApiCharacter>.fromJson(
-          success,
-          (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
-        );
-      },
-      (code, error) {
-        return ApiResult();
-      },
-    );
+    return requestGet(charactersRequest, (success) {
+      return ApiResult<ApiCharacter>.fromJson(
+        success,
+        (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
+      );
+    }, (code, error) {
+      ApiError.fromJson(error);
+      return ApiResult();
+    }, (exception) {
+      return ApiResult();
+    });
   }
 }

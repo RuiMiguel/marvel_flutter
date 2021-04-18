@@ -1,10 +1,23 @@
+import 'dart:io';
+
+import 'package:marvel/data/base/error/data_failure.dart';
+
 abstract class BaseApiClient {
   Future<T> makeCall<T>(
     dynamic call,
     T Function(dynamic) parseSuccess,
     T Function(int, dynamic) parseError,
+    T Function(dynamic) manageException,
   ) async {
-    return parseResponse(await call, parseSuccess, parseError);
+    try {
+      return parseResponse(await call, parseSuccess, parseError);
+    } on SocketException {
+      return manageException(SocketFailure());
+    } on HttpException {
+      return manageException(HttpFailure());
+    } on FormatException {
+      return manageException(FormatFailure());
+    }
   }
 
   T parseResponse<T, R>(

@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import 'package:marvel/core/base/error/failure.dart';
 import 'package:marvel/core/model/comic.dart';
 import 'package:marvel/core/model/data_result.dart';
 import 'package:marvel/data/mapper/data2domain_mapper.dart';
@@ -8,11 +10,14 @@ class ComicsRepository {
 
   ComicsRepository(this._comicApiClient);
 
-  Future<DataResult<Comic>> getComicsResult(
+  Future<Either<Failure, DataResult<Comic>>> getComicsResult(
     int limit,
     int offset,
   ) async {
     final apiResult = await _comicApiClient.getComicsResult(limit, offset);
-    return apiResult.toResultComic();
+    return apiResult.fold(
+      (error) => Left(error),
+      (success) => Right(success.toResultComic()),
+    );
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:marvel/data/service/base_api_client.dart';
+import 'package:marvel/data/base/service/base_api_client.dart';
 
 abstract class BaseApiClientHttp extends BaseApiClient {
   final bool _logEnabled;
@@ -10,9 +10,13 @@ abstract class BaseApiClientHttp extends BaseApiClient {
 
   BaseApiClientHttp(this._logEnabled);
 
-  Future<T> requestGet<T>(Uri url, T Function(dynamic) parseSuccess,
-      T Function(int, dynamic) parseError,
-      {Map<String, String>? headers}) {
+  Future<T> requestGet<T>(
+    Uri url,
+    T Function(dynamic) parseSuccess,
+    T Function(int, dynamic) parseError,
+    T Function(dynamic) manageException, {
+    Map<String, String>? headers,
+  }) {
     if (_logEnabled) print("[Http] HTTP Request - GET $url");
 
     return makeCall(
@@ -22,12 +26,19 @@ abstract class BaseApiClientHttp extends BaseApiClient {
       ),
       parseSuccess,
       parseError,
+      manageException,
     );
   }
 
-  Future<T> requestPost<T>(Uri url, T Function(dynamic) parseSuccess,
-      T Function(int, dynamic) parseError,
-      {Map<String, String>? headers, Object? body, Encoding? encoding}) {
+  Future<T> requestPost<T>(
+    Uri url,
+    T Function(dynamic) parseSuccess,
+    T Function(int, dynamic) parseError,
+    T Function(dynamic) manageException, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+  }) {
     if (_logEnabled) print("[Http] HTTP Request - POST $url");
 
     return makeCall(
@@ -39,6 +50,7 @@ abstract class BaseApiClientHttp extends BaseApiClient {
       ),
       parseSuccess,
       parseError,
+      manageException,
     );
   }
 

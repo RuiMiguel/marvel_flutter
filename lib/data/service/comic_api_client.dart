@@ -1,8 +1,11 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
+import 'package:dartz/dartz.dart';
+import 'package:marvel/data/base/error/data_failure.dart';
 import 'package:marvel/data/datastore_manager.dart';
 import 'package:marvel/data/model/api_comic.dart';
+import 'package:marvel/data/model/api_error.dart';
 import 'package:marvel/data/model/api_result.dart';
 import 'package:marvel/data/service/base_api_client_dio.dart';
 
@@ -24,7 +27,8 @@ class ComicsApiClient extends BaseApiClientDio {
     return md5.convert(utf8.encode(input)).toString();
   }
 
-  Future<List<ApiComic>> getComics(int limit, int offset) {
+  Future<Either<NetworkFailure, List<ApiComic>>> getComics(
+      int limit, int offset) {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
     final hash = generateMd5("$timestamp$_privateKey$_publicKey");
     final apikey = _publicKey;
@@ -40,19 +44,30 @@ class ComicsApiClient extends BaseApiClientDio {
     return requestGet(
       comicsRequest,
       (success) {
-        return ApiResult<ApiComic>.fromJson(
+        var response = ApiResult<ApiComic>.fromJson(
               success,
               (data) => ApiComic.fromJson(data as Map<String, dynamic>),
             ).data?.results ??
             List.empty();
+        return Right(response);
       },
       (code, error) {
-        return List.empty();
+        var response = ApiError.fromJson(error);
+        return Left(
+          ServerFailure(
+            code: response.code ?? code.toString(),
+            message: response.message ?? "",
+          ),
+        );
+      },
+      (exception) {
+        return Left(exception);
       },
     );
   }
 
-  Future<ApiResult<ApiComic>> getComicsResult(int limit, int offset) {
+  Future<Either<NetworkFailure, ApiResult<ApiComic>>> getComicsResult(
+      int limit, int offset) {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
     final hash = generateMd5("$timestamp$_privateKey$_publicKey");
     final apikey = _publicKey;
@@ -68,13 +83,23 @@ class ComicsApiClient extends BaseApiClientDio {
     return requestGet(
       comicsRequest,
       (success) {
-        return ApiResult<ApiComic>.fromJson(
+        var response = ApiResult<ApiComic>.fromJson(
           success,
           (data) => ApiComic.fromJson(data as Map<String, dynamic>),
         );
+        return Right(response);
       },
       (code, error) {
-        return ApiResult();
+        var response = ApiError.fromJson(error);
+        return Left(
+          ServerFailure(
+            code: response.code ?? code.toString(),
+            message: response.message ?? "",
+          ),
+        );
+      },
+      (exception) {
+        return Left(exception);
       },
     );
   }

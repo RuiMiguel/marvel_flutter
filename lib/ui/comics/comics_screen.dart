@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:marvel/core/base/result.dart';
 import 'package:marvel/core/controllers/comics_controller.dart';
+import 'package:marvel/core/model/comic.dart';
 import 'package:marvel/ui/comics/home_grid.dart';
 import 'package:marvel/ui/comics/home_list.dart';
 import 'package:marvel/ui/commons/legal_info.dart';
+import 'package:marvel/ui/commons/loading_view.dart';
 import 'package:provider/provider.dart';
 
 class ComicsScreen extends StatelessWidget {
@@ -25,14 +28,22 @@ class ComicsScreen extends StatelessWidget {
           Expanded(
             child: OrientationBuilder(
               builder: (context, orientation) {
-                if (orientation == Orientation.landscape) {
-                  return HomeListView(
-                    comics: controller.comics,
-                  );
+                if (controller.comics is Loading) {
+                  return LoadingView();
+                } else if (controller.comics is Error) {
+                  return LoadingView();
+                } else if (controller.comics is Success<List<Comic>>) {
+                  if (orientation == Orientation.landscape) {
+                    return HomeListView(
+                      comics: (controller.comics as Success).data,
+                    );
+                  } else {
+                    return HomeGridView(
+                      comics: (controller.comics as Success).data,
+                    );
+                  }
                 } else {
-                  return HomeGridView(
-                    comics: controller.comics,
-                  );
+                  return LoadingView();
                 }
               },
             ),

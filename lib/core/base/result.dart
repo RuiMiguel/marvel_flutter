@@ -1,4 +1,4 @@
-import 'package:marvel/core/controllers/failure.dart';
+import 'package:marvel/core/base/error/failure.dart';
 
 class Result {
   const Result();
@@ -11,7 +11,7 @@ class Result {
     return Error(failure);
   }
 
-  static Result success(dynamic data) {
+  static Result success<T>(T data) {
     return Success(data);
   }
 }
@@ -19,11 +19,11 @@ class Result {
 class Loading extends Result {}
 
 class Error<Failure> extends Result {
-  final Failure failure;
   const Error(this.failure) : super();
+  final Failure failure;
 }
 
 class Success<T> extends Result {
-  final T data;
   const Success(this.data) : super();
+  final T data;
 }

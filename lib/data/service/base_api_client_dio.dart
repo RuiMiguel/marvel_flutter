@@ -1,23 +1,27 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:marvel/data/service/base_api_client.dart';
+import 'package:marvel/data/base/service/base_api_client.dart';
 
 abstract class BaseApiClientDio extends BaseApiClient {
   late final Dio _dio;
 
   BaseApiClientDio(bool _logEnabled) {
     var options = BaseOptions(
-      connectTimeout: 5000,
-      receiveTimeout: 3000,
+      connectTimeout: 30000,
+      receiveTimeout: 30000,
     );
     _dio = Dio(options);
     _dio.interceptors.add(LogginInterceptor(_logEnabled));
   }
 
-  Future<T> requestGet<T>(Uri url, T Function(dynamic) parseSuccess,
-      T Function(int, dynamic) parseError,
-      {Map<String, String>? headers}) {
+  Future<T> requestGet<T>(
+    Uri url,
+    T Function(dynamic) parseSuccess,
+    T Function(int, dynamic) parseError,
+    T Function(dynamic) manageException, {
+    Map<String, String>? headers,
+  }) {
     return makeCall(
       _dio.get(
         url.toString(),
@@ -25,12 +29,19 @@ abstract class BaseApiClientDio extends BaseApiClient {
       ),
       parseSuccess,
       parseError,
+      manageException,
     );
   }
 
-  Future<T> requestPost<T>(Uri url, T Function(dynamic) parseSuccess,
-      T Function(int, dynamic) parseError,
-      {Map<String, String>? headers, Object? body, Encoding? encoding}) {
+  Future<T> requestPost<T>(
+    Uri url,
+    T Function(dynamic) parseSuccess,
+    T Function(int, dynamic) parseError,
+    T Function(dynamic) manageException, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+  }) {
     return makeCall(
       _dio.post(
         url.toString(),
@@ -38,6 +49,7 @@ abstract class BaseApiClientDio extends BaseApiClient {
       ),
       parseSuccess,
       parseError,
+      manageException,
     );
   }
 
