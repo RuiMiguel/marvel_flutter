@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:marvel/core/model/comic.dart' hide Image;
 import 'package:marvel/styles/colors.dart';
@@ -20,28 +21,33 @@ class HomeGridElement extends StatelessWidget {
           child: Stack(
             children: [
               Positioned.fill(
-                child: comic.thumbnail.path.isEmpty
-                    ? Image.asset(
-                        'assets/images/placeholder.png',
-                        fit: BoxFit.fill,
-                      )
-                    : Image.network(
-                        '${comic.thumbnail.path}/portrait_incredible.${comic.thumbnail.extension}',
+                child: CachedNetworkImage(
+                  imageUrl:
+                      '${comic.thumbnail.path}/landscape_amazing.${comic.thumbnail.extension}',
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
                         fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Image.asset(
-                            'assets/images/placeholder.png',
-                            fit: BoxFit.fill,
-                          );
-                        },
                       ),
+                    ),
+                  ),
+                  placeholder: (context, url) => Image.asset(
+                    'assets/images/placeholder.png',
+                    fit: BoxFit.contain,
+                  ),
+                  errorWidget: (context, url, error) => Image.asset(
+                    'assets/images/placeholder.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
               ),
               Positioned(
                 left: 0,
                 right: 0,
                 bottom: 0,
                 child: Container(
-                  color: Colors.yellow.withOpacity(0.4),
+                  color: green.withOpacity(0.4),
                   alignment: Alignment.bottomCenter,
                   padding: EdgeInsets.all(5),
                   child: Text(
@@ -53,8 +59,8 @@ class HomeGridElement extends StatelessWidget {
             ],
           ),
         ),
-        splashColor: red,
-        highlightColor: lightRed,
+        splashColor: green,
+        highlightColor: lightGreen,
         onTap: () {
           Navigator.of(context).pushNamed(
             ComicDetailScreen.routeName,

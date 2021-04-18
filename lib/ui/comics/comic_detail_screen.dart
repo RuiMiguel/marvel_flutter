@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:marvel/core/model/comic.dart' hide Image;
@@ -7,12 +8,45 @@ import 'package:marvel/ui/commons/empty_content_view.dart';
 import 'package:marvel/ui/commons/webview_screen.dart';
 import 'package:marvel/ui/utils.dart';
 
-class ComicDetailScreen extends StatelessWidget {
+class ComicDetailScreen extends StatefulWidget {
+  const ComicDetailScreen({Key? key, required this.comic}) : super(key: key);
   static const String routeName = "comic-details";
 
   final Comic comic;
 
-  const ComicDetailScreen({Key? key, required this.comic}) : super(key: key);
+  @override
+  _ComicDetailScreenState createState() => _ComicDetailScreenState();
+}
+
+class _ComicDetailScreenState extends State<ComicDetailScreen> {
+  ScrollController _scrollController = ScrollController();
+  double _sliverAppHeight = 400;
+  bool lastStatus = true;
+
+  _scrollListener() {
+    if (isShrink != lastStatus) {
+      setState(() {
+        lastStatus = isShrink;
+      });
+    }
+  }
+
+  bool get isShrink {
+    return _scrollController.hasClients &&
+        _scrollController.offset > (_sliverAppHeight - kToolbarHeight);
+  }
+
+  @override
+  void initState() {
+    _scrollController.addListener(_scrollListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +55,7 @@ class ComicDetailScreen extends StatelessWidget {
 
     _printDescriptionView() {
       var view;
-      if (comic.description.isEmpty) {
+      if (widget.comic.description.isEmpty) {
         view =
             EmptyContentView(title: AppLocalizations.of(context)!.description);
       } else {
@@ -35,7 +69,7 @@ class ComicDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              comic.description,
+              widget.comic.description,
               style: Theme.of(context).textTheme.bodyText1,
             ),
           ],
@@ -46,7 +80,7 @@ class ComicDetailScreen extends StatelessWidget {
 
     _printLinksView() {
       var view;
-      if (comic.urls.isEmpty) {
+      if (widget.comic.urls.isEmpty) {
         view = EmptyContentView(title: AppLocalizations.of(context)!.links);
       } else {
         view = Column(
@@ -61,7 +95,7 @@ class ComicDetailScreen extends StatelessWidget {
           ],
         );
 
-        comic.urls.forEach((element) {
+        widget.comic.urls.forEach((element) {
           view.children.add(
             GestureDetector(
               onTap: () {
@@ -95,7 +129,7 @@ class ComicDetailScreen extends StatelessWidget {
 
     _printPricesView() {
       var view;
-      if (comic.prices.isEmpty) {
+      if (widget.comic.prices.isEmpty) {
         view = EmptyContentView(title: AppLocalizations.of(context)!.prices);
       } else {
         view = Column(
@@ -110,7 +144,7 @@ class ComicDetailScreen extends StatelessWidget {
           ],
         );
 
-        comic.prices.forEach((element) {
+        widget.comic.prices.forEach((element) {
           view.children.add(
             Text(
               element.price.toCurrency(context),
@@ -124,7 +158,7 @@ class ComicDetailScreen extends StatelessWidget {
 
     _printImagesView() {
       var view;
-      if (comic.images.isEmpty) {
+      if (widget.comic.images.isEmpty) {
         view = EmptyContentView(title: AppLocalizations.of(context)!.images);
       } else {
         view = Column(
@@ -140,9 +174,9 @@ class ComicDetailScreen extends StatelessWidget {
               height: 150,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                itemCount: comic.images.length,
+                itemCount: widget.comic.images.length,
                 itemBuilder: (context, index) => Image.network(
-                  '${comic.images[index].path}/standard_amazing.${comic.images[index].extension}',
+                  '${widget.comic.images[index].path}/standard_amazing.${widget.comic.images[index].extension}',
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return GestureDetector(
@@ -179,35 +213,56 @@ class ComicDetailScreen extends StatelessWidget {
       },
       child: Scaffold(
         body: NestedScrollView(
+          controller: _scrollController,
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(
                 expandedHeight: 400,
                 floating: false,
                 pinned: true,
-                //iconTheme: IconThemeData(color: Section.comics.color),
+                title: Visibility(
+                  visible: isShrink,
+                  child: Text(
+                    widget.comic.title,
+                    maxLines: 1,
+                  ),
+                ),
                 backgroundColor: Section.comics.color,
                 flexibleSpace: FlexibleSpaceBar(
                   centerTitle: false,
                   collapseMode: CollapseMode.parallax,
-                  title: Text(comic.title),
+                  title: Visibility(
+                    visible: !isShrink,
+                    child: Container(
+                      child: Text(widget.comic.title),
+                      decoration: BoxDecoration(
+                        color: green.withAlpha(200),
+                        backgroundBlendMode: BlendMode.darken,
+                      ),
+                    ),
+                  ),
                   titlePadding:
-                      EdgeInsets.only(left: 45, bottom: 15, right: 15),
-                  background: comic.thumbnail.path.isEmpty
-                      ? Image.asset(
-                          'assets/images/placeholder.png',
-                          fit: BoxFit.contain,
-                        )
-                      : Image.network(
-                          '${comic.thumbnail.path}/portrait_incredible.${comic.thumbnail.extension}',
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Image.asset(
-                              'assets/images/placeholder.png',
-                              fit: BoxFit.contain,
-                            );
-                          },
+                      EdgeInsets.only(left: 40, bottom: 15, right: 20),
+                  background: CachedNetworkImage(
+                    imageUrl:
+                        '${widget.comic.thumbnail.path}/portrait_incredible.${widget.comic.thumbnail.extension}',
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.fitHeight,
                         ),
+                      ),
+                    ),
+                    placeholder: (context, url) => Image.asset(
+                      'assets/images/placeholder.png',
+                      fit: BoxFit.contain,
+                    ),
+                    errorWidget: (context, url, error) => Image.asset(
+                      'assets/images/placeholder.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 ),
               ),
             ];
@@ -232,7 +287,7 @@ class ComicDetailScreen extends StatelessWidget {
                       ),
                       const SizedBox(width: 10),
                       Text(
-                        comic.modified.parseDate(),
+                        widget.comic.modified.parseDate(),
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
                     ],

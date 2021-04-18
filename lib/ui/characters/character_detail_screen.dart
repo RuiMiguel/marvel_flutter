@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:marvel/core/model/character.dart';
@@ -7,13 +8,46 @@ import 'package:marvel/ui/commons/empty_content_view.dart';
 import 'package:marvel/ui/commons/webview_screen.dart';
 import 'package:marvel/ui/utils.dart';
 
-class CharacterDetailScreen extends StatelessWidget {
+class CharacterDetailScreen extends StatefulWidget {
+  const CharacterDetailScreen({Key? key, required this.character})
+      : super(key: key);
   static const String routeName = "character-details";
 
   final Character character;
 
-  const CharacterDetailScreen({Key? key, required this.character})
-      : super(key: key);
+  @override
+  _CharacterDetailScreenState createState() => _CharacterDetailScreenState();
+}
+
+class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
+  ScrollController _scrollController = ScrollController();
+  double _sliverAppHeight = 400;
+  bool lastStatus = true;
+
+  _scrollListener() {
+    if (isShrink != lastStatus) {
+      setState(() {
+        lastStatus = isShrink;
+      });
+    }
+  }
+
+  bool get isShrink {
+    return _scrollController.hasClients &&
+        _scrollController.offset > (_sliverAppHeight - kToolbarHeight);
+  }
+
+  @override
+  void initState() {
+    _scrollController.addListener(_scrollListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +56,7 @@ class CharacterDetailScreen extends StatelessWidget {
 
     _printDescriptionView() {
       var view;
-      if (character.description.isEmpty) {
+      if (widget.character.description.isEmpty) {
         view =
             EmptyContentView(title: AppLocalizations.of(context)!.description);
       } else {
@@ -36,7 +70,7 @@ class CharacterDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              character.description,
+              widget.character.description,
               style: Theme.of(context).textTheme.bodyText1,
             ),
           ],
@@ -47,7 +81,7 @@ class CharacterDetailScreen extends StatelessWidget {
 
     _printLinksView() {
       var view;
-      if (character.urls.isEmpty) {
+      if (widget.character.urls.isEmpty) {
         view = EmptyContentView(title: AppLocalizations.of(context)!.links);
       } else {
         view = Column(
@@ -62,7 +96,7 @@ class CharacterDetailScreen extends StatelessWidget {
           ],
         );
 
-        character.urls.forEach((element) {
+        widget.character.urls.forEach((element) {
           view.children.add(
             GestureDetector(
               onTap: () {
@@ -103,39 +137,56 @@ class CharacterDetailScreen extends StatelessWidget {
       },
       child: Scaffold(
         body: NestedScrollView(
+          controller: _scrollController,
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(
-                expandedHeight: 400,
+                expandedHeight: _sliverAppHeight,
                 floating: false,
                 pinned: true,
+                title: Visibility(
+                  visible: isShrink,
+                  child: Text(
+                    widget.character.name,
+                    maxLines: 1,
+                  ),
+                ),
                 backgroundColor: Section.characters.color,
                 flexibleSpace: FlexibleSpaceBar(
                   centerTitle: false,
-                  stretchModes: const <StretchMode>[
-                    StretchMode.zoomBackground,
-                    StretchMode.blurBackground,
-                    StretchMode.fadeTitle,
-                  ],
                   collapseMode: CollapseMode.parallax,
-                  title: Text(character.name),
+                  title: Visibility(
+                    visible: !isShrink,
+                    child: Container(
+                      child: Text(widget.character.name),
+                      decoration: BoxDecoration(
+                        color: blue.withAlpha(200),
+                        backgroundBlendMode: BlendMode.darken,
+                      ),
+                    ),
+                  ),
                   titlePadding:
-                      EdgeInsets.only(left: 45, bottom: 15, right: 15),
-                  background: character.thumbnail.path.isEmpty
-                      ? Image.asset(
-                          'assets/images/placeholder.png',
-                          fit: BoxFit.contain,
-                        )
-                      : Image.network(
-                          '${character.thumbnail.path}/portrait_incredible.${character.thumbnail.extension}',
+                      EdgeInsets.only(left: 40, bottom: 15, right: 20),
+                  background: CachedNetworkImage(
+                    imageUrl:
+                        '${widget.character.thumbnail.path}/portrait_incredible.${widget.character.thumbnail.extension}',
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
                           fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Image.asset(
-                              'assets/images/placeholder.png',
-                              fit: BoxFit.contain,
-                            );
-                          },
                         ),
+                      ),
+                    ),
+                    placeholder: (context, url) => Image.asset(
+                      'assets/images/placeholder.png',
+                      fit: BoxFit.contain,
+                    ),
+                    errorWidget: (context, url, error) => Image.asset(
+                      'assets/images/placeholder.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 ),
               ),
             ];
@@ -158,7 +209,7 @@ class CharacterDetailScreen extends StatelessWidget {
                       ),
                       const SizedBox(width: 10),
                       Text(
-                        character.modified.parseDate(),
+                        widget.character.modified.parseDate(),
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
                     ],
