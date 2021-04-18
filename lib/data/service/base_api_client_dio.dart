@@ -15,23 +15,30 @@ abstract class BaseApiClientDio extends BaseApiClient {
     _dio.interceptors.add(LogginInterceptor(_logEnabled));
   }
 
-  @override
   Future<T> requestGet<T>(Uri url, T Function(dynamic) parseSuccess,
       T Function(int, dynamic) parseError,
-      {Map<String, String>? headers}) async {
-    final response = await _dio.get(
-      url.toString(),
-      queryParameters: headers,
+      {Map<String, String>? headers}) {
+    return makeCall(
+      _dio.get(
+        url.toString(),
+        queryParameters: headers,
+      ),
+      parseSuccess,
+      parseError,
     );
-    return parseResponse(response, parseSuccess, parseError);
   }
 
-  @override
   Future<T> requestPost<T>(Uri url, T Function(dynamic) parseSuccess,
       T Function(int, dynamic) parseError,
-      {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
-    final response = await _dio.post(url.toString(), data: body);
-    return parseResponse(response, parseSuccess, parseError);
+      {Map<String, String>? headers, Object? body, Encoding? encoding}) {
+    return makeCall(
+      _dio.post(
+        url.toString(),
+        data: body,
+      ),
+      parseSuccess,
+      parseError,
+    );
   }
 
   @override

@@ -24,7 +24,7 @@ class ComicsApiClient extends BaseApiClientDio {
     return md5.convert(utf8.encode(input)).toString();
   }
 
-  Future<List<ApiComic>> getComics(int limit, int offset) async {
+  Future<List<ApiComic>> getComics(int limit, int offset) {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
     final hash = generateMd5("$timestamp$_privateKey$_publicKey");
     final apikey = _publicKey;
@@ -37,7 +37,7 @@ class ComicsApiClient extends BaseApiClientDio {
       'offset': "$offset"
     });
 
-    return await requestGet(
+    return requestGet(
       comicsRequest,
       (success) {
         return ApiResult<ApiComic>.fromJson(
@@ -52,7 +52,7 @@ class ComicsApiClient extends BaseApiClientDio {
     );
   }
 
-  Future<ApiResult<ApiComic>> getComicsResult(int limit, int offset) async {
+  Future<ApiResult<ApiComic>> getComicsResult(int limit, int offset) {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
     final hash = generateMd5("$timestamp$_privateKey$_publicKey");
     final apikey = _publicKey;
@@ -65,7 +65,7 @@ class ComicsApiClient extends BaseApiClientDio {
       'offset': "$offset"
     });
 
-    return await requestGet(
+    return requestGet(
       comicsRequest,
       (success) {
         return ApiResult<ApiComic>.fromJson(

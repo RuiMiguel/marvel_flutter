@@ -10,32 +10,36 @@ abstract class BaseApiClientHttp extends BaseApiClient {
 
   BaseApiClientHttp(this._logEnabled);
 
-  @override
   Future<T> requestGet<T>(Uri url, T Function(dynamic) parseSuccess,
       T Function(int, dynamic) parseError,
-      {Map<String, String>? headers}) async {
+      {Map<String, String>? headers}) {
     if (_logEnabled) print("[Http] HTTP Request - GET $url");
 
-    final response = await _httpClient.get(
-      url,
-      headers: headers,
+    return makeCall(
+      _httpClient.get(
+        url,
+        headers: headers,
+      ),
+      parseSuccess,
+      parseError,
     );
-    return parseResponse(response, parseSuccess, parseError);
   }
 
-  @override
   Future<T> requestPost<T>(Uri url, T Function(dynamic) parseSuccess,
       T Function(int, dynamic) parseError,
-      {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
+      {Map<String, String>? headers, Object? body, Encoding? encoding}) {
     if (_logEnabled) print("[Http] HTTP Request - POST $url");
 
-    final response = await _httpClient.post(
-      url,
-      headers: headers,
-      body: body,
-      encoding: encoding,
+    return makeCall(
+      _httpClient.post(
+        url,
+        headers: headers,
+        body: body,
+        encoding: encoding,
+      ),
+      parseSuccess,
+      parseError,
     );
-    return parseResponse(response, parseSuccess, parseError);
   }
 
   @override

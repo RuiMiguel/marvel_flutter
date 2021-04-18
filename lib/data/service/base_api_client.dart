@@ -1,16 +1,17 @@
-import 'dart:convert';
-
 abstract class BaseApiClient {
-  Future<T> requestGet<T>(Uri url, T Function(dynamic) parseSuccess,
-      T Function(int, dynamic) parseError,
-      {Map<String, String>? headers});
+  Future<T> makeCall<T>(
+    dynamic call,
+    T Function(dynamic) parseSuccess,
+    T Function(int, dynamic) parseError,
+  ) async {
+    return parseResponse(await call, parseSuccess, parseError);
+  }
 
-  Future<T> requestPost<T>(Uri url, T Function(dynamic) parseSuccess,
-      T Function(int, dynamic) parseError,
-      {Map<String, String>? headers, Object? body, Encoding? encoding});
-
-  Future<T> parseResponse<T, R>(R response, T Function(dynamic) parseSuccess,
-      T Function(int, dynamic) parseError) async {
+  T parseResponse<T, R>(
+    R response,
+    T Function(dynamic) parseSuccess,
+    T Function(int, dynamic) parseError,
+  ) {
     if (isSuccessfull(response)) {
       return parseResponseSuccess(response, parseSuccess);
     } else {

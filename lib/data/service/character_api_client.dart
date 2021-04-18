@@ -24,7 +24,7 @@ class CharacterApiClient extends BaseApiClientHttp {
     return md5.convert(utf8.encode(input)).toString();
   }
 
-  Future<List<ApiCharacter>> getCharacters(int limit, int offset) async {
+  Future<List<ApiCharacter>> getCharacters(int limit, int offset) {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
     final hash = _generateMd5("$timestamp$_privateKey$_publicKey");
     final apikey = _publicKey;
@@ -38,7 +38,7 @@ class CharacterApiClient extends BaseApiClientHttp {
       'offset': "$offset"
     });
 
-    return await requestGet(
+    return requestGet(
       charactersRequest,
       (success) {
         return ApiResult<ApiCharacter>.fromJson(
@@ -53,8 +53,7 @@ class CharacterApiClient extends BaseApiClientHttp {
     );
   }
 
-  Future<ApiResult<ApiCharacter>> getCharactersResult(
-      int limit, int offset) async {
+  Future<ApiResult<ApiCharacter>> getCharactersResult(int limit, int offset) {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
     final hash = _generateMd5("$timestamp$_privateKey$_publicKey");
     final apikey = _publicKey;
@@ -68,7 +67,7 @@ class CharacterApiClient extends BaseApiClientHttp {
       'offset': "$offset"
     });
 
-    return await requestGet(
+    return requestGet(
       charactersRequest,
       (success) {
         return ApiResult<ApiCharacter>.fromJson(
