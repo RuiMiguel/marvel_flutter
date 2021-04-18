@@ -29,6 +29,7 @@ dependencies:
   intl: ^0.17.0
   
   http: ^0.13.1
+  dio: ^4.0.0
   json_annotation: ^4.0.1
   crypto: ^3.0.0
   cupertino_icons: ^1.0.0

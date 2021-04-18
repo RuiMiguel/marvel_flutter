@@ -1,21 +1,21 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
-import 'package:http/http.dart' as http;
 import 'package:marvel/data/datastore_manager.dart';
 import 'package:marvel/data/model/api_character.dart';
 import 'package:marvel/data/model/api_result.dart';
+import 'package:marvel/data/service/base_api_client_http.dart';
 
-class CharacterApiClient {
+class CharacterApiClient extends BaseApiClientHttp {
+  final String _baseUrl;
   final DatastoreManager datastore;
   late String _privateKey;
   late String _publicKey;
 
-  static const _baseUrl = 'gateway.marvel.com:443';
   static const CHARACTERS_ENDPOINT = '/v1/public/characters';
-  final http.Client _httpClient = http.Client();
 
-  CharacterApiClient(this.datastore) {
+  CharacterApiClient(this._baseUrl, this.datastore, bool logEnabled)
+      : super(logEnabled) {
     _privateKey = datastore.getPrivateKey();
     _publicKey = datastore.getPublicKey();
   }
@@ -37,20 +37,20 @@ class CharacterApiClient {
       'limit': "$limit",
       'offset': "$offset"
     });
-    final charactersResponse = await _httpClient.get(charactersRequest);
 
-    if (charactersResponse.statusCode != 200) {
-      print("ERROR http");
-    } else {
-      print("RESPONSE: ${charactersResponse.body}");
-    }
-
-    var json = jsonDecode(charactersResponse.body);
-    return ApiResult<ApiCharacter>.fromJson(
-          json,
-          (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
-        ).data?.results ??
-        List.empty();
+    return await requestGet(
+      charactersRequest,
+      (success) {
+        return ApiResult<ApiCharacter>.fromJson(
+              success,
+              (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
+            ).data?.results ??
+            List.empty();
+      },
+      (code, error) {
+        return List.empty();
+      },
+    );
   }
 
   Future<ApiResult<ApiCharacter>> getCharactersResult(
@@ -67,18 +67,18 @@ class CharacterApiClient {
       'limit': "$limit",
       'offset': "$offset"
     });
-    final charactersResponse = await _httpClient.get(charactersRequest);
 
-    if (charactersResponse.statusCode != 200) {
-      print("ERROR http");
-    } else {
-      print("RESPONSE: ${charactersResponse.body}");
-    }
-
-    var json = jsonDecode(charactersResponse.body);
-    return ApiResult<ApiCharacter>.fromJson(
-      json,
-      (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
+    return await requestGet(
+      charactersRequest,
+      (success) {
+        return ApiResult<ApiCharacter>.fromJson(
+          success,
+          (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
+        );
+      },
+      (code, error) {
+        return ApiResult();
+      },
     );
   }
 }

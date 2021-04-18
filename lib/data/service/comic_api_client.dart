@@ -1,23 +1,21 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
-import 'package:http/http.dart' as http;
+import 'package:marvel/data/datastore_manager.dart';
 import 'package:marvel/data/model/api_comic.dart';
 import 'package:marvel/data/model/api_result.dart';
+import 'package:marvel/data/service/base_api_client_dio.dart';
 
-import '../datastore_manager.dart';
-
-class ComicsApiClient {
+class ComicsApiClient extends BaseApiClientDio {
+  final String _baseUrl;
   final DatastoreManager datastore;
   late String _privateKey;
   late String _publicKey;
 
-  static const _baseUrl = 'gateway.marvel.com:443';
   static const COMICS_ENDPOINT = '/v1/public/comics';
 
-  final http.Client _httpClient = http.Client();
-
-  ComicsApiClient(this.datastore) {
+  ComicsApiClient(this._baseUrl, this.datastore, bool logEnabled)
+      : super(logEnabled) {
     _privateKey = datastore.getPrivateKey();
     _publicKey = datastore.getPublicKey();
   }
@@ -38,20 +36,20 @@ class ComicsApiClient {
       'limit': "$limit",
       'offset': "$offset"
     });
-    final comicsResponse = await _httpClient.get(comicsRequest);
 
-    if (comicsResponse.statusCode != 200) {
-      print("ERROR http");
-    } else {
-      print("RESPONSE: ${comicsResponse.body}");
-    }
-
-    var json = jsonDecode(comicsResponse.body);
-    return ApiResult<ApiComic>.fromJson(
-          json,
-          (data) => ApiComic.fromJson(data as Map<String, dynamic>),
-        ).data?.results ??
-        List.empty();
+    return await requestGet(
+      comicsRequest,
+      (success) {
+        return ApiResult<ApiComic>.fromJson(
+              success,
+              (data) => ApiComic.fromJson(data as Map<String, dynamic>),
+            ).data?.results ??
+            List.empty();
+      },
+      (code, error) {
+        return List.empty();
+      },
+    );
   }
 
   Future<ApiResult<ApiComic>> getComicsResult(int limit, int offset) async {
@@ -66,18 +64,18 @@ class ComicsApiClient {
       'limit': "$limit",
       'offset': "$offset"
     });
-    final comicsResponse = await _httpClient.get(comicsRequest);
 
-    if (comicsResponse.statusCode != 200) {
-      print("ERROR http");
-    } else {
-      print("RESPONSE: ${comicsResponse.body}");
-    }
-
-    var json = jsonDecode(comicsResponse.body);
-    return ApiResult<ApiComic>.fromJson(
-      json,
-      (data) => ApiComic.fromJson(data as Map<String, dynamic>),
+    return await requestGet(
+      comicsRequest,
+      (success) {
+        return ApiResult<ApiComic>.fromJson(
+          success,
+          (data) => ApiComic.fromJson(data as Map<String, dynamic>),
+        );
+      },
+      (code, error) {
+        return ApiResult();
+      },
     );
   }
 }

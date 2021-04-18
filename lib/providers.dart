@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:marvel/core/controllers/characters_controller.dart';
 import 'package:marvel/core/controllers/comics_controller.dart';
 import 'package:marvel/core/controllers/login_controller.dart';
-import 'package:marvel/data/datastore_manager.dart';
 import 'package:marvel/core/controllers/under_construction_controller.dart';
+import 'package:marvel/data/datastore_manager.dart';
 import 'package:marvel/data/repository/characters_repository.dart';
 import 'package:marvel/data/repository/comics_repository.dart';
 import 'package:marvel/data/service/character_api_client.dart';
@@ -27,6 +27,9 @@ MultiProvider _buildDataProvider({
   required SharedPreferences preferences,
   required Widget widget,
 }) {
+  final _baseUrl = "gateway.marvel.com:443";
+  final _logEnabled = true;
+
   return MultiProvider(
     providers: [
       Provider(
@@ -40,15 +43,22 @@ MultiProvider _buildDataProvider({
         create: (context) => LoginController(context.read<DatastoreManager>()),
       ),
       Provider(
-        create: (context) =>
-            CharacterApiClient(context.read<DatastoreManager>()),
+        create: (context) => CharacterApiClient(
+          _baseUrl,
+          context.read<DatastoreManager>(),
+          _logEnabled,
+        ),
       ),
       Provider(
         create: (context) =>
             CharactersRepository(context.read<CharacterApiClient>()),
       ),
       Provider(
-        create: (context) => ComicsApiClient(context.read<DatastoreManager>()),
+        create: (context) => ComicsApiClient(
+          _baseUrl,
+          context.read<DatastoreManager>(),
+          _logEnabled,
+        ),
       ),
       Provider(
         create: (context) => ComicsRepository(context.read<ComicsApiClient>()),
