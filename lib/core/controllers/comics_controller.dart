@@ -15,10 +15,10 @@ class ComicsController extends ChangeNotifier {
   String legal = "";
 
   ComicsController(this._comicsRepository) {
-    _loadComicsResult();
+    loadComicsResult();
   }
 
-  Future<void> _loadComicsResult() async {
+  Future<void> loadComicsResult() async {
     comics = Result.loading();
     notifyListeners();
 
@@ -41,6 +41,9 @@ class ComicsController extends ChangeNotifier {
   }
 
   Future<void> getMore() async {
+    comics = Result.loading();
+    notifyListeners();
+
     _offset = _offset + _limit;
     var moreResults = await _comicsRepository.getComicsResult(_limit, _offset);
     moreResults.fold(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marvel/core/base/result.dart';
 import 'package:marvel/core/model/character.dart';
 import 'package:marvel/data/repository/characters_repository.dart';
 
@@ -9,7 +10,8 @@ class CharactersController extends ChangeNotifier {
   int _offset = 0;
   int total = 0;
   int count = 0;
-  List<Character> characters = List.empty();
+  List<Character> _characters = List.empty();
+  late Result characters;
   String legal = "";
 
   CharactersController(this._charactersRepository) {
@@ -17,21 +19,48 @@ class CharactersController extends ChangeNotifier {
   }
 
   Future<void> _loadCharactersResult() async {
+    characters = Result.loading();
+    notifyListeners();
+
     var results =
         await _charactersRepository.getCharactersResult(_limit, _offset);
-    total = results.data.total;
-    count = results.data.count;
-    characters = results.data.results;
-    legal = results.attributionText;
-    notifyListeners();
+    results.fold(
+      (failure) {
+        characters = Result.error(failure);
+        notifyListeners();
+      },
+      (success) {
+        _characters = success.data.results;
+
+        total = success.data.total;
+        count = success.data.count;
+        characters = Result.success(_characters);
+        legal = success.attributionText;
+        notifyListeners();
+      },
+    );
   }
 
   Future<void> getMore() async {
+    characters = Result.loading();
+    notifyListeners();
+
     _offset = _offset + _limit;
     var moreResults =
         await _charactersRepository.getCharactersResult(_limit, _offset);
-    count = moreResults.data.offset;
-    characters.addAll(moreResults.data.results);
-    notifyListeners();
+
+    moreResults.fold(
+      (failure) {
+        characters = Result.error(failure);
+        notifyListeners();
+      },
+      (success) {
+        _characters.addAll(success.data.results);
+
+        count = success.data.offset;
+        characters = Result.success(_characters);
+        notifyListeners();
+      },
+    );
   }
 }

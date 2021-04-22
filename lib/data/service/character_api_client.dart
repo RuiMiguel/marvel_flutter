@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
+import 'package:dartz/dartz.dart';
+import 'package:marvel/data/base/error/data_failure.dart';
 import 'package:marvel/data/datastore_manager.dart';
 import 'package:marvel/data/model/api_character.dart';
 import 'package:marvel/data/model/api_error.dart';
@@ -25,7 +27,8 @@ class CharacterApiClient extends BaseApiClientHttp {
     return md5.convert(utf8.encode(input)).toString();
   }
 
-  Future<List<ApiCharacter>> getCharacters(int limit, int offset) {
+  Future<Either<NetworkFailure, List<ApiCharacter>>> getCharacters(
+      int limit, int offset) {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
     final hash = _generateMd5("$timestamp$_privateKey$_publicKey");
     final apikey = _publicKey;
@@ -39,21 +42,33 @@ class CharacterApiClient extends BaseApiClientHttp {
       'offset': "$offset"
     });
 
-    return requestGet(charactersRequest, (success) {
-      return ApiResult<ApiCharacter>.fromJson(
-            success,
-            (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
-          ).data?.results ??
-          List.empty();
-    }, (code, error) {
-      ApiError.fromJson(error);
-      return List.empty();
-    }, (exception) {
-      return List.empty();
-    });
+    return requestGet(
+      charactersRequest,
+      (success) {
+        var response = ApiResult<ApiCharacter>.fromJson(
+              success,
+              (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
+            ).data?.results ??
+            List.empty();
+        return Right(response);
+      },
+      (code, error) {
+        var response = ApiError.fromJson(error);
+        return Left(
+          ServerFailure(
+            code: response.code ?? code.toString(),
+            message: response.message ?? "",
+          ),
+        );
+      },
+      (exception) {
+        return Left(exception);
+      },
+    );
   }
 
-  Future<ApiResult<ApiCharacter>> getCharactersResult(int limit, int offset) {
+  Future<Either<NetworkFailure, ApiResult<ApiCharacter>>> getCharactersResult(
+      int limit, int offset) {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
     final hash = _generateMd5("$timestamp$_privateKey$_publicKey");
     final apikey = _publicKey;
@@ -67,16 +82,27 @@ class CharacterApiClient extends BaseApiClientHttp {
       'offset': "$offset"
     });
 
-    return requestGet(charactersRequest, (success) {
-      return ApiResult<ApiCharacter>.fromJson(
-        success,
-        (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
-      );
-    }, (code, error) {
-      ApiError.fromJson(error);
-      return ApiResult();
-    }, (exception) {
-      return ApiResult();
-    });
+    return requestGet(
+      charactersRequest,
+      (success) {
+        var response = ApiResult<ApiCharacter>.fromJson(
+          success,
+          (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
+        );
+        return Right(response);
+      },
+      (code, error) {
+        var response = ApiError.fromJson(error);
+        return Left(
+          ServerFailure(
+            code: response.code ?? code.toString(),
+            message: response.message ?? "",
+          ),
+        );
+      },
+      (exception) {
+        return Left(exception);
+      },
+    );
   }
 }
