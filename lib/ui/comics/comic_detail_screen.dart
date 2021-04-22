@@ -171,29 +171,32 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
             ),
             const SizedBox(height: 10),
             SizedBox(
-              height: 150,
+              height: 200,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemCount: widget.comic.images.length,
-                itemBuilder: (context, index) => Image.network(
-                  '${widget.comic.images[index].path}/standard_amazing.${widget.comic.images[index].extension}',
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return GestureDetector(
-                      onTap: () {
-                        print("Let's zoom image!");
-                      },
-                      child: Image.asset(
-                        'assets/images/placeholder.png',
-                        fit: BoxFit.contain,
-                      ),
-                    );
-                  },
+                itemBuilder: (context, index) => AspectRatio(
+                  aspectRatio: 3 / 4,
+                  child: Image.network(
+                    '${widget.comic.images[index].path}/standard_amazing.${widget.comic.images[index].extension}',
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return GestureDetector(
+                        onTap: () {
+                          print("Let's zoom image!");
+                        },
+                        child: Image.asset(
+                          'assets/images/placeholder.png',
+                          fit: BoxFit.contain,
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 separatorBuilder: (context, index) {
                   return Container(
                     color: Colors.black,
-                    width: 2,
+                    width: 5,
                   );
                 },
               ),
