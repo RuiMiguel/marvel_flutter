@@ -6,10 +6,10 @@ import 'package:marvel/data/base/service/base_api_client.dart';
 abstract class BaseApiClientDio extends BaseApiClient {
   late final Dio _dio;
 
-  BaseApiClientDio(bool _logEnabled) {
+  BaseApiClientDio(bool _logEnabled, int _connectTimeout, int _receiveTimeout) {
     var options = BaseOptions(
-      connectTimeout: 30000,
-      receiveTimeout: 30000,
+      connectTimeout: _connectTimeout,
+      receiveTimeout: _receiveTimeout,
     );
     _dio = Dio(options);
     _dio.interceptors.add(LogginInterceptor(_logEnabled));

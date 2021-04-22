@@ -17,8 +17,9 @@ class ComicsApiClient extends BaseApiClientDio {
 
   static const COMICS_ENDPOINT = '/v1/public/comics';
 
-  ComicsApiClient(this._baseUrl, this.datastore, bool logEnabled)
-      : super(logEnabled) {
+  ComicsApiClient(this._baseUrl, this.datastore, bool logEnabled,
+      int _connectTimeout, int _receiveTimeout)
+      : super(logEnabled, _connectTimeout, _receiveTimeout) {
     _privateKey = datastore.getPrivateKey();
     _publicKey = datastore.getPublicKey();
   }

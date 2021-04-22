@@ -29,6 +29,8 @@ MultiProvider _buildDataProvider({
 }) {
   final _baseUrl = "gateway.marvel.com:443";
   final _logEnabled = true;
+  final _connectTimeout = 30000;
+  final _receiveTimeout = 30000;
 
   return MultiProvider(
     providers: [
@@ -58,6 +60,8 @@ MultiProvider _buildDataProvider({
           _baseUrl,
           context.read<DatastoreManager>(),
           _logEnabled,
+          _connectTimeout,
+          _receiveTimeout,
         ),
       ),
       Provider(
