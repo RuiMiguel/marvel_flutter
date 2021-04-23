@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:marvel/core/base/result.dart';
 import 'package:marvel/core/controllers/characters_controller.dart';
+import 'package:marvel/core/model/character.dart';
 import 'package:marvel/ui/characters/home_grid.dart';
 import 'package:marvel/ui/characters/home_list.dart';
+import 'package:marvel/ui/commons/error_view.dart';
 import 'package:marvel/ui/commons/legal_info.dart';
+import 'package:marvel/ui/commons/loading_view.dart';
 import 'package:provider/provider.dart';
 
 class CharactersScreen extends StatelessWidget {
@@ -25,14 +29,22 @@ class CharactersScreen extends StatelessWidget {
           Expanded(
             child: OrientationBuilder(
               builder: (context, orientation) {
-                if (orientation == Orientation.portrait) {
-                  return HomeListView(
-                    characters: controller.characters,
-                  );
+                if (controller.characters is Loading) {
+                  return LoadingView();
+                } else if (controller.characters is Error) {
+                  return ErrorView();
+                } else if (controller.characters is Success<List<Character>>) {
+                  if (orientation == Orientation.landscape) {
+                    return HomeGridView(
+                      characters: (controller.characters as Success).data,
+                    );
+                  } else {
+                    return HomeListView(
+                      characters: (controller.characters as Success).data,
+                    );
+                  }
                 } else {
-                  return HomeGridView(
-                    characters: controller.characters,
-                  );
+                  return ErrorView();
                 }
               },
             ),
