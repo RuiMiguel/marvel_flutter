@@ -4,6 +4,7 @@ import 'package:marvel/core/controllers/comics_controller.dart';
 import 'package:marvel/core/model/comic.dart';
 import 'package:marvel/ui/comics/home_grid.dart';
 import 'package:marvel/ui/comics/home_list.dart';
+import 'package:marvel/ui/commons/error_view.dart';
 import 'package:marvel/ui/commons/legal_info.dart';
 import 'package:marvel/ui/commons/loading_view.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +32,7 @@ class ComicsScreen extends StatelessWidget {
                 if (controller.comics is Loading) {
                   return LoadingView();
                 } else if (controller.comics is Error) {
-                  return LoadingView();
+                  return ErrorView();
                 } else if (controller.comics is Success<List<Comic>>) {
                   if (orientation == Orientation.landscape) {
                     return HomeListView(
@@ -43,7 +44,7 @@ class ComicsScreen extends StatelessWidget {
                     );
                   }
                 } else {
-                  return LoadingView();
+                  return ErrorView();
                 }
               },
             ),

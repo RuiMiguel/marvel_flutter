@@ -15,10 +15,10 @@ class CharactersController extends ChangeNotifier {
   String legal = "";
 
   CharactersController(this._charactersRepository) {
-    _loadCharactersResult();
+    loadCharactersResult();
   }
 
-  Future<void> _loadCharactersResult() async {
+  Future<void> loadCharactersResult() async {
     characters = Result.loading();
     notifyListeners();
 

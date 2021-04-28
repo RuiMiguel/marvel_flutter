@@ -2,19 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:marvel/core/model/character.dart';
 import 'package:marvel/ui/characters/home_list_element.dart';
 
-class HomeListView extends StatelessWidget {
+class HomeListView extends StatefulWidget {
   const HomeListView({Key? key, required this.characters}) : super(key: key);
 
-  final List<Character> characters;
+  final List<Character>? characters;
+
+  @override
+  _HomeListViewState createState() => _HomeListViewState();
+}
+
+class _HomeListViewState extends State<HomeListView> {
+  List<Character> _characters = List.empty();
+
+  _setData(List<Character>? list) {
+    setState(() {
+      if (list != null) {
+        _characters = list;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    _setData(widget.characters);
+
     return ListView.separated(
-      itemCount: characters.length,
+      itemCount: _characters.length,
       itemBuilder: (context, index) {
         return HomeListElement(
           index: index,
-          character: characters[index],
+          character: _characters[index],
         );
       },
       separatorBuilder: (context, index) {

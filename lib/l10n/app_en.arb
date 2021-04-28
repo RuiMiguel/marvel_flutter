@@ -20,6 +20,9 @@
     "prices": "Prices",
     "images": "Images",
 
+    "generic_error": "There was an error (•̀_•́)",
+    "retry": "Retry",
+    
     "under_construction": "We are under construction.",
     "deadpool_message1": "House blowing up builds character.",
     "deadpool_message2": "Bad Deadpool... Good Deadpool!",
