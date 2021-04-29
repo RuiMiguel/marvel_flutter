@@ -32,7 +32,7 @@ class ComicsController extends ChangeNotifier {
         _comics = success.data.results;
 
         total = success.data.total;
-        count = success.data.count;
+        count = success.data.offset + success.data.count;
         comics = Result.success(_comics);
         legal = success.attributionText;
         notifyListeners();
@@ -54,7 +54,7 @@ class ComicsController extends ChangeNotifier {
       (success) {
         _comics.addAll(success.data.results);
 
-        count = success.data.offset;
+        count = success.data.offset + success.data.count;
         comics = Result.success(_comics);
         notifyListeners();
       },

@@ -33,7 +33,7 @@ class CharactersController extends ChangeNotifier {
         _characters = success.data.results;
 
         total = success.data.total;
-        count = success.data.count;
+        count = success.data.offset + success.data.count;
         characters = Result.success(_characters);
         legal = success.attributionText;
         notifyListeners();
@@ -57,7 +57,7 @@ class CharactersController extends ChangeNotifier {
       (success) {
         _characters.addAll(success.data.results);
 
-        count = success.data.offset;
+        count = success.data.offset + success.data.count;
         characters = Result.success(_characters);
         notifyListeners();
       },
