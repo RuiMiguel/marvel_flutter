@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:marvel/core/controllers/login_controller.dart';
-import 'package:marvel/ui/commons/loading_view.dart';
 import 'package:marvel/ui/home/home_screen.dart';
 import 'package:marvel/ui/login/login_screen.dart';
 import 'package:provider/provider.dart';
@@ -15,10 +14,8 @@ class AuthScreen extends StatelessWidget {
     switch (controller.currentAuthStatus) {
       case AuthStatus.AUTHENTICATED:
         return HomeScreen();
-      case AuthStatus.UNAUTHENTICATED:
-        return LoginScreen();
       default:
-        return LoadingView();
+        return LoginScreen();
     }
   }
 }
