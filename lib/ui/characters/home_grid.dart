@@ -24,6 +24,8 @@ class _HomeGridViewState extends State<HomeGridView> {
 
   @override
   Widget build(BuildContext context) {
+    _setData(widget.characters);
+
     return GridView.builder(
       itemCount: _characters.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
