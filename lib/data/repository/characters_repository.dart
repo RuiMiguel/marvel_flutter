@@ -1,5 +1,5 @@
+import 'package:core_base/core_base.dart';
 import 'package:dartz/dartz.dart';
-import 'package:marvel/core/base/error/failure.dart';
 import 'package:marvel/core/model/character.dart';
 import 'package:marvel/core/model/data_result.dart';
 import 'package:marvel/data/mapper/data2domain_mapper.dart';

@@ -1,6 +1,6 @@
+import 'package:core_base/core_base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:marvel/core/base/error/failure.dart';
 import 'package:marvel/styles/colors.dart';
 
 class ErrorView extends StatelessWidget {

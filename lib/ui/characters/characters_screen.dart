@@ -1,5 +1,5 @@
+import 'package:core_base/core_base.dart';
 import 'package:flutter/material.dart';
-import 'package:marvel/core/base/result.dart';
 import 'package:marvel/core/controllers/characters_controller.dart';
 import 'package:marvel/core/model/character.dart';
 import 'package:marvel/ui/characters/home_grid.dart';

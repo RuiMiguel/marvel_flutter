@@ -1,5 +1,5 @@
 name: marvel
-description: A new Flutter project.
+description: My first Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -40,6 +40,9 @@ dependencies:
   flutter_linkify: ^5.0.0
   webview_flutter: ^2.0.3
   cached_network_image: ^3.0.0
+
+  core_base:
+    path: packages/core_base
 
 dev_dependencies:
   flutter_test:

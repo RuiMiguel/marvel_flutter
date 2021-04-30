@@ -162,6 +162,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
+  core_base:
+    dependency: "direct main"
+    description:
+      path: "packages/core_base"
+      relative: true
+    source: path
+    version: "0.0.1"
   crypto:
     dependency: "direct main"
     description:

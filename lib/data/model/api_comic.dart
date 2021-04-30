@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:json_annotation/json_annotation.dart';
 import 'api_result.dart';
 part 'api_comic.g.dart';

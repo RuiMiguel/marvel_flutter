@@ -1,4 +1,4 @@
-import 'package:marvel/core/base/error/failure.dart';
+import 'error/failure.dart';
 
 class Result {
   const Result();

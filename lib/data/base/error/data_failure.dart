@@ -1,4 +1,4 @@
-import 'package:marvel/core/base/error/failure.dart';
+import 'package:core_base/core_base.dart';
 
 abstract class NetworkFailure extends Failure {}
 
