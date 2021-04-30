@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:core_data_network/src/service/base_api_client.dart';
 import 'package:dio/dio.dart';
-import 'package:marvel/data/base/service/base_api_client.dart';
 
 abstract class BaseApiClientDio extends BaseApiClient {
   late final Dio _dio;

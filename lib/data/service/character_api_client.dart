@@ -1,13 +1,12 @@
 import 'dart:convert';
 
+import 'package:core_data_network/core_data_network.dart';
 import 'package:crypto/crypto.dart';
 import 'package:dartz/dartz.dart';
-import 'package:marvel/data/base/error/data_failure.dart';
 import 'package:marvel/data/datastore_manager.dart';
 import 'package:marvel/data/model/api_character.dart';
 import 'package:marvel/data/model/api_error.dart';
 import 'package:marvel/data/model/api_result.dart';
-import 'package:marvel/data/service/base_api_client_http.dart';
 
 class CharacterApiClient extends BaseApiClientHttp {
   final String _baseUrl;

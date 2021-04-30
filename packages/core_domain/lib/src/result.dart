@@ -1,4 +1,4 @@
-import 'error/failure.dart';
+import 'package:core_domain/core_domain.dart';
 
 class Result {
   const Result();

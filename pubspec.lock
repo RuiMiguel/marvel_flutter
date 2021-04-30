@@ -162,10 +162,17 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
-  core_base:
+  core_data_network:
     dependency: "direct main"
     description:
-      path: "packages/core_base"
+      path: "packages/core_data_network"
+      relative: true
+    source: path
+    version: "0.0.1"
+  core_domain:
+    dependency: "direct main"
+    description:
+      path: "packages/core_domain"
       relative: true
     source: path
     version: "0.0.1"
@@ -198,7 +205,7 @@ packages:
     source: hosted
     version: "0.10.0-nullsafety.1"
   dio:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: dio
       url: "https://pub.dartlang.org"
@@ -295,7 +302,7 @@ packages:
     source: hosted
     version: "1.0.0"
   http:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: http
       url: "https://pub.dartlang.org"

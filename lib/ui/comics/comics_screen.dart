@@ -1,4 +1,4 @@
-import 'package:core_base/core_base.dart';
+import 'package:core_domain/core_domain.dart';
 import 'package:flutter/material.dart';
 import 'package:marvel/core/controllers/comics_controller.dart';
 import 'package:marvel/core/model/comic.dart';

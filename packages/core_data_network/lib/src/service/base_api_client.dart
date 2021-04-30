@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:marvel/data/base/error/data_failure.dart';
+import 'package:core_data_network/src/error/data_failure.dart';
 
 abstract class BaseApiClient {
   Future<T> makeCall<T>(

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:core_data_network/core_data_network.dart';
 import 'package:http/http.dart';
-import 'package:marvel/data/base/service/base_api_client.dart';
 
 abstract class BaseApiClientHttp extends BaseApiClient {
   final bool _logEnabled;

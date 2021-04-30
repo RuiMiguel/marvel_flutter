@@ -1,4 +1,4 @@
-import 'package:core_base/core_base.dart';
+import 'package:core_domain/core_domain.dart';
 
 abstract class NetworkFailure extends Failure {}
 

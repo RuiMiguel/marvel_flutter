@@ -1,0 +1,16 @@
+name: core_data_network
+description: Core Data Network package project.
+version: 0.0.1
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.12.0-0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  http: ^0.13.1
+  dio: ^4.0.0
+  core_domain:
+    path: ../core_domain

@@ -23,14 +23,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-    
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
   
   dartz: ^0.10.0-nullsafety.1
-  http: ^0.13.1
-  dio: ^4.0.0
   json_annotation: ^4.0.1
   crypto: ^3.0.0
   cupertino_icons: ^1.0.0
@@ -41,8 +38,10 @@ dependencies:
   webview_flutter: ^2.0.3
   cached_network_image: ^3.0.0
 
-  core_base:
-    path: packages/core_base
+  core_domain:
+    path: packages/core_domain
+  core_data_network:
+    path: packages/core_data_network
 
 dev_dependencies:
   flutter_test:

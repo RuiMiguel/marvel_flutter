@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:core_base/src/result.dart';
+import 'package:core_domain/core_domain.dart';
 import 'package:marvel/core/model/comic.dart';
 import 'package:marvel/data/repository/comics_repository.dart';
 

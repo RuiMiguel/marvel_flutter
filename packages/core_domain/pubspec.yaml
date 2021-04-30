@@ -1,0 +1,7 @@
+name: core_domain
+description: Core Domain package project.
+version: 0.0.1
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.12.0-0 <3.0.0"

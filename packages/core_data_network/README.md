@@ -1,4 +1,4 @@
-# core_base
+# core_data_network
 
 A new Flutter package project.
 
