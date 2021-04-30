@@ -3,37 +3,40 @@ import 'dart:convert';
 import 'package:core_data_network/core_data_network.dart';
 import 'package:crypto/crypto.dart';
 import 'package:dartz/dartz.dart';
-import 'package:marvel/data/datastore_manager.dart';
-import 'package:marvel/data/model/api_character.dart';
-import 'package:marvel/data/model/api_error.dart';
-import 'package:marvel/data/model/api_result.dart';
+import 'package:marvel_data/marvel_data.dart';
+import 'package:marvel_data/src/model/api_comic.dart';
+import 'package:marvel_data/src/model/api_error.dart';
+import 'package:marvel_data/src/model/api_result.dart';
 
-class CharacterApiClient extends BaseApiClientHttp {
+class ComicsApiClient extends BaseApiClientDio {
   final String _baseUrl;
   final DatastoreManager datastore;
   late String _privateKey;
   late String _publicKey;
 
-  static const CHARACTERS_ENDPOINT = '/v1/public/characters';
+  static const COMICS_ENDPOINT = '/v1/public/comics';
 
-  CharacterApiClient(this._baseUrl, this.datastore, bool logEnabled)
-      : super(logEnabled) {
+  ComicsApiClient(this._baseUrl, this.datastore, bool _logEnabled,
+      int _connectTimeout, int _receiveTimeout)
+      : super(
+            logEnabled: _logEnabled,
+            connectTimeout: _connectTimeout,
+            receiveTimeout: _receiveTimeout) {
     _privateKey = datastore.getPrivateKey();
     _publicKey = datastore.getPublicKey();
   }
 
-  String _generateMd5(String input) {
+  String generateMd5(String input) {
     return md5.convert(utf8.encode(input)).toString();
   }
 
-  Future<Either<NetworkFailure, List<ApiCharacter>>> getCharacters(
+  Future<Either<NetworkFailure, List<ApiComic>>> getComics(
       int limit, int offset) {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final hash = _generateMd5("$timestamp$_privateKey$_publicKey");
+    final hash = generateMd5("$timestamp$_privateKey$_publicKey");
     final apikey = _publicKey;
 
-    final charactersRequest =
-        Uri.https(_baseUrl, CHARACTERS_ENDPOINT, <String, String>{
+    final comicsRequest = Uri.https(_baseUrl, COMICS_ENDPOINT, <String, String>{
       'ts': "$timestamp",
       'hash': hash,
       'apikey': apikey,
@@ -42,11 +45,11 @@ class CharacterApiClient extends BaseApiClientHttp {
     });
 
     return requestGet(
-      charactersRequest,
+      comicsRequest,
       (success) {
-        var response = ApiResult<ApiCharacter>.fromJson(
+        var response = ApiResult<ApiComic>.fromJson(
               success,
-              (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
+              (data) => ApiComic.fromJson(data as Map<String, dynamic>),
             ).data?.results ??
             List.empty();
         return Right(response);
@@ -66,14 +69,13 @@ class CharacterApiClient extends BaseApiClientHttp {
     );
   }
 
-  Future<Either<NetworkFailure, ApiResult<ApiCharacter>>> getCharactersResult(
+  Future<Either<NetworkFailure, ApiResult<ApiComic>>> getComicsResult(
       int limit, int offset) {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final hash = _generateMd5("$timestamp$_privateKey$_publicKey");
+    final hash = generateMd5("$timestamp$_privateKey$_publicKey");
     final apikey = _publicKey;
 
-    final charactersRequest =
-        Uri.https(_baseUrl, CHARACTERS_ENDPOINT, <String, String>{
+    final comicsRequest = Uri.https(_baseUrl, COMICS_ENDPOINT, <String, String>{
       'ts': "$timestamp",
       'hash': hash,
       'apikey': apikey,
@@ -82,11 +84,11 @@ class CharacterApiClient extends BaseApiClientHttp {
     });
 
     return requestGet(
-      charactersRequest,
+      comicsRequest,
       (success) {
-        var response = ApiResult<ApiCharacter>.fromJson(
+        var response = ApiResult<ApiComic>.fromJson(
           success,
-          (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
+          (data) => ApiComic.fromJson(data as Map<String, dynamic>),
         );
         return Right(response);
       },

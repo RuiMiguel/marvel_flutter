@@ -1,7 +1,7 @@
 import 'package:core_domain/core_domain.dart';
 import 'package:dartz/dartz.dart';
-import 'package:marvel/data/mapper/data2domain_mapper.dart';
-import 'package:marvel/data/service/character_api_client.dart';
+import 'package:marvel_data/src/mapper/data2domain_mapper.dart';
+import 'package:marvel_data/src/service/character_api_client.dart';
 import 'package:marvel_domain/marvel_domain.dart';
 
 class CharactersDataRepository extends CharactersRepository {

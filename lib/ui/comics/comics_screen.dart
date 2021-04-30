@@ -1,6 +1,6 @@
 import 'package:core_domain/core_domain.dart';
 import 'package:flutter/material.dart';
-import 'package:marvel/core/controllers/comics_controller.dart';
+import 'package:marvel/controllers/comics_controller.dart';
 import 'package:marvel/ui/comics/home_grid.dart';
 import 'package:marvel/ui/comics/home_list.dart';
 import 'package:marvel/ui/commons/error_view.dart';

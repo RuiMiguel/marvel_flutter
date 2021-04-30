@@ -163,7 +163,7 @@ packages:
     source: hosted
     version: "3.0.0"
   core_data_network:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: "packages/core_data_network"
       relative: true
@@ -177,7 +177,7 @@ packages:
     source: path
     version: "0.0.1"
   crypto:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: crypto
       url: "https://pub.dartlang.org"
@@ -351,7 +351,7 @@ packages:
     source: hosted
     version: "0.6.3"
   json_annotation:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: json_annotation
       url: "https://pub.dartlang.org"
@@ -378,6 +378,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  marvel_data:
+    dependency: "direct main"
+    description:
+      path: "packages/marvel_data"
+      relative: true
+    source: path
+    version: "0.0.1"
   marvel_domain:
     dependency: "direct main"
     description:
@@ -540,7 +547,7 @@ packages:
     source: hosted
     version: "0.26.0"
   shared_preferences:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: shared_preferences
       url: "https://pub.dartlang.org"

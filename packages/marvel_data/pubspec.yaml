@@ -1,0 +1,23 @@
+name: marvel_data
+description: Data package for Marvel project.
+version: 0.0.1
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.12.0-0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  json_annotation: ^4.0.1
+  crypto: ^3.0.0
+  shared_preferences: ^2.0.4  
+  marvel_domain: 
+    path: ../marvel_domain
+  core_data_network:
+    path: ../core_data_network
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

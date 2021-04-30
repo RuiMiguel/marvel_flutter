@@ -1,6 +1,6 @@
-import 'package:marvel/data/model/api_character.dart';
-import 'package:marvel/data/model/api_comic.dart';
-import 'package:marvel/data/model/api_result.dart';
+import 'package:marvel_data/src/model/api_character.dart';
+import 'package:marvel_data/src/model/api_comic.dart';
+import 'package:marvel_data/src/model/api_result.dart';
 import 'package:marvel_domain/marvel_domain.dart';
 
 /* #region Result */

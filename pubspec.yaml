@@ -27,11 +27,8 @@ dependencies:
     sdk: flutter
   intl: ^0.17.0
   
-  json_annotation: ^4.0.1
-  crypto: ^3.0.0
   cupertino_icons: ^1.0.0
   provider: ^5.0.0
-  shared_preferences: ^2.0.4  
   flutter_launcher_icons: ^0.9.0
   flutter_linkify: ^5.0.0
   webview_flutter: ^2.0.3
@@ -39,8 +36,8 @@ dependencies:
 
   marvel_domain:
     path: packages/marvel_domain
-  core_data_network:
-    path: packages/core_data_network
+  marvel_data:
+    path: packages/marvel_data
 
 dev_dependencies:
   flutter_test:

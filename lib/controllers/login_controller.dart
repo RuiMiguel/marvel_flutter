@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/data/datastore_manager.dart';
+import 'package:marvel_data/marvel_data.dart';
 
 enum AuthStatus {
   UNINITIALIZED,

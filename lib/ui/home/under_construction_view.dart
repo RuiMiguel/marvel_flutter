@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/core/controllers/under_construction_controller.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:marvel/controllers/under_construction_controller.dart';
+import 'package:provider/provider.dart';
 
 class UnderConstructionView extends StatelessWidget {
   const UnderConstructionView({Key? key}) : super(key: key);
