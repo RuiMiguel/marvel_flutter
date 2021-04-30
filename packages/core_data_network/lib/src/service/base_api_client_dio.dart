@@ -6,13 +6,16 @@ import 'package:dio/dio.dart';
 abstract class BaseApiClientDio extends BaseApiClient {
   late final Dio _dio;
 
-  BaseApiClientDio(bool _logEnabled, int _connectTimeout, int _receiveTimeout) {
+  BaseApiClientDio(
+      {bool logEnabled = false,
+      int connectTimeout = 30000,
+      int receiveTimeout = 30000}) {
     var options = BaseOptions(
-      connectTimeout: _connectTimeout,
-      receiveTimeout: _receiveTimeout,
+      connectTimeout: connectTimeout,
+      receiveTimeout: receiveTimeout,
     );
     _dio = Dio(options);
-    _dio.interceptors.add(LogginInterceptor(_logEnabled));
+    _dio.interceptors.add(LogginInterceptor(logEnabled));
   }
 
   Future<T> requestGet<T>(

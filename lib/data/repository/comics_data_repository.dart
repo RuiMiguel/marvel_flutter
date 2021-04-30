@@ -2,14 +2,16 @@ import 'package:core_domain/core_domain.dart';
 import 'package:dartz/dartz.dart';
 import 'package:marvel/core/model/comic.dart';
 import 'package:marvel/core/model/data_result.dart';
+import 'package:marvel/core/repository/comics_repository.dart';
 import 'package:marvel/data/mapper/data2domain_mapper.dart';
 import 'package:marvel/data/service/comic_api_client.dart';
 
-class ComicsRepository {
+class ComicsDataRepository extends ComicsRepository {
   final ComicsApiClient _comicApiClient;
 
-  ComicsRepository(this._comicApiClient);
+  ComicsDataRepository(this._comicApiClient);
 
+  @override
   Future<Either<Failure, DataResult<Comic>>> getComicsResult(
     int limit,
     int offset,

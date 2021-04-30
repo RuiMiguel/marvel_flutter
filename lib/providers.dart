@@ -3,9 +3,11 @@ import 'package:marvel/core/controllers/characters_controller.dart';
 import 'package:marvel/core/controllers/comics_controller.dart';
 import 'package:marvel/core/controllers/login_controller.dart';
 import 'package:marvel/core/controllers/under_construction_controller.dart';
+import 'package:marvel/core/repository/characters_repository.dart';
+import 'package:marvel/core/repository/comics_repository.dart';
 import 'package:marvel/data/datastore_manager.dart';
-import 'package:marvel/data/repository/characters_repository.dart';
-import 'package:marvel/data/repository/comics_repository.dart';
+import 'package:marvel/data/repository/characters_data_repository.dart';
+import 'package:marvel/data/repository/comics_data_repository.dart';
 import 'package:marvel/data/service/character_api_client.dart';
 import 'package:marvel/data/service/comic_api_client.dart';
 import 'package:provider/provider.dart';
@@ -51,9 +53,9 @@ MultiProvider _buildDataProvider({
           _logEnabled,
         ),
       ),
-      Provider(
+      Provider<CharactersRepository>(
         create: (context) =>
-            CharactersRepository(context.read<CharacterApiClient>()),
+            CharactersDataRepository(context.read<CharacterApiClient>()),
       ),
       Provider(
         create: (context) => ComicsApiClient(
@@ -64,8 +66,9 @@ MultiProvider _buildDataProvider({
           _receiveTimeout,
         ),
       ),
-      Provider(
-        create: (context) => ComicsRepository(context.read<ComicsApiClient>()),
+      Provider<ComicsRepository>(
+        create: (context) =>
+            ComicsDataRepository(context.read<ComicsApiClient>()),
       ),
     ],
     child: widget,
