@@ -1,4 +1,4 @@
-import 'package:marvel/core/model/data_result.dart';
+import 'package:marvel_domain/marvel_domain.dart';
 
 class Comic {
   const Comic({

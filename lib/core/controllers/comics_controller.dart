@@ -1,7 +1,6 @@
 import 'package:core_domain/core_domain.dart';
 import 'package:flutter/material.dart';
-import 'package:marvel/core/model/comic.dart';
-import 'package:marvel/core/repository/comics_repository.dart';
+import 'package:marvel_domain/marvel_domain.dart';
 
 class ComicsController extends ChangeNotifier {
   final ComicsRepository _comicsRepository;

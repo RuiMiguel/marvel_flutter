@@ -1,9 +1,7 @@
-import 'package:marvel/core/model/character.dart';
-import 'package:marvel/core/model/comic.dart';
-import 'package:marvel/core/model/data_result.dart';
 import 'package:marvel/data/model/api_character.dart';
 import 'package:marvel/data/model/api_comic.dart';
 import 'package:marvel/data/model/api_result.dart';
+import 'package:marvel_domain/marvel_domain.dart';
 
 /* #region Result */
 extension DataResultMapper on ApiResult {

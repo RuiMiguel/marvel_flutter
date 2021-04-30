@@ -3,13 +3,12 @@ import 'package:marvel/core/controllers/characters_controller.dart';
 import 'package:marvel/core/controllers/comics_controller.dart';
 import 'package:marvel/core/controllers/login_controller.dart';
 import 'package:marvel/core/controllers/under_construction_controller.dart';
-import 'package:marvel/core/repository/characters_repository.dart';
-import 'package:marvel/core/repository/comics_repository.dart';
 import 'package:marvel/data/datastore_manager.dart';
 import 'package:marvel/data/repository/characters_data_repository.dart';
 import 'package:marvel/data/repository/comics_data_repository.dart';
 import 'package:marvel/data/service/character_api_client.dart';
 import 'package:marvel/data/service/comic_api_client.dart';
+import 'package:marvel_domain/marvel_domain.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

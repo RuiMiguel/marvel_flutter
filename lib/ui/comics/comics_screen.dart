@@ -1,12 +1,12 @@
 import 'package:core_domain/core_domain.dart';
 import 'package:flutter/material.dart';
 import 'package:marvel/core/controllers/comics_controller.dart';
-import 'package:marvel/core/model/comic.dart';
 import 'package:marvel/ui/comics/home_grid.dart';
 import 'package:marvel/ui/comics/home_list.dart';
 import 'package:marvel/ui/commons/error_view.dart';
 import 'package:marvel/ui/commons/legal_info.dart';
 import 'package:marvel/ui/commons/loading_view.dart';
+import 'package:marvel_domain/marvel_domain.dart';
 import 'package:provider/provider.dart';
 
 class ComicsScreen extends StatelessWidget {

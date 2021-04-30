@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:marvel/core/model/comic.dart' hide Image;
 import 'package:marvel/styles/colors.dart';
 import 'package:marvel/ui/comics/comic_detail_screen.dart';
+import 'package:marvel_domain/marvel_domain.dart' hide Image;
 
 class HomeListElement extends StatelessWidget {
   const HomeListElement({Key? key, required this.index, required this.comic})

@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:marvel/core/model/comic.dart' hide Image;
 import 'package:marvel/styles/colors.dart';
 import 'package:marvel/styles/themes.dart';
 import 'package:marvel/ui/commons/empty_content_view.dart';
 import 'package:marvel/ui/commons/webview_screen.dart';
 import 'package:marvel/ui/utils.dart';
+import 'package:marvel_domain/marvel_domain.dart' hide Image;
 
 class ComicDetailScreen extends StatefulWidget {
   const ComicDetailScreen({Key? key, required this.comic}) : super(key: key);

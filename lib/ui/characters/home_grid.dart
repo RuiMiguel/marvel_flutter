@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/core/model/character.dart';
 import 'package:marvel/ui/characters/home_grid_element.dart';
+import 'package:marvel_domain/marvel_domain.dart';
 
 class HomeGridView extends StatefulWidget {
   const HomeGridView({Key? key, required this.characters}) : super(key: key);

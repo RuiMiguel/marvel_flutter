@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/core/model/character.dart';
-import 'package:marvel/core/model/comic.dart';
 import 'package:marvel/ui/characters/character_detail_screen.dart';
 import 'package:marvel/ui/comics/comic_detail_screen.dart';
 import 'package:marvel/ui/commons/webview_screen.dart';
 import 'package:marvel/ui/login/login_screen.dart';
+import 'package:marvel_domain/marvel_domain.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {

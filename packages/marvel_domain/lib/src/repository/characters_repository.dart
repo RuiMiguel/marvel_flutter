@@ -1,7 +1,7 @@
 import 'package:core_domain/core_domain.dart';
 import 'package:dartz/dartz.dart';
-import 'package:marvel/core/model/character.dart';
-import 'package:marvel/core/model/data_result.dart';
+import 'package:marvel_domain/marvel_domain.dart';
+import 'package:marvel_domain/src/model/character.dart';
 
 abstract class CharactersRepository {
   Future<Either<Failure, DataResult<Character>>> getCharactersResult(

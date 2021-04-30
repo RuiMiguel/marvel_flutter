@@ -1,12 +1,12 @@
 import 'package:core_domain/core_domain.dart';
 import 'package:flutter/material.dart';
 import 'package:marvel/core/controllers/characters_controller.dart';
-import 'package:marvel/core/model/character.dart';
 import 'package:marvel/ui/characters/home_grid.dart';
 import 'package:marvel/ui/characters/home_list.dart';
 import 'package:marvel/ui/commons/error_view.dart';
 import 'package:marvel/ui/commons/legal_info.dart';
 import 'package:marvel/ui/commons/loading_view.dart';
+import 'package:marvel_domain/marvel_domain.dart';
 import 'package:provider/provider.dart';
 
 class CharactersScreen extends StatefulWidget {
