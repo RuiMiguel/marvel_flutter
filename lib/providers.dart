@@ -4,9 +4,11 @@ import 'package:marvel/controllers/comics_controller.dart';
 import 'package:marvel/controllers/login_controller.dart';
 import 'package:marvel/controllers/under_construction_controller.dart';
 import 'package:marvel_data/marvel_data.dart';
+import 'package:core_data_network/core_data_network.dart';
 import 'package:marvel_domain/marvel_domain.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dio/dio.dart';
 
 MultiProvider buildMultiProvider({
   required SharedPreferences preferences,
@@ -53,14 +55,28 @@ MultiProvider _buildDataProvider({
             CharactersDataRepository(context.read<CharacterApiClient>()),
       ),
       Provider(
-        create: (context) => ComicsApiClient(
-          _baseUrl,
-          context.read<DatastoreManager>(),
-          _logEnabled,
-          _connectTimeout,
-          _receiveTimeout,
-        ),
+        create: (context) => LogginInterceptor(_logEnabled),
       ),
+      Provider(
+        create: (context) {
+          var options = BaseOptions(
+            connectTimeout: _connectTimeout,
+            receiveTimeout: _receiveTimeout,
+          );
+          return Dio(options)
+            ..interceptors.add(context.read<LogginInterceptor>());
+        },
+      ),
+      Provider(create: (context) {
+        var _datastore = context.read<DatastoreManager>();
+
+        return ComicsApiClient(
+          _baseUrl,
+          privateKey: _datastore.getPrivateKey(),
+          publicKey: _datastore.getPublicKey(),
+          dio: context.read<Dio>(),
+        );
+      }),
       Provider<ComicsRepository>(
         create: (context) =>
             ComicsDataRepository(context.read<ComicsApiClient>()),

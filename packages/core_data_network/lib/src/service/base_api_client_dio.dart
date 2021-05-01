@@ -1,21 +1,21 @@
 import 'dart:convert';
 
+import 'package:core_data_network/src/interceptor/logging_interceptor.dart';
 import 'package:core_data_network/src/service/base_api_client.dart';
 import 'package:dio/dio.dart';
 
 abstract class BaseApiClientDio extends BaseApiClient {
   late final Dio _dio;
 
-  BaseApiClientDio(
-      {bool logEnabled = false,
-      int connectTimeout = 30000,
-      int receiveTimeout = 30000}) {
-    var options = BaseOptions(
-      connectTimeout: connectTimeout,
-      receiveTimeout: receiveTimeout,
-    );
-    _dio = Dio(options);
-    _dio.interceptors.add(LogginInterceptor(logEnabled));
+  BaseApiClientDio({Dio? dio}) {
+    _dio = dio ??
+        Dio(
+          BaseOptions(
+            connectTimeout: 15000,
+            receiveTimeout: 15000,
+          ),
+        )
+      ..interceptors.add(LogginInterceptor(true));
   }
 
   Future<T> requestGet<T>(
@@ -77,32 +77,5 @@ abstract class BaseApiClientDio extends BaseApiClient {
   ) {
     var errorCode = response.statusCode;
     return parseError(errorCode ?? -1, response.data);
-  }
-}
-
-class LogginInterceptor extends Interceptor {
-  final bool _logEnabled;
-
-  LogginInterceptor(this._logEnabled);
-
-  @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    if (_logEnabled)
-      print(
-          "[Dio] HTTP Request - ${options.method} ${options.baseUrl}${options.path}");
-    super.onRequest(options, handler);
-  }
-
-  @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    if (_logEnabled)
-      print("[Dio] HTTP Response - ${response.statusCode} ${response.data}");
-    super.onResponse(response, handler);
-  }
-
-  @override
-  void onError(DioError error, ErrorInterceptorHandler handler) {
-    if (_logEnabled) print("[Dio] HTTP Error - [${error.type}] ${error.error}");
-    super.onError(error, handler);
   }
 }
