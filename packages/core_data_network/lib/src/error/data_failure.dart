@@ -3,7 +3,7 @@ import 'package:core_domain/core_domain.dart';
 abstract class NetworkFailure extends Failure {}
 
 class ServerFailure extends NetworkFailure {
-  ServerFailure({required this.code, required this.message});
+  ServerFailure({this.code = "0", this.message = ""});
   final String code;
   final String message;
 }
