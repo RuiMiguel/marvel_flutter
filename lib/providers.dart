@@ -40,9 +40,6 @@ MultiProvider _buildDataProvider({
         create: (context) =>
             DatastoreManager(context.read<SharedPreferences>()),
       ),
-      ChangeNotifierProvider(
-        create: (context) => LoginController(context.read<DatastoreManager>()),
-      ),
       Provider(
         create: (context) => CharacterApiClient(
           _baseUrl,
@@ -55,28 +52,26 @@ MultiProvider _buildDataProvider({
             CharactersDataRepository(context.read<CharacterApiClient>()),
       ),
       Provider(
-        create: (context) => LogginInterceptor(_logEnabled),
-      ),
-      Provider(
         create: (context) {
           var options = BaseOptions(
             connectTimeout: _connectTimeout,
             receiveTimeout: _receiveTimeout,
           );
-          return Dio(options)
-            ..interceptors.add(context.read<LogginInterceptor>());
+          return Dio(options)..interceptors.add(LogginInterceptor(_logEnabled));
         },
       ),
-      Provider(create: (context) {
-        var _datastore = context.read<DatastoreManager>();
+      Provider(
+        create: (context) {
+          var _datastore = context.read<DatastoreManager>();
 
-        return ComicsApiClient(
-          _baseUrl,
-          privateKey: _datastore.getPrivateKey(),
-          publicKey: _datastore.getPublicKey(),
-          dio: context.read<Dio>(),
-        );
-      }),
+          return ComicsApiClient(
+            _baseUrl,
+            privateKey: _datastore.getPrivateKey(),
+            publicKey: _datastore.getPublicKey(),
+            dio: context.read<Dio>(),
+          );
+        },
+      ),
       Provider<ComicsRepository>(
         create: (context) =>
             ComicsDataRepository(context.read<ComicsApiClient>()),
@@ -95,6 +90,9 @@ MultiProvider _buildControllerProvider({
         create: (context) => UnderConstructionController(),
       ),
       ChangeNotifierProvider(
+        create: (context) => LoginController(context.read<DatastoreManager>()),
+      ),
+      ChangeNotifierProvider(
         create: (context) => ComicsController(
           context.read<ComicsRepository>(),
         ),
@@ -103,7 +101,7 @@ MultiProvider _buildControllerProvider({
         create: (context) => CharactersController(
           context.read<CharactersRepository>(),
         ),
-      )
+      ),
     ],
     child: widget,
   );

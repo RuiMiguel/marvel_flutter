@@ -2,15 +2,14 @@
 // in marvel_data/test/src/repository/comics_data_repository_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i5;
-import 'dart:convert' as _i9;
+import 'dart:async' as _i4;
+import 'dart:convert' as _i8;
 
-import 'package:core_data_network/src/error/data_failure.dart' as _i6;
-import 'package:dartz/dartz.dart' as _i3;
-import 'package:marvel_data/src/datastore_manager.dart' as _i2;
-import 'package:marvel_data/src/model/api_comic.dart' as _i7;
-import 'package:marvel_data/src/model/api_result.dart' as _i8;
-import 'package:marvel_data/src/service/comic_api_client.dart' as _i4;
+import 'package:core_data_network/src/error/data_failure.dart' as _i5;
+import 'package:dartz/dartz.dart' as _i2;
+import 'package:marvel_data/src/model/api_comic.dart' as _i6;
+import 'package:marvel_data/src/model/api_result.dart' as _i7;
+import 'package:marvel_data/src/service/comic_api_client.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: comment_references
@@ -20,44 +19,54 @@ import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: avoid_redundant_argument_values
 
-class _FakeDatastoreManager extends _i1.Fake implements _i2.DatastoreManager {}
-
-class _FakeEither<L, R> extends _i1.Fake implements _i3.Either<L, R> {}
+class _FakeEither<L, R> extends _i1.Fake implements _i2.Either<L, R> {}
 
 /// A class which mocks [ComicsApiClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockComicsApiClient extends _i1.Mock implements _i4.ComicsApiClient {
+class MockComicsApiClient extends _i1.Mock implements _i3.ComicsApiClient {
   MockComicsApiClient() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.DatastoreManager get datastore =>
-      (super.noSuchMethod(Invocation.getter(#datastore),
-          returnValue: _FakeDatastoreManager()) as _i2.DatastoreManager);
+  String get privateKey =>
+      (super.noSuchMethod(Invocation.getter(#privateKey), returnValue: '')
+          as String);
+  @override
+  set privateKey(String? _privateKey) =>
+      super.noSuchMethod(Invocation.setter(#privateKey, _privateKey),
+          returnValueForMissingStub: null);
+  @override
+  String get publicKey =>
+      (super.noSuchMethod(Invocation.getter(#publicKey), returnValue: '')
+          as String);
+  @override
+  set publicKey(String? _publicKey) =>
+      super.noSuchMethod(Invocation.setter(#publicKey, _publicKey),
+          returnValueForMissingStub: null);
   @override
   String generateMd5(String? input) =>
       (super.noSuchMethod(Invocation.method(#generateMd5, [input]),
           returnValue: '') as String);
   @override
-  _i5.Future<_i3.Either<_i6.NetworkFailure, List<_i7.ApiComic>>> getComics(
+  _i4.Future<_i2.Either<_i5.NetworkFailure, List<_i6.ApiComic>>> getComics(
           int? limit, int? offset) =>
       (super.noSuchMethod(Invocation.method(#getComics, [limit, offset]),
           returnValue:
-              Future<_i3.Either<_i6.NetworkFailure, List<_i7.ApiComic>>>.value(
-                  _FakeEither<_i6.NetworkFailure, List<_i7.ApiComic>>())) as _i5
-          .Future<_i3.Either<_i6.NetworkFailure, List<_i7.ApiComic>>>);
+              Future<_i2.Either<_i5.NetworkFailure, List<_i6.ApiComic>>>.value(
+                  _FakeEither<_i5.NetworkFailure, List<_i6.ApiComic>>())) as _i4
+          .Future<_i2.Either<_i5.NetworkFailure, List<_i6.ApiComic>>>);
   @override
-  _i5.Future<_i3.Either<_i6.NetworkFailure, _i8.ApiResult<_i7.ApiComic>>>
+  _i4.Future<_i2.Either<_i5.NetworkFailure, _i7.ApiResult<_i6.ApiComic>>>
       getComicsResult(int? limit, int? offset) => (super.noSuchMethod(
           Invocation.method(#getComicsResult, [limit, offset]),
           returnValue:
-              Future<_i3.Either<_i6.NetworkFailure, _i8.ApiResult<_i7.ApiComic>>>.value(
-                  _FakeEither<_i6.NetworkFailure, _i8.ApiResult<_i7.ApiComic>>())) as _i5
-          .Future<_i3.Either<_i6.NetworkFailure, _i8.ApiResult<_i7.ApiComic>>>);
+              Future<_i2.Either<_i5.NetworkFailure, _i7.ApiResult<_i6.ApiComic>>>.value(
+                  _FakeEither<_i5.NetworkFailure, _i7.ApiResult<_i6.ApiComic>>())) as _i4
+          .Future<_i2.Either<_i5.NetworkFailure, _i7.ApiResult<_i6.ApiComic>>>);
   @override
-  _i5.Future<T> requestGet<T>(
+  _i4.Future<T> requestGet<T>(
           Uri? url,
           T Function(dynamic)? parseSuccess,
           T Function(int, dynamic)? parseError,
@@ -68,22 +77,22 @@ class MockComicsApiClient extends _i1.Mock implements _i4.ComicsApiClient {
               #requestGet,
               [url, parseSuccess, parseError, manageException],
               {#headers: headers}),
-          returnValue: Future<T>.value(null)) as _i5.Future<T>);
+          returnValue: Future<T>.value(null)) as _i4.Future<T>);
   @override
-  _i5.Future<T> requestPost<T>(
+  _i4.Future<T> requestPost<T>(
           Uri? url,
           T Function(dynamic)? parseSuccess,
           T Function(int, dynamic)? parseError,
           T Function(dynamic)? manageException,
           {Map<String, String>? headers,
           Object? body,
-          _i9.Encoding? encoding}) =>
+          _i8.Encoding? encoding}) =>
       (super.noSuchMethod(
           Invocation.method(
               #requestPost,
               [url, parseSuccess, parseError, manageException],
               {#headers: headers, #body: body, #encoding: encoding}),
-          returnValue: Future<T>.value(null)) as _i5.Future<T>);
+          returnValue: Future<T>.value(null)) as _i4.Future<T>);
   @override
   bool isSuccessfull(dynamic response) =>
       (super.noSuchMethod(Invocation.method(#isSuccessfull, [response]),
@@ -101,7 +110,7 @@ class MockComicsApiClient extends _i1.Mock implements _i4.ComicsApiClient {
           Invocation.method(#parseResponseError, [response, parseError]),
           returnValue: null) as T);
   @override
-  _i5.Future<T> makeCall<T>(
+  _i4.Future<T> makeCall<T>(
           dynamic call,
           T Function(dynamic)? parseSuccess,
           T Function(int, dynamic)? parseError,
@@ -109,7 +118,7 @@ class MockComicsApiClient extends _i1.Mock implements _i4.ComicsApiClient {
       (super.noSuchMethod(
           Invocation.method(
               #makeCall, [call, parseSuccess, parseError, manageException]),
-          returnValue: Future<T>.value(null)) as _i5.Future<T>);
+          returnValue: Future<T>.value(null)) as _i4.Future<T>);
   @override
   T parseResponse<T, R>(R? response, T Function(dynamic)? parseSuccess,
           T Function(int, dynamic)? parseError) =>
