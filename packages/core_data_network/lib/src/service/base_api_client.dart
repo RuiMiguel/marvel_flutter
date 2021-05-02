@@ -11,12 +11,8 @@ abstract class BaseApiClient {
   ) async {
     try {
       return parseResponse(await call, parseSuccess, parseError);
-    } on SocketException {
-      return manageException(SocketFailure());
-    } on HttpException {
-      return manageException(HttpFailure());
-    } on FormatException {
-      return manageException(FormatFailure());
+    } catch (exception) {
+      return processException(exception, manageException);
     }
   }
 
@@ -29,6 +25,23 @@ abstract class BaseApiClient {
       return parseResponseSuccess(response, parseSuccess);
     } else {
       return parseResponseError(response, parseError);
+    }
+  }
+
+  T processException<T>(
+    error,
+    T Function(dynamic) manageException,
+  ) {
+    if (error is SocketException) {
+      return manageException(SocketFailure());
+    } else if (error is HttpException) {
+      return manageException(HttpFailure());
+    } else if (error is FormatException) {
+      return manageException(FormatFailure());
+    } else {
+      return manageException(
+        ServerFailure(code: "99", message: "ERROR: $error"),
+      );
     }
   }
 

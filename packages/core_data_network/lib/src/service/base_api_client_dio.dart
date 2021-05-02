@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:core_data_network/src/error/data_failure.dart';
 import 'package:core_data_network/src/interceptor/logging_interceptor.dart';
 import 'package:core_data_network/src/service/base_api_client.dart';
 import 'package:dio/dio.dart';
@@ -7,7 +8,7 @@ import 'package:dio/dio.dart';
 abstract class BaseApiClientDio extends BaseApiClient {
   late final Dio _dio;
 
-  BaseApiClientDio({Dio? dio}) {
+  BaseApiClientDio({Dio? dio, bool logEnabled = false}) {
     _dio = dio ??
         Dio(
           BaseOptions(
@@ -15,7 +16,7 @@ abstract class BaseApiClientDio extends BaseApiClient {
             receiveTimeout: 15000,
           ),
         )
-      ..interceptors.add(LogginInterceptor(true));
+      ..interceptors.add(LogginInterceptor(logEnabled));
   }
 
   Future<T> requestGet<T>(
@@ -30,9 +31,9 @@ abstract class BaseApiClientDio extends BaseApiClient {
         url.toString(),
         queryParameters: headers,
       ),
-      parseSuccess,
-      parseError,
-      manageException,
+      (response) => parseSuccess(response),
+      (code, errorBody) => parseError(code, errorBody),
+      (exception) => processException(exception, manageException),
     );
   }
 
@@ -50,10 +51,27 @@ abstract class BaseApiClientDio extends BaseApiClient {
         url.toString(),
         data: body,
       ),
-      parseSuccess,
-      parseError,
-      manageException,
+      (response) => parseSuccess(response),
+      (code, errorBody) => parseError(code, errorBody),
+      (exception) => processException(exception, manageException),
     );
+  }
+
+  @override
+  T processException<T>(
+    error,
+    T Function(dynamic) manageException,
+  ) {
+    if (error is DioError) {
+      return manageException(
+        ServerFailure(
+          code: error.type.toString(),
+          message: error.message,
+        ),
+      );
+    } else {
+      return super.processException(error, manageException);
+    }
   }
 
   @override

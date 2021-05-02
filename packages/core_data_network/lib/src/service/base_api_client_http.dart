@@ -4,11 +4,12 @@ import 'package:core_data_network/core_data_network.dart';
 import 'package:http/http.dart';
 
 abstract class BaseApiClientHttp extends BaseApiClient {
-  final bool _logEnabled;
+  final bool logEnabled;
+  late Client _httpClient = Client();
 
-  final Client _httpClient = Client();
-
-  BaseApiClientHttp(this._logEnabled);
+  BaseApiClientHttp({Client? httpClient, this.logEnabled = false}) {
+    _httpClient = httpClient ?? Client();
+  }
 
   Future<T> requestGet<T>(
     Uri url,
@@ -17,7 +18,10 @@ abstract class BaseApiClientHttp extends BaseApiClient {
     T Function(dynamic) manageException, {
     Map<String, String>? headers,
   }) {
-    if (_logEnabled) print("[Http] HTTP Request - GET $url");
+    if (logEnabled) {
+      print("[Http] HTTP Request - GET $url");
+      print("[Http] headers - ${json.encode(headers)}");
+    }
 
     return makeCall(
       _httpClient.get(
@@ -39,7 +43,10 @@ abstract class BaseApiClientHttp extends BaseApiClient {
     Object? body,
     Encoding? encoding,
   }) {
-    if (_logEnabled) print("[Http] HTTP Request - POST $url");
+    if (logEnabled) {
+      print("[Http] HTTP Request - POST $url");
+      print("[Http] headers - ${json.encode(headers)}");
+    }
 
     return makeCall(
       _httpClient.post(
@@ -55,6 +62,15 @@ abstract class BaseApiClientHttp extends BaseApiClient {
   }
 
   @override
+  T processException<T>(
+    error,
+    T Function(dynamic) manageException,
+  ) {
+    print("[Http] HTTP Error - $error");
+    return super.processException(error, manageException);
+  }
+
+  @override
   bool isSuccessfull(dynamic response) {
     return (response.statusCode == 200) ||
         (response.statusCode == 204 && response.body.isEmpty);
@@ -65,7 +81,8 @@ abstract class BaseApiClientHttp extends BaseApiClient {
     dynamic response,
     T Function(dynamic) parseSuccess,
   ) {
-    if (_logEnabled) print("[Http] HTTP Response - ${response.body}");
+    if (logEnabled)
+      print("[Http] HTTP Response - ${response.statusCode} ${response.body}");
 
     var json = jsonDecode(response.body);
     return parseSuccess(json);
@@ -76,7 +93,7 @@ abstract class BaseApiClientHttp extends BaseApiClient {
     dynamic response,
     T Function(int, dynamic) parseError,
   ) {
-    if (_logEnabled)
+    if (logEnabled)
       print(
           "[Http] HTTP Error - ${response.statusCode} ${response.reasonPhrase}");
 

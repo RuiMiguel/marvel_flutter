@@ -1,14 +1,14 @@
+import 'package:core_data_network/core_data_network.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:marvel/controllers/characters_controller.dart';
 import 'package:marvel/controllers/comics_controller.dart';
 import 'package:marvel/controllers/login_controller.dart';
 import 'package:marvel/controllers/under_construction_controller.dart';
 import 'package:marvel_data/marvel_data.dart';
-import 'package:core_data_network/core_data_network.dart';
 import 'package:marvel_domain/marvel_domain.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:dio/dio.dart';
 
 MultiProvider buildMultiProvider({
   required SharedPreferences preferences,
@@ -40,13 +40,16 @@ MultiProvider _buildDataProvider({
         create: (context) =>
             DatastoreManager(context.read<SharedPreferences>()),
       ),
-      Provider(
-        create: (context) => CharacterApiClient(
+      Provider(create: (context) {
+        var _datastore = context.read<DatastoreManager>();
+
+        return CharacterApiClient(
           _baseUrl,
-          context.read<DatastoreManager>(),
-          _logEnabled,
-        ),
-      ),
+          privateKey: _datastore.getPrivateKey(),
+          publicKey: _datastore.getPublicKey(),
+          logEnabled: _logEnabled,
+        );
+      }),
       Provider<CharactersRepository>(
         create: (context) =>
             CharactersDataRepository(context.read<CharacterApiClient>()),

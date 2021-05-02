@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 
 class LogginInterceptor extends Interceptor {
@@ -7,9 +9,11 @@ class LogginInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    if (_logEnabled)
+    if (_logEnabled) {
       print(
           "[Dio] HTTP Request - ${options.method} ${options.baseUrl}${options.path}");
+      print("[Dio] headers - ${json.encode(options.headers)}");
+    }
     super.onRequest(options, handler);
   }
 
@@ -22,7 +26,9 @@ class LogginInterceptor extends Interceptor {
 
   @override
   void onError(DioError error, ErrorInterceptorHandler handler) {
-    if (_logEnabled) print("[Dio] HTTP Error - [${error.type}] ${error.error}");
+    if (_logEnabled)
+      print(
+          "[Dio] HTTP Error - ${error.response?.statusCode} [${error.type}] ${error.error}");
     super.onError(error, handler);
   }
 }
