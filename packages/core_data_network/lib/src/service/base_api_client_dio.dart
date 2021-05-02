@@ -31,9 +31,9 @@ abstract class BaseApiClientDio extends BaseApiClient {
         url.toString(),
         queryParameters: headers,
       ),
-      (response) => parseSuccess(response),
-      (code, errorBody) => parseError(code, errorBody),
-      (exception) => processException(exception, manageException),
+      parseSuccess,
+      parseError,
+      manageException,
     );
   }
 
@@ -51,9 +51,9 @@ abstract class BaseApiClientDio extends BaseApiClient {
         url.toString(),
         data: body,
       ),
-      (response) => parseSuccess(response),
-      (code, errorBody) => parseError(code, errorBody),
-      (exception) => processException(exception, manageException),
+      parseSuccess,
+      parseError,
+      manageException,
     );
   }
 
