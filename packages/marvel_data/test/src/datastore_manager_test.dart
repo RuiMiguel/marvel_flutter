@@ -5,14 +5,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   late DatastoreManager datastoreManager;
 
-  void initSharedPreferences(SharedPreferences sharedPreferences) {
+  void _initSharedPreferences(SharedPreferences sharedPreferences) {
     datastoreManager = DatastoreManager(sharedPreferences);
   }
 
   group('DatastoreManager', () {
     setUp(() async {
       SharedPreferences.setMockInitialValues({});
-      initSharedPreferences(await SharedPreferences.getInstance());
+      _initSharedPreferences(await SharedPreferences.getInstance());
     });
 
     group('PrivateKey', () {
@@ -23,7 +23,7 @@ void main() {
           SharedPreferences.setMockInitialValues(
             {DatastoreManager.PRIVATE_KEY: expected},
           );
-          initSharedPreferences(await SharedPreferences.getInstance());
+          _initSharedPreferences(await SharedPreferences.getInstance());
 
           var result = datastoreManager.getPrivateKey();
           expect(result, equals(expected));
@@ -64,7 +64,7 @@ void main() {
           SharedPreferences.setMockInitialValues(
             {DatastoreManager.PRIVATE_KEY: privateKey},
           );
-          initSharedPreferences(await SharedPreferences.getInstance());
+          _initSharedPreferences(await SharedPreferences.getInstance());
 
           var result = await datastoreManager.clearPrivateKey();
           expect(result, isTrue);
@@ -83,7 +83,7 @@ void main() {
           SharedPreferences.setMockInitialValues(
             {DatastoreManager.PUBLICK_KEY: expected},
           );
-          initSharedPreferences(await SharedPreferences.getInstance());
+          _initSharedPreferences(await SharedPreferences.getInstance());
 
           var result = datastoreManager.getPublicKey();
           expect(result, equals(expected));
@@ -123,7 +123,7 @@ void main() {
           SharedPreferences.setMockInitialValues(
             {DatastoreManager.PUBLICK_KEY: publicKey},
           );
-          initSharedPreferences(await SharedPreferences.getInstance());
+          _initSharedPreferences(await SharedPreferences.getInstance());
 
           var result = await datastoreManager.clearPublicKey();
           expect(result, isTrue);

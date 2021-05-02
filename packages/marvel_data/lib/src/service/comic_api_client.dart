@@ -16,8 +16,11 @@ class ComicsApiClient extends BaseApiClientDio {
   static const COMICS_ENDPOINT = '/v1/public/comics';
 
   ComicsApiClient(this._baseUrl,
-      {required this.privateKey, required this.publicKey, Dio? dio})
-      : super(dio: dio) {}
+      {required this.privateKey,
+      required this.publicKey,
+      Dio? dio,
+      bool logEnabled = false})
+      : super(dio: dio, logEnabled: logEnabled);
 
   String generateMd5(String input) {
     return md5.convert(utf8.encode(input)).toString();
@@ -51,7 +54,7 @@ class ComicsApiClient extends BaseApiClientDio {
         var response = ApiError.fromJson(error);
         return Left(
           ServerFailure(
-            code: response.code ?? code.toString(),
+            code: code.toString(),
             message: response.message ?? "",
           ),
         );
@@ -89,13 +92,19 @@ class ComicsApiClient extends BaseApiClientDio {
         var response = ApiError.fromJson(error);
         return Left(
           ServerFailure(
-            code: response.code ?? code.toString(),
+            code: code.toString(),
             message: response.message ?? "",
           ),
         );
       },
       (exception) {
-        return Left(exception);
+        var response = ApiError.fromJson(jsonDecode(exception.message));
+        return Left(
+          ServerFailure(
+            code: exception.code.toString(),
+            message: response.message ?? "",
+          ),
+        );
       },
     );
   }

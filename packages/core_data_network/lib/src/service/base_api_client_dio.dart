@@ -25,7 +25,7 @@ abstract class BaseApiClientDio extends BaseApiClient {
     T Function(int, dynamic) parseError,
     T Function(dynamic) manageException, {
     Map<String, String>? headers,
-  }) {
+  }) async {
     return makeCall(
       _dio.get(
         url.toString(),
@@ -63,12 +63,21 @@ abstract class BaseApiClientDio extends BaseApiClient {
     T Function(dynamic) manageException,
   ) {
     if (error is DioError) {
-      return manageException(
-        ServerFailure(
-          code: error.type.toString(),
-          message: error.message,
-        ),
-      );
+      if (error.type == DioErrorType.response) {
+        return manageException(
+          ServerFailure(
+            code: error.type.toString(),
+            message: error.response.toString(),
+          ),
+        );
+      } else {
+        return manageException(
+          ServerFailure(
+            code: error.type.toString(),
+            message: error.message,
+          ),
+        );
+      }
     } else {
       return super.processException(error, manageException);
     }

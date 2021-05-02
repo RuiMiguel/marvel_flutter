@@ -13,14 +13,22 @@ dependencies:
   json_annotation: ^4.0.1
   crypto: ^3.0.0
   shared_preferences: ^2.0.4  
+
   marvel_domain: 
     path: ../marvel_domain
   core_data_network:
     path: ../core_data_network
-  mockito: ^5.0.7
-  mocktail: ^0.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^1.11.0
+  mockito: ^5.0.7
+  mocktail: ^0.1.2
+  http_mock_adapter: ^0.2.1
+
+flutter:
+  generate: true    # Add this line
+  assets:
+    - assets/
+    - assets/json/

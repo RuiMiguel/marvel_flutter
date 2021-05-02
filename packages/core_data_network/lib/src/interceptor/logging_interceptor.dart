@@ -11,7 +11,7 @@ class LogginInterceptor extends Interceptor {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (_logEnabled) {
       print(
-          "[Dio] HTTP Request - ${options.method} ${options.baseUrl}${options.path}");
+          "[Dio] HTTP Request - ${options.method} ${options.baseUrl} ${options.path}");
       print("[Dio] headers - ${json.encode(options.headers)}");
     }
     super.onRequest(options, handler);
