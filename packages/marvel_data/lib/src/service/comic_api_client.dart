@@ -26,45 +26,6 @@ class ComicsApiClient extends BaseApiClientDio {
     return md5.convert(utf8.encode(input)).toString();
   }
 
-  Future<Either<NetworkFailure, List<ApiComic>>> getComics(
-      int limit, int offset) {
-    final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final hash = generateMd5("$timestamp$privateKey$publicKey");
-    final apikey = publicKey;
-
-    final comicsRequest = Uri.https(_baseUrl, COMICS_ENDPOINT, <String, String>{
-      'ts': "$timestamp",
-      'hash': hash,
-      'apikey': apikey,
-      'limit': "$limit",
-      'offset': "$offset"
-    });
-
-    return requestGet(
-      comicsRequest,
-      (success) {
-        var response = ApiResult<ApiComic>.fromJson(
-              success,
-              (data) => ApiComic.fromJson(data as Map<String, dynamic>),
-            ).data?.results ??
-            List.empty();
-        return Right(response);
-      },
-      (code, error) {
-        var response = ApiError.fromJson(error);
-        return Left(
-          ServerFailure(
-            code: code.toString(),
-            message: response.message ?? "",
-          ),
-        );
-      },
-      (exception) {
-        return Left(exception);
-      },
-    );
-  }
-
   Future<Either<NetworkFailure, ApiResult<ApiComic>>> getComicsResult(
       int limit, int offset) {
     final timestamp = DateTime.now().millisecondsSinceEpoch;

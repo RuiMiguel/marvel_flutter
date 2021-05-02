@@ -27,46 +27,6 @@ class CharacterApiClient extends BaseApiClientHttp {
     return md5.convert(utf8.encode(input)).toString();
   }
 
-  Future<Either<NetworkFailure, List<ApiCharacter>>> getCharacters(
-      int limit, int offset) {
-    final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final hash = _generateMd5("$timestamp$privateKey$publicKey");
-    final apikey = publicKey;
-
-    final charactersRequest =
-        Uri.https(_baseUrl, CHARACTERS_ENDPOINT, <String, String>{
-      'ts': "$timestamp",
-      'hash': hash,
-      'apikey': apikey,
-      'limit': "$limit",
-      'offset': "$offset"
-    });
-
-    return requestGet(
-      charactersRequest,
-      (success) {
-        var response = ApiResult<ApiCharacter>.fromJson(
-              success,
-              (data) => ApiCharacter.fromJson(data as Map<String, dynamic>),
-            ).data?.results ??
-            List.empty();
-        return Right(response);
-      },
-      (code, error) {
-        var response = ApiError.fromJson(error);
-        return Left(
-          ServerFailure(
-            code: code.toString(),
-            message: response.message ?? "",
-          ),
-        );
-      },
-      (exception) {
-        return Left(exception);
-      },
-    );
-  }
-
   Future<Either<NetworkFailure, ApiResult<ApiCharacter>>> getCharactersResult(
       int limit, int offset) {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
