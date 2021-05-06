@@ -15,6 +15,7 @@ class ComicsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = context.watch<ComicsController>();
+    controller.loadComicsResult();
 
     return NotificationListener<ScrollNotification>(
       onNotification: (ScrollNotification scrollInfo) {
