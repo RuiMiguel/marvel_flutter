@@ -9,13 +9,11 @@ class ComicsController extends ChangeNotifier {
   int _offset = 0;
   int total = 0;
   int count = 0;
-  List<Comic> _comics = List.empty();
+  List<Comic> _comics = List.empty(growable: true);
   late Result comics;
   String legal = "";
 
-  ComicsController(this._comicsRepository) {
-    loadComicsResult();
-  }
+  ComicsController(this._comicsRepository);
 
   Future<void> loadComicsResult() async {
     comics = Result.loading();
