@@ -46,6 +46,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
   @override
   Widget build(BuildContext context) {
     var controller = context.watch<CharactersController>();
+    controller.loadCharactersResult();
 
     _showLoading(loading: controller.characters is Loading);
 

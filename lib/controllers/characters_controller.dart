@@ -9,13 +9,11 @@ class CharactersController extends ChangeNotifier {
   int _offset = 0;
   int total = 0;
   int count = 0;
-  List<Character> _characters = List.empty();
+  List<Character> _characters = List.empty(growable: true);
   late Result characters;
   String legal = "";
 
-  CharactersController(this._charactersRepository) {
-    loadCharactersResult();
-  }
+  CharactersController(this._charactersRepository);
 
   Future<void> loadCharactersResult() async {
     characters = Result.loading();
