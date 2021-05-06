@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel/controllers/login_controller.dart';
 import 'package:marvel_data/marvel_data.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:mockito/mockito.dart' as mockito;
 
 class MockDatastoreManager extends Mock implements DatastoreManager {}
 
