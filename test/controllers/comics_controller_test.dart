@@ -78,17 +78,16 @@ void main() {
         controller.addListener(() {
           var comics = controller.comics;
           print("callStatus $comics");
+          expect(controller.comics, isNotNull);
 
           if (comics.isLoading()) {
             expect(controller.count, 0);
-            expect(controller.comics, isNotNull);
             expect(controller.comics, isA<Loading>());
           }
           if (comics.isSuccess()) {
             fail("must not be a Success");
           }
           if (comics.isError()) {
-            expect(controller.comics, isNotNull);
             expect(controller.comics, isA<Error>());
             expect((controller.comics as Error).failure, isA<ServerFailure>());
             expect(
@@ -112,15 +111,14 @@ void main() {
         controller.addListener(() {
           var comics = controller.comics;
           print("callStatus $comics");
+          expect(controller.comics, isNotNull);
 
           if (comics.isLoading()) {
             expect(controller.count, 0);
-            expect(controller.comics, isNotNull);
             expect(controller.comics, isA<Loading>());
           }
           if (comics.isSuccess()) {
             var comics = controller.comics;
-            expect(comics, isNotNull);
             expect(comics, isA<Success>());
             expect((comics as Success).data, isA<List>());
             expect((comics.data as List<Comic>).length,
@@ -148,17 +146,16 @@ void main() {
         controller.addListener(() {
           var comics = controller.comics;
           print("callStatus $comics");
+          expect(controller.comics, isNotNull);
 
           if (comics.isLoading()) {
             expect(controller.count, 0);
-            expect(controller.comics, isNotNull);
             expect(controller.comics, isA<Loading>());
           }
           if (comics.isSuccess()) {
             fail("must not be a Success");
           }
           if (comics.isError()) {
-            expect(controller.comics, isNotNull);
             expect(controller.comics, isA<Error>());
             expect((controller.comics as Error).failure, isA<ServerFailure>());
             expect(
@@ -182,14 +179,13 @@ void main() {
         controller.addListener(() {
           var comics = controller.comics;
           print("callStatus $comics");
+          expect(controller.comics, isNotNull);
 
           if (comics.isLoading()) {
             expect(controller.count, 0);
-            expect(controller.comics, isNotNull);
             expect(controller.comics, isA<Loading>());
           }
           if (comics.isSuccess()) {
-            expect(comics, isNotNull);
             expect(comics, isA<Success>());
             expect((comics as Success).data, isA<List>());
             expect((comics.data as List<Comic>).length,
