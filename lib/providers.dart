@@ -89,7 +89,7 @@ MultiProvider _buildControllerProvider({
 }) {
   return MultiProvider(
     providers: [
-      ChangeNotifierProvider(
+      Provider(
         create: (context) => UnderConstructionController(),
       ),
       ChangeNotifierProvider(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:marvel/controllers/under_construction_controller.dart';
 import 'package:provider/provider.dart';
+import 'package:marvel/l10n/l10n.dart';
 
 class UnderConstructionView extends StatelessWidget {
   const UnderConstructionView({Key? key}) : super(key: key);
@@ -22,7 +22,7 @@ class UnderConstructionView extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Text(
-                        AppLocalizations.of(context)!.under_construction,
+                        context.l10n.under_construction,
                         style: Theme.of(context).textTheme.headline1,
                       ),
                     ),
