@@ -14,6 +14,18 @@ class Result {
   static Result success<T>(T data) {
     return Success(data);
   }
+
+  bool isLoading() {
+    return this is Loading;
+  }
+
+  bool isError() {
+    return this is Error;
+  }
+
+  bool isSuccess() {
+    return this is Success;
+  }
 }
 
 class Loading extends Result {}
