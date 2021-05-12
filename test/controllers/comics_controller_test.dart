@@ -69,136 +69,125 @@ void main() {
     });
 
     group('loadComicsResult', () {
-      test('load NetworkFailure when repository fails', () async {
+      test('loading status before repository response', () async {
         var expected = _fakeError();
 
         when(() => comicsRepository.getComicsResult(any(), any()))
             .thenAnswer((_) async => Left(expected));
 
+        var callStatus = 0;
+
         controller.addListener(() {
           var comics = controller.comics;
           print("callStatus $comics");
-          expect(controller.comics, isNotNull);
 
-          if (comics.isLoading()) {
-            expect(controller.count, 0);
-            expect(controller.comics, isA<Loading>());
-          }
-          if (comics.isSuccess()) {
-            fail("must not be a Success");
-          }
-          if (comics.isError()) {
-            expect(controller.comics, isA<Error>());
-            expect((controller.comics as Error).failure, isA<ServerFailure>());
-            expect(
-              (controller.comics as Error).failure.message,
-              equals(expected.message),
-            );
-            expect(controller.total, 0);
-            expect(controller.count, 0);
-          }
+          expect(comics, isNotNull);
+          expect((callStatus == 0 && comics is Loading), isTrue);
+          expect((callStatus == 1 && comics is Error), isTrue);
+
+          callStatus++;
         });
 
         await controller.loadComicsResult();
+        //TODO: check async expect
       });
 
-      test('load list of Comic when repository success', () async {
+      test('return NetworkFailure when repository fails', () async {
+        var expected = _fakeError();
+
+        when(() => comicsRepository.getComicsResult(any(), any()))
+            .thenAnswer((_) async => Left(expected));
+
+        expect(controller.count, 0);
+
+        await controller.loadComicsResult();
+
+        var comics = controller.comics;
+        expect(comics, isA<Error>());
+        expect((comics as Error).failure, isA<ServerFailure>());
+        expect(comics.failure.message, equals(expected.message));
+        expect(controller.total, 0);
+        expect(controller.count, 0);
+      });
+
+      test('return list of Comic when repository success', () async {
         var expected = _fakeDataResult();
 
         when(() => comicsRepository.getComicsResult(any(), any()))
             .thenAnswer((_) async => Right(expected));
 
-        controller.addListener(() {
-          var comics = controller.comics;
-          print("callStatus $comics");
-          expect(controller.comics, isNotNull);
-
-          if (comics.isLoading()) {
-            expect(controller.count, 0);
-            expect(controller.comics, isA<Loading>());
-          }
-          if (comics.isSuccess()) {
-            var comics = controller.comics;
-            expect(comics, isA<Success>());
-            expect((comics as Success).data, isA<List>());
-            expect((comics.data as List<Comic>).length,
-                expected.data.results.length);
-            expect(controller.total, expected.data.total);
-            expect(
-                controller.count, expected.data.offset + expected.data.count);
-          }
-          if (comics.isError()) {
-            fail("must not be an Error");
-          }
-        });
+        expect(controller.count, 0);
 
         await controller.loadComicsResult();
+
+        var comics = controller.comics;
+        expect(comics, isA<Success>());
+        expect((comics as Success).data, isA<List>());
+        expect(
+            (comics.data as List<Comic>).length, expected.data.results.length);
+        expect(controller.total, expected.data.total);
+        expect(controller.count, expected.data.offset + expected.data.count);
       });
     });
 
     group('getMore', () {
-      test('load NetworkFailure when repository fails', () async {
+      test('loading status before repository response', () async {
         var expected = _fakeError();
 
         when(() => comicsRepository.getComicsResult(any(), any()))
             .thenAnswer((_) async => Left(expected));
 
+        var callStatus = 0;
+
         controller.addListener(() {
           var comics = controller.comics;
           print("callStatus $comics");
-          expect(controller.comics, isNotNull);
 
-          if (comics.isLoading()) {
-            expect(controller.count, 0);
-            expect(controller.comics, isA<Loading>());
-          }
-          if (comics.isSuccess()) {
-            fail("must not be a Success");
-          }
-          if (comics.isError()) {
-            expect(controller.comics, isA<Error>());
-            expect((controller.comics as Error).failure, isA<ServerFailure>());
-            expect(
-              (controller.comics as Error).failure.message,
-              equals(expected.message),
-            );
-            expect(controller.total, 0);
-            expect(controller.count, 0);
-          }
+          expect(comics, isNotNull);
+          expect((callStatus == 0 && comics is Loading), isTrue);
+          expect((callStatus == 1 && comics is Error), isTrue);
+
+          callStatus++;
         });
 
         await controller.getMore();
+        //TODO: check async expect
       });
 
-      test('load list of Comic when repository success', () async {
+      test('return NetworkFailure when repository fails', () async {
+        var expected = _fakeError();
+
+        when(() => comicsRepository.getComicsResult(any(), any()))
+            .thenAnswer((_) async => Left(expected));
+
+        expect(controller.count, 0);
+
+        await controller.getMore();
+
+        var comics = controller.comics;
+        expect(comics, isA<Error>());
+        expect((comics as Error).failure, isA<ServerFailure>());
+        expect(comics.failure.message, equals(expected.message));
+        expect(controller.total, 0);
+        expect(controller.count, 0);
+      });
+
+      test('return list of Comic when repository success', () async {
         var expected = _fakeDataResult();
 
         when(() => comicsRepository.getComicsResult(any(), any()))
             .thenAnswer((_) async => Right(expected));
 
-        controller.addListener(() {
-          var comics = controller.comics;
-          print("callStatus $comics");
-          expect(controller.comics, isNotNull);
-
-          if (comics.isLoading()) {
-            expect(controller.count, 0);
-            expect(controller.comics, isA<Loading>());
-          }
-          if (comics.isSuccess()) {
-            expect(comics, isA<Success>());
-            expect((comics as Success).data, isA<List>());
-            expect((comics.data as List<Comic>).length,
-                expected.data.results.length);
-            expect(
-                controller.count, expected.data.offset + expected.data.count);
-          }
-          if (comics.isError()) {
-            fail("must not be an Error");
-          }
-        });
+        expect(controller.count, 0);
 
         await controller.getMore();
+
+        var comics = controller.comics;
+        expect(comics, isA<Success>());
+        expect((comics as Success).data, isA<List>());
+        expect(
+            (comics.data as List<Comic>).length, expected.data.results.length);
+        expect(controller.count, expected.data.offset + expected.data.count);
       });
     });
   });

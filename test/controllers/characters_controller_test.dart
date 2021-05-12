@@ -57,141 +57,126 @@ void main() {
     });
 
     group('loadCharactersResult', () {
-      test('load NetworkFailure when repository fails', () async {
+      test('loading status before repository response', () async {
         var expected = _fakeError();
 
         when(() => charactersRepository.getCharactersResult(any(), any()))
             .thenAnswer((_) async => Left(expected));
 
+        var callStatus = 0;
+
         controller.addListener(() {
           var characters = controller.characters;
           print("callStatus $characters");
 
-          expect(controller.characters, isNotNull);
+          expect(characters, isNotNull);
+          expect((callStatus == 0 && characters is Loading), isTrue);
+          expect((callStatus == 1 && characters is Error), isTrue);
 
-          if (characters.isLoading()) {
-            expect(controller.count, 0);
-            expect(controller.characters, isA<Loading>());
-          }
-          if (characters.isSuccess()) {
-            fail("must not be a Success");
-          }
-          if (characters.isError()) {
-            expect(controller.characters, isNotNull);
-            expect(controller.characters, isA<Error>());
-            expect(
-                (controller.characters as Error).failure, isA<ServerFailure>());
-            expect(
-              (controller.characters as Error).failure.message,
-              equals(expected.message),
-            );
-            expect(controller.total, 0);
-            expect(controller.count, 0);
-          }
+          callStatus++;
         });
 
         await controller.loadCharactersResult();
+        //TODO: check async expect
       });
 
-      test('load list of Character when repository success', () async {
+      test('return NetworkFailure when repository fails', () async {
+        var expected = _fakeError();
+
+        when(() => charactersRepository.getCharactersResult(any(), any()))
+            .thenAnswer((_) async => Left(expected));
+
+        expect(controller.count, 0);
+
+        await controller.loadCharactersResult();
+
+        var characters = controller.characters;
+        expect(characters, isNotNull);
+        expect(characters, isA<Error>());
+        expect((characters as Error).failure, isA<ServerFailure>());
+        expect(characters.failure.message, equals(expected.message));
+        expect(controller.total, 0);
+        expect(controller.count, 0);
+      });
+
+      test('return list of Character when repository success', () async {
         var expected = _fakeDataResult();
 
         when(() => charactersRepository.getCharactersResult(any(), any()))
             .thenAnswer((_) async => Right(expected));
 
-        controller.addListener(() {
-          var characters = controller.characters;
-          print("callStatus $characters");
-          expect(characters, isNotNull);
-
-          if (characters.isLoading()) {
-            expect(controller.count, 0);
-            expect(controller.characters, isNotNull);
-            expect(controller.characters, isA<Loading>());
-          }
-          if (characters.isSuccess()) {
-            expect(characters, isA<Success>());
-            expect((characters as Success).data, isA<List>());
-            expect((characters.data as List<Character>).length,
-                expected.data.results.length);
-            expect(controller.total, expected.data.total);
-            expect(
-                controller.count, expected.data.offset + expected.data.count);
-          }
-          if (characters.isError()) {
-            fail("must not be an Error");
-          }
-        });
+        expect(controller.count, 0);
 
         await controller.loadCharactersResult();
+
+        var characters = controller.characters;
+        expect(characters, isA<Success>());
+        expect((characters as Success).data, isA<List>());
+        expect((characters.data as List<Character>).length,
+            expected.data.results.length);
+        expect(controller.total, expected.data.total);
+        expect(controller.count, expected.data.offset + expected.data.count);
       });
     });
 
     group('getMore', () {
-      test('load NetworkFailure when repository fails', () async {
+      test('loading status before repository response', () async {
         var expected = _fakeError();
 
         when(() => charactersRepository.getCharactersResult(any(), any()))
             .thenAnswer((_) async => Left(expected));
+
+        var callStatus = 0;
 
         controller.addListener(() {
           var characters = controller.characters;
           print("callStatus $characters");
 
           expect(characters, isNotNull);
+          expect((callStatus == 0 && characters is Loading), isTrue);
+          expect((callStatus == 1 && characters is Error), isTrue);
 
-          if (characters.isLoading()) {
-            expect(controller.count, 0);
-            expect(characters, isA<Loading>());
-          }
-          if (characters.isSuccess()) {
-            fail("must not be a Success");
-          }
-          if (characters.isError()) {
-            expect(controller.characters, isA<Error>());
-            expect(
-                (controller.characters as Error).failure, isA<ServerFailure>());
-            expect(
-              (controller.characters as Error).failure.message,
-              equals(expected.message),
-            );
-            expect(controller.total, 0);
-            expect(controller.count, 0);
-          }
+          callStatus++;
         });
 
         await controller.getMore();
+        //TODO: check async expect
       });
 
-      test('load list of Character when repository success', () async {
+      test('return NetworkFailure when repository fails', () async {
+        var expected = _fakeError();
+
+        when(() => charactersRepository.getCharactersResult(any(), any()))
+            .thenAnswer((_) async => Left(expected));
+
+        expect(controller.count, 0);
+
+        await controller.getMore();
+
+        var characters = controller.characters;
+        expect(characters, isA<Error>());
+        expect((characters as Error).failure, isA<ServerFailure>());
+        expect(characters.failure.message, equals(expected.message));
+        expect(controller.total, 0);
+        expect(controller.count, 0);
+      });
+
+      test('return list of Character when repository success', () async {
         var expected = _fakeDataResult();
 
         when(() => charactersRepository.getCharactersResult(any(), any()))
             .thenAnswer((_) async => Right(expected));
 
-        controller.addListener(() {
-          var characters = controller.characters;
-          print("callStatus $characters");
-          expect(controller.characters, isNotNull);
-
-          if (characters.isLoading()) {
-            expect(controller.count, 0);
-            expect(controller.characters, isA<Loading>());
-          }
-          if (characters.isSuccess()) {
-            expect(characters, isA<Success>());
-            expect((characters as Success).data, isA<List>());
-            expect((characters.data as List<Character>).length,
-                expected.data.results.length);
-            expect(
-                controller.count, expected.data.offset + expected.data.count);
-          }
-          if (characters.isError()) {
-            fail("must not be an Error");
-          }
-        });
+        expect(controller.count, 0);
 
         await controller.getMore();
+
+        var characters = controller.characters;
+        expect(characters, isA<Success>());
+        expect((characters as Success).data, isA<List>());
+        expect((characters.data as List<Character>).length,
+            expected.data.results.length);
+        expect(controller.count, expected.data.offset + expected.data.count);
       });
     });
   });
