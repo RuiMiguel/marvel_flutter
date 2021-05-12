@@ -144,8 +144,12 @@ void main() {
           print("callStatus $comics");
 
           expect(comics, isNotNull);
-          expect((callStatus == 0 && comics is Loading), isTrue);
-          expect((callStatus == 1 && comics is Error), isTrue);
+          if (callStatus == 0) {
+            expect(comics is Loading, isTrue);
+          }
+          if (callStatus == 1) {
+            expect(comics is Error, isTrue);
+          }
 
           callStatus++;
         });

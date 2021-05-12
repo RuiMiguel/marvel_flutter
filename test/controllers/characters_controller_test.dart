@@ -70,13 +70,18 @@ void main() {
           print("callStatus $characters");
 
           expect(characters, isNotNull);
-          expect((callStatus == 0 && characters is Loading), isTrue);
-          expect((callStatus == 1 && characters is Error), isTrue);
+          if (callStatus == 0) {
+            expect(characters is Loading, isTrue);
+          }
+          if (callStatus == 1) {
+            expect(characters is Error, isTrue);
+          }
 
           callStatus++;
         });
 
         await controller.loadCharactersResult();
+        //tester.pump(Duration(milliseconds: 1000));
         //TODO: check async expect
       });
 
