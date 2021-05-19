@@ -28,11 +28,13 @@ dependencies:
   intl: ^0.17.0
   
   cupertino_icons: ^1.0.0
-  provider: ^5.0.0
   flutter_launcher_icons: ^0.9.0
   flutter_linkify: ^5.0.0
   webview_flutter: ^2.0.3
   cached_network_image: ^3.0.0
+  provider: ^5.0.0
+  flutter_bloc: ^7.0.0
+  equatable: ^2.0.0
 
   marvel_domain:
     path: packages/marvel_domain
@@ -44,6 +46,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^1.12.0
   json_serializable: ^4.1.0
+  bloc_test: ^8.0.0
   mockito: ^5.0.7
   mocktail: ^0.1.2
 
