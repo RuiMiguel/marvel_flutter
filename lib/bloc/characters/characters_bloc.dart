@@ -28,22 +28,13 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
 
       var result =
           await _charactersRepository.getCharactersResult(_limit, _offset);
-      result.fold(
-        (failure) async* {
-          yield Error(failure);
-        },
-        (success) async* {
-          _characters = success.data.results;
 
-          total = success.data.total;
-          count = success.data.offset + success.data.count;
-          legal = success.attributionText;
-          yield Success(
-            characters: _characters,
-            count: count,
-            total: total,
-            legal: legal,
-          );
+      result.fold(
+        (failure) {
+          add(LoadCharactersError(failure));
+        },
+        (success) {
+          add(LoadCharactersSuccess(success));
         },
       );
     } else if (event is GetMore) {
@@ -54,20 +45,36 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       var result =
           await _charactersRepository.getCharactersResult(_limit, _offset);
       result.fold(
-        (failure) async* {
-          yield Error(failure);
+        (failure) {
+          add(LoadCharactersError(failure));
         },
-        (success) async* {
-          _characters.addAll(success.data.results);
+        (success) {
+          add(LoadMoreCharactersSuccess(success));
+        },
+      );
+    } else if (event is LoadCharactersError) {
+      yield Error(event.error);
+    } else if (event is LoadCharactersSuccess) {
+      _characters = event.characters.data.results;
 
-          count = success.data.offset + success.data.count;
-          yield Success(
-            characters: _characters,
-            count: count,
-            total: total,
-            legal: legal,
-          );
-        },
+      total = event.characters.data.total;
+      count = event.characters.data.offset + event.characters.data.count;
+      legal = event.characters.attributionText;
+      yield Success(
+        characters: _characters,
+        count: count,
+        total: total,
+        legal: legal,
+      );
+    } else if (event is LoadMoreCharactersSuccess) {
+      _characters.addAll(event.characters.data.results);
+
+      count = event.characters.data.offset + event.characters.data.count;
+      yield Success(
+        characters: _characters,
+        count: count,
+        total: total,
+        legal: legal,
       );
     }
   }

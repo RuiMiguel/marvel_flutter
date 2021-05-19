@@ -8,21 +8,8 @@ import 'package:marvel/ui/commons/legal_info.dart';
 import 'package:marvel/ui/commons/loading_view.dart';
 import 'package:marvel_domain/marvel_domain.dart';
 
-class CharactersScreen extends StatefulWidget {
+class CharactersScreen extends StatelessWidget {
   const CharactersScreen({Key? key}) : super(key: key);
-
-  @override
-  _CharactersScreenState createState() => _CharactersScreenState();
-}
-
-class _CharactersScreenState extends State<CharactersScreen> {
-  bool _isLoading = false;
-
-  _showLoading({bool loading = true}) {
-    setState(() {
-      _isLoading = loading;
-    });
-  }
 
   _showData(CharactersState state, Orientation orientation) {
     List<Character>? data;
@@ -45,63 +32,65 @@ class _CharactersScreenState extends State<CharactersScreen> {
   @override
   Widget build(BuildContext context) {
     var bloc = BlocProvider.of<CharactersBloc>(context);
-    bloc.add(LoadCharacters());
 
     return BlocBuilder<CharactersBloc, CharactersState>(
-        builder: (context, state) {
-      var legal = "";
-      var count = 0;
-      var total = 0;
-      if (state is Success) {
-        legal = state.legal;
-        count = state.count;
-        total = state.total;
-      }
+      builder: (context, state) {
+        var legal = "";
+        var count = 0;
+        var total = 0;
 
-      _showLoading(loading: state is Loading);
-      if (state is Error) {
-        showDialog(
-            context: context,
-            builder: (context) {
-              return ErrorView();
-            });
-      }
+        if (state is CharactersInitial) bloc.add(LoadCharacters());
 
-      return NotificationListener<ScrollNotification>(
-        onNotification: (ScrollNotification scrollNotification) {
-          if (scrollNotification is ScrollEndNotification &&
-              (scrollNotification.metrics.pixels ==
-                  scrollNotification.metrics.maxScrollExtent)) {
-            bloc.add(GetMore());
-            return true;
-          }
-          return false;
-        },
-        child: Column(
-          children: [
-            Expanded(
-              child: OrientationBuilder(
-                builder: (context, orientation) {
-                  return Stack(
-                    children: [
-                      _showData(state, orientation),
-                      Visibility(
-                        visible: _isLoading,
-                        child: LoadingView(),
-                      )
-                    ],
-                  );
-                },
+        if (state is Success) {
+          legal = state.legal;
+          count = state.count;
+          total = state.total;
+        }
+
+        if (state is Error) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return ErrorView();
+              });
+        }
+
+        return NotificationListener<ScrollNotification>(
+          onNotification: (ScrollNotification scrollNotification) {
+            if (scrollNotification is ScrollEndNotification &&
+                (scrollNotification.metrics.pixels ==
+                    scrollNotification.metrics.maxScrollExtent)) {
+              bloc.add(GetMore());
+              return true;
+            }
+            return false;
+          },
+          child: Column(
+            children: [
+              Expanded(
+                child: OrientationBuilder(
+                  builder: (context, orientation) {
+                    return Stack(
+                      children: [
+                        _showData(state, orientation),
+                        Visibility(
+                          visible: state is Loading,
+                          child: LoadingView(),
+                        )
+                      ],
+                    );
+                  },
+                ),
               ),
-            ),
-            LegalInfo(
-              legal: legal,
-              count: count,
-              total: total,
-            ),
-          ],
-        ),
-      );
-    });
+              LegalInfo(
+                legal: legal,
+                count: count,
+                total: total,
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

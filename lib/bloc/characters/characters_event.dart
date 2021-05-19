@@ -10,3 +10,21 @@ abstract class CharactersEvent extends Equatable {
 class LoadCharacters extends CharactersEvent {}
 
 class GetMore extends CharactersEvent {}
+
+class LoadCharactersError extends CharactersEvent {
+  final Failure error;
+
+  LoadCharactersError(this.error) : super([error]);
+}
+
+class LoadCharactersSuccess extends CharactersEvent {
+  final DataResult<Character> characters;
+
+  LoadCharactersSuccess(this.characters) : super([characters]);
+}
+
+class LoadMoreCharactersSuccess extends CharactersEvent {
+  final DataResult<Character> characters;
+
+  LoadMoreCharactersSuccess(this.characters) : super([characters]);
+}

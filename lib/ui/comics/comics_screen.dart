@@ -13,13 +13,15 @@ class ComicsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var bloc = BlocProvider.of<ComicsBloc>(context);
-    bloc.add(LoadComics());
 
     return BlocBuilder<ComicsBloc, ComicsState>(
       builder: (context, state) {
         var legal = "";
         var count = 0;
         var total = 0;
+
+        if (state is ComicsInitial) bloc.add(LoadComics());
+
         if (state is Success) {
           legal = state.legal;
           count = state.count;

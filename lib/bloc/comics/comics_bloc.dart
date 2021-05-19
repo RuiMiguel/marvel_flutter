@@ -28,21 +28,11 @@ class ComicsBloc extends Bloc<ComicsEvent, ComicsState> {
 
       var result = await _comicsRepository.getComicsResult(_limit, _offset);
       result.fold(
-        (failure) async* {
-          yield Error(failure);
+        (failure) {
+          add(LoadComicsError(failure));
         },
-        (success) async* {
-          _comics = success.data.results;
-
-          total = success.data.total;
-          count = success.data.offset + success.data.count;
-          legal = success.attributionText;
-          yield Success(
-            comics: _comics,
-            count: count,
-            total: total,
-            legal: legal,
-          );
+        (success) {
+          add(LoadComicsSuccess(success));
         },
       );
     } else if (event is GetMore) {
@@ -52,20 +42,36 @@ class ComicsBloc extends Bloc<ComicsEvent, ComicsState> {
 
       var result = await _comicsRepository.getComicsResult(_limit, _offset);
       result.fold(
-        (failure) async* {
-          yield Error(failure);
+        (failure) {
+          add(LoadComicsError(failure));
         },
-        (success) async* {
-          _comics.addAll(success.data.results);
+        (success) {
+          add(LoadMoreComicsSuccess(success));
+        },
+      );
+    } else if (event is LoadComicsError) {
+      yield Error(event.error);
+    } else if (event is LoadComicsSuccess) {
+      _comics = event.comics.data.results;
 
-          count = success.data.offset + success.data.count;
-          yield Success(
-            comics: _comics,
-            count: count,
-            total: total,
-            legal: legal,
-          );
-        },
+      total = event.comics.data.total;
+      count = event.comics.data.offset + event.comics.data.count;
+      legal = event.comics.attributionText;
+      yield Success(
+        comics: _comics,
+        count: count,
+        total: total,
+        legal: legal,
+      );
+    } else if (event is LoadMoreComicsSuccess) {
+      _comics.addAll(event.comics.data.results);
+
+      count = event.comics.data.offset + event.comics.data.count;
+      yield Success(
+        comics: _comics,
+        count: count,
+        total: total,
+        legal: legal,
       );
     }
   }
