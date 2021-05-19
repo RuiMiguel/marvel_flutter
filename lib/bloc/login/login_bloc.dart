@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:marvel/bloc/authentication_bloc.dart' as Auth;
+import 'package:marvel/bloc/authentication/authentication_bloc.dart' as Auth;
 import 'package:marvel_data/marvel_data.dart';
 
 part 'login_event.dart';

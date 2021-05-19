@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:marvel/bloc/authentication_bloc.dart';
-import 'package:marvel/bloc/login_bloc.dart';
+import 'package:marvel/bloc/authentication/authentication_bloc.dart';
+import 'package:marvel/bloc/login/login_bloc.dart';
 import 'package:marvel/styles/themes.dart';
 import 'package:marvel/ui/commons/custom_appbar.dart';
 import 'package:marvel/ui/login/authenticated_buttons_view.dart';
@@ -102,9 +102,8 @@ class LoginScreen extends StatelessWidget {
                                           ),
                                         if (authState is UnAuthenticated)
                                           UnauthenticatedButtons(
-                                            onUpdate: (context) async {
-                                              loginBloc.add(Login());
-                                            },
+                                            onUpdate: (context) async =>
+                                                loginBloc.add(Login()),
                                           ),
                                       ],
                                     ),

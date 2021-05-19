@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marvel/bloc/authentication_bloc.dart';
+import 'package:marvel/bloc/authentication/authentication_bloc.dart';
 import 'package:marvel/ui/home/home_screen.dart';
 import 'package:marvel/ui/login/login_screen.dart';
 
