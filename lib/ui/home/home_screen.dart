@@ -72,8 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
           child: IndexedStack(
             index: _currentIndex,
             children: [
-              CharactersScreen(),
-              ComicsScreen(),
+              //CharactersScreen(),
+              //ComicsScreen(),
               SeriesScreen(),
               StoriesScreen()
             ],

@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/controllers/login_controller.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marvel/bloc/authentication_bloc.dart';
 import 'package:marvel/ui/home/home_screen.dart';
 import 'package:marvel/ui/login/login_screen.dart';
-import 'package:provider/provider.dart';
+
+import 'commons/splash_screen.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.watch<LoginController>();
+    var authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
+    authenticationBloc.add(HasAuthenticated());
 
-    switch (controller.currentAuthStatus) {
-      case AuthStatus.AUTHENTICATED:
-        return HomeScreen();
-      default:
-        return LoginScreen();
-    }
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: (context, AuthenticationState state) {
+      switch (state.runtimeType) {
+        case Authenticated:
+          return HomeScreen();
+        case UnAuthenticated:
+          return LoginScreen();
+        default:
+          return SplashScreen();
+      }
+    });
   }
 }
