@@ -4,9 +4,11 @@ packages:
   core_domain:
     dependency: "direct main"
     description:
-      path: "../core_domain"
-      relative: true
-    source: path
+      path: core_domain
+      ref: HEAD
+      resolved-ref: def9a9a7c771db7a129b172946f2686fcbf88efd
+      url: "git@github.com:RuiMiguel/flutter_core.git"
+    source: git
     version: "0.0.1"
   dartz:
     dependency: "direct main"
