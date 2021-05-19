@@ -29,7 +29,6 @@ setSystemNavigationTheme({
 ThemeData lightThemeData() {
   return ThemeData(
     primaryColor: white,
-    accentColor: red,
     shadowColor: lightGrey,
     brightness: Brightness.light,
     fontFamily: 'Oswald',
@@ -42,7 +41,6 @@ ThemeData lightThemeData() {
 ThemeData darkThemeData() {
   return ThemeData(
     primaryColor: black,
-    accentColor: red,
     shadowColor: grey,
     brightness: Brightness.dark,
     fontFamily: 'Oswald',
@@ -129,6 +127,7 @@ SnackBarThemeData _snackbarTheme() {
     actionTextColor: white,
     contentTextStyle: TextStyle(
       color: white,
+      fontFamily: 'Oswald',
       fontSize: 18,
     ),
   );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:marvel/styles/colors.dart';
 
 class LegalInfo extends StatelessWidget {
   final String legal;
@@ -23,7 +24,7 @@ class LegalInfo extends StatelessWidget {
             left: 0,
             child: Container(
               height: 1,
-              color: Theme.of(context).accentColor,
+              color: red,
             ),
           ),
           Center(

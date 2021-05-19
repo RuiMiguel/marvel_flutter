@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marvel/styles/colors.dart';
 import 'package:marvel/ui/commons/custom_appbar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -50,7 +51,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
               visible: _isLoading,
               child: Center(
                 child: CircularProgressIndicator(
-                  color: Theme.of(context).accentColor,
+                  color: red,
                 ),
               ),
             ),

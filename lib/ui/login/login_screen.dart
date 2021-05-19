@@ -7,7 +7,7 @@ import 'package:marvel/styles/themes.dart';
 import 'package:marvel/ui/commons/custom_appbar.dart';
 import 'package:marvel/ui/login/authenticated_buttons_view.dart';
 import 'package:marvel/ui/login/authenticated_description_view.dart';
-import 'package:marvel/ui/login/login_textinput__view.dart';
+import 'package:marvel/ui/login/login_textinput_view.dart';
 import 'package:marvel/ui/login/unauthenticated_buttons_view.dart';
 import 'package:marvel/ui/login/unauthenticated_description_view.dart';
 

@@ -48,7 +48,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           children: [
             Container(
               height: 2,
-              color: Theme.of(context).accentColor,
+              color: red,
             ),
             new Theme(
               data: Theme.of(context).copyWith(

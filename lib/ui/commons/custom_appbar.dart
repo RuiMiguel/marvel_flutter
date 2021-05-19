@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marvel/styles/colors.dart';
 import 'package:marvel/ui/login/login_screen.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -24,7 +25,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       bottom: PreferredSize(
         child: Container(
           height: 2,
-          color: Theme.of(context).accentColor,
+          color: red,
         ),
         preferredSize: Size.fromHeight(2),
       ),
@@ -52,7 +53,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       bottom: PreferredSize(
         child: Container(
           height: 2,
-          color: Theme.of(context).accentColor,
+          color: red,
         ),
         preferredSize: Size.fromHeight(2),
       ),
