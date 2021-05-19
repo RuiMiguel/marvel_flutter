@@ -179,16 +179,20 @@ packages:
   core_data_network:
     dependency: transitive
     description:
-      path: "packages/core_data_network"
-      relative: true
-    source: path
+      path: core_data_network
+      ref: HEAD
+      resolved-ref: b7b2865d6b9f1b8796b45911fc64908f39a02fd8
+      url: "git@github.com:RuiMiguel/flutter_core.git"
+    source: git
     version: "0.0.1"
   core_domain:
     dependency: transitive
     description:
-      path: "packages/core_domain"
-      relative: true
-    source: path
+      path: core_domain
+      ref: HEAD
+      resolved-ref: b7b2865d6b9f1b8796b45911fc64908f39a02fd8
+      url: "git@github.com:RuiMiguel/flutter_core.git"
+    source: git
     version: "0.0.1"
   coverage:
     dependency: transitive

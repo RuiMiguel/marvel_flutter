@@ -6,7 +6,7 @@ import 'package:marvel/ui/characters/home_list.dart';
 import 'package:marvel/ui/commons/error_view.dart';
 import 'package:marvel/ui/commons/legal_info.dart';
 import 'package:marvel/ui/commons/loading_view.dart';
-import 'package:marvel_domain/marvel_domain.dart';
+import 'package:marvel_domain/marvel_domain.dart' hide Success, Error, Loading;
 
 class CharactersScreen extends StatelessWidget {
   const CharactersScreen({Key? key}) : super(key: key);

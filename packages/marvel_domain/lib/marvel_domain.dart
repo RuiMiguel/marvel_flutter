@@ -1,6 +1,6 @@
 library marvel_domain;
 
-export 'package:core_domain/src/error/failure.dart';
+export 'package:core_domain/core_domain.dart';
 export 'src/error/failure.dart';
 export 'src/model/character.dart';
 export 'src/model/comic.dart';

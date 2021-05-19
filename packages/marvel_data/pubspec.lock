@@ -28,7 +28,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.5.0"
+    version: "2.6.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -151,16 +151,20 @@ packages:
   core_data_network:
     dependency: "direct main"
     description:
-      path: "../core_data_network"
-      relative: true
-    source: path
+      path: core_data_network
+      ref: HEAD
+      resolved-ref: b7b2865d6b9f1b8796b45911fc64908f39a02fd8
+      url: "git@github.com:RuiMiguel/flutter_core.git"
+    source: git
     version: "0.0.1"
   core_domain:
     dependency: transitive
     description:
-      path: "../core_domain"
-      relative: true
-    source: path
+      path: core_domain
+      ref: HEAD
+      resolved-ref: b7b2865d6b9f1b8796b45911fc64908f39a02fd8
+      url: "git@github.com:RuiMiguel/flutter_core.git"
+    source: git
     version: "0.0.1"
   coverage:
     dependency: transitive
@@ -358,7 +362,7 @@ packages:
       name: node_preamble
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.13"
+    version: "2.0.0"
   package_config:
     dependency: transitive
     description:
@@ -587,21 +591,21 @@ packages:
       name: test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.16.5"
+    version: "1.16.8"
   test_api:
     dependency: transitive
     description:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.19"
+    version: "0.3.0"
   test_core:
     dependency: transitive
     description:
       name: test_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.15"
+    version: "0.3.19"
   timing:
     dependency: transitive
     description:

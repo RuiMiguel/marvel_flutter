@@ -1,7 +1,7 @@
-import 'package:core_domain/core_domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:marvel/styles/colors.dart';
+import 'package:marvel_domain/marvel_domain.dart' hide Image;
 
 class ErrorView extends StatelessWidget {
   const ErrorView({Key? key, this.failure}) : super(key: key);

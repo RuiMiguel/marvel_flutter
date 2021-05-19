@@ -17,7 +17,9 @@ dependencies:
   marvel_domain: 
     path: ../marvel_domain
   core_data_network:
-    path: ../core_data_network
+    git: 
+      url: git@github.com:RuiMiguel/flutter_core.git
+      path: core_data_network
 
 dev_dependencies:
   flutter_test:

@@ -9,6 +9,8 @@ environment:
 dependencies:
   dartz: ^0.10.0-nullsafety.1
   core_domain:
-    path: ../core_domain
+    git: 
+      url: git@github.com:RuiMiguel/flutter_core.git
+      path: core_domain
 
 dev_dependencies:
