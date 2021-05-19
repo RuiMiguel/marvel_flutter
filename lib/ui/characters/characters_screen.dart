@@ -1,13 +1,12 @@
-import 'package:core_domain/core_domain.dart';
 import 'package:flutter/material.dart';
-import 'package:marvel/controllers/characters_controller.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marvel/bloc/characters/characters_bloc.dart';
 import 'package:marvel/ui/characters/home_grid.dart';
 import 'package:marvel/ui/characters/home_list.dart';
 import 'package:marvel/ui/commons/error_view.dart';
 import 'package:marvel/ui/commons/legal_info.dart';
 import 'package:marvel/ui/commons/loading_view.dart';
 import 'package:marvel_domain/marvel_domain.dart';
-import 'package:provider/provider.dart';
 
 class CharactersScreen extends StatefulWidget {
   const CharactersScreen({Key? key}) : super(key: key);
@@ -25,11 +24,11 @@ class _CharactersScreenState extends State<CharactersScreen> {
     });
   }
 
-  _showData(CharactersController controller, Orientation orientation) {
+  _showData(CharactersState state, Orientation orientation) {
     List<Character>? data;
 
-    if (controller.characters is Success<List<Character>>) {
-      data = (controller.characters as Success).data;
+    if (state is Success) {
+      data = state.characters;
     }
 
     if (orientation == Orientation.landscape) {
@@ -45,53 +44,64 @@ class _CharactersScreenState extends State<CharactersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var controller = context.watch<CharactersController>();
-    controller.loadCharactersResult();
+    var bloc = BlocProvider.of<CharactersBloc>(context);
+    bloc.add(LoadCharacters());
 
-    _showLoading(loading: controller.characters is Loading);
+    return BlocBuilder<CharactersBloc, CharactersState>(
+        builder: (context, state) {
+      var legal = "";
+      var count = 0;
+      var total = 0;
+      if (state is Success) {
+        legal = state.legal;
+        count = state.count;
+        total = state.total;
+      }
 
-    if (controller.characters is Error) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return ErrorView();
-          });
-    }
+      _showLoading(loading: state is Loading);
+      if (state is Error) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return ErrorView();
+            });
+      }
 
-    return NotificationListener<ScrollNotification>(
-      onNotification: (ScrollNotification scrollNotification) {
-        if (scrollNotification is ScrollEndNotification &&
-            (scrollNotification.metrics.pixels ==
-                scrollNotification.metrics.maxScrollExtent)) {
-          controller.getMore();
-          return true;
-        }
-        return false;
-      },
-      child: Column(
-        children: [
-          Expanded(
-            child: OrientationBuilder(
-              builder: (context, orientation) {
-                return Stack(
-                  children: [
-                    _showData(controller, orientation),
-                    Visibility(
-                      visible: _isLoading,
-                      child: LoadingView(),
-                    )
-                  ],
-                );
-              },
+      return NotificationListener<ScrollNotification>(
+        onNotification: (ScrollNotification scrollNotification) {
+          if (scrollNotification is ScrollEndNotification &&
+              (scrollNotification.metrics.pixels ==
+                  scrollNotification.metrics.maxScrollExtent)) {
+            bloc.add(GetMore());
+            return true;
+          }
+          return false;
+        },
+        child: Column(
+          children: [
+            Expanded(
+              child: OrientationBuilder(
+                builder: (context, orientation) {
+                  return Stack(
+                    children: [
+                      _showData(state, orientation),
+                      Visibility(
+                        visible: _isLoading,
+                        child: LoadingView(),
+                      )
+                    ],
+                  );
+                },
+              ),
             ),
-          ),
-          LegalInfo(
-            legal: controller.legal,
-            count: controller.count,
-            total: controller.total,
-          ),
-        ],
-      ),
-    );
+            LegalInfo(
+              legal: legal,
+              count: count,
+              total: total,
+            ),
+          ],
+        ),
+      );
+    });
   }
 }
