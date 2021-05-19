@@ -1,62 +1,74 @@
-import 'package:core_domain/core_domain.dart';
 import 'package:flutter/material.dart';
-import 'package:marvel/controllers/comics_controller.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marvel/bloc/comics/comics_bloc.dart';
 import 'package:marvel/ui/comics/home_grid.dart';
 import 'package:marvel/ui/comics/home_list.dart';
 import 'package:marvel/ui/commons/error_view.dart';
 import 'package:marvel/ui/commons/legal_info.dart';
 import 'package:marvel/ui/commons/loading_view.dart';
-import 'package:marvel_domain/marvel_domain.dart';
-import 'package:provider/provider.dart';
 
 class ComicsScreen extends StatelessWidget {
   const ComicsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var controller = context.watch<ComicsController>();
-    controller.loadComicsResult();
+    var bloc = BlocProvider.of<ComicsBloc>(context);
+    bloc.add(LoadComics());
 
-    return NotificationListener<ScrollNotification>(
-      onNotification: (ScrollNotification scrollInfo) {
-        if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
-          controller.getMore();
-          return true;
+    return BlocBuilder<ComicsBloc, ComicsState>(
+      builder: (context, state) {
+        var legal = "";
+        var count = 0;
+        var total = 0;
+        if (state is Success) {
+          legal = state.legal;
+          count = state.count;
+          total = state.total;
         }
-        return false;
+
+        return NotificationListener<ScrollNotification>(
+          onNotification: (ScrollNotification scrollInfo) {
+            if (scrollInfo.metrics.pixels ==
+                scrollInfo.metrics.maxScrollExtent) {
+              bloc.add(GetMore());
+              return true;
+            }
+            return false;
+          },
+          child: Column(
+            children: [
+              Expanded(
+                child: OrientationBuilder(
+                  builder: (context, orientation) {
+                    if (state is Loading) {
+                      return LoadingView();
+                    } else if (state is Error) {
+                      return ErrorView();
+                    } else if (state is Success) {
+                      if (orientation == Orientation.landscape) {
+                        return HomeListView(
+                          comics: state.comics,
+                        );
+                      } else {
+                        return HomeGridView(
+                          comics: state.comics,
+                        );
+                      }
+                    } else {
+                      return ErrorView();
+                    }
+                  },
+                ),
+              ),
+              LegalInfo(
+                legal: legal,
+                count: count,
+                total: total,
+              ),
+            ],
+          ),
+        );
       },
-      child: Column(
-        children: [
-          Expanded(
-            child: OrientationBuilder(
-              builder: (context, orientation) {
-                if (controller.comics is Loading) {
-                  return LoadingView();
-                } else if (controller.comics is Error) {
-                  return ErrorView();
-                } else if (controller.comics is Success<List<Comic>>) {
-                  if (orientation == Orientation.landscape) {
-                    return HomeListView(
-                      comics: (controller.comics as Success).data,
-                    );
-                  } else {
-                    return HomeGridView(
-                      comics: (controller.comics as Success).data,
-                    );
-                  }
-                } else {
-                  return ErrorView();
-                }
-              },
-            ),
-          ),
-          LegalInfo(
-            legal: controller.legal,
-            count: controller.count,
-            total: controller.total,
-          ),
-        ],
-      ),
     );
   }
 }
