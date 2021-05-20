@@ -24,7 +24,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     CharactersEvent event,
   ) async* {
     if (event is LoadCharacters) {
-      yield Loading();
+      yield CharactersLoading();
 
       var result =
           await _charactersRepository.getCharactersResult(_limit, _offset);
@@ -38,7 +38,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
         },
       );
     } else if (event is GetMore) {
-      yield Loading();
+      yield CharactersLoading();
 
       _offset = _offset + _limit;
 
@@ -53,14 +53,14 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
         },
       );
     } else if (event is LoadCharactersError) {
-      yield Error(event.error);
+      yield CharactersError(event.error);
     } else if (event is LoadCharactersSuccess) {
       _characters = event.characters.data.results;
 
       total = event.characters.data.total;
       count = event.characters.data.offset + event.characters.data.count;
       legal = event.characters.attributionText;
-      yield Success(
+      yield CharactersSuccess(
         characters: _characters,
         count: count,
         total: total,
@@ -70,7 +70,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       _characters.addAll(event.characters.data.results);
 
       count = event.characters.data.offset + event.characters.data.count;
-      yield Success(
+      yield CharactersSuccess(
         characters: _characters,
         count: count,
         total: total,

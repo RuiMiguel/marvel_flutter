@@ -6,7 +6,7 @@ import 'package:marvel/ui/characters/home_list.dart';
 import 'package:marvel/ui/commons/error_view.dart';
 import 'package:marvel/ui/commons/legal_info.dart';
 import 'package:marvel/ui/commons/loading_view.dart';
-import 'package:marvel_domain/marvel_domain.dart' hide Success, Error, Loading;
+import 'package:marvel_domain/marvel_domain.dart';
 
 class CharactersScreen extends StatelessWidget {
   const CharactersScreen({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class CharactersScreen extends StatelessWidget {
   _showData(CharactersState state, Orientation orientation) {
     List<Character>? data;
 
-    if (state is Success) {
+    if (state is CharactersSuccess) {
       data = state.characters;
     }
 
@@ -41,13 +41,13 @@ class CharactersScreen extends StatelessWidget {
 
         if (state is CharactersInitial) bloc.add(LoadCharacters());
 
-        if (state is Success) {
+        if (state is CharactersSuccess) {
           legal = state.legal;
           count = state.count;
           total = state.total;
         }
 
-        if (state is Error) {
+        if (state is CharactersError) {
           showDialog(
               context: context,
               builder: (context) {
@@ -74,7 +74,7 @@ class CharactersScreen extends StatelessWidget {
                       children: [
                         _showData(state, orientation),
                         Visibility(
-                          visible: state is Loading,
+                          visible: state is CharactersLoading,
                           child: LoadingView(),
                         )
                       ],

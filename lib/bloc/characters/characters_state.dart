@@ -9,15 +9,15 @@ abstract class CharactersState extends Equatable {
 
 class CharactersInitial extends CharactersState {}
 
-class Loading extends CharactersState {}
+class CharactersLoading extends CharactersState {}
 
-class Success extends CharactersState {
+class CharactersSuccess extends CharactersState {
   final List<Character> characters;
   final int count;
   final int total;
   final String legal;
 
-  Success(
+  CharactersSuccess(
       {required this.characters,
       required this.count,
       required this.total,
@@ -25,8 +25,8 @@ class Success extends CharactersState {
       : super([characters, count, total, legal]);
 }
 
-class Error extends CharactersState {
+class CharactersError extends CharactersState {
   final Failure error;
 
-  Error(this.error) : super([error]);
+  CharactersError(this.error) : super([error]);
 }
