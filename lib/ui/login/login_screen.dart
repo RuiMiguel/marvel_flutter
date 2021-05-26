@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:marvel/bloc/authentication/authentication_bloc.dart';
 import 'package:marvel/bloc/login/login_bloc.dart';
+import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/styles/themes.dart';
 import 'package:marvel/ui/commons/custom_appbar.dart';
 import 'package:marvel/ui/login/authenticated_buttons_view.dart';
@@ -37,7 +37,7 @@ class LoginScreen extends StatelessWidget {
             if (authState is AuthenticationFailed) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(AppLocalizations.of(context)!.login_fail),
+                  content: Text(context.l10n.login_fail),
                 ),
               );
             }
@@ -68,9 +68,7 @@ class LoginScreen extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       children: [
                                         LoginTextInput(
-                                          labelText:
-                                              AppLocalizations.of(context)!
-                                                  .private_key,
+                                          labelText: context.l10n.private_key,
                                           text: privateKey,
                                           submit: (value) {
                                             loginBloc.add(SetPrivateKey(value));
@@ -78,9 +76,7 @@ class LoginScreen extends StatelessWidget {
                                         ),
                                         const SizedBox(height: 30),
                                         LoginTextInput(
-                                          labelText:
-                                              AppLocalizations.of(context)!
-                                                  .public_key,
+                                          labelText: context.l10n.public_key,
                                           text: publicKey,
                                           submit: (value) {
                                             loginBloc.add(SetPublicKey(value));

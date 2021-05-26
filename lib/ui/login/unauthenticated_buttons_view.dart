@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:marvel/l10n/l10n.dart';
 
 class UnauthenticatedButtons extends StatelessWidget {
   final Function(BuildContext) onUpdate;
@@ -16,7 +15,7 @@ class UnauthenticatedButtons extends StatelessWidget {
         onUpdate(context);
       },
       child: Text(
-        AppLocalizations.of(context)!.login,
+        context.l10n.login,
       ),
     );
   }

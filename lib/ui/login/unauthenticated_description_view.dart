@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/styles/colors.dart';
 import 'package:marvel/ui/commons/webview_screen.dart';
 
@@ -11,8 +10,7 @@ class UnauthenticatedDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Linkify(
-      text:
-          AppLocalizations.of(context)!.add_your_developer_credentials_to_login,
+      text: context.l10n.add_your_developer_credentials_to_login,
       style: Theme.of(context).textTheme.bodyText1,
       linkStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
             fontSize: 24,

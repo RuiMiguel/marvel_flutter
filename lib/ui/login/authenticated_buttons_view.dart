@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:marvel/l10n/l10n.dart';
 
 class AuthenticatedButtons extends StatelessWidget {
   final Function(BuildContext) onLogin;
@@ -21,7 +21,7 @@ class AuthenticatedButtons extends StatelessWidget {
             onLogin(context);
           },
           child: Text(
-            AppLocalizations.of(context)!.save,
+            context.l10n.save,
           ),
         ),
         const SizedBox(width: 30),
@@ -31,7 +31,7 @@ class AuthenticatedButtons extends StatelessWidget {
             onLogout(context);
           },
           child: Text(
-            AppLocalizations.of(context)!.logout,
+            context.l10n.logout,
           ),
         ),
       ],
