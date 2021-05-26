@@ -1,6 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel/bloc/characters/characters_bloc.dart';
 import 'package:marvel_data/marvel_data.dart';
@@ -38,7 +37,6 @@ void main() {
                 .thenAnswer((_) async => Left(expected));
             return CharactersBloc(charactersRepository);
           },
-          seed: () => CharactersInitial(),
           act: (bloc) => bloc.add(LoadCharacters()),
           expect: () => [
             isA<CharactersLoading>(),
@@ -69,7 +67,6 @@ void main() {
                 .thenAnswer((_) async => Right(expected));
             return CharactersBloc(charactersRepository);
           },
-          seed: () => CharactersInitial(),
           act: (bloc) => bloc.add(LoadCharacters()),
           expect: () => [
             isA<CharactersLoading>(),

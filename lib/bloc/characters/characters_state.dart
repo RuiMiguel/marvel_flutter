@@ -1,10 +1,11 @@
 part of 'characters_bloc.dart';
 
 abstract class CharactersState extends Equatable {
-  const CharactersState([List props = const []]);
+  final List<Object> properties;
+  CharactersState([List<Object> _props = const []]) : properties = _props;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [properties];
 }
 
 class CharactersInitial extends CharactersState {}
