@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/controllers/under_construction_controller.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:marvel/cubit/underconstruction_cubit.dart';
 import 'package:provider/provider.dart';
 import 'package:marvel/l10n/l10n.dart';
 
@@ -8,7 +10,8 @@ class UnderConstructionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = context.read<UnderConstructionController>();
+    var controller = context.read<UnderconstructionCubit>();
+    controller.getSentence(context);
 
     return SafeArea(
       child: Column(
@@ -32,10 +35,13 @@ class UnderConstructionView extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(15.0),
-                      child: Text(
-                        controller.getSentence(context),
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
+                      child: BlocBuilder<UnderconstructionCubit, String>(
+                          builder: (context, state) {
+                        return Text(
+                          state,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        );
+                      }),
                     )
                   ],
                 ),
