@@ -4,8 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:marvel/l10n/l10n.dart';
 
-class UnderconstructionCubit extends Cubit<String> {
-  UnderconstructionCubit() : super("");
+class UnderConstructionCubit extends Cubit<String> {
+  UnderConstructionCubit() : super("");
 
   void getSentence(BuildContext _context) {
     final List<String> _sentences = [

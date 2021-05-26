@@ -113,7 +113,7 @@ MultiBlocProvider _buildBlocInjection({
         ),
       ),
       BlocProvider(
-        create: (context) => UnderconstructionCubit(),
+        create: (context) => UnderConstructionCubit(),
       ),
     ],
     child: widget,

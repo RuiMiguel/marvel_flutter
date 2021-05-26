@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:marvel/cubit/underconstruction_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:marvel/l10n/l10n.dart';
 
 class UnderConstructionView extends StatelessWidget {
   const UnderConstructionView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var controller = context.read<UnderconstructionCubit>();
+    var controller = context.read<UnderConstructionCubit>();
     controller.getSentence(context);
 
     return SafeArea(
@@ -25,7 +24,7 @@ class UnderConstructionView extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Text(
-                        context.l10n.under_construction,
+                        AppLocalizations.of(context)!.under_construction,
                         style: Theme.of(context).textTheme.headline1,
                       ),
                     ),
@@ -35,7 +34,7 @@ class UnderConstructionView extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(15.0),
-                      child: BlocBuilder<UnderconstructionCubit, String>(
+                      child: BlocBuilder<UnderConstructionCubit, String>(
                           builder: (context, state) {
                         return Text(
                           state,

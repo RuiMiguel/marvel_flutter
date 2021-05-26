@@ -39,6 +39,7 @@ class MockAppLocalizations extends Mock implements AppLocalizations {
   String get save => "save";
   String get add_your_developer_credentials_to_login =>
       "add_your_developer_credentials_to_login";
+  String get under_construction => "under_construction";
 }
 
 void main() {
