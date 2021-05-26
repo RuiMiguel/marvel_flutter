@@ -16,12 +16,15 @@ void main() {
     controller = ComicsController(comicsRepository);
   }
 
-  ServerFailure _fakeError() {
-    return ServerFailure(message: "Fake error message");
+  ServerFailure _fakeServerFailure(String msg) {
+    return ServerFailure(message: msg);
   }
 
-  DataResult<Comic> _fakeDataResult() {
-    var count = 10;
+  DataResult<Comic> _fakeDataResult(
+      {required int count,
+      required int limit,
+      required int offset,
+      required int total}) {
     return DataResult<Comic>(
       code: 1,
       status: "status",
@@ -30,9 +33,9 @@ void main() {
       attributionHTML: "attributionHTML",
       data: Data<Comic>(
         count: count,
-        limit: 10,
-        offset: 0,
-        total: 10,
+        limit: limit,
+        offset: offset,
+        total: total,
         results: List.generate(
           count,
           (index) => Comic(
@@ -70,7 +73,7 @@ void main() {
 
     group('loadComicsResult', () {
       test('loading status before repository response', () async {
-        var expected = _fakeError();
+        var expected = _fakeServerFailure("Fake error message");
 
         when(() => comicsRepository.getComicsResult(any(), any()))
             .thenAnswer((_) async => Left(expected));
@@ -89,11 +92,10 @@ void main() {
         });
 
         await controller.loadComicsResult();
-        //TODO: check async expect
       });
 
       test('return NetworkFailure when repository fails', () async {
-        var expected = _fakeError();
+        var expected = _fakeServerFailure("Fake error message");
 
         when(() => comicsRepository.getComicsResult(any(), any()))
             .thenAnswer((_) async => Left(expected));
@@ -111,7 +113,8 @@ void main() {
       });
 
       test('return list of Comic when repository success', () async {
-        var expected = _fakeDataResult();
+        var expected =
+            _fakeDataResult(count: 10, limit: 10, offset: 0, total: 10);
 
         when(() => comicsRepository.getComicsResult(any(), any()))
             .thenAnswer((_) async => Right(expected));
@@ -132,7 +135,7 @@ void main() {
 
     group('getMore', () {
       test('loading status before repository response', () async {
-        var expected = _fakeError();
+        var expected = _fakeServerFailure("Fake error message");
 
         when(() => comicsRepository.getComicsResult(any(), any()))
             .thenAnswer((_) async => Left(expected));
@@ -155,11 +158,10 @@ void main() {
         });
 
         await controller.getMore();
-        //TODO: check async expect
       });
 
       test('return NetworkFailure when repository fails', () async {
-        var expected = _fakeError();
+        var expected = _fakeServerFailure("Fake error message");
 
         when(() => comicsRepository.getComicsResult(any(), any()))
             .thenAnswer((_) async => Left(expected));
@@ -177,7 +179,8 @@ void main() {
       });
 
       test('return list of Comic when repository success', () async {
-        var expected = _fakeDataResult();
+        var expected =
+            _fakeDataResult(count: 10, limit: 10, offset: 0, total: 10);
 
         when(() => comicsRepository.getComicsResult(any(), any()))
             .thenAnswer((_) async => Right(expected));

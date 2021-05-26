@@ -5,6 +5,8 @@ import 'package:marvel_domain/marvel_domain.dart';
 class CharactersController extends ChangeNotifier {
   final CharactersRepository _charactersRepository;
 
+  bool _initialized = false;
+
   int _limit = 50;
   int _offset = 0;
   int total = 0;
@@ -16,6 +18,13 @@ class CharactersController extends ChangeNotifier {
   CharactersController(this._charactersRepository);
 
   Future<void> loadCharactersResult() async {
+    if (!_initialized) {
+      _loadCharactersResult();
+      _initialized = true;
+    }
+  }
+
+  Future<void> _loadCharactersResult() async {
     characters = Result.loading();
     notifyListeners();
 

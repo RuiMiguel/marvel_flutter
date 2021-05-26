@@ -17,12 +17,15 @@ void main() {
         CharactersController(charactersRepository = MockCharactersRepository());
   }
 
-  ServerFailure _fakeError() {
-    return ServerFailure(message: "Fake error message");
+  ServerFailure _fakeServerFailure(String msg) {
+    return ServerFailure(message: msg);
   }
 
-  DataResult<Character> _fakeDataResult() {
-    var count = 10;
+  DataResult<Character> _fakeDataResult(
+      {required int count,
+      required int limit,
+      required int offset,
+      required int total}) {
     return DataResult<Character>(
       code: 1,
       status: "status",
@@ -31,9 +34,9 @@ void main() {
       attributionHTML: "attributionHTML",
       data: Data<Character>(
         count: count,
-        limit: 10,
-        offset: 0,
-        total: 10,
+        limit: limit,
+        offset: offset,
+        total: total,
         results: List.generate(
           count,
           (index) => Character(
@@ -58,7 +61,7 @@ void main() {
 
     group('loadCharactersResult', () {
       test('loading status before repository response', () async {
-        var expected = _fakeError();
+        var expected = _fakeServerFailure("Fake error message");
 
         when(() => charactersRepository.getCharactersResult(any(), any()))
             .thenAnswer((_) async => Left(expected));
@@ -81,12 +84,10 @@ void main() {
         });
 
         await controller.loadCharactersResult();
-        //tester.pump(Duration(milliseconds: 1000));
-        //TODO: check async expect
       });
 
       test('return NetworkFailure when repository fails', () async {
-        var expected = _fakeError();
+        var expected = _fakeServerFailure("Fake error message");
 
         when(() => charactersRepository.getCharactersResult(any(), any()))
             .thenAnswer((_) async => Left(expected));
@@ -105,7 +106,8 @@ void main() {
       });
 
       test('return list of Character when repository success', () async {
-        var expected = _fakeDataResult();
+        var expected =
+            _fakeDataResult(count: 10, limit: 10, offset: 0, total: 10);
 
         when(() => charactersRepository.getCharactersResult(any(), any()))
             .thenAnswer((_) async => Right(expected));
@@ -126,7 +128,7 @@ void main() {
 
     group('getMore', () {
       test('loading status before repository response', () async {
-        var expected = _fakeError();
+        var expected = _fakeServerFailure("Fake error message");
 
         when(() => charactersRepository.getCharactersResult(any(), any()))
             .thenAnswer((_) async => Left(expected));
@@ -145,11 +147,10 @@ void main() {
         });
 
         await controller.getMore();
-        //TODO: check async expect
       });
 
       test('return NetworkFailure when repository fails', () async {
-        var expected = _fakeError();
+        var expected = _fakeServerFailure("Fake error message");
 
         when(() => charactersRepository.getCharactersResult(any(), any()))
             .thenAnswer((_) async => Left(expected));
@@ -167,7 +168,8 @@ void main() {
       });
 
       test('return list of Character when repository success', () async {
-        var expected = _fakeDataResult();
+        var expected =
+            _fakeDataResult(count: 10, limit: 10, offset: 0, total: 10);
 
         when(() => charactersRepository.getCharactersResult(any(), any()))
             .thenAnswer((_) async => Right(expected));

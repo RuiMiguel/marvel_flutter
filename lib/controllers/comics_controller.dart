@@ -4,6 +4,7 @@ import 'package:marvel_domain/marvel_domain.dart';
 
 class ComicsController extends ChangeNotifier {
   final ComicsRepository _comicsRepository;
+  bool _initialized = false;
 
   int _limit = 50;
   int _offset = 0;
@@ -16,6 +17,13 @@ class ComicsController extends ChangeNotifier {
   ComicsController(this._comicsRepository);
 
   Future<void> loadComicsResult() async {
+    if (!_initialized) {
+      _loadComicsResult();
+      _initialized = true;
+    }
+  }
+
+  Future<void> _loadComicsResult() async {
     comics = Result.loading();
     notifyListeners();
 
