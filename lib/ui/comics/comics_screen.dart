@@ -22,7 +22,7 @@ class ComicsScreen extends StatelessWidget {
 
         if (state is ComicsInitial) bloc.add(LoadComics());
 
-        if (state is Success) {
+        if (state is ComicsSuccess) {
           legal = state.legal;
           count = state.count;
           total = state.total;
@@ -42,11 +42,11 @@ class ComicsScreen extends StatelessWidget {
               Expanded(
                 child: OrientationBuilder(
                   builder: (context, orientation) {
-                    if (state is Loading) {
+                    if (state is ComicsLoading) {
                       return LoadingView();
                     } else if (state is Error) {
                       return ErrorView();
-                    } else if (state is Success) {
+                    } else if (state is ComicsSuccess) {
                       if (orientation == Orientation.landscape) {
                         return HomeListView(
                           comics: state.comics,

@@ -9,15 +9,15 @@ abstract class ComicsState extends Equatable {
 
 class ComicsInitial extends ComicsState {}
 
-class Loading extends ComicsState {}
+class ComicsLoading extends ComicsState {}
 
-class Success extends ComicsState {
+class ComicsSuccess extends ComicsState {
   final List<Comic> comics;
   final int count;
   final int total;
   final String legal;
 
-  Success(
+  ComicsSuccess(
       {required this.comics,
       required this.count,
       required this.total,
@@ -25,8 +25,8 @@ class Success extends ComicsState {
       : super([comics, count, total, legal]);
 }
 
-class Error extends ComicsState {
+class ComicsError extends ComicsState {
   final Failure error;
 
-  Error(this.error) : super([error]);
+  ComicsError(this.error) : super([error]);
 }

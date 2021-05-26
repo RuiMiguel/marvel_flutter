@@ -24,7 +24,7 @@ class ComicsBloc extends Bloc<ComicsEvent, ComicsState> {
     ComicsEvent event,
   ) async* {
     if (event is LoadComics) {
-      yield Loading();
+      yield ComicsLoading();
 
       var result = await _comicsRepository.getComicsResult(_limit, _offset);
       result.fold(
@@ -36,7 +36,7 @@ class ComicsBloc extends Bloc<ComicsEvent, ComicsState> {
         },
       );
     } else if (event is GetMore) {
-      yield Loading();
+      yield ComicsLoading();
 
       _offset = _offset + _limit;
 
@@ -50,14 +50,14 @@ class ComicsBloc extends Bloc<ComicsEvent, ComicsState> {
         },
       );
     } else if (event is LoadComicsError) {
-      yield Error(event.error);
+      yield ComicsError(event.error);
     } else if (event is LoadComicsSuccess) {
       _comics = event.comics.data.results;
 
       total = event.comics.data.total;
       count = event.comics.data.offset + event.comics.data.count;
       legal = event.comics.attributionText;
-      yield Success(
+      yield ComicsSuccess(
         comics: _comics,
         count: count,
         total: total,
@@ -67,7 +67,7 @@ class ComicsBloc extends Bloc<ComicsEvent, ComicsState> {
       _comics.addAll(event.comics.data.results);
 
       count = event.comics.data.offset + event.comics.data.count;
-      yield Success(
+      yield ComicsSuccess(
         comics: _comics,
         count: count,
         total: total,
