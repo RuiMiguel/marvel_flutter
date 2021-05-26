@@ -5,7 +5,7 @@ import 'package:marvel/bloc/authentication/authentication_bloc.dart';
 import 'package:marvel/bloc/characters/characters_bloc.dart';
 import 'package:marvel/bloc/comics/comics_bloc.dart';
 import 'package:marvel/bloc/login/login_bloc.dart';
-import 'package:marvel/controllers/under_construction_controller.dart';
+import 'package:marvel/cubit/underconstruction_cubit.dart';
 import 'package:marvel_data/marvel_data.dart';
 import 'package:marvel_domain/marvel_domain.dart';
 import 'package:provider/provider.dart';
@@ -15,33 +15,11 @@ MultiProvider buildDependencyInjection({
   required SharedPreferences preferences,
   required Widget widget,
 }) {
-  return _buildOldInjection(
+  return _buildDataInjection(
     preferences: preferences,
-    widget: _buildDataInjection(
-      preferences: preferences,
-      widget: _buildBlocInjection(
-        widget: widget,
-      ),
+    widget: _buildBlocInjection(
+      widget: widget,
     ),
-  );
-}
-
-MultiProvider _buildOldInjection({
-  required SharedPreferences preferences,
-  required Widget widget,
-}) {
-  final _baseUrl = "gateway.marvel.com:443";
-  final _logEnabled = true;
-  final _connectTimeout = 30000;
-  final _receiveTimeout = 30000;
-
-  return MultiProvider(
-    providers: [
-      Provider(
-        create: (context) => UnderConstructionController(),
-      ),
-    ],
-    child: widget,
   );
 }
 
@@ -133,6 +111,9 @@ MultiBlocProvider _buildBlocInjection({
         create: (context) => ComicsBloc(
           RepositoryProvider.of<ComicsRepository>(context),
         ),
+      ),
+      BlocProvider(
+        create: (context) => UnderconstructionCubit(),
       ),
     ],
     child: widget,
