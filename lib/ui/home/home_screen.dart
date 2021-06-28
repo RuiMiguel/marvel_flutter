@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:marvel/styles/colors.dart';
 import 'package:marvel/styles/themes.dart';
-import 'package:marvel/ui/characters/characters_screen.dart';
+import 'package:marvel/characters/ui/characters_screen.dart';
 import 'package:marvel/ui/comics/comics_screen.dart';
 import 'package:marvel/ui/commons/custom_appbar.dart';
 import 'package:marvel/ui/commons/custom_bottomnavigationbar.dart';

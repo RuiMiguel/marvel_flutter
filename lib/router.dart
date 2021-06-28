@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/ui/characters/character_detail_screen.dart';
+import 'package:marvel/characters/ui/character_detail_screen.dart';
 import 'package:marvel/ui/comics/comic_detail_screen.dart';
 import 'package:marvel/ui/commons/webview_screen.dart';
 import 'package:marvel/ui/login/login_screen.dart';

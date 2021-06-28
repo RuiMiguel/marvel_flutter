@@ -1,15 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marvel/bloc/characters/characters_bloc.dart';
-import 'package:marvel/ui/characters/home_grid.dart';
-import 'package:marvel/ui/characters/home_list.dart';
+import 'package:marvel/characters/bloc/characters_bloc.dart';
+import 'package:marvel/characters/ui/home_grid.dart';
+import 'package:marvel/characters/ui/home_list.dart';
 import 'package:marvel/ui/commons/error_view.dart';
 import 'package:marvel/ui/commons/legal_info.dart';
 import 'package:marvel/ui/commons/loading_view.dart';
+import 'package:marvel_data/marvel_data.dart';
 import 'package:marvel_domain/marvel_domain.dart';
 
 class CharactersScreen extends StatelessWidget {
   const CharactersScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<CharactersRepository>(
+          create: (context) =>
+              CharactersDataRepository(context.read<CharacterApiClient>()),
+        ),
+      ],
+      child: BlocProvider(
+        create: (context) => CharactersBloc(
+          RepositoryProvider.of<CharactersRepository>(context),
+        ),
+        child: const CharactersView(),
+      ),
+    );
+  }
+}
+
+class CharactersView extends StatelessWidget {
+  const CharactersView({Key? key}) : super(key: key);
 
   _showData(CharactersState state, Orientation orientation) {
     List<Character>? data;
@@ -31,13 +54,21 @@ class CharactersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var bloc = BlocProvider.of<CharactersBloc>(context);
-
-    return BlocBuilder<CharactersBloc, CharactersState>(
+    return BlocConsumer<CharactersBloc, CharactersState>(
+      listenWhen: (previous, current) {
+        return current is CharactersError;
+      },
+      listener: (context, state) => showDialog(
+          context: context,
+          builder: (context) {
+            return ErrorView();
+          }),
       builder: (context, state) {
         var legal = "";
         var count = 0;
         var total = 0;
+
+        var bloc = BlocProvider.of<CharactersBloc>(context);
 
         if (state is CharactersInitial) bloc.add(LoadCharacters());
 
@@ -45,14 +76,6 @@ class CharactersScreen extends StatelessWidget {
           legal = state.legal;
           count = state.count;
           total = state.total;
-        }
-
-        if (state is CharactersError) {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return ErrorView();
-              });
         }
 
         return NotificationListener<ScrollNotification>(

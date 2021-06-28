@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/ui/characters/home_list_element.dart';
+import 'package:marvel/characters/ui/home_grid_element.dart';
 import 'package:marvel_domain/marvel_domain.dart';
 
-class HomeListView extends StatefulWidget {
-  const HomeListView({Key? key, required this.characters}) : super(key: key);
+class HomeGridView extends StatefulWidget {
+  const HomeGridView({Key? key, required this.characters}) : super(key: key);
 
   final List<Character>? characters;
 
   @override
-  _HomeListViewState createState() => _HomeListViewState();
+  _HomeGridViewState createState() => _HomeGridViewState();
 }
 
-class _HomeListViewState extends State<HomeListView> {
+class _HomeGridViewState extends State<HomeGridView> {
   List<Character> _characters = List.empty();
 
   _setData(List<Character>? list) {
@@ -26,18 +26,14 @@ class _HomeListViewState extends State<HomeListView> {
   Widget build(BuildContext context) {
     _setData(widget.characters);
 
-    return ListView.separated(
+    return GridView.builder(
       itemCount: _characters.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3, childAspectRatio: 1),
       itemBuilder: (context, index) {
-        return HomeListElement(
+        return HomeGridElement(
           index: index,
           character: _characters[index],
-        );
-      },
-      separatorBuilder: (context, index) {
-        return Container(
-          color: Colors.black,
-          height: 2,
         );
       },
     );

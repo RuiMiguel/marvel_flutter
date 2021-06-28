@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marvel/bloc/authentication/authentication_bloc.dart';
-import 'package:marvel/bloc/characters/characters_bloc.dart';
 import 'package:marvel/bloc/comics/comics_bloc.dart';
 import 'package:marvel/bloc/login/login_bloc.dart';
 import 'package:marvel/cubit/underconstruction_cubit.dart';
@@ -43,6 +42,15 @@ MultiRepositoryProvider _buildDataInjection({
       ),
       RepositoryProvider(
         create: (context) {
+          var options = BaseOptions(
+            connectTimeout: _connectTimeout,
+            receiveTimeout: _receiveTimeout,
+          );
+          return Dio(options)..interceptors.add(LogginInterceptor(_logEnabled));
+        },
+      ),
+      RepositoryProvider(
+        create: (context) {
           var _datastore = context.read<DatastoreManager>();
 
           return CharacterApiClient(
@@ -51,19 +59,6 @@ MultiRepositoryProvider _buildDataInjection({
             publicKey: _datastore.getPublicKey(),
             logEnabled: _logEnabled,
           );
-        },
-      ),
-      RepositoryProvider<CharactersRepository>(
-        create: (context) =>
-            CharactersDataRepository(context.read<CharacterApiClient>()),
-      ),
-      RepositoryProvider(
-        create: (context) {
-          var options = BaseOptions(
-            connectTimeout: _connectTimeout,
-            receiveTimeout: _receiveTimeout,
-          );
-          return Dio(options)..interceptors.add(LogginInterceptor(_logEnabled));
         },
       ),
       RepositoryProvider(
@@ -100,11 +95,6 @@ MultiBlocProvider _buildBlocInjection({
         create: (context) => LoginBloc(
           authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
           datastore: RepositoryProvider.of<DatastoreManager>(context),
-        ),
-      ),
-      BlocProvider(
-        create: (context) => CharactersBloc(
-          RepositoryProvider.of<CharactersRepository>(context),
         ),
       ),
       BlocProvider(

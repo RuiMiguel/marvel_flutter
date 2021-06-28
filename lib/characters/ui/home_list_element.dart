@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:marvel/styles/colors.dart';
-import 'package:marvel/ui/characters/character_detail_screen.dart';
+import 'package:marvel/characters/ui/character_detail_screen.dart';
 import 'package:marvel_domain/marvel_domain.dart' hide Image;
 
 class HomeListElement extends StatelessWidget {
