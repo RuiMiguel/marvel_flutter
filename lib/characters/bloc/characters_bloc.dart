@@ -8,16 +8,16 @@ part 'characters_event.dart';
 part 'characters_state.dart';
 
 class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
-  int _limit = 50;
+  CharactersBloc(this._charactersRepository) : super(CharactersInitial());
+
+  final int _limit = 50;
   int _offset = 0;
   int total = 0;
   int count = 0;
   List<Character> _characters = List.empty(growable: true);
-  String legal = "";
+  String legal = '';
 
   final CharactersRepository _charactersRepository;
-
-  CharactersBloc(this._charactersRepository) : super(CharactersInitial());
 
   @override
   Stream<CharactersState> mapEventToState(

@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:marvel/styles/colors.dart';
 
 class LoginTextInput extends StatelessWidget {
-  final String hint;
-  final String labelText;
-  final String text;
-  final Function(String) submit;
-
   const LoginTextInput({
     Key? key,
-    this.hint = "*****",
+    this.hint = '*****',
     required this.labelText,
     required this.text,
     required this.submit,
   }) : super(key: key);
+
+  final String hint;
+  final String labelText;
+  final String text;
+  final Function(String) submit;
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +27,15 @@ class LoginTextInput extends StatelessWidget {
         labelText: labelText,
         hintStyle: Theme.of(context).textTheme.subtitle1,
         labelStyle: Theme.of(context).textTheme.subtitle1,
-        enabledBorder: UnderlineInputBorder(
+        enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: red),
         ),
-        focusedBorder: UnderlineInputBorder(
+        focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: red),
         ),
-        border: UnderlineInputBorder(),
+        border: const UnderlineInputBorder(),
       ),
-      onFieldSubmitted: (value) => submit(value),
+      onFieldSubmitted: (value) async => submit(value),
     );
   }
 }

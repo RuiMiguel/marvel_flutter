@@ -3,12 +3,12 @@ import 'package:flutter/widgets.dart';
 import 'package:marvel/l10n/l10n.dart';
 
 class AuthenticatedButtons extends StatelessWidget {
-  final Function(BuildContext) onLogin;
-  final Function(BuildContext) onLogout;
-
   const AuthenticatedButtons(
       {Key? key, required this.onLogin, required this.onLogout})
       : super(key: key);
+
+  final Function(BuildContext) onLogin;
+  final Function(BuildContext) onLogout;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,6 @@ class AuthenticatedButtons extends StatelessWidget {
         ),
         const SizedBox(width: 30),
         ElevatedButton(
-          style: Theme.of(context).elevatedButtonTheme.style,
           onPressed: () {
             onLogout(context);
           },

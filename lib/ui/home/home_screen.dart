@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:marvel/characters/ui/characters_screen.dart';
 import 'package:marvel/styles/colors.dart';
 import 'package:marvel/styles/themes.dart';
-import 'package:marvel/characters/ui/characters_screen.dart';
 import 'package:marvel/ui/comics/comics_screen.dart';
 import 'package:marvel/ui/commons/custom_appbar.dart';
 import 'package:marvel/ui/commons/custom_bottomnavigationbar.dart';
@@ -11,7 +11,7 @@ import 'package:marvel/ui/stories/stories_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
-  static const String routeName = "home";
+  static const String routeName = 'home';
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -30,22 +30,22 @@ class _HomeScreenState extends State<HomeScreen> {
     var items = [
       CustomBottomNavigationItem(
         label: AppLocalizations.of(context)!.menu_characters,
-        image: "assets/images/menu/Captain-America.png",
+        image: 'assets/images/menu/Captain-America.png',
         color: _currentIndex == 0 ? Section.characters.color : lightGrey,
       ),
       CustomBottomNavigationItem(
         label: AppLocalizations.of(context)!.menu_comics,
-        image: "assets/images/menu/Hulk.png",
+        image: 'assets/images/menu/Hulk.png',
         color: _currentIndex == 1 ? Section.comics.color : lightGrey,
       ),
       CustomBottomNavigationItem(
         label: AppLocalizations.of(context)!.menu_series,
-        image: "assets/images/menu/Thor.png",
+        image: 'assets/images/menu/Thor.png',
         color: _currentIndex == 2 ? Section.series.color : lightGrey,
       ),
       CustomBottomNavigationItem(
         label: AppLocalizations.of(context)!.menu_stories,
-        image: "assets/images/menu/Iron-Man.png",
+        image: 'assets/images/menu/Iron-Man.png',
         color: _currentIndex == 3 ? Section.stories.color : lightGrey,
       ),
     ];
@@ -67,17 +67,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: CustomAppBar(userActions: true),
-        body: Container(
-          child: IndexedStack(
-            index: _currentIndex,
-            children: [
-              CharactersScreen(),
-              ComicsScreen(),
-              SeriesScreen(),
-              StoriesScreen()
-            ],
-          ),
+        appBar: const CustomAppBar(userActions: true),
+        body: IndexedStack(
+          index: _currentIndex,
+          children: [
+            CharactersScreen(),
+            ComicsScreen(),
+            SeriesScreen(),
+            StoriesScreen()
+          ],
         ),
         bottomNavigationBar: _buildCustomBottomNavigationBar(),
       ),

@@ -26,10 +26,10 @@ MultiRepositoryProvider _buildDataInjection({
   required SharedPreferences preferences,
   required Widget widget,
 }) {
-  final _baseUrl = "gateway.marvel.com:443";
-  final _logEnabled = true;
-  final _connectTimeout = 30000;
-  final _receiveTimeout = 30000;
+  const _baseUrl = 'gateway.marvel.com:443';
+  const _logEnabled = true;
+  const _connectTimeout = 30000;
+  const _receiveTimeout = 30000;
 
   return MultiRepositoryProvider(
     providers: [

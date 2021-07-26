@@ -4,9 +4,10 @@ import 'package:marvel/ui/login/login_screen.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
-
   const CustomAppBar({Key? key, this.userActions = false}) : super(key: key);
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   final bool userActions;
 
@@ -23,11 +24,11 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       backgroundColor: Theme.of(context).primaryColor,
       bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(2),
         child: Container(
           height: 2,
           color: red,
         ),
-        preferredSize: Size.fromHeight(2),
       ),
       centerTitle: true,
       title: Image.asset(
@@ -36,12 +37,12 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
         height: 120,
       ),
       actions: [
-        IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+        IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
         IconButton(
           onPressed: () {
             Navigator.of(context).pushNamed(LoginScreen.routeName);
           },
-          icon: Icon(Icons.verified_user),
+          icon: const Icon(Icons.verified_user),
         ),
       ],
     );
@@ -51,11 +52,11 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       backgroundColor: Theme.of(context).primaryColor,
       bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(2),
         child: Container(
           height: 2,
           color: red,
         ),
-        preferredSize: Size.fromHeight(2),
       ),
       centerTitle: true,
       title: Image.asset(

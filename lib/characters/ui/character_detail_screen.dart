@@ -11,7 +11,8 @@ import 'package:marvel_domain/marvel_domain.dart' hide Image;
 class CharacterDetailScreen extends StatefulWidget {
   const CharacterDetailScreen({Key? key, required this.character})
       : super(key: key);
-  static const String routeName = "character-details";
+
+  static const String routeName = 'character-details';
 
   final Character character;
 
@@ -20,11 +21,24 @@ class CharacterDetailScreen extends StatefulWidget {
 }
 
 class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
-  ScrollController _scrollController = ScrollController();
-  double _sliverAppHeight = 400;
   bool lastStatus = true;
 
-  _scrollListener() {
+  final ScrollController _scrollController = ScrollController();
+  final double _sliverAppHeight = 400;
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _scrollController.addListener(_scrollListener);
+    super.initState();
+  }
+
+  Future<void> _scrollListener() async {
     if (isShrink != lastStatus) {
       setState(() {
         lastStatus = isShrink;
@@ -38,24 +52,12 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
   }
 
   @override
-  void initState() {
-    _scrollController.addListener(_scrollListener);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.removeListener(_scrollListener);
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     setStatusBarTheme(
         color: Section.characters.color, brightness: Brightness.light);
 
-    _printDescriptionView() {
-      var view;
+    Widget _printDescriptionView() {
+      Widget view;
       if (widget.character.description.isEmpty) {
         view =
             EmptyContentView(title: AppLocalizations.of(context)!.description);
@@ -79,7 +81,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
       return view;
     }
 
-    _printLinksView() {
+    Widget _printLinksView() {
       var view;
       if (widget.character.urls.isEmpty) {
         view = EmptyContentView(title: AppLocalizations.of(context)!.links);
@@ -113,7 +115,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    "${element.type}",
+                    element.type,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontSize: 24,
                           color: red,
@@ -158,15 +160,15 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                   title: Visibility(
                     visible: !isShrink,
                     child: Container(
-                      child: Text(widget.character.name),
                       decoration: BoxDecoration(
                         color: blue.withAlpha(200),
                         backgroundBlendMode: BlendMode.darken,
                       ),
+                      child: Text(widget.character.name),
                     ),
                   ),
                   titlePadding:
-                      EdgeInsets.only(left: 40, bottom: 15, right: 20),
+                      const EdgeInsets.only(left: 40, bottom: 15, right: 20),
                   background: CachedNetworkImage(
                     imageUrl:
                         '${widget.character.thumbnail.path}/portrait_incredible.${widget.character.thumbnail.extension}',
@@ -193,7 +195,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
           },
           body: SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

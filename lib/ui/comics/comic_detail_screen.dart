@@ -10,7 +10,7 @@ import 'package:marvel_domain/marvel_domain.dart' hide Image;
 
 class ComicDetailScreen extends StatefulWidget {
   const ComicDetailScreen({Key? key, required this.comic}) : super(key: key);
-  static const String routeName = "comic-details";
+  static const String routeName = 'comic-details';
 
   final Comic comic;
 
@@ -19,11 +19,11 @@ class ComicDetailScreen extends StatefulWidget {
 }
 
 class _ComicDetailScreenState extends State<ComicDetailScreen> {
-  ScrollController _scrollController = ScrollController();
-  double _sliverAppHeight = 400;
+  final ScrollController _scrollController = ScrollController();
+  final double _sliverAppHeight = 400;
   bool lastStatus = true;
 
-  _scrollListener() {
+  void _scrollListener() async {
     if (isShrink != lastStatus) {
       setState(() {
         lastStatus = isShrink;
@@ -53,8 +53,8 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
     setStatusBarTheme(
         color: Section.comics.color, brightness: Brightness.light);
 
-    _printDescriptionView() {
-      var view;
+    Widget _printDescriptionView() {
+      Widget view;
       if (widget.comic.description.isEmpty) {
         view =
             EmptyContentView(title: AppLocalizations.of(context)!.description);
@@ -78,7 +78,7 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
       return view;
     }
 
-    _printLinksView() {
+    Widget _printLinksView() {
       var view;
       if (widget.comic.urls.isEmpty) {
         view = EmptyContentView(title: AppLocalizations.of(context)!.links);
@@ -112,7 +112,7 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    "${element.type}",
+                    element.type,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontSize: 24,
                           color: red,
@@ -127,7 +127,7 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
       return view;
     }
 
-    _printPricesView() {
+    Widget _printPricesView() {
       var view;
       if (widget.comic.prices.isEmpty) {
         view = EmptyContentView(title: AppLocalizations.of(context)!.prices);
@@ -156,8 +156,8 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
       return view;
     }
 
-    _printImagesView() {
-      var view;
+    Widget _printImagesView() {
+      Widget view;
       if (widget.comic.images.isEmpty) {
         view = EmptyContentView(title: AppLocalizations.of(context)!.images);
       } else {
@@ -237,15 +237,15 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
                   title: Visibility(
                     visible: !isShrink,
                     child: Container(
-                      child: Text(widget.comic.title),
                       decoration: BoxDecoration(
                         color: green.withAlpha(200),
                         backgroundBlendMode: BlendMode.darken,
                       ),
+                      child: Text(widget.comic.title),
                     ),
                   ),
                   titlePadding:
-                      EdgeInsets.only(left: 40, bottom: 15, right: 20),
+                      const EdgeInsets.only(left: 40, bottom: 15, right: 20),
                   background: CachedNetworkImage(
                     imageUrl:
                         '${widget.comic.thumbnail.path}/portrait_incredible.${widget.comic.thumbnail.extension}',
@@ -272,7 +272,7 @@ class _ComicDetailScreenState extends State<ComicDetailScreen> {
           },
           body: SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

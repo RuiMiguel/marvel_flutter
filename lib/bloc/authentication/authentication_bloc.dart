@@ -9,27 +9,27 @@ part 'authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  final DatastoreManager datastore;
-
   AuthenticationBloc(this.datastore) : super(UnInitialized());
+
+  final DatastoreManager datastore;
 
   @override
   Stream<AuthenticationState> mapEventToState(
     AuthenticationEvent event,
   ) async* {
     if (event is HasAuthenticated) {
-      String privateKey = datastore.getPrivateKey();
-      String publicKey = datastore.getPublicKey();
-      bool logged = (privateKey.isNotEmpty && publicKey.isNotEmpty);
+      var privateKey = datastore.getPrivateKey();
+      var publicKey = datastore.getPublicKey();
+      var logged = (privateKey.isNotEmpty && publicKey.isNotEmpty);
       if (logged) {
         yield Authenticated(privateKey: privateKey, publicKey: publicKey);
       } else {
         yield UnAuthenticated();
       }
     } else if (event is Authenticate) {
-      bool privateKeySaved = await datastore.setPrivateKey(event.privateKey);
-      bool publicKeySaved = await datastore.setPublicKey(event.publicKey);
-      bool logged = (privateKeySaved && publicKeySaved);
+      var privateKeySaved = await datastore.setPrivateKey(event.privateKey);
+      var publicKeySaved = await datastore.setPublicKey(event.publicKey);
+      var logged = (privateKeySaved && publicKeySaved);
       if (logged) {
         yield Authenticated(
             privateKey: event.privateKey, publicKey: event.publicKey);

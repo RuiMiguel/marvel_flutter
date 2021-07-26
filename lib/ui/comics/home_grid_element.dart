@@ -16,6 +16,14 @@ class HomeGridElement extends StatelessWidget {
     return Material(
       color: index % 2 == 1 ? lightGrey : grey,
       child: InkWell(
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            ComicDetailScreen.routeName,
+            arguments: comic,
+          );
+        },
+        splashColor: green,
+        highlightColor: lightGreen,
         child: Container(
           height: 150,
           child: Stack(
@@ -49,7 +57,7 @@ class HomeGridElement extends StatelessWidget {
                 child: Container(
                   color: green.withOpacity(0.4),
                   alignment: Alignment.bottomCenter,
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   child: Text(
                     comic.title,
                     style: Theme.of(context).textTheme.bodyText2,
@@ -59,14 +67,6 @@ class HomeGridElement extends StatelessWidget {
             ],
           ),
         ),
-        splashColor: green,
-        highlightColor: lightGreen,
-        onTap: () {
-          Navigator.of(context).pushNamed(
-            ComicDetailScreen.routeName,
-            arguments: comic,
-          );
-        },
       ),
     );
   }

@@ -1,7 +1,7 @@
 part of 'authentication_bloc.dart';
 
 abstract class AuthenticationState extends Equatable {
-  const AuthenticationState([List props = const []]);
+  const AuthenticationState();
 
   @override
   List<Object> get props => [];
@@ -10,15 +10,14 @@ abstract class AuthenticationState extends Equatable {
 class UnInitialized extends AuthenticationState {}
 
 class Authenticated extends AuthenticationState {
+  const Authenticated({required this.privateKey, required this.publicKey})
+      : super();
+
   final String privateKey;
   final String publicKey;
 
-  Authenticated({required this.privateKey, required this.publicKey})
-      : super([privateKey, publicKey]);
-
   @override
-  String toString() =>
-      'Authenticated {privateKey: $privateKey, publicKey: $publicKey}';
+  List<Object> get props => [privateKey, publicKey];
 }
 
 class AuthenticationFailed extends AuthenticationState {}

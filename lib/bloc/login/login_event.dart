@@ -1,28 +1,28 @@
 part of 'login_bloc.dart';
 
 abstract class LoginEvent extends Equatable {
-  LoginEvent([List props = const []]) : super();
+  const LoginEvent() : super();
 
   @override
   List<Object?> get props => [];
 }
 
 class SetPrivateKey extends LoginEvent {
+  const SetPrivateKey(this.privateKey) : super();
+
   final String privateKey;
 
-  SetPrivateKey(this.privateKey) : super([privateKey]);
-
   @override
-  String toString() => "SetPrivateKey privateKey: $privateKey";
+  List<Object> get props => [privateKey];
 }
 
 class SetPublicKey extends LoginEvent {
+  const SetPublicKey(this.publicKey) : super();
+
   final String publicKey;
 
-  SetPublicKey(this.publicKey) : super([publicKey]);
-
   @override
-  String toString() => "SetPublicKey publicKey: $publicKey";
+  List<Object> get props => [publicKey];
 }
 
 class Login extends LoginEvent {}

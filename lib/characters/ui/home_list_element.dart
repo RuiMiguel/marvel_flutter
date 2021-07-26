@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:marvel/styles/colors.dart';
 import 'package:marvel/characters/ui/character_detail_screen.dart';
+import 'package:marvel/styles/colors.dart';
 import 'package:marvel_domain/marvel_domain.dart' hide Image;
 
 class HomeListElement extends StatelessWidget {
@@ -17,6 +17,14 @@ class HomeListElement extends StatelessWidget {
     return Material(
       color: index % 2 == 1 ? lightGrey : grey,
       child: InkWell(
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            CharacterDetailScreen.routeName,
+            arguments: character,
+          );
+        },
+        splashColor: blue,
+        highlightColor: lightBlue,
         child: Container(
           height: 150,
           child: Stack(
@@ -50,7 +58,7 @@ class HomeListElement extends StatelessWidget {
                 child: Container(
                   color: blue.withOpacity(0.4),
                   alignment: Alignment.bottomCenter,
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   child: Text(
                     character.name,
                     style: Theme.of(context).textTheme.bodyText2,
@@ -60,14 +68,6 @@ class HomeListElement extends StatelessWidget {
             ],
           ),
         ),
-        splashColor: blue,
-        highlightColor: lightBlue,
-        onTap: () {
-          Navigator.of(context).pushNamed(
-            CharacterDetailScreen.routeName,
-            arguments: character,
-          );
-        },
       ),
     );
   }

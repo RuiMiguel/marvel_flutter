@@ -14,13 +14,11 @@ class HomeListView extends StatefulWidget {
 class _HomeListViewState extends State<HomeListView> {
   List<Character> _characters = List.empty();
 
-  _setData(List<Character>? list) {
-    setState(() {
-      if (list != null) {
-        _characters = list;
-      }
-    });
-  }
+  Future<void> _setData(List<Character>? list) async => setState(() {
+        if (list != null) {
+          _characters = list;
+        }
+      });
 
   @override
   Widget build(BuildContext context) {

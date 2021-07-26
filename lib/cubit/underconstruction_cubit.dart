@@ -5,10 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:marvel/l10n/l10n.dart';
 
 class UnderConstructionCubit extends Cubit<String> {
-  UnderConstructionCubit() : super("");
+  UnderConstructionCubit() : super('');
 
   void getSentence(BuildContext _context) {
-    final List<String> _sentences = [
+    final _sentences = <String>[
       _context.l10n.deadpool_message1,
       _context.l10n.deadpool_message2,
       _context.l10n.deadpool_message3,

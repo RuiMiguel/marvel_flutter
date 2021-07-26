@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:marvel/l10n/l10n.dart';
 
 class UnauthenticatedButtons extends StatelessWidget {
-  final Function(BuildContext) onUpdate;
-
   const UnauthenticatedButtons({Key? key, required this.onUpdate})
       : super(key: key);
+
+  final Function(BuildContext) onUpdate;
 
   @override
   Widget build(BuildContext context) {

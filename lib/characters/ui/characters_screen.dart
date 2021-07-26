@@ -34,7 +34,7 @@ class CharactersScreen extends StatelessWidget {
 class CharactersView extends StatelessWidget {
   const CharactersView({Key? key}) : super(key: key);
 
-  _showData(CharactersState state, Orientation orientation) {
+  StatefulWidget _showData(CharactersState state, Orientation orientation) {
     List<Character>? data;
 
     if (state is CharactersSuccess) {
@@ -61,10 +61,10 @@ class CharactersView extends StatelessWidget {
       listener: (context, state) => showDialog(
           context: context,
           builder: (context) {
-            return ErrorView();
+            return const ErrorView();
           }),
       builder: (context, state) {
-        var legal = "";
+        var legal = '';
         var count = 0;
         var total = 0;
 
@@ -98,7 +98,7 @@ class CharactersView extends StatelessWidget {
                         _showData(state, orientation),
                         Visibility(
                           visible: state is CharactersLoading,
-                          child: LoadingView(),
+                          child: const LoadingView(),
                         )
                       ],
                     );

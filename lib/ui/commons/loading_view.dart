@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'package:flutter/material.dart';
 
 class LoadingView extends StatefulWidget {
   const LoadingView({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class _LoadingViewState extends State<LoadingView>
   void initState() {
     super.initState();
     animationController =
-        AnimationController(duration: Duration(seconds: 1), vsync: this);
+        AnimationController(duration: const Duration(seconds: 1), vsync: this);
 
     animation = Tween<double>(
       begin: 2 * math.pi,
@@ -45,13 +45,13 @@ class _LoadingViewState extends State<LoadingView>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Transform.rotate(
                 angle: animation.value,
                 child: Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(20),
-                  child: Image.asset("assets/images/Mjolnir.png"),
+                  padding: const EdgeInsets.all(20),
+                  child: Image.asset('assets/images/Mjolnir.png'),
                 ),
               )),
         ],

@@ -16,7 +16,7 @@ class ComicsScreen extends StatelessWidget {
 
     return BlocBuilder<ComicsBloc, ComicsState>(
       builder: (context, state) {
-        var legal = "";
+        var legal = '';
         var count = 0;
         var total = 0;
 
@@ -43,9 +43,9 @@ class ComicsScreen extends StatelessWidget {
                 child: OrientationBuilder(
                   builder: (context, orientation) {
                     if (state is ComicsLoading) {
-                      return LoadingView();
+                      return const LoadingView();
                     } else if (state is Error) {
-                      return ErrorView();
+                      return const ErrorView();
                     } else if (state is ComicsSuccess) {
                       if (orientation == Orientation.landscape) {
                         return HomeListView(
@@ -57,7 +57,7 @@ class ComicsScreen extends StatelessWidget {
                         );
                       }
                     } else {
-                      return ErrorView();
+                      return const ErrorView();
                     }
                   },
                 ),

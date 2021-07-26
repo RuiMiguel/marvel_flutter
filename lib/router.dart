@@ -33,8 +33,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (_) => Scaffold(
           appBar: AppBar(),
-          body: Center(
-            child: Text("Route not found"),
+          body: const Center(
+            child: Text('Route not found'),
           ),
         ),
       );

@@ -8,16 +8,16 @@ part 'comics_event.dart';
 part 'comics_state.dart';
 
 class ComicsBloc extends Bloc<ComicsEvent, ComicsState> {
-  int _limit = 50;
+  ComicsBloc(this._comicsRepository) : super(ComicsInitial());
+
+  final int _limit = 50;
   int _offset = 0;
   int total = 0;
   int count = 0;
   List<Comic> _comics = List.empty(growable: true);
-  String legal = "";
+  String legal = '';
 
   final ComicsRepository _comicsRepository;
-
-  ComicsBloc(this._comicsRepository) : super(ComicsInitial());
 
   @override
   Stream<ComicsState> mapEventToState(

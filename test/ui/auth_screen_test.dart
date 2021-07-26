@@ -9,7 +9,6 @@ import 'package:marvel/ui/commons/splash_screen.dart';
 import 'package:marvel/ui/home/home_screen.dart';
 import 'package:marvel/ui/login/login_screen.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FakeAuthenticationState extends Fake implements AuthenticationState {}
 
@@ -26,22 +25,6 @@ class FakeLoginState extends Fake implements LoginState {}
 class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
     implements LoginBloc {}
 
-class MockBuildContext extends Mock implements BuildContext {
-  AppLocalizations get l10n => MockAppLocalizations();
-}
-
-class MockAppLocalizations extends Mock implements AppLocalizations {
-  String get login_fail => "login_fail";
-  String get private_key => "private_key";
-  String get public_key => "public_key";
-  String get login => "login";
-  String get logout => "logout";
-  String get save => "save";
-  String get add_your_developer_credentials_to_login =>
-      "add_your_developer_credentials_to_login";
-  String get under_construction => "under_construction";
-}
-
 void main() {
   setUpAll(() {
     registerFallbackValue<AuthenticationState>(FakeAuthenticationState());
@@ -50,15 +33,13 @@ void main() {
     registerFallbackValue<LoginEvent>(FakeLoginEvent());
   });
 
-  group("AuthScreen", () {
+  group('AuthScreen', () {
     late AuthenticationBloc authenticationBloc;
     late LoginBloc loginBloc;
-    late AppLocalizations localizations;
 
     setUp(() {
       authenticationBloc = MockAuthenticationBloc();
       loginBloc = MockLoginBloc();
-      localizations = MockAppLocalizations();
     });
 
     testWidgets('renders SplashScreen for Authentication UnInitialized',
@@ -68,7 +49,7 @@ void main() {
       await tester.pumpWidget(
         BlocProvider.value(
           value: authenticationBloc,
-          child: MaterialApp(
+          child: const MaterialApp(
             home: AuthScreen(),
           ),
         ),
@@ -78,7 +59,7 @@ void main() {
 
     testWidgets('renders LoginScreen for Authentication UnAuthenticated',
         (tester) async {
-      when(() => loginBloc.state).thenReturn(LoggedOut());
+      when(() => loginBloc.state).thenReturn(const LoggedOut());
       when(() => authenticationBloc.state).thenReturn(UnAuthenticated());
 
       await tester.pumpWidget(
@@ -91,7 +72,7 @@ void main() {
               value: loginBloc,
             ),
           ],
-          child: MaterialApp(
+          child: const MaterialApp(
             home: AuthScreen(),
           ),
         ),
@@ -101,11 +82,10 @@ void main() {
 
     testWidgets('renders HomeScreen for Authentication Authenticated',
         (tester) async {
-      when(() => loginBloc.state).thenReturn(LoggedIn());
       when(() => authenticationBloc.state).thenReturn(
-        Authenticated(
-          privateKey: "FAKE_PRIVATE_KEY",
-          publicKey: "FAKE_PUBLIC_KEY",
+        const Authenticated(
+          privateKey: 'FAKE_PRIVATE_KEY',
+          publicKey: 'FAKE_PUBLIC_KEY',
         ),
       );
 
@@ -119,7 +99,7 @@ void main() {
               value: loginBloc,
             ),
           ],
-          child: MaterialApp(
+          child: const MaterialApp(
             home: AuthScreen(),
           ),
         ),

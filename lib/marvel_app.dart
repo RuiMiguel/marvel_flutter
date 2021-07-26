@@ -16,7 +16,7 @@ class MarvelApp extends StatelessWidget {
     return buildDependencyInjection(
       preferences: prefs,
       widget: MaterialApp(
-        home: AuthScreen(),
+        home: const AuthScreen(),
         debugShowCheckedModeBanner: false,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,

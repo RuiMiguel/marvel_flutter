@@ -8,37 +8,35 @@ class ErrorView extends StatelessWidget {
 
   final Failure? failure;
 
-  contentBox(context) {
-    return Container(
-      child: Column(
-        children: [
-          GestureDetector(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                'assets/images/close.png',
-                fit: BoxFit.contain,
-              ),
-            ),
-            onTap: () {
-              print("CLOOOSING");
-            },
-          ),
-          Center(
-            child: Text(
-              AppLocalizations.of(context)!.generic_error,
-              style: Theme.of(context).textTheme.bodyText2,
+  Column contentBox(context) {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: () {
+            print('CLOOOSING');
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset(
+              'assets/images/close.png',
+              fit: BoxFit.contain,
             ),
           ),
-          ElevatedButton(
-            style: Theme.of(context).elevatedButtonTheme.style,
-            onPressed: () {},
-            child: Text(
-              AppLocalizations.of(context)!.retry,
-            ),
+        ),
+        Center(
+          child: Text(
+            AppLocalizations.of(context)!.generic_error,
+            style: Theme.of(context).textTheme.bodyText2,
           ),
-        ],
-      ),
+        ),
+        ElevatedButton(
+          style: Theme.of(context).elevatedButtonTheme.style,
+          onPressed: () {},
+          child: Text(
+            AppLocalizations.of(context)!.retry,
+          ),
+        ),
+      ],
     );
   }
 

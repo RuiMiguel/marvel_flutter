@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marvel/cubit/underconstruction_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:marvel/cubit/underconstruction_cubit.dart';
 import 'package:provider/provider.dart';
 
 class UnderConstructionView extends StatelessWidget {
@@ -9,8 +9,7 @@ class UnderConstructionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = context.read<UnderConstructionCubit>();
-    controller.getSentence(context);
+    context.read<UnderConstructionCubit>().getSentence(context);
 
     return SafeArea(
       child: Column(
@@ -29,7 +28,7 @@ class UnderConstructionView extends StatelessWidget {
                       ),
                     ),
                     Image.asset(
-                      "assets/images/Deadpool-wait.jpeg",
+                      'assets/images/Deadpool-wait.jpeg',
                       fit: BoxFit.fill,
                     ),
                     Padding(

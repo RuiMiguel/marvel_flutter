@@ -3,12 +3,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:marvel/styles/colors.dart';
 
 class LegalInfo extends StatelessWidget {
+  const LegalInfo({Key? key, this.legal = '', this.count = 0, this.total = 0})
+      : super(key: key);
+
   final String legal;
   final int count;
   final int total;
-
-  const LegalInfo({Key? key, this.legal = "", this.count = 0, this.total = 0})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +28,9 @@ class LegalInfo extends StatelessWidget {
             ),
           ),
           Center(
-            child: Container(
-              child: Text(
-                legal,
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
+            child: Text(
+              legal,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
           Positioned(
@@ -41,7 +39,7 @@ class LegalInfo extends StatelessWidget {
             bottom: 0,
             child: Center(
               child: Text(
-                "$count ${AppLocalizations.of(context)!.of_message} $total",
+                '$count ${AppLocalizations.of(context)!.of_message} $total',
                 style: Theme.of(context).textTheme.subtitle2,
               ),
             ),

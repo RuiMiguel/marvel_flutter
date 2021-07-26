@@ -11,18 +11,17 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
-    authenticationBloc.add(HasAuthenticated());
+    BlocProvider.of<AuthenticationBloc>(context).add(HasAuthenticated());
 
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, AuthenticationState state) {
       switch (state.runtimeType) {
         case Authenticated:
-          return HomeScreen();
+          return const HomeScreen();
         case UnAuthenticated:
           return LoginScreen();
         default:
-          return SplashScreen();
+          return const SplashScreen();
       }
     });
   }

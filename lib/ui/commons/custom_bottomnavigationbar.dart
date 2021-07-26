@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:marvel/styles/colors.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
-  CustomBottomNavigationBar({
+  const CustomBottomNavigationBar({
     Key? key,
     required this.children,
     required this.onChange,
@@ -50,14 +50,14 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               height: 2,
               color: red,
             ),
-            new Theme(
+            Theme(
               data: Theme.of(context).copyWith(
                 canvasColor: Theme.of(context).primaryColor,
               ),
               child: BottomNavigationBar(
                 unselectedItemColor: lightGrey,
                 selectedItemColor: _getSelectedItemColor(),
-                selectedLabelStyle: TextStyle(fontFamily: "Oswald"),
+                selectedLabelStyle: const TextStyle(fontFamily: 'Oswald'),
                 iconSize: 32,
                 selectedFontSize: 12,
                 unselectedFontSize: 12,
@@ -89,10 +89,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 }
 
 class CustomBottomNavigationItem {
+  CustomBottomNavigationItem(
+      {required this.image, required this.label, required this.color});
+
   final String label;
   final String image;
   final Color color;
-
-  CustomBottomNavigationItem(
-      {required this.image, required this.label, required this.color});
 }

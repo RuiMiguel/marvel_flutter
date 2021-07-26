@@ -14,13 +14,11 @@ class HomeGridView extends StatefulWidget {
 class _HomeGridViewState extends State<HomeGridView> {
   List<Character> _characters = List.empty();
 
-  _setData(List<Character>? list) {
-    setState(() {
-      if (list != null) {
-        _characters = list;
-      }
-    });
-  }
+  Future<void> _setData(List<Character>? list) async => setState(() {
+        if (list != null) {
+          _characters = list;
+        }
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class _HomeGridViewState extends State<HomeGridView> {
 
     return GridView.builder(
       itemCount: _characters.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3, childAspectRatio: 1),
       itemBuilder: (context, index) {
         return HomeGridElement(

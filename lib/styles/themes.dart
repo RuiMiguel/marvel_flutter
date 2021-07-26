@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:marvel/styles/colors.dart';
 
-setStatusBarTheme({
+void setStatusBarTheme({
   Color? color = white,
   Brightness? brightness = Brightness.light,
 }) {
@@ -14,7 +14,7 @@ setStatusBarTheme({
   );
 }
 
-setSystemNavigationTheme({
+void setSystemNavigationTheme({
   Color? color = white,
   Brightness? brightness = Brightness.light,
 }) {
@@ -109,8 +109,8 @@ ElevatedButtonThemeData _elevatedButtonTheme() {
   return ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       primary: red,
-      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-      textStyle: TextStyle(
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+      textStyle: const TextStyle(
         fontSize: 20,
         color: white,
         fontFamily: 'Oswald',
@@ -122,7 +122,7 @@ ElevatedButtonThemeData _elevatedButtonTheme() {
 }
 
 SnackBarThemeData _snackbarTheme() {
-  return SnackBarThemeData(
+  return const SnackBarThemeData(
     backgroundColor: red,
     actionTextColor: white,
     contentTextStyle: TextStyle(

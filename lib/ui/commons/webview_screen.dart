@@ -4,9 +4,9 @@ import 'package:marvel/ui/commons/custom_appbar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatefulWidget {
-  static const String routeName = "web-view";
+  const WebViewScreen({Key? key, required this.url}) : super(key: key);
 
-  WebViewScreen({Key? key, required this.url}) : super(key: key);
+  static const String routeName = 'web-view';
 
   final String url;
 
@@ -18,7 +18,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
   late WebViewController _controller;
   bool _isLoading = true;
 
-  _showProgress({bool loading = true}) {
+  void _showProgress({bool loading = true}) {
     setState(() {
       _isLoading = loading;
     });
@@ -29,14 +29,14 @@ class _WebViewScreenState extends State<WebViewScreen> {
     return WillPopScope(
       onWillPop: () async {
         if (await _controller.canGoBack()) {
-          _controller.goBack();
+          await _controller.goBack();
           return Future.value(false);
         } else {
           return Future.value(true);
         }
       },
       child: Scaffold(
-        appBar: CustomAppBar(),
+        appBar: const CustomAppBar(),
         body: Stack(
           children: [
             WebView(
@@ -49,7 +49,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
             ),
             Visibility(
               visible: _isLoading,
-              child: Center(
+              child: const Center(
                 child: CircularProgressIndicator(
                   color: red,
                 ),

@@ -12,10 +12,10 @@ import 'package:marvel/ui/login/unauthenticated_buttons_view.dart';
 import 'package:marvel/ui/login/unauthenticated_description_view.dart';
 
 class LoginScreen extends StatelessWidget {
-  static const String routeName = "login";
-  late LoginBloc loginBloc;
-
   LoginScreen({Key? key}) : super(key: key);
+
+  static const String routeName = 'login';
+  late LoginBloc loginBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class LoginScreen extends StatelessWidget {
       builder: (context, loginState) {
         return BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, authState) {
-            String privateKey = "";
-            String publicKey = "";
+            var privateKey = '';
+            var publicKey = '';
 
             if (authState is Authenticated) {
               privateKey = authState.privateKey;
@@ -44,7 +44,7 @@ class LoginScreen extends StatelessWidget {
 
             return SafeArea(
               child: Scaffold(
-                appBar: CustomAppBar(),
+                appBar: const CustomAppBar(),
                 body: Column(
                   children: [
                     Expanded(
@@ -53,14 +53,14 @@ class LoginScreen extends StatelessWidget {
                         child: Center(
                           child: SingleChildScrollView(
                             child: Padding(
-                              padding: EdgeInsets.all(30),
+                              padding: const EdgeInsets.all(30),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   if (authState is Authenticated)
-                                    AuthenticatedDescription(),
+                                    const AuthenticatedDescription(),
                                   if (authState is UnAuthenticated)
-                                    UnauthenticatedDescription(),
+                                    const UnauthenticatedDescription(),
                                   const SizedBox(height: 20),
                                   Form(
                                     child: Column(
@@ -87,13 +87,9 @@ class LoginScreen extends StatelessWidget {
                                           AuthenticatedButtons(
                                             onLogin: (context) async {
                                               loginBloc.add(Login());
-                                              if (loginState is LoggedIn) {
-                                                Navigator.of(context).pop();
-                                              }
                                             },
                                             onLogout: (context) {
                                               loginBloc.add(Logout());
-                                              Navigator.of(context).pop();
                                             },
                                           ),
                                         if (authState is UnAuthenticated)

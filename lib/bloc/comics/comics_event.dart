@@ -1,7 +1,7 @@
 part of 'comics_bloc.dart';
 
 abstract class ComicsEvent extends Equatable {
-  const ComicsEvent([List props = const []]) : super();
+  const ComicsEvent() : super();
 
   @override
   List<Object> get props => [];
@@ -12,19 +12,18 @@ class LoadComics extends ComicsEvent {}
 class GetMore extends ComicsEvent {}
 
 class LoadComicsError extends ComicsEvent {
+  const LoadComicsError(this.error) : super();
   final Failure error;
-
-  LoadComicsError(this.error) : super([error]);
 }
 
 class LoadComicsSuccess extends ComicsEvent {
-  final DataResult<Comic> comics;
+  const LoadComicsSuccess(this.comics) : super();
 
-  LoadComicsSuccess(this.comics) : super([comics]);
+  final DataResult<Comic> comics;
 }
 
 class LoadMoreComicsSuccess extends ComicsEvent {
-  final DataResult<Comic> comics;
+  const LoadMoreComicsSuccess(this.comics) : super();
 
-  LoadMoreComicsSuccess(this.comics) : super([comics]);
+  final DataResult<Comic> comics;
 }

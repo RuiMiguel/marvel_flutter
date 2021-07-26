@@ -16,6 +16,14 @@ class HomeListElement extends StatelessWidget {
     return Material(
       color: index % 2 == 1 ? lightGrey : grey,
       child: InkWell(
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            ComicDetailScreen.routeName,
+            arguments: comic,
+          );
+        },
+        splashColor: green,
+        highlightColor: lightGreen,
         child: Container(
           height: 180,
           child: Stack(
@@ -24,14 +32,6 @@ class HomeListElement extends StatelessWidget {
                 child: CachedNetworkImage(
                   imageUrl:
                       '${comic.thumbnail.path}/landscape_amazing.${comic.thumbnail.extension}',
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
                   placeholder: (context, url) => Image.asset(
                     'assets/images/placeholder.png',
                     fit: BoxFit.contain,
@@ -39,6 +39,14 @@ class HomeListElement extends StatelessWidget {
                   errorWidget: (context, url, error) => Image.asset(
                     'assets/images/placeholder.png',
                     fit: BoxFit.contain,
+                  ),
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -49,7 +57,7 @@ class HomeListElement extends StatelessWidget {
                 child: Container(
                   color: green.withOpacity(0.4),
                   alignment: Alignment.bottomCenter,
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   child: Text(
                     comic.title,
                     style: Theme.of(context).textTheme.bodyText2,
@@ -59,14 +67,6 @@ class HomeListElement extends StatelessWidget {
             ],
           ),
         ),
-        splashColor: green,
-        highlightColor: lightGreen,
-        onTap: () {
-          Navigator.of(context).pushNamed(
-            ComicDetailScreen.routeName,
-            arguments: comic,
-          );
-        },
       ),
     );
   }

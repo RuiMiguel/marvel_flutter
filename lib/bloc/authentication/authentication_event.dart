@@ -1,7 +1,7 @@
 part of 'authentication_bloc.dart';
 
 abstract class AuthenticationEvent extends Equatable {
-  const AuthenticationEvent([List props = const []]) : super();
+  const AuthenticationEvent() : super();
 
   @override
   List<Object> get props => [];
@@ -10,11 +10,10 @@ abstract class AuthenticationEvent extends Equatable {
 class HasAuthenticated extends AuthenticationEvent {}
 
 class Authenticate extends AuthenticationEvent {
+  Authenticate(this.privateKey, this.publicKey) : super();
+
   final String privateKey;
   final String publicKey;
-
-  Authenticate(this.privateKey, this.publicKey)
-      : super([privateKey, publicKey]);
 
   @override
   String toString() =>

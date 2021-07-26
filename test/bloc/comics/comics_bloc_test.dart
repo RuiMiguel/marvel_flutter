@@ -17,10 +17,10 @@ void main() {
     });
 
     group(
-      "LoadComics",
+      'LoadComics',
       () {
         blocTest<ComicsBloc, ComicsState>(
-          "emits state ComicsLoading when LoadComics event is called",
+          'emits state ComicsLoading when LoadComics event is called',
           build: () => ComicsBloc(comicsRepository),
           seed: () => ComicsInitial(),
           act: (bloc) => bloc.add(LoadComics()),
@@ -30,9 +30,9 @@ void main() {
         );
 
         blocTest<ComicsBloc, ComicsState>(
-          "state [ComicsLoading, ComicsError] when LoadComics event fails",
+          'state [ComicsLoading, ComicsError] when LoadComics event fails',
           build: () {
-            var expected = _fakeServerFailure("Fake error message");
+            var expected = _fakeServerFailure('Fake error message');
             when(() => comicsRepository.getComicsResult(any(), any()))
                 .thenAnswer((_) async => Left(expected));
             return ComicsBloc(comicsRepository);
@@ -43,19 +43,19 @@ void main() {
             isA<ComicsError>()
                 .having(
                   (state) => state.error,
-                  "Error",
+                  'Error',
                   isA<ServerFailure>(),
                 )
                 .having(
                   (state) => (state.error as ServerFailure).message,
-                  "Error message",
-                  equals("Fake error message"),
+                  'Error message',
+                  equals('Fake error message'),
                 ),
           ],
         );
 
         blocTest<ComicsBloc, ComicsState>(
-          "state [ComicsLoading, ComicsSuccess] when LoadComics event success",
+          'state [ComicsLoading, ComicsSuccess] when LoadComics event success',
           build: () {
             var expected = _fakeDataResult(
               count: 10,
@@ -73,22 +73,22 @@ void main() {
             isA<ComicsSuccess>()
                 .having(
                   (state) => state.comics,
-                  "Sucess",
+                  'Sucess',
                   isA<List>(),
                 )
                 .having(
                   (state) => state.comics.length,
-                  "Sucess comics length",
+                  'Sucess comics length',
                   10,
                 )
                 .having(
                   (state) => state.total,
-                  "Sucess total",
+                  'Sucess total',
                   10,
                 )
                 .having(
                   (state) => state.count,
-                  "Sucess count",
+                  'Sucess count',
                   10,
                 ),
           ],
@@ -97,12 +97,12 @@ void main() {
     );
 
     group(
-      "GetMore",
+      'GetMore',
       () {
         blocTest<ComicsBloc, ComicsState>(
-          "state [ComicsLoading, ComicsError] when GetMore event fails",
+          'state [ComicsLoading, ComicsError] when GetMore event fails',
           build: () {
-            var expected = _fakeServerFailure("Fake error message");
+            var expected = _fakeServerFailure('Fake error message');
             when(() => comicsRepository.getComicsResult(any(), any()))
                 .thenAnswer((_) async => Left(expected));
             return ComicsBloc(comicsRepository);
@@ -113,19 +113,19 @@ void main() {
             isA<ComicsError>()
                 .having(
                   (state) => state.error,
-                  "Error",
+                  'Error',
                   isA<ServerFailure>(),
                 )
                 .having(
                   (state) => (state.error as ServerFailure).message,
-                  "Error message",
-                  equals("Fake error message"),
+                  'Error message',
+                  equals('Fake error message'),
                 ),
           ],
         );
 
         blocTest<ComicsBloc, ComicsState>(
-          "state [ComicsLoading, ComicsSuccess] when GetMore event success",
+          'state [ComicsLoading, ComicsSuccess] when GetMore event success',
           build: () {
             var expected = _fakeDataResult(
               count: 10,
@@ -143,22 +143,22 @@ void main() {
             isA<ComicsSuccess>()
                 .having(
                   (state) => state.comics,
-                  "Sucess",
+                  'Sucess',
                   isA<List>(),
                 )
                 .having(
                   (state) => state.comics.length,
-                  "Sucess comics length",
+                  'Sucess comics length',
                   10,
                 )
                 .having(
                   (state) => state.total,
-                  "Sucess total",
+                  'Sucess total',
                   0,
                 )
                 .having(
                   (state) => state.count,
-                  "Sucess count",
+                  'Sucess count',
                   10,
                 ),
           ],
@@ -180,10 +180,10 @@ DataResult<Comic> _fakeDataResult({
 }) {
   return DataResult<Comic>(
     code: 1,
-    status: "status",
-    copyright: "copyright",
-    attributionText: "attributionText",
-    attributionHTML: "attributionHTML",
+    status: 'status',
+    copyright: 'copyright',
+    attributionText: 'attributionText',
+    attributionHTML: 'attributionHTML',
     data: Data<Comic>(
       count: count,
       limit: limit,
@@ -193,17 +193,17 @@ DataResult<Comic> _fakeDataResult({
         count,
         (index) => Comic(
           id: index,
-          title: "title",
-          description: "description",
-          modified: "modified",
-          resourceURI: "resourceURI",
-          variantDescription: "variantDescription",
-          format: "format",
-          ean: "ean",
-          isbn: "isbn",
-          issn: "issn",
-          diamondCode: "diamondCode",
-          upc: "upc",
+          title: 'title',
+          description: 'description',
+          modified: 'modified',
+          resourceURI: 'resourceURI',
+          variantDescription: 'variantDescription',
+          format: 'format',
+          ean: 'ean',
+          isbn: 'isbn',
+          issn: 'issn',
+          diamondCode: 'diamondCode',
+          upc: 'upc',
           issueNumber: 0,
           pageCount: 0,
           digitalId: 0,
@@ -211,10 +211,10 @@ DataResult<Comic> _fakeDataResult({
           images: List.empty(),
           prices: List.empty(),
           urls: List.empty(),
-          thumbnail: Thumbnail(path: "path", extension: "extension"),
+          thumbnail: const Thumbnail(path: 'path', extension: 'extension'),
         ),
       ),
     ),
-    etag: "etag",
+    etag: 'etag',
   );
 }

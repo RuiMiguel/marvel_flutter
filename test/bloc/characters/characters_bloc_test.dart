@@ -17,10 +17,10 @@ void main() {
     });
 
     group(
-      "LoadCharacters",
+      'LoadCharacters',
       () {
         blocTest<CharactersBloc, CharactersState>(
-          "emits state CharactersLoading when LoadCharacters event is called",
+          'emits state CharactersLoading when LoadCharacters event is called',
           build: () => CharactersBloc(charactersRepository),
           seed: () => CharactersInitial(),
           act: (bloc) => bloc.add(LoadCharacters()),
@@ -30,9 +30,10 @@ void main() {
         );
 
         blocTest<CharactersBloc, CharactersState>(
-          "state [CharactersLoading, CharactersError] when LoadCharacters event fails",
+          '''state [CharactersLoading, CharactersError] 
+          when LoadCharacters event fails''',
           build: () {
-            var expected = _fakeServerFailure("Fake error message");
+            var expected = _fakeServerFailure('Fake error message');
             when(() => charactersRepository.getCharactersResult(any(), any()))
                 .thenAnswer((_) async => Left(expected));
             return CharactersBloc(charactersRepository);
@@ -43,19 +44,20 @@ void main() {
             isA<CharactersError>()
                 .having(
                   (state) => state.error,
-                  "Error",
+                  'Error',
                   isA<ServerFailure>(),
                 )
                 .having(
                   (state) => (state.error as ServerFailure).message,
-                  "Error message",
-                  equals("Fake error message"),
+                  'Error message',
+                  equals('Fake error message'),
                 ),
           ],
         );
 
         blocTest<CharactersBloc, CharactersState>(
-          "state [CharactersLoading, CharactersSuccess] when LoadCharacters event success",
+          '''state [CharactersLoading, CharactersSuccess] 
+          when LoadCharacters event success''',
           build: () {
             var expected = _fakeDataResult(
               count: 10,
@@ -73,22 +75,22 @@ void main() {
             isA<CharactersSuccess>()
                 .having(
                   (state) => state.characters,
-                  "Sucess",
+                  'Sucess',
                   isA<List>(),
                 )
                 .having(
                   (state) => state.characters.length,
-                  "Sucess characters length",
+                  'Sucess characters length',
                   10,
                 )
                 .having(
                   (state) => state.total,
-                  "Sucess total",
+                  'Sucess total',
                   10,
                 )
                 .having(
                   (state) => state.count,
-                  "Sucess count",
+                  'Sucess count',
                   10,
                 ),
           ],
@@ -97,12 +99,12 @@ void main() {
     );
 
     group(
-      "GetMore",
+      'GetMore',
       () {
         blocTest<CharactersBloc, CharactersState>(
-          "state [CharactersLoading, CharactersError] when GetMore event fails",
+          'state [CharactersLoading, CharactersError] when GetMore event fails',
           build: () {
-            var expected = _fakeServerFailure("Fake error message");
+            var expected = _fakeServerFailure('Fake error message');
             when(() => charactersRepository.getCharactersResult(any(), any()))
                 .thenAnswer((_) async => Left(expected));
             return CharactersBloc(charactersRepository);
@@ -113,19 +115,20 @@ void main() {
             isA<CharactersError>()
                 .having(
                   (state) => state.error,
-                  "Error",
+                  'Error',
                   isA<ServerFailure>(),
                 )
                 .having(
                   (state) => (state.error as ServerFailure).message,
-                  "Error message",
-                  equals("Fake error message"),
+                  'Error message',
+                  equals('Fake error message'),
                 ),
           ],
         );
 
         blocTest<CharactersBloc, CharactersState>(
-          "state [CharactersLoading, CharactersSuccess] when GetMore event success",
+          '''state [CharactersLoading, CharactersSuccess] 
+          when GetMore event success''',
           build: () {
             var expected = _fakeDataResult(
               count: 10,
@@ -143,22 +146,22 @@ void main() {
             isA<CharactersSuccess>()
                 .having(
                   (state) => state.characters,
-                  "Sucess",
+                  'Sucess',
                   isA<List>(),
                 )
                 .having(
                   (state) => state.characters.length,
-                  "Sucess characters length",
+                  'Sucess characters length',
                   10,
                 )
                 .having(
                   (state) => state.total,
-                  "Sucess total",
+                  'Sucess total',
                   0,
                 )
                 .having(
                   (state) => state.count,
-                  "Sucess count",
+                  'Sucess count',
                   10,
                 ),
           ],
@@ -180,10 +183,10 @@ DataResult<Character> _fakeDataResult({
 }) {
   return DataResult<Character>(
     code: 1,
-    status: "status",
-    copyright: "copyright",
-    attributionText: "attributionText",
-    attributionHTML: "attributionHTML",
+    status: 'status',
+    copyright: 'copyright',
+    attributionText: 'attributionText',
+    attributionHTML: 'attributionHTML',
     data: Data<Character>(
       count: count,
       limit: limit,
@@ -193,15 +196,15 @@ DataResult<Character> _fakeDataResult({
         count,
         (index) => Character(
           id: index,
-          name: "name",
-          description: "description",
-          modified: "modified",
-          resourceURI: "resourceURI",
+          name: 'name',
+          description: 'description',
+          modified: 'modified',
+          resourceURI: 'resourceURI',
           urls: List.empty(),
-          thumbnail: Thumbnail(path: "path", extension: "extension"),
+          thumbnail: const Thumbnail(path: 'path', extension: 'extension'),
         ),
       ),
     ),
-    etag: "etag",
+    etag: 'etag',
   );
 }

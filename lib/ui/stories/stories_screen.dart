@@ -6,6 +6,6 @@ class StoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UnderConstructionView();
+    return const UnderConstructionView();
   }
 }
