@@ -12,19 +12,12 @@ typedef Failure<T> = T Function(int?, Map<String, dynamic>);
 class DioApiClient {
   /// {@macro dio_api_client}
   DioApiClient({
-    Dio? dio,
-    int connectTimeout = 15000,
-    int receiveTimeout = 15000,
-    bool logEnabled = false,
-  }) {
-    _dio = dio ??
-        Dio(
-          BaseOptions(
-            connectTimeout: connectTimeout,
-            receiveTimeout: receiveTimeout,
-          ),
-        )
-      ..interceptors.add(LoggingInterceptor(logEnabled));
+    required Dio dio,
+    LoggingInterceptor? loggingInterceptor,
+  }) : _dio = dio {
+    if (loggingInterceptor != null) {
+      _dio.interceptors.add(loggingInterceptor);
+    }
   }
 
   late final Dio _dio;
@@ -70,8 +63,10 @@ class DioApiClient {
     Success<T> parseSuccess,
     Failure<T> parseError,
   ) async {
+    Response result;
     try {
-      return _parseResponse(await call, parseSuccess, parseError);
+      result = await call;
+      return _parseResponse(result, parseSuccess, parseError);
     } on DioError catch (error, stackTrace) {
       Error.throwWithStackTrace(
         NetworkException(error),
