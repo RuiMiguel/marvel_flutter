@@ -79,28 +79,6 @@ void main() {
         );
       });
 
-      test('returns data when request Get succeeded', () async {
-        final _headers = _generateHeaders();
-        const expected = ApiResult<ApiCharacter>();
-
-        when(
-          () => apiClient.get<ApiResult<ApiCharacter>>(
-            Uri.https(
-              baseUrl,
-              CharacterService.charactersEndpoint,
-              _headers,
-            ),
-            any(),
-            any(),
-          ),
-        ).thenAnswer((_) async => expected);
-
-        expect(
-          await characterService.getCharactersResult(limit, offset),
-          expected,
-        );
-      });
-
       test('returns data error when request Get succeeded but with error',
           () async {
         final _headers = _generateHeaders();
@@ -124,6 +102,28 @@ void main() {
           throwsA(
             isA<ServerException>().having((e) => e.error, 'error', error),
           ),
+        );
+      });
+
+      test('returns data when request Get succeeded', () async {
+        final _headers = _generateHeaders();
+        const expected = ApiResult<ApiCharacter>();
+
+        when(
+          () => apiClient.get<ApiResult<ApiCharacter>>(
+            Uri.https(
+              baseUrl,
+              CharacterService.charactersEndpoint,
+              _headers,
+            ),
+            any(),
+            any(),
+          ),
+        ).thenAnswer((_) async => expected);
+
+        expect(
+          await characterService.getCharactersResult(limit, offset),
+          expected,
         );
       });
     });
