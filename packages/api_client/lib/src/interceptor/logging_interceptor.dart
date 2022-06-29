@@ -4,16 +4,22 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
+/// {@template logging_interceptor}
+/// Interceptor for log requests at [Dio] client.
+/// {@endtemplate}
 class LoggingInterceptor extends Interceptor {
-  final bool _logEnabled;
+  /// {@macro logging_interceptor}
+  LoggingInterceptor({bool logEnabled = false}) : _logEnabled = logEnabled;
 
-  LoggingInterceptor(this._logEnabled);
+  final bool _logEnabled;
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (_logEnabled) {
       print(
-          '[Dio] HTTP Request - ${options.method} ${options.baseUrl} ${options.path}');
+        '[Dio] HTTP Request - '
+        '${options.method} ${options.baseUrl} ${options.path}',
+      );
       print('[Dio] headers - ${json.encode(options.headers)}');
     }
     super.onRequest(options, handler);
@@ -28,13 +34,13 @@ class LoggingInterceptor extends Interceptor {
   }
 
   @override
-  void onError(DioError error, ErrorInterceptorHandler handler) {
+  void onError(DioError err, ErrorInterceptorHandler handler) {
     if (_logEnabled) {
       print(
-        '[Dio] HTTP Error - ${error.response?.statusCode} '
-        '[${error.type}] ${error.error}',
+        '[Dio] HTTP Error - ${err.response?.statusCode} '
+        '[${err.type}] ${err.error}',
       );
     }
-    super.onError(error, handler);
+    super.onError(err, handler);
   }
 }
