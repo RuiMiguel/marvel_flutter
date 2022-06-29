@@ -27,4 +27,4 @@ flutter:
   generate: true    # Add this line
   assets:
     - assets/
-    - assets/json/
+    - test/assets/json/
