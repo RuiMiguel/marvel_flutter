@@ -1,0 +1,21 @@
+name: domain
+
+on: 
+  push:
+    paths:
+      - "packages/domain/**"
+      - ".github/workflows/domain.yaml"
+
+  pull_request:
+    paths:
+      - "packages/domain/**"
+      - ".github/workflows/domain.yaml"
+
+
+jobs:
+  build:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    with:
+      working_directory: packages/domain
+      flutter_channel: stable
+      flutter_version: 3.0.0

@@ -1,0 +1,21 @@
+name: character_repository
+
+on: 
+  push:
+    paths:
+      - "packages/character_repository/**"
+      - ".github/workflows/character_repository.yaml"
+
+  pull_request:
+    paths:
+      - "packages/character_repository/**"
+      - ".github/workflows/character_repository.yaml"
+
+
+jobs:
+  build:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    with:
+      working_directory: packages/character_repository
+      flutter_channel: stable
+      flutter_version: 3.0.0

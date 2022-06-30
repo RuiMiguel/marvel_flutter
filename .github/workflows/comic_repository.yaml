@@ -1,0 +1,21 @@
+name: comic_repository
+
+on: 
+  push:
+    paths:
+      - "packages/comic_repository/**"
+      - ".github/workflows/comic_repository.yaml"
+
+  pull_request:
+    paths:
+      - "packages/comic_repository/**"
+      - ".github/workflows/comic_repository.yaml"
+
+
+jobs:
+  build:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    with:
+      working_directory: packages/comic_repository
+      flutter_channel: stable
+      flutter_version: 3.0.0
