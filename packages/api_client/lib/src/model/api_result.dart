@@ -1,8 +1,12 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:json_annotation/json_annotation.dart';
 part 'api_result.g.dart';
 
 @JsonSerializable(
-    genericArgumentFactories: true, fieldRename: FieldRename.snake)
+  genericArgumentFactories: true,
+  fieldRename: FieldRename.snake,
+)
 class ApiResult<T> {
   const ApiResult({
     this.code,
@@ -46,7 +50,9 @@ class ApiResult<T> {
 }
 
 @JsonSerializable(
-    genericArgumentFactories: true, fieldRename: FieldRename.snake)
+  genericArgumentFactories: true,
+  fieldRename: FieldRename.snake,
+)
 class ApiData<T> {
   const ApiData({
     this.offset,
@@ -90,6 +96,8 @@ class ApiThumbnail {
 
   factory ApiThumbnail.fromJson(Map<String, dynamic> json) =>
       _$ApiThumbnailFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ApiThumbnailToJson(this);
 
   @JsonKey(name: 'path')
   final String? path;

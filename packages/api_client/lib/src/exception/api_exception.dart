@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 abstract class ApiException implements Exception {
   const ApiException(this.error);
 
@@ -5,21 +7,21 @@ abstract class ApiException implements Exception {
 }
 
 class NetworkException extends ApiException {
-  const NetworkException(Object error) : super(error);
+  const NetworkException(super.error);
 
   @override
   String toString() => '[NetworkException] $error';
 }
 
 class ServerException extends ApiException {
-  const ServerException(Object error) : super(error);
+  const ServerException(super.error);
 
   @override
   String toString() => '[ServerException] $error';
 }
 
 class DeserializationException extends ApiException {
-  const DeserializationException(Object error) : super(error);
+  const DeserializationException(super.error);
 
   const DeserializationException.emptyResponseBody()
       : super('Empty response body');

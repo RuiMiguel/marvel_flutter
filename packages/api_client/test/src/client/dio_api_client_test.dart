@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:api_client/api_client.dart';
 import 'package:api_client/src/client/client.dart';
 import 'package:api_client/src/interceptor/interceptor.dart';
@@ -60,17 +58,17 @@ void main() {
           const expected = ApiError();
           var called = false;
 
-          dioAdapter = DioAdapter(dio: dio);
-          dioAdapter.onGet(
-            'https://test.com/endpoint',
-            (server) => server.reply(
-              statusCode,
-              data,
-            ),
-          );
+          dioAdapter = DioAdapter(dio: dio)
+            ..onGet(
+              'https://test.com/endpoint',
+              (server) => server.reply(
+                statusCode,
+                data,
+              ),
+            );
           dio.httpClientAdapter = dioAdapter;
 
-          final result = await dioApiClient.get<ApiError>(
+          await dioApiClient.get<ApiError>(
             Uri.https(path, endpoint),
             (Map<String, dynamic> success) {
               return expected;
@@ -103,7 +101,7 @@ void main() {
             ),
           );
 
-          final result = await dioApiClient.get(
+          await dioApiClient.get(
             Uri.https(path, endpoint),
             (Map<String, dynamic> success) {
               called = true;

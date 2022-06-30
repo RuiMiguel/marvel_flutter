@@ -3,7 +3,10 @@ import 'package:api_client/src/exception/api_exception.dart';
 import 'package:api_client/src/interceptor/interceptor.dart';
 import 'package:dio/dio.dart';
 
+/// Parse success function typedef
 typedef Success<T> = T Function(Map<String, dynamic>);
+
+/// Parse failure function typedef
 typedef Failure<T> = T Function(int?, Map<String, dynamic>);
 
 /// {@template dio_api_client}

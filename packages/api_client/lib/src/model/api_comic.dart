@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:api_client/src/model/model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -30,6 +32,8 @@ class ApiComic {
 
   factory ApiComic.fromJson(Map<String, dynamic> json) =>
       _$ApiComicFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ApiComicToJson(this);
 
   final int? id;
   final int? digitalId;
@@ -64,6 +68,8 @@ class ApiTextObject {
   factory ApiTextObject.fromJson(Map<String, dynamic> json) =>
       _$ApiTextObjectFromJson(json);
 
+  Map<String, dynamic> toJson() => _$ApiTextObjectToJson(this);
+
   final String? type;
   final String? language;
   final String? text;
@@ -79,6 +85,8 @@ class ApiComicUrl {
   factory ApiComicUrl.fromJson(Map<String, dynamic> json) =>
       _$ApiComicUrlFromJson(json);
 
+  Map<String, dynamic> toJson() => _$ApiComicUrlToJson(this);
+
   final String? type;
   final String? url;
 }
@@ -93,6 +101,8 @@ class ApiPrice {
   factory ApiPrice.fromJson(Map<String, dynamic> json) =>
       _$ApiPriceFromJson(json);
 
+  Map<String, dynamic> toJson() => _$ApiPriceToJson(this);
+
   final String? type;
   final double? price;
 }
@@ -106,6 +116,8 @@ class ApiComicImage {
 
   factory ApiComicImage.fromJson(Map<String, dynamic> json) =>
       _$ApiComicImageFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ApiComicImageToJson(this);
 
   final String? path;
   final String? extension;
