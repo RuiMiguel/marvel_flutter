@@ -1,7 +1,88 @@
 {
     "@@locale": "es",
-    "counterAppBarTitle": "Contador",
-    "@counterAppBarTitle": {
-        "description": "Texto mostrado en la AppBar de la página del contador"
-    }
+    "menu_characters": "Personajes",
+    "@menu_characters": {
+        "description": "Texto para la opción 'Personajes' en el menu de navegación"
+      },
+    "menu_comics": "Comics",
+    "@menu_comics": {
+        "description": "Texto para la opción 'Comics' en el menu de navegación"
+      },
+    "menu_series": "Series",
+    "@menu_series": {
+        "description": "Texto para la opción 'Series' en el menu de navegación"
+      },
+    "menu_stories": "Historias",
+    "@menu_stories": {
+        "description": "Texto para la opción 'Historias' en el menu de navegación"
+      },
+    "of_message": "de",
+    "your_current_credentials": "Estas son tus credenciales",
+    "add_your_developer_credentials_to_login": "Añade tus credenciales de desarrollador Marvel para acceder al Api de Marvel Api. Si no tienes, por favor visita https://developer.marvel.com/account",
+    "private_key": "Clave privada",
+    "@private_key": {
+      "description": "Título para 'Clave privada' en el formulario de login"
+    },
+    "public_key": "Clave pública",
+    "@public_key": {
+      "description": "Título para 'Clave pública' en el formulario de login"
+    },
+    "login": "Entrar",
+    "@login": {
+      "description": "Botón de login"
+    },
+    "save": "Guardar",
+    "@save": {
+      "description": "Botón de guardar las credenciales"
+    },
+    "logout": "Salir",
+    "@logout": {
+      "description": "Botón de salir"
+    },
+    "login_fail": "Error al logarse (._. )",
+
+    "no_content": "No hay información",
+    "description": "Descripción",
+    "last_modified": "Última modificación:",
+    "links": "Enlaces",
+    "prices": "Precios",
+    "images": "Imágenes",
+
+    "generic_error": "Ha ocurrido un error (•̀_•́)",
+    "retry": "Reintentar",
+    "@retry": {
+      "description": "Botón de reintentar"
+    },
+
+    "under_construction": "Estamos en construcción.",
+    "deadpool_message1": "La explosión de una casa fortalece el carácter.",
+    "deadpool_message2": "Deadpool malo... Deadpool bueno!",
+    "deadpool_message3": "¿En qué arena para gatos acabo de cagar?",
+    "deadpool_message4": "Di las palabras mágicas, gordo Gandalf.",
+    "deadpool_message5": "Feliz Cuaresma.",
+    "deadpool_message6": "Papa?",
+    "deadpool_message7": "Esta es mi posesión más preciada ...",
+    "deadpool_message8": "¿Sigues aquí? Se acabó. ¡Vete a casa! Oh, estás esperando un adelanto de Deadpool 2 **. Bueno, no tenemos esa cantidad de dinero. ¿Qué estás esperando? ¿Sam Jackson aparece con un parche en el ojo y un pequeño número de cuero descarado? ¡Vamos!",
+    "deadpool_message9": "Un tipo vino aquí buscándote. Real tipo Parca. No sé. Podría promover la trama.",
+    "deadpool_message10": "Si alguna vez decido convertirme en un fanfarrón de mierda que lucha contra el crimen, que se aloja con un montón de otros pequeños llorones en Neverland Mansion con un hijo de puta espeluznante, viejo, calvo, con aspecto de Heaven's Gate ... ese día, te enviaré tu culo brillante y feliz una solicitud de amistad.",
+    "deadpool_message11": "Todos los dinosaurios temían al T-Rex.",
+    "deadpool_message12": "¿McAvoy o Stewart? Estas líneas de tiempo son confusas.",
+    "deadpool_message13": "¿Has visto 127 horas?",
+    "deadpool_message14": "Quiero morir de muerte natural a los 102 años, como la ciudad de Detroit.",
+    "deadpool_message15": "Por favor, no hagas el super traje verde ... ¡o animado!",
+    "deadpool_message16": "Tienes algo en los dientes.",
+    "deadpool_message17": "¡Obtuvo el Ajax del jabón para platos!",
+    "deadpool_message18": "Morirás solo, si pudieras morir, idealmente, por el bien de los demás.",
+    "deadpool_message19": "Capitán Deadpool! No, solo Deadpool.",
+    "deadpool_message20": "¿La cuarta rotura de la pared dentro de la cuarta rotura de la pared? Eso es como ... ¡16 paredes!",
+    "deadpool_message21": "Estás a punto de ser asesinado por un zamboni.",
+    "deadpool_message22": "Apuesto a que se siente enorme en esta mano.",
+    "deadpool_message23": "Diviértete en tu presentación de medianoche de Blade II.",
+    "deadpool_message24": "Escucha Al, si no te vuelvo a ver, quiero que sepas que te quiero mucho. También enterré 1.600 kilos de cocaína en algún lugar del apartamento, justo al lado de la cura para la ceguera. Buena suerte.",
+    "deadpool_message25": "Es una casa grande. Es extraño que solo los vea a dos. Casi como si el estudio no pudiera permitirse otro X-Man.",
+    "deadpool_message26": "¡Aterrizaje de superhéroe! ¡Ella hará un aterrizaje de superhéroe!",
+    "deadpool_message27": "Cuando termine, las partes te tendrán que volver a crecer.",
+    "deadpool_message28": "¡Seguías hablando!",
+    "deadpool_message29": "¿Vives en una casa?",
+    "deadpool_message30": "Después de un breve período de adaptación y un par de tragos, es una cara ... Me encantaría sentarme."
 }

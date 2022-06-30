@@ -1,7 +1,88 @@
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
-    }
+    "menu_characters": "Characters",
+    "@menu_characters": {
+        "description": "Text for 'Characters' option at navigation menu"
+      },
+    "menu_comics": "Comics",
+    "@menu_comics": {
+        "description": "Text for 'Comics' option at navigation menu"
+      },
+    "menu_series": "Series",
+    "@menu_series": {
+        "description": "Text for 'Series' option at navigation menu"
+      },
+    "menu_stories": "Stories",
+    "@menu_stories": {
+        "description": "Text for 'Stories' option at navigation menu"
+      },
+    "of_message": "of",
+    "your_current_credentials": "Your current credentials",
+    "add_your_developer_credentials_to_login": "Put your Marvel Developer Credentials to access Marvel Api. If you don't have please visit https://developer.marvel.com/account",
+    "private_key": "Private key",
+    "@private_key": {
+      "description": "Private key title for credentials form"
+    },
+    "public_key": "Public key",
+    "@public_key": {
+      "description": "Public key title for credentials form"
+    },
+    "login": "Login",
+    "@login": {
+      "description": "Login button text"
+    },
+    "save": "Save",
+    "@save": {
+      "description": "Save credentials button text"
+    },
+    "logout": "Logout",
+    "@logout": {
+      "description": "Logout button text"
+    },
+    "login_fail": "Login failed (._. )",
+    
+    "no_content": "No content",
+    "description": "Description",
+    "last_modified": "Last modification:",
+    "links": "Links",
+    "prices": "Prices",
+    "images": "Images",
+
+    "generic_error": "There was an error (•̀_•́)",
+    "retry": "Retry",
+    "@retry": {
+      "description": "Retry button text"
+    },
+    
+    "under_construction": "We are under construction.",
+    "deadpool_message1": "House blowing up builds character.",
+    "deadpool_message2": "Bad Deadpool... Good Deadpool!",
+    "deadpool_message3": "Whose kitty litter did I just shit in?",
+    "deadpool_message4": "Say the magic words, Fat Gandalf.",
+    "deadpool_message5": "Happy Lent.",
+    "deadpool_message6": "Dad?",
+    "deadpool_message7": "This is my most prized possession...",
+    "deadpool_message8": "You're still here? It's over. Go home! Oh, you're expecting a teaser for Deadpool 2**. Well, we don't have that kind of money. What are you expecting? Sam Jackson showing up in an eyepatch and a saucy little leather number? Go!",
+    "deadpool_message9": "Guy came in here looking for you. Real Grim Reaper-type. I don't know. Might further the plot.",
+    "deadpool_message10": "If I ever decide to become a crime-fighting shit swizzler, who rooms with a bunch of other little whiners at Neverland Mansion with some creepy, old, bald, Heaven's Gate-looking motherfucker... on that day, I'll send your shiny, happy ass a friend request.",
+    "deadpool_message11": "All the dinosaurs feared the T-Rex.",
+    "deadpool_message12": "McAvoy or Stewart? These timelines are confusing.",
+    "deadpool_message13": "Ever see 127 Hours?",
+    "deadpool_message14": "I want to die a natural death at the age of 102 - like the city of Detroit.",
+    "deadpool_message15": "Please don't make the super suit green... or animated!",
+    "deadpool_message16": "You have something in your teeth.",
+    "deadpool_message17": "He got Ajax from the dish soap!",
+    "deadpool_message18": "You will die alone, if you could die - ideally, for others sake.",
+    "deadpool_message19": "Captain Deadpool! No, just Deadpool.",
+    "deadpool_message20": "Fourth wall break inside of a fourth wall break? That's like... 16 walls!",
+    "deadpool_message21": "You're about to be killed by a Zamboni.",
+    "deadpool_message22": "I bet it feels huge in this hand.",
+    "deadpool_message23": "Have fun at your midnight showing of Blade II.",
+    "deadpool_message24": "Listen Al, if I never see you again, I want you to know that I love you very much. I also buried 1,600 kilos of cocaine somewhere in the apartment -- right next to the cure for blindness. Good luck.",
+    "deadpool_message25": "It's a Big house. It's weird I only ever see two of you. Almost like the studio couldn't afford another X-Man.",
+    "deadpool_message26": "Superhero landing! She's going to do a superhero landing!",
+    "deadpool_message27": "When I'm finished parts will have to grow back you.",
+    "deadpool_message28": "You were droning on!",
+    "deadpool_message29": "You live in a house?",
+    "deadpool_message30": "After a brief adjustment period, and a couple of drinks, it's a face... I'd be happy to sit on."
 }
