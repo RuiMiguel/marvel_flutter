@@ -47,10 +47,10 @@ class ApiComic {
   final int? pageCount;
   final List<ApiTextObject>? textObjects;
   final String? resourceURI;
-  final List<ApiUrl>? urls;
+  final List<ApiComicUrl>? urls;
   final List<ApiPrice>? prices;
   final ApiThumbnail? thumbnail;
-  final List<ApiImage>? images;
+  final List<ApiComicImage>? images;
 }
 
 @JsonSerializable()
@@ -70,13 +70,14 @@ class ApiTextObject {
 }
 
 @JsonSerializable()
-class ApiUrl {
-  const ApiUrl({
+class ApiComicUrl {
+  const ApiComicUrl({
     this.type,
     this.url,
   });
 
-  factory ApiUrl.fromJson(Map<String, dynamic> json) => _$ApiUrlFromJson(json);
+  factory ApiComicUrl.fromJson(Map<String, dynamic> json) =>
+      _$ApiComicUrlFromJson(json);
 
   final String? type;
   final String? url;
@@ -97,14 +98,14 @@ class ApiPrice {
 }
 
 @JsonSerializable()
-class ApiImage {
-  const ApiImage({
+class ApiComicImage {
+  const ApiComicImage({
     this.path,
     this.extension,
   });
 
-  factory ApiImage.fromJson(Map<String, dynamic> json) =>
-      _$ApiImageFromJson(json);
+  factory ApiComicImage.fromJson(Map<String, dynamic> json) =>
+      _$ApiComicImageFromJson(json);
 
   final String? path;
   final String? extension;

@@ -1,5 +1,5 @@
 import 'package:api_client/api_client.dart';
-import 'package:character_repository/src/mapper/data2domain_mapper.dart';
+import 'package:character_repository/src/mapper/mapper.dart';
 import 'package:domain/domain.dart';
 
 /// {@template character_repository}

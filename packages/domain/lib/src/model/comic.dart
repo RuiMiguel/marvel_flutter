@@ -40,10 +40,10 @@ class Comic {
   final int pageCount;
   final List<TextObject> textObjects;
   final String resourceURI;
-  final List<Url> urls;
+  final List<ComicUrl> urls;
   final List<Price> prices;
   final Thumbnail thumbnail;
-  final List<Image> images;
+  final List<ComicImage> images;
 }
 
 class TextObject {
@@ -58,8 +58,8 @@ class TextObject {
   final String text;
 }
 
-class Url {
-  const Url({
+class ComicUrl {
+  const ComicUrl({
     required this.type,
     required this.url,
   });
@@ -78,8 +78,8 @@ class Price {
   final double price;
 }
 
-class Image {
-  const Image({
+class ComicImage {
+  const ComicImage({
     required this.path,
     required this.extension,
   });

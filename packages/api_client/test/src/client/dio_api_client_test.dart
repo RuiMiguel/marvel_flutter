@@ -24,7 +24,7 @@ void main() {
 
   group('DioApiClient', () {
     group('constructor', () {
-      test('instantiates correctly', () async {
+      test('can be instantiated', () async {
         dio = _MockDio();
         expect(DioApiClient(dio: _MockDio()), isNotNull);
       });

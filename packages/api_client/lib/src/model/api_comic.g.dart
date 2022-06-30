@@ -27,7 +27,7 @@ ApiComic _$ApiComicFromJson(Map<String, dynamic> json) => ApiComic(
           .toList(),
       resourceURI: json['resourceURI'] as String?,
       urls: (json['urls'] as List<dynamic>?)
-          ?.map((dynamic e) => ApiUrl.fromJson(e as Map<String, dynamic>))
+          ?.map((dynamic e) => ApiComicUrl.fromJson(e as Map<String, dynamic>))
           .toList(),
       prices: (json['prices'] as List<dynamic>?)
           ?.map((dynamic e) => ApiPrice.fromJson(e as Map<String, dynamic>))
@@ -36,7 +36,8 @@ ApiComic _$ApiComicFromJson(Map<String, dynamic> json) => ApiComic(
           ? null
           : ApiThumbnail.fromJson(json['thumbnail'] as Map<String, dynamic>),
       images: (json['images'] as List<dynamic>?)
-          ?.map((dynamic e) => ApiImage.fromJson(e as Map<String, dynamic>))
+          ?.map(
+              (dynamic e) => ApiComicImage.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -77,12 +78,13 @@ Map<String, dynamic> _$ApiTextObjectToJson(ApiTextObject instance) =>
       'text': instance.text,
     };
 
-ApiUrl _$ApiUrlFromJson(Map<String, dynamic> json) => ApiUrl(
+ApiComicUrl _$ApiComicUrlFromJson(Map<String, dynamic> json) => ApiComicUrl(
       type: json['type'] as String?,
       url: json['url'] as String?,
     );
 
-Map<String, dynamic> _$ApiUrlToJson(ApiUrl instance) => <String, dynamic>{
+Map<String, dynamic> _$ApiComicUrlToJson(ApiComicUrl instance) =>
+    <String, dynamic>{
       'type': instance.type,
       'url': instance.url,
     };
@@ -97,12 +99,14 @@ Map<String, dynamic> _$ApiPriceToJson(ApiPrice instance) => <String, dynamic>{
       'price': instance.price,
     };
 
-ApiImage _$ApiImageFromJson(Map<String, dynamic> json) => ApiImage(
+ApiComicImage _$ApiComicImageFromJson(Map<String, dynamic> json) =>
+    ApiComicImage(
       path: json['path'] as String?,
       extension: json['extension'] as String?,
     );
 
-Map<String, dynamic> _$ApiImageToJson(ApiImage instance) => <String, dynamic>{
+Map<String, dynamic> _$ApiComicImageToJson(ApiComicImage instance) =>
+    <String, dynamic>{
       'path': instance.path,
       'extension': instance.extension,
     };
