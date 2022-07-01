@@ -10,17 +10,14 @@ class ComicService {
   /// {@macro comic_service}
   ComicService(
     this._baseUrl, {
-    required String publicKey,
     required DioApiClient apiClient,
     required Security security,
-  })  : _publicKey = publicKey,
-        _apiClient = apiClient,
+  })  : _apiClient = apiClient,
         _security = security;
 
   final DioApiClient _apiClient;
   final Security _security;
   final String _baseUrl;
-  final String _publicKey;
 
   /// Endpoint for [ApiComic].
   static const comicsEndpoint = '/v1/public/comics';
@@ -30,7 +27,14 @@ class ComicService {
     int limit,
     int offset,
   ) async {
-    final hashTimestamp = _security.hashTimestamp();
+    final hashTimestamp = await _security.hashTimestamp();
+    String publicKey;
+
+    try {
+      publicKey = await _security.publicKey;
+    } catch (error, stackTrace) {
+      throw AuthenticationException(error, stackTrace);
+    }
 
     final comicsRequest = Uri.https(
       _baseUrl,
@@ -38,7 +42,7 @@ class ComicService {
       <String, String>{
         'ts': hashTimestamp['timestamp']!,
         'hash': hashTimestamp['hash']!,
-        'apikey': _publicKey,
+        'apikey': publicKey,
         'limit': '$limit',
         'offset': '$offset'
       },

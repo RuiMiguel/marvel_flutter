@@ -31,22 +31,24 @@ void main() {
       apiClient = _MockDioApiClient();
       security = _MockSecurity();
 
-      when(() => security.hashTimestamp()).thenReturn({
-        'timestamp': 'timestamp',
-        'hash': 'hash',
-      });
+      when(() => security.hashTimestamp()).thenAnswer(
+        (_) async => {
+          'timestamp': 'timestamp',
+          'hash': 'hash',
+        },
+      );
+      when(() => security.publicKey).thenAnswer((_) async => publicKey);
 
       comicService = ComicService(
         baseUrl,
-        publicKey: publicKey,
         apiClient: apiClient,
         security: security,
       );
     });
 
     group('getComicsResult', () {
-      Map<String, String> _generateHeaders() {
-        final hashTimestamp = security.hashTimestamp();
+      Future<Map<String, String>> _generateHeaders() async {
+        final hashTimestamp = await security.hashTimestamp();
 
         return <String, String>{
           'ts': hashTimestamp['timestamp']!,
@@ -58,7 +60,7 @@ void main() {
       }
 
       test('returns NetworkException when request Get fails', () async {
-        final _headers = _generateHeaders();
+        final _headers = await _generateHeaders();
         const expected = NetworkException('error');
 
         when(
@@ -79,8 +81,18 @@ void main() {
         );
       });
 
+      test('returns AuthenticationException when security fails', () async {
+        when(() => security.publicKey)
+            .thenThrow(const AuthenticationException(''));
+
+        expect(
+          comicService.getComicsResult(limit, offset),
+          throwsA(isA<AuthenticationException>()),
+        );
+      });
+
       test('returns data when request Get succeeded', () async {
-        final _headers = _generateHeaders();
+        final _headers = await _generateHeaders();
         const expected = ApiResult<ApiComic>();
 
         when(
@@ -103,7 +115,7 @@ void main() {
 
       test('returns data error when request Get succeeded but with error',
           () async {
-        final _headers = _generateHeaders();
+        final _headers = await _generateHeaders();
         const error = ApiError();
         const expected = ServerException(error);
 

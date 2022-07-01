@@ -1,24 +1,25 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'package:secure_storage/secure_storage.dart';
 
 /// {@template security}
-/// Helper to get hash and timestamp for Marvel API server.
+/// Helper to get credentials, create hash and timestamp for Marvel API server.
 /// {@endtemplate}
 class Security {
   /// {@macro security}
-  Security({
-    required String privateKey,
-    required String publicKey,
-  })  : _privateKey = privateKey,
-        _publicKey = publicKey;
+  Security({required this.storage});
 
-  late final String _privateKey;
-  late final String _publicKey;
+  late final SecureStorage storage;
+
+  Future<String> get _privateKey => storage.privateKey();
+  Future<String> get publicKey => storage.publicKey();
 
   /// Gets timestamp and hash for that time and keys.
-  Map<String, String> hashTimestamp() {
+  Future<Map<String, String>> hashTimestamp() async {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final hash = generateMd5('$timestamp$_privateKey$_publicKey');
+
+    final hash =
+        generateMd5('$timestamp${await _privateKey}${await publicKey}');
     return <String, String>{
       'timestamp': '$timestamp',
       'hash': hash,
