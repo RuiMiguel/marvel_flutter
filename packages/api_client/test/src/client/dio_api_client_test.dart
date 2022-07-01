@@ -1,6 +1,4 @@
 import 'package:api_client/api_client.dart';
-import 'package:api_client/src/client/client.dart';
-import 'package:api_client/src/interceptor/interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
