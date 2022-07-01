@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:marvel/home/home.dart';
 import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/styles/themes.dart';
 
@@ -24,7 +25,7 @@ class App extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: Container(),
+      home: const HomePage(),
     );
   }
 }
