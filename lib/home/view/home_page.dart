@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marvel/characters/characters.dart';
+import 'package:marvel/comics/comics.dart';
 import 'package:marvel/home/cubit/section_cubit.dart';
 import 'package:marvel/home/widget/widget.dart';
 import 'package:marvel/l10n/l10n.dart';
+import 'package:marvel/series/series.dart';
+import 'package:marvel/stories/stories.dart';
 import 'package:marvel/styles/colors.dart';
 
 class HomePage extends StatelessWidget {
@@ -32,10 +36,10 @@ class HomeView extends StatelessWidget {
             body: IndexedStack(
               index: state,
               children: const [
-                Text('characters'),
-                Text('comics'),
-                Text('series'),
-                Text('stories'),
+                CharactersPage(),
+                ComicsPage(),
+                SeriesPage(),
+                StoriesPage(),
               ],
             ),
             bottomNavigationBar: HeroesBottomNavigationBar(
