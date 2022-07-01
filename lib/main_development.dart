@@ -6,12 +6,14 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:api_client/api_client.dart';
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:character_repository/character_repository.dart';
 import 'package:comic_repository/comic_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:marvel/app/app.dart';
 import 'package:marvel/bootstrap.dart';
+import 'package:secure_storage/secure_storage.dart';
 
 void main() {
   bootstrap(() async {
@@ -29,36 +31,41 @@ void main() {
       loggingInterceptor: loggingInterceptor,
     );
 
+    const secureStorage = SecureStorage();
+
     await dotenv.load();
 
-    final privateKey = dotenv.env['PRIVATE_KEY'] ?? '';
-    final publicKey = dotenv.env['PUBLIC_KEY'] ?? '';
+    final privateKey = dotenv.env['PRIVATE_KEY'];
+    final publicKey = dotenv.env['PUBLIC_KEY'];
 
-    // TODO(ruimiguel): save these dotenv keys to storage to allow app to load
-    // them on start.
+    if (privateKey != null && publicKey != null) {
+      await secureStorage.saveCredentials(
+        privateKey: privateKey,
+        publicKey: publicKey,
+      );
+    }
 
     final security = Security(
-      privateKey: privateKey,
-      publicKey: publicKey,
+      storage: secureStorage,
     );
 
     final characterService = CharacterService(
       baseUrl,
-      publicKey: publicKey,
       apiClient: apiClient,
       security: security,
     );
     final comicService = ComicService(
       baseUrl,
-      publicKey: publicKey,
       apiClient: apiClient,
       security: security,
     );
 
+    const authenticationRepository = AuthenticationRepository(secureStorage);
     final characterRepository = CharacterRepository(characterService);
     final comicRepository = ComicRepository(comicService);
 
     return App(
+      authenticationRepository: authenticationRepository,
       characterRepository: characterRepository,
       comicRepository: comicRepository,
     );

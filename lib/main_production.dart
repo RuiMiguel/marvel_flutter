@@ -6,11 +6,13 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:api_client/api_client.dart';
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:character_repository/character_repository.dart';
 import 'package:comic_repository/comic_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:marvel/app/app.dart';
 import 'package:marvel/bootstrap.dart';
+import 'package:secure_storage/secure_storage.dart';
 
 void main() {
   bootstrap(() {
@@ -26,31 +28,28 @@ void main() {
       dio: dio,
     );
 
-    const privateKey = '';
-    const publicKey = '';
-
+    const secureStorage = SecureStorage();
     final security = Security(
-      privateKey: privateKey,
-      publicKey: publicKey,
+      storage: secureStorage,
     );
 
     final characterService = CharacterService(
       baseUrl,
-      publicKey: publicKey,
       apiClient: apiClient,
       security: security,
     );
     final comicService = ComicService(
       baseUrl,
-      publicKey: publicKey,
       apiClient: apiClient,
       security: security,
     );
 
+    const authenticationRepository = AuthenticationRepository(secureStorage);
     final characterRepository = CharacterRepository(characterService);
     final comicRepository = ComicRepository(comicService);
 
     return App(
+      authenticationRepository: authenticationRepository,
       characterRepository: characterRepository,
       comicRepository: comicRepository,
     );
