@@ -5,6 +5,8 @@ import 'package:marvel/styles/themes.dart';
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
+  static Page page() => const MaterialPage<void>(child: SplashPage());
+
   @override
   Widget build(BuildContext context) {
     setStatusBarTheme(color: red);
