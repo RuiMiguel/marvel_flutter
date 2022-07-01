@@ -26,7 +26,7 @@ class HeroesAppBar extends StatelessWidget with PreferredSizeWidget {
         fit: BoxFit.contain,
         height: 120,
       ),
-      // TODO: show actions if user authenticated, if not then empty.
+      // TODO(ruimiguel): show actions if user authenticated, if not then empty.
       actions: _actions(),
     );
   }
@@ -38,7 +38,7 @@ class HeroesAppBar extends StatelessWidget with PreferredSizeWidget {
         IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
         IconButton(
           onPressed: () {
-            // TODO: navigate to Login.
+            // TODO(ruimiguel): navigate to Login.
           },
           icon: const Icon(Icons.verified_user),
         ),
