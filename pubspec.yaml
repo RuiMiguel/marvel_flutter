@@ -7,15 +7,24 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
+  api_client: 
+    path: packages/api_client
   bloc: ^8.0.3
+  character_repository: 
+    path: packages/character_repository
+  comic_repository: 
+    path: packages/comic_repository
+  dio: ^4.0.6
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_dotenv: ^5.0.2
   flutter_localizations:
     sdk: flutter
   hydrated_bloc: ^8.1.0
   intl: ^0.17.0
   path_provider: ^2.0.11
+  
 
 dev_dependencies:
   bloc_test: ^9.0.3
@@ -35,6 +44,7 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
+    - .env
     - assets/
     - assets/images/
     - assets/images/menu/
