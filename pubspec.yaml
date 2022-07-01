@@ -1,5 +1,5 @@
 name: marvel
-description: A Marvel app to see all characters, comics and stories from Marvel API.
+description: A Marvel app to see all characters, comics, series and stories from Marvel API.
 version: 1.0.0+1
 publish_to: none
 
@@ -9,21 +9,28 @@ environment:
 dependencies:
   api_client: 
     path: packages/api_client
+  authentication_repository: 
+    path: packages/authentication_repository
   bloc: ^8.0.3
   character_repository: 
     path: packages/character_repository
   comic_repository: 
     path: packages/comic_repository
   dio: ^4.0.6
+  equatable: ^2.0.3
+  flow_builder: ^0.0.9
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
   flutter_dotenv: ^5.0.2
   flutter_localizations:
     sdk: flutter
+  flutter_secure_storage: ^5.0.2
   hydrated_bloc: ^8.1.0
   intl: ^0.17.0
   path_provider: ^2.0.11
+  secure_storage:
+    path: packages/secure_storage
   
 
 dev_dependencies:
