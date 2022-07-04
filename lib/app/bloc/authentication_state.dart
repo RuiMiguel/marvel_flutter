@@ -2,7 +2,6 @@ part of 'authentication_bloc.dart';
 
 enum AuthenticationStatus {
   authenticated,
-  authenticating,
   unauthenticated,
 }
 
@@ -17,9 +16,9 @@ class AuthenticationState extends Equatable {
   @override
   List<Object?> get props => [status];
 
-  AuthenticationState copyWith(
+  AuthenticationState copyWith({
     AuthenticationStatus? status,
-  ) {
+  }) {
     return AuthenticationState(
       status: status ?? this.status,
     );
