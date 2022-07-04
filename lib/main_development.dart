@@ -60,7 +60,7 @@ void main() {
       security: security,
     );
 
-    const authenticationRepository = AuthenticationRepository(secureStorage);
+    final authenticationRepository = AuthenticationRepository(secureStorage);
     final characterRepository = CharacterRepository(characterService);
     final comicRepository = ComicRepository(comicService);
 
