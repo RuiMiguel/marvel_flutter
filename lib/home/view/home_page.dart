@@ -7,12 +7,13 @@ import 'package:marvel/home/widget/widget.dart';
 import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/series/series.dart';
 import 'package:marvel/stories/stories.dart';
-import 'package:marvel/styles/colors.dart';
+import 'package:marvel/styles/styles.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  static Page page() => const MaterialPage<void>(child: HomePage());
+  static PageRoute page() =>
+      MaterialPageRoute<void>(builder: (context) => const HomePage());
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,10 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+
+    setStatusBarTheme(
+      color: Theme.of(context).primaryColor,
+    );
 
     return SafeArea(
       child: BlocBuilder<SectionCubit, int>(
