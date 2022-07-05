@@ -19,6 +19,12 @@ class AuthenticationRepository {
     return _credentialsController.stream.map((value) => value);
   }
 
+  /// Returns privateKey saved at storage.
+  Future<String> privateKey() => _secureStorage.privateKey();
+
+  /// Returns publicKey saved at storage.
+  Future<String> publicKey() => _secureStorage.publicKey();
+
   /// Do login with [privateKey] and [publicKey].
   Future<void> login({
     required String privateKey,

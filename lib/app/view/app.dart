@@ -8,13 +8,12 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:character_repository/character_repository.dart';
 import 'package:comic_repository/comic_repository.dart';
-import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:marvel/app/bloc/authentication_bloc.dart';
-import 'package:marvel/app/routes/routes.dart';
 import 'package:marvel/l10n/l10n.dart';
+import 'package:marvel/splash/splash_page.dart';
 import 'package:marvel/styles/themes.dart';
 
 class App extends StatelessWidget {
@@ -73,10 +72,7 @@ class AppView extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: FlowBuilder<AuthenticationStatus>(
-        state: context.select((AuthenticationBloc bloc) => bloc.state.status),
-        onGeneratePages: onGenerateAppViewPages,
-      ),
+      home: const SplashPage(),
     );
   }
 }
