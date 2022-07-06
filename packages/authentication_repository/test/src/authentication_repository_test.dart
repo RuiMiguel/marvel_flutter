@@ -91,7 +91,7 @@ void main() {
       });
     });
 
-    group('credentials', () {
+    group('user', () {
       test(
         'returns expected when unauthenticated and login',
         () async {
@@ -104,7 +104,7 @@ void main() {
 
           unawaited(
             expectLater(
-              authenticationRepository.credentials,
+              authenticationRepository.user,
               emitsInOrder(<bool>[true]),
             ),
           );
@@ -129,7 +129,7 @@ void main() {
 
           unawaited(
             expectLater(
-              authenticationRepository.credentials,
+              authenticationRepository.user,
               emitsInOrder(
                 <bool>[
                   false,
@@ -166,7 +166,7 @@ void main() {
 
           unawaited(
             expectLater(
-              authenticationRepository.credentials,
+              authenticationRepository.user,
               emitsInOrder(
                 <bool>[
                   true,
@@ -202,7 +202,7 @@ void main() {
 
           unawaited(
             expectLater(
-              authenticationRepository.credentials,
+              authenticationRepository.user,
               emitsInOrder(<bool>[
                 true,
               ]),

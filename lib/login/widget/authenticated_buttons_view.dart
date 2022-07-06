@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:marvel/l10n/l10n.dart';
 
 class AuthenticatedButtons extends StatelessWidget {
-  const AuthenticatedButtons(
-      {super.key, required this.onLogin, required this.onLogout});
+  const AuthenticatedButtons({
+    super.key,
+    required this.onLogin,
+    required this.onLogout,
+  });
 
   final Function() onLogin;
   final Function() onLogout;

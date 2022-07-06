@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:authentication_repository/src/model/model.dart';
 import 'package:secure_storage/secure_storage.dart';
 
 /// {@template authentication_repository}
@@ -12,12 +13,10 @@ class AuthenticationRepository {
 
   final SecureStorage _secureStorage;
 
-  final _credentialsController = StreamController<bool>.broadcast();
+  final _userController = StreamController<User>();
 
   /// Stream to keep credential status.
-  Stream<bool> get credentials {
-    return _credentialsController.stream.map((value) => value);
-  }
+  Stream<User> get user => _userController.stream.asBroadcastStream();
 
   /// Returns privateKey saved at storage.
   Future<String> privateKey() => _secureStorage.privateKey();
@@ -35,9 +34,16 @@ class AuthenticationRepository {
         privateKey: privateKey,
         publicKey: publicKey,
       );
-      _credentialsController.add(true);
+      await Future<void>.delayed(const Duration(seconds: 5));
+
+      _syncUser(
+        User(
+          privateKey: privateKey,
+          publicKey: publicKey,
+        ),
+      );
     } catch (e) {
-      _credentialsController.add(false);
+      _syncUser(const User.anonymous());
       rethrow;
     }
   }
@@ -46,13 +52,16 @@ class AuthenticationRepository {
   Future<void> logout() async {
     try {
       await _secureStorage.clearCredentials();
-      _credentialsController.add(false);
+      await Future<void>.delayed(const Duration(seconds: 3));
+
+      _syncUser(const User.anonymous());
     } catch (e) {
-      _credentialsController.add(true);
       rethrow;
     }
   }
 
   /// Close stream controllers.
-  Future<void> dispose() => _credentialsController.close();
+  Future<void> dispose() => _userController.close();
+
+  void _syncUser(User user) => _userController.sink.add(user);
 }

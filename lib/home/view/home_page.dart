@@ -53,22 +53,22 @@ class HomeView extends StatelessWidget {
               items: [
                 CustomBottomNavigationItem(
                   label: l10n.menu_characters,
-                  image: 'assets/images/menu/Captain-America.png',
+                  image: 'assets/images/menu/captain-america.png',
                   color: state == 0 ? Section.characters.color : lightGrey,
                 ),
                 CustomBottomNavigationItem(
                   label: l10n.menu_comics,
-                  image: 'assets/images/menu/Hulk.png',
+                  image: 'assets/images/menu/hulk.png',
                   color: state == 1 ? Section.comics.color : lightGrey,
                 ),
                 CustomBottomNavigationItem(
                   label: l10n.menu_series,
-                  image: 'assets/images/menu/Thor.png',
+                  image: 'assets/images/menu/thor.png',
                   color: state == 2 ? Section.series.color : lightGrey,
                 ),
                 CustomBottomNavigationItem(
                   label: l10n.menu_stories,
-                  image: 'assets/images/menu/Iron-Man.png',
+                  image: 'assets/images/menu/iron-man.png',
                   color: state == 3 ? Section.stories.color : lightGrey,
                 ),
               ],

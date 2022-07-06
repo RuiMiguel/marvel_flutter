@@ -28,8 +28,6 @@ class AutoLoginBloc extends Bloc<AutoLoginEvent, AutoLoginState> {
       privateKey = await authenticationRepository.privateKey();
       publicKey = await authenticationRepository.publicKey();
 
-      //await Future<void>.delayed(const Duration(seconds: 3));
-
       await authenticationRepository.login(
         privateKey: privateKey,
         publicKey: publicKey,

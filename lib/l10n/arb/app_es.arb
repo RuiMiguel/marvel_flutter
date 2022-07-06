@@ -39,6 +39,7 @@
     "@logout": {
       "description": "Botón de salir"
     },
+    "auto_login_fail": "Error al autologarse ヽ(゜～゜o)ノ",
     "login_fail": "Error al logarse (._. )",
 
     "no_content": "No hay información",

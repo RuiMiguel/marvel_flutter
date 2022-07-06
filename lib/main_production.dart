@@ -15,7 +15,7 @@ import 'package:marvel/bootstrap.dart';
 import 'package:secure_storage/secure_storage.dart';
 
 void main() {
-  bootstrap(() {
+  bootstrap(() async {
     const baseUrl = 'gateway.marvel.com:443';
 
     final dio = Dio(

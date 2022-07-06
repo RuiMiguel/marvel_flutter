@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marvel/home/home.dart';
 import 'package:marvel/l10n/l10n.dart';
+import 'package:marvel/login/login.dart';
 import 'package:marvel/splash/bloc/auto_login_bloc.dart';
 import 'package:marvel/styles/colors.dart';
 import 'package:marvel/styles/themes.dart';
@@ -17,7 +18,7 @@ class SplashPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => AutoLoginBloc(
         authenticationRepository: context.read<AuthenticationRepository>(),
-      )..add(AutoLogin()),
+      )..add(const AutoLogin()),
       child: const SplashView(),
     );
   }
@@ -35,7 +36,10 @@ class SplashView extends StatelessWidget {
     return BlocConsumer<AutoLoginBloc, AutoLoginState>(
       listener: (context, state) {
         if (state.status == AutoLoginStatus.success) {
-          Navigator.of(context).push<void>(HomePage.page());
+          Navigator.of(context).pushAndRemoveUntil<void>(
+            HomePage.page(),
+            (_) => false,
+          );
         }
 
         if (state.status == AutoLoginStatus.error) {
@@ -45,7 +49,10 @@ class SplashView extends StatelessWidget {
             ),
           );
 
-          Navigator.of(context).push<void>(HomePage.page());
+          Navigator.of(context).pushAndRemoveUntil<void>(
+            LoginPage.page(),
+            (_) => false,
+          );
         }
       },
       builder: (context, state) {

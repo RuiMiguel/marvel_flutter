@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marvel/login/login.dart';
 import 'package:marvel/styles/colors.dart';
 
 class HeroesAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -26,19 +27,19 @@ class HeroesAppBar extends StatelessWidget with PreferredSizeWidget {
         fit: BoxFit.contain,
         height: 120,
       ),
-      // TODO(ruimiguel): show actions if user authenticated, if not then empty.
-      actions: _actions(),
+      actions: _actions(context),
     );
   }
 
-  List<Widget> _actions() {
+  List<Widget> _actions(BuildContext context) {
     var list = <Widget>[];
     if (withActions) {
       list = [
-        IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
         IconButton(
           onPressed: () {
-            // TODO(ruimiguel): navigate to Login.
+            Navigator.of(context).push<void>(
+              LoginPage.page(),
+            );
           },
           icon: const Icon(Icons.verified_user),
         ),

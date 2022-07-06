@@ -7,6 +7,11 @@ class WebViewPage extends StatefulWidget {
   const WebViewPage({super.key, required this.url});
 
   static const String routeName = 'web-view';
+  static PageRoute page(String url) => MaterialPageRoute<void>(
+        builder: (_) => WebViewPage(
+          url: url,
+        ),
+      );
 
   final String url;
 

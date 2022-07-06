@@ -15,7 +15,7 @@ void main() {
 
     setUp(() {
       authenticationRepository = _MockAuthenticationRepository();
-      when(() => authenticationRepository.credentials).thenAnswer(
+      when(() => authenticationRepository.user).thenAnswer(
         (_) => Stream.empty(),
       );
     });
@@ -39,7 +39,7 @@ void main() {
         'emits [unauthenticated] '
         'when authenticationRepository credentials emits false',
         setUp: () {
-          when(() => authenticationRepository.credentials).thenAnswer(
+          when(() => authenticationRepository.user).thenAnswer(
             (_) => Stream.value(true),
           );
         },

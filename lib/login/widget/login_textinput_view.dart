@@ -3,12 +3,12 @@ import 'package:marvel/styles/colors.dart';
 
 class LoginTextInput extends StatelessWidget {
   const LoginTextInput({
-    Key? key,
+    super.key,
     this.hint = '*****',
     required this.labelText,
     required this.text,
     required this.submit,
-  }) : super(key: key);
+  });
 
   final String hint;
   final String labelText;
