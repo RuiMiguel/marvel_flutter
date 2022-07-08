@@ -50,6 +50,7 @@ class App extends StatelessWidget {
             create: (context) => AuthenticationBloc(
               authenticationRepository: _authenticationRepository,
             ),
+            lazy: false,
           ),
         ],
         child: const AppView(),

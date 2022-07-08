@@ -18,7 +18,7 @@ class SecureStorage {
   Future<String> publicKey() async {
     try {
       final value = await _secureStorage.read(key: _publicKeyField);
-      if (value != null) {
+      if (value != null && value.isNotEmpty) {
         return value;
       }
       throw const ReadException('Empty publicKey');
@@ -31,7 +31,7 @@ class SecureStorage {
   Future<String> privateKey() async {
     try {
       final value = await _secureStorage.read(key: _privateKeyField);
-      if (value != null) {
+      if (value != null && value.isNotEmpty) {
         return value;
       }
       throw const ReadException('Empty privateKey');

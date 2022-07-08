@@ -15,6 +15,28 @@ import 'package:marvel/app/app.dart';
 import 'package:marvel/bootstrap.dart';
 import 'package:secure_storage/secure_storage.dart';
 
+Future<void> _setDefaultCredentials(SecureStorage secureStorage) async {
+  await dotenv.load();
+
+  String? privateKey;
+  String? publicKey;
+
+  try {
+    privateKey = await secureStorage.privateKey();
+    publicKey = await secureStorage.publicKey();
+  } catch (e) {
+    privateKey = dotenv.env['PRIVATE_KEY'];
+    publicKey = dotenv.env['PUBLIC_KEY'];
+  }
+
+  if (privateKey != null && publicKey != null) {
+    await secureStorage.saveCredentials(
+      privateKey: privateKey,
+      publicKey: publicKey,
+    );
+  }
+}
+
 void main() {
   bootstrap(() async {
     const baseUrl = 'gateway.marvel.com:443';
@@ -33,17 +55,7 @@ void main() {
 
     const secureStorage = SecureStorage();
 
-    await dotenv.load();
-
-    final privateKey = dotenv.env['PRIVATE_KEY'];
-    final publicKey = dotenv.env['PUBLIC_KEY'];
-
-    if (privateKey != null && publicKey != null) {
-      await secureStorage.saveCredentials(
-        privateKey: privateKey,
-        publicKey: publicKey,
-      );
-    }
+    await _setDefaultCredentials(secureStorage);
 
     final security = Security(
       storage: secureStorage,

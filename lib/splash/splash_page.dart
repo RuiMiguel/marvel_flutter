@@ -64,7 +64,9 @@ class SplashView extends StatelessWidget {
               children: [
                 Image.asset('assets/images/placeholder.png'),
                 if (state.status == AutoLoginStatus.loading)
-                  const CircularProgressIndicator(),
+                  const CircularProgressIndicator(
+                    color: white,
+                  ),
               ],
             ),
           ),

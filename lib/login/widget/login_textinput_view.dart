@@ -7,13 +7,15 @@ class LoginTextInput extends StatelessWidget {
     this.hint = '*****',
     required this.labelText,
     required this.text,
-    required this.submit,
+    required this.onChanged,
+    this.enabled = true,
   });
 
   final String hint;
   final String labelText;
   final String text;
-  final Function(String) submit;
+  final bool enabled;
+  final Function(String) onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,7 @@ class LoginTextInput extends StatelessWidget {
       autocorrect: false,
       cursorColor: Theme.of(context).textTheme.bodyText1!.color,
       style: Theme.of(context).textTheme.bodyText2,
+      enabled: enabled,
       decoration: InputDecoration(
         hintText: hint,
         labelText: labelText,
@@ -35,7 +38,7 @@ class LoginTextInput extends StatelessWidget {
         ),
         border: const UnderlineInputBorder(),
       ),
-      onFieldSubmitted: (value) async => submit(value),
+      onChanged: (value) async => onChanged(value),
     );
   }
 }

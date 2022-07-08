@@ -34,7 +34,7 @@ class AuthenticationRepository {
         privateKey: privateKey,
         publicKey: publicKey,
       );
-      await Future<void>.delayed(const Duration(seconds: 5));
+      await Future<void>.delayed(const Duration(seconds: 3));
 
       _syncUser(
         User(
@@ -52,7 +52,7 @@ class AuthenticationRepository {
   Future<void> logout() async {
     try {
       await _secureStorage.clearCredentials();
-      await Future<void>.delayed(const Duration(seconds: 3));
+      await Future<void>.delayed(const Duration(seconds: 2));
 
       _syncUser(const User.anonymous());
     } catch (e) {

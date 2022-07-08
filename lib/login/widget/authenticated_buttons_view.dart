@@ -6,10 +6,12 @@ class AuthenticatedButtons extends StatelessWidget {
     super.key,
     required this.onLogin,
     required this.onLogout,
+    this.enabled = true,
   });
 
   final Function() onLogin;
   final Function() onLogout;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +22,14 @@ class AuthenticatedButtons extends StatelessWidget {
       children: [
         ElevatedButton(
           style: Theme.of(context).elevatedButtonTheme.style,
-          onPressed: onLogin,
+          onPressed: enabled ? onLogin : null,
           child: Text(
             l10n.save,
           ),
         ),
         const SizedBox(width: 30),
         ElevatedButton(
-          onPressed: onLogout,
+          onPressed: enabled ? onLogout : null,
           child: Text(
             l10n.logout,
           ),

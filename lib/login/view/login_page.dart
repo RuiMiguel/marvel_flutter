@@ -31,7 +31,36 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     setStatusBarTheme(color: Theme.of(context).primaryColor);
 
-    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+    var authState = context.watch<AuthenticationBloc>().state;
+    final loginBloc = context.read<LoginBloc>();
+
+    final privateKey = authState.user?.privateKey ?? '';
+    final publicKey = authState.user?.publicKey ?? '';
+
+    loginBloc
+      ..add(PrivateKeySetted(privateKey))
+      ..add(PublicKeySetted(publicKey));
+
+    return BlocConsumer<LoginBloc, LoginState>(
+      listener: (context, state) {
+        if (state.status == LoginStatus.failure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: red,
+              content: Text(context.l10n.login_fail),
+            ),
+          );
+        }
+        if (state.status == LoginStatus.success) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: green,
+              content: Text(context.l10n.success),
+            ),
+          );
+        }
+      },
+      listenWhen: (previous, current) => current.status != LoginStatus.loading,
       builder: (context, state) {
         return SafeArea(
           child: Scaffold(
@@ -48,14 +77,18 @@ class LoginView extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              if (state.status ==
+                              if (authState.status ==
                                   AuthenticationStatus.authenticated)
                                 const AuthenticatedDescription(),
-                              if (state.status ==
+                              if (authState.status ==
                                   AuthenticationStatus.unauthenticated)
                                 const UnauthenticatedDescription(),
                               const SizedBox(height: 20),
-                              const LoginForm(),
+                              LoginForm(authState: authState),
+                              if (state.status == LoginStatus.loading)
+                                const CircularProgressIndicator(
+                                  color: red,
+                                ),
                             ],
                           ),
                         ),
@@ -73,71 +106,53 @@ class LoginView extends StatelessWidget {
 }
 
 class LoginForm extends StatelessWidget {
-  const LoginForm({super.key});
+  const LoginForm({
+    super.key,
+    required this.authState,
+  });
+
+  final AuthenticationState authState;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final loginBloc = context.read<LoginBloc>();
 
-    final authState = context.watch<AuthenticationBloc>().state;
+    final privateKey = authState.user?.privateKey ?? '';
+    final publicKey = authState.user?.publicKey ?? '';
 
-    var privateKey = authState.user?.privateKey ?? '';
-    var publicKey = authState.user?.publicKey ?? '';
-
-    return BlocConsumer<LoginBloc, LoginState>(
-      listener: (context, state) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(context.l10n.login_fail),
-          ),
-        );
-      },
-      listenWhen: (previous, current) => current.status == LoginStatus.failure,
-      buildWhen: (previous, current) => current.status != LoginStatus.initial,
+    return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
-        return Form(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              LoginTextInput(
-                labelText: l10n.private_key,
-                text: privateKey,
-                submit: (value) {
-                  loginBloc.add(SetPrivateKey(value));
-                },
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            LoginTextInput(
+              labelText: l10n.private_key,
+              text: privateKey,
+              enabled: state.status != LoginStatus.loading,
+              onChanged: (value) => loginBloc.add(PrivateKeySetted(value)),
+            ),
+            const SizedBox(height: 30),
+            LoginTextInput(
+              labelText: l10n.public_key,
+              text: publicKey,
+              enabled: state.status != LoginStatus.loading,
+              onChanged: (value) => loginBloc.add(PublicKeySetted(value)),
+            ),
+            const SizedBox(height: 80),
+            if (authState.status == AuthenticationStatus.authenticated)
+              AuthenticatedButtons(
+                onLogin: () => loginBloc.add(Login()),
+                onLogout: () => loginBloc.add(Logout()),
+                enabled: state.status != LoginStatus.loading,
               ),
-              const SizedBox(height: 30),
-              LoginTextInput(
-                labelText: l10n.public_key,
-                text: publicKey,
-                submit: (value) {
-                  loginBloc.add(SetPublicKey(value));
-                },
+            if (authState.status == AuthenticationStatus.unauthenticated)
+              UnauthenticatedButtons(
+                onUpdate: () => loginBloc.add(Login()),
+                enabled: state.status != LoginStatus.loading,
               ),
-              const SizedBox(height: 80),
-              if (authState.status == AuthenticationStatus.authenticated)
-                AuthenticatedButtons(
-                  onLogin: () async {
-                    loginBloc.add(Login());
-                  },
-                  onLogout: () {
-                    loginBloc.add(Logout());
-                  },
-                ),
-              if (authState.status == AuthenticationStatus.unauthenticated)
-                UnauthenticatedButtons(
-                  onUpdate: () async {
-                    loginBloc.add(Login());
-                  },
-                ),
-              const SizedBox(height: 80),
-              if (state.status == LoginStatus.loading)
-                const CircularProgressIndicator(
-                  color: red,
-                ),
-            ],
-          ),
+            const SizedBox(height: 80),
+          ],
         );
       },
     );

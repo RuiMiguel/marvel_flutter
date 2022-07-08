@@ -7,8 +7,8 @@ abstract class LoginEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class SetPrivateKey extends LoginEvent {
-  const SetPrivateKey(this.privateKey) : super();
+class PrivateKeySetted extends LoginEvent {
+  const PrivateKeySetted(this.privateKey) : super();
 
   final String privateKey;
 
@@ -16,8 +16,8 @@ class SetPrivateKey extends LoginEvent {
   List<Object> get props => [privateKey];
 }
 
-class SetPublicKey extends LoginEvent {
-  const SetPublicKey(this.publicKey) : super();
+class PublicKeySetted extends LoginEvent {
+  const PublicKeySetted(this.publicKey) : super();
 
   final String publicKey;
 

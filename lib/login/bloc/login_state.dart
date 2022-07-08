@@ -10,15 +10,15 @@ extension LoginStatusX on LoginStatus {
 }
 
 class LoginState extends Equatable {
-  LoginState({
+  const LoginState({
     this.status = LoginStatus.initial,
     this.privateKey = '',
     this.publicKey = '',
   });
 
   final LoginStatus status;
-  String privateKey;
-  String publicKey;
+  final String privateKey;
+  final String publicKey;
 
   @override
   List<Object> get props => [status, privateKey, publicKey];
@@ -29,6 +29,7 @@ class LoginState extends Equatable {
     String? publicKey,
   }) {
     return LoginState(
+      status: status ?? this.status,
       privateKey: privateKey ?? this.privateKey,
       publicKey: publicKey ?? this.publicKey,
     );

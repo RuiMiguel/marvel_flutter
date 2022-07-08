@@ -11,8 +11,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({
     required this.authenticationRepository,
   }) : super(LoginState()) {
-    on<SetPrivateKey>(_onSetPrivateKey);
-    on<SetPublicKey>(_onSetPublicKey);
+    on<PrivateKeySetted>(_onSetPrivateKey);
+    on<PublicKeySetted>(_onSetPublicKey);
     on<Login>(_onLogin);
     on<Logout>(_onLogout);
   }
@@ -20,14 +20,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthenticationRepository authenticationRepository;
 
   Future<void> _onSetPrivateKey(
-    SetPrivateKey event,
+    PrivateKeySetted event,
     Emitter<LoginState> emit,
   ) async {
     emit(state.copyWith(privateKey: event.privateKey));
   }
 
   Future<void> _onSetPublicKey(
-    SetPublicKey event,
+    PublicKeySetted event,
     Emitter<LoginState> emit,
   ) async {
     emit(state.copyWith(publicKey: event.publicKey));
@@ -55,6 +55,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     await authenticationRepository.logout();
 
-    emit(state.copyWith(status: LoginStatus.success));
+    emit(
+      state.copyWith(
+        status: LoginStatus.success,
+        privateKey: '',
+        publicKey: '',
+      ),
+    );
   }
 }
