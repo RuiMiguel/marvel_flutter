@@ -31,7 +31,7 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     setStatusBarTheme(color: Theme.of(context).primaryColor);
 
-    var authState = context.watch<AuthenticationBloc>().state;
+    final authState = context.watch<AuthenticationBloc>().state;
     final loginBloc = context.read<LoginBloc>();
 
     final privateKey = authState.user?.privateKey ?? '';
@@ -44,20 +44,10 @@ class LoginView extends StatelessWidget {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.status == LoginStatus.failure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: red,
-              content: Text(context.l10n.login_fail),
-            ),
-          );
+          context.showErrorMessage(context.l10n.login_fail);
         }
         if (state.status == LoginStatus.success) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: green,
-              content: Text(context.l10n.success),
-            ),
-          );
+          context.showSuccessMessage(context.l10n.success);
         }
       },
       listenWhen: (previous, current) => current.status != LoginStatus.loading,
@@ -74,7 +64,8 @@ class LoginView extends StatelessWidget {
                       child: SingleChildScrollView(
                         child: Padding(
                           padding: const EdgeInsets.all(30),
-                          child: Column(
+                          child: const _LoginForm(),
+                          /*child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               if (authState.status ==
@@ -90,7 +81,7 @@ class LoginView extends StatelessWidget {
                                   color: red,
                                 ),
                             ],
-                          ),
+                          ),*/
                         ),
                       ),
                     ),
@@ -99,6 +90,126 @@ class LoginView extends StatelessWidget {
               ],
             ),
           ),
+        );
+      },
+    );
+  }
+}
+
+class _LoginForm extends StatelessWidget {
+  const _LoginForm({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final authState = context.watch<AuthenticationBloc>().state;
+    final privateKey = authState.user?.privateKey ?? '';
+    final publicKey = authState.user?.publicKey ?? '';
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        if (authState.status == AuthenticationStatus.authenticated)
+          _AuthenticatedLoginForm(
+            privateKey: privateKey,
+            publicKey: publicKey,
+          ),
+        if (authState.status == AuthenticationStatus.unauthenticated)
+          const _UnauthenticatedLoginForm(),
+      ],
+    );
+  }
+}
+
+class _AuthenticatedLoginForm extends StatelessWidget {
+  const _AuthenticatedLoginForm({
+    super.key,
+    required this.privateKey,
+    required this.publicKey,
+  });
+
+  final String privateKey;
+  final String publicKey;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, state) {
+        final l10n = AppLocalizations.of(context);
+        final loginBloc = context.read<LoginBloc>();
+
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const AuthenticatedDescription(),
+            const SizedBox(height: 20),
+            LoginTextInput(
+              labelText: l10n.private_key,
+              text: privateKey,
+              enabled: !state.status.isLoading,
+              onChanged: (value) => loginBloc.add(PrivateKeySetted(value)),
+            ),
+            const SizedBox(height: 30),
+            LoginTextInput(
+              labelText: l10n.public_key,
+              text: publicKey,
+              enabled: !state.status.isLoading,
+              onChanged: (value) => loginBloc.add(PublicKeySetted(value)),
+            ),
+            const SizedBox(height: 80),
+            AuthenticatedButtons(
+              onLogin: () => loginBloc.add(Login()),
+              onLogout: () => loginBloc.add(Logout()),
+              enabled: !state.status.isLoading,
+            ),
+            const SizedBox(height: 80),
+            if (state.status.isLoading)
+              const CircularProgressIndicator(
+                color: red,
+              ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _UnauthenticatedLoginForm extends StatelessWidget {
+  const _UnauthenticatedLoginForm({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, state) {
+        final l10n = AppLocalizations.of(context);
+        final loginBloc = context.read<LoginBloc>();
+
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const UnauthenticatedDescription(),
+            const SizedBox(height: 20),
+            LoginTextInput(
+              labelText: l10n.private_key,
+              enabled: !state.status.isLoading,
+              onChanged: (value) => loginBloc.add(PrivateKeySetted(value)),
+            ),
+            const SizedBox(height: 30),
+            LoginTextInput(
+              labelText: l10n.public_key,
+              enabled: !state.status.isLoading,
+              onChanged: (value) => loginBloc.add(PublicKeySetted(value)),
+            ),
+            const SizedBox(height: 80),
+            UnauthenticatedButtons(
+              onUpdate: () => loginBloc.add(Login()),
+              enabled: !state.status.isLoading,
+            ),
+            const SizedBox(height: 80),
+            if (state.status.isLoading)
+              const CircularProgressIndicator(
+                color: red,
+              ),
+          ],
         );
       },
     );
@@ -129,14 +240,14 @@ class LoginForm extends StatelessWidget {
             LoginTextInput(
               labelText: l10n.private_key,
               text: privateKey,
-              enabled: state.status != LoginStatus.loading,
+              enabled: !state.status.isLoading,
               onChanged: (value) => loginBloc.add(PrivateKeySetted(value)),
             ),
             const SizedBox(height: 30),
             LoginTextInput(
               labelText: l10n.public_key,
               text: publicKey,
-              enabled: state.status != LoginStatus.loading,
+              enabled: !state.status.isLoading,
               onChanged: (value) => loginBloc.add(PublicKeySetted(value)),
             ),
             const SizedBox(height: 80),
@@ -144,12 +255,12 @@ class LoginForm extends StatelessWidget {
               AuthenticatedButtons(
                 onLogin: () => loginBloc.add(Login()),
                 onLogout: () => loginBloc.add(Logout()),
-                enabled: state.status != LoginStatus.loading,
+                enabled: !state.status.isLoading,
               ),
             if (authState.status == AuthenticationStatus.unauthenticated)
               UnauthenticatedButtons(
                 onUpdate: () => loginBloc.add(Login()),
-                enabled: state.status != LoginStatus.loading,
+                enabled: !state.status.isLoading,
               ),
             const SizedBox(height: 80),
           ],

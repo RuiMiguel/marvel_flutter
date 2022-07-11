@@ -55,10 +55,6 @@ class WebViewPageState extends State<WebViewPage> {
               onWebViewCreated: (controller) => _controller = controller,
               onPageStarted: (src) => _showProgress(),
               onPageFinished: (src) => _showProgress(loading: false),
-              navigationDelegate: (navigation) {
-                debugPrint(navigation.content.sourceType.toString());
-                return NavigationDecision.navigate;
-              },
             ),
             Visibility(
               visible: _isLoading,

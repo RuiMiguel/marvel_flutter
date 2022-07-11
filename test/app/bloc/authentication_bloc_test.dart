@@ -10,49 +10,62 @@ class _MockAuthenticationRepository extends Mock
     implements AuthenticationRepository {}
 
 void main() {
+  final newUser = User(
+    privateKey: 'privateKey',
+    publicKey: 'publicKey',
+  );
+
+  late AuthenticationRepository authenticationRepository;
+  late AuthenticationBloc authenticationBloc;
+
+  setUp(() {
+    authenticationRepository = _MockAuthenticationRepository();
+    when(() => authenticationRepository.user).thenAnswer(
+      (_) => Stream.empty(),
+    );
+
+    authenticationBloc = AuthenticationBloc(
+      authenticationRepository: authenticationRepository,
+    );
+  });
+
+  tearDown(() {
+    authenticationBloc.close();
+  });
+
   group('AuthenticationBloc', () {
-    late AuthenticationRepository authenticationRepository;
-
-    setUp(() {
-      authenticationRepository = _MockAuthenticationRepository();
-      when(() => authenticationRepository.user).thenAnswer(
-        (_) => Stream.empty(),
-      );
-    });
-
     group('CredentialsChanged', () {
       blocTest<AuthenticationBloc, AuthenticationState>(
         'emits [authenticated] '
         'when authenticationRepository credentials emits true',
-        build: () => AuthenticationBloc(
-          authenticationRepository: authenticationRepository,
+        build: () => authenticationBloc,
+        seed: () => AuthenticationState(
+          status: AuthenticationStatus.unauthenticated,
+          user: User.anonymous(),
         ),
-        seed: () =>
-            AuthenticationState(status: AuthenticationStatus.unauthenticated),
-        act: (bloc) => bloc.add(CredentialsChanged(authenticated: true)),
+        act: (bloc) => bloc.add(CredentialsChanged(user: newUser)),
         expect: () => <AuthenticationState>[
-          AuthenticationState(status: AuthenticationStatus.authenticated),
+          AuthenticationState(
+            status: AuthenticationStatus.authenticated,
+            user: newUser,
+          ),
         ],
       );
 
       blocTest<AuthenticationBloc, AuthenticationState>(
         'emits [unauthenticated] '
         'when authenticationRepository credentials emits false',
-        setUp: () {
-          when(() => authenticationRepository.user).thenAnswer(
-            (_) => Stream.value(true),
-          );
-        },
-        build: () => AuthenticationBloc(
-          authenticationRepository: authenticationRepository,
+        build: () => authenticationBloc,
+        seed: () => AuthenticationState(
+          status: AuthenticationStatus.authenticated,
+          user: newUser,
         ),
-        seed: () =>
-            AuthenticationState(status: AuthenticationStatus.unauthenticated),
-        act: (bloc) => bloc
-          ..add(CredentialsChanged(authenticated: true))
-          ..add(CredentialsChanged(authenticated: false)),
+        act: (bloc) => bloc.add(CredentialsChanged(user: User.anonymous())),
         expect: () => <AuthenticationState>[
-          AuthenticationState(status: AuthenticationStatus.unauthenticated),
+          AuthenticationState(
+            status: AuthenticationStatus.unauthenticated,
+            user: User.anonymous(),
+          ),
         ],
       );
     });

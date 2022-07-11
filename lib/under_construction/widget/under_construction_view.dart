@@ -29,6 +29,7 @@ class UnderConstructionView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(15),
               child: Text(
+                key: const Key('UnderConstructionSentence'),
                 _getSentence(l10n),
                 style: Theme.of(context).textTheme.bodyText1,
               ),

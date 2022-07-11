@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:marvel/app/bloc/authentication_bloc.dart';
 import 'package:marvel/login/bloc/login_bloc.dart';
 
 void main() {
@@ -44,6 +42,44 @@ void main() {
           ),
         );
       });
+    });
+  });
+
+  group('LoginStatusX', () {
+    test('LoginStatus.initial isInitial is true', () {
+      const status = LoginStatus.initial;
+
+      expect(status.isInitial, isTrue);
+      expect(status.isLoading, isFalse);
+      expect(status.isSuccess, isFalse);
+      expect(status.isFailure, isFalse);
+    });
+
+    test('LoginStatus.loading isLoading is true', () {
+      const status = LoginStatus.loading;
+
+      expect(status.isInitial, isFalse);
+      expect(status.isLoading, isTrue);
+      expect(status.isSuccess, isFalse);
+      expect(status.isFailure, isFalse);
+    });
+
+    test('LoginStatus.success isSuccess is true', () {
+      const status = LoginStatus.success;
+
+      expect(status.isInitial, isFalse);
+      expect(status.isLoading, isFalse);
+      expect(status.isSuccess, isTrue);
+      expect(status.isFailure, isFalse);
+    });
+
+    test('LoginStatus.failure isFailure is true', () {
+      const status = LoginStatus.failure;
+
+      expect(status.isInitial, isFalse);
+      expect(status.isLoading, isFalse);
+      expect(status.isSuccess, isFalse);
+      expect(status.isFailure, isTrue);
     });
   });
 }

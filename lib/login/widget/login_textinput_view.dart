@@ -6,7 +6,7 @@ class LoginTextInput extends StatelessWidget {
     super.key,
     this.hint = '*****',
     required this.labelText,
-    required this.text,
+    this.text = '',
     required this.onChanged,
     this.enabled = true,
   });

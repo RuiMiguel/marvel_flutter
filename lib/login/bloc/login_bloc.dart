@@ -39,12 +39,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async {
     emit(state.copyWith(status: LoginStatus.loading));
 
-    await authenticationRepository.login(
-      privateKey: state.privateKey,
-      publicKey: state.publicKey,
-    );
+    try {
+      await authenticationRepository.login(
+        privateKey: state.privateKey,
+        publicKey: state.publicKey,
+      );
 
-    emit(state.copyWith(status: LoginStatus.success));
+      emit(state.copyWith(status: LoginStatus.success));
+    } catch (error, stackTrace) {
+      emit(state.copyWith(status: LoginStatus.failure));
+      addError(error, stackTrace);
+    }
   }
 
   Future<void> _onLogout(
@@ -52,15 +57,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) async {
     emit(state.copyWith(status: LoginStatus.loading));
+    try {
+      await authenticationRepository.logout();
 
-    await authenticationRepository.logout();
-
-    emit(
-      state.copyWith(
-        status: LoginStatus.success,
-        privateKey: '',
-        publicKey: '',
-      ),
-    );
+      emit(
+        state.copyWith(
+          status: LoginStatus.success,
+          privateKey: '',
+          publicKey: '',
+        ),
+      );
+    } catch (error, stackTrace) {
+      emit(state.copyWith(status: LoginStatus.failure));
+      addError(error, stackTrace);
+    }
   }
 }

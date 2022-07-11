@@ -45,7 +45,7 @@ class SplashView extends StatelessWidget {
         if (state.status == AutoLoginStatus.error) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(l10n.login_fail),
+              content: Text(l10n.auto_login_fail),
             ),
           );
 

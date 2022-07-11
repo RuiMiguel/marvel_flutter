@@ -5,8 +5,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel/app/bloc/authentication_bloc.dart';
 
 void main() {
+  final newUser = User(
+    privateKey: 'privateKey',
+    publicKey: 'publicKey',
+  );
+
   group('AuthenticationState', () {
     test('can be instantiated', () {
+      expect(AuthenticationState.authenticated(newUser), isNotNull);
       expect(AuthenticationState.unauthenticated(), isNotNull);
     });
 
@@ -31,11 +37,6 @@ void main() {
 
       test('returns object with updated status when all parameters are passed',
           () {
-        final newUser = User(
-          privateKey: 'privateKey',
-          publicKey: 'publicKey',
-        );
-
         expect(
           AuthenticationState(
             status: AuthenticationStatus.unauthenticated,

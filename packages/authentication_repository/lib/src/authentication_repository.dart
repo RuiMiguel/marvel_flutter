@@ -63,5 +63,7 @@ class AuthenticationRepository {
   /// Close stream controllers.
   Future<void> dispose() => _userController.close();
 
-  void _syncUser(User user) => _userController.sink.add(user);
+  void _syncUser(User user) {
+    if (!_userController.isClosed) _userController.sink.add(user);
+  }
 }

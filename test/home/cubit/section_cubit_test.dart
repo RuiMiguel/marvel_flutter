@@ -13,7 +13,7 @@ void main() {
     });
 
     blocTest<SectionCubit, int>(
-      'description',
+      'selectItem emits item index',
       build: () => mockHydratedStorage(SectionCubit.new),
       act: (bloc) => bloc.selectItem(1),
       expect: () => [1],
