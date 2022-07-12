@@ -75,11 +75,13 @@ void main() {
           initialState: AuthenticationState.unauthenticated(),
         );
 
-        await tester.pumpApp(
-          SplashPage(),
-          authenticationRepository: authenticationRepository,
-          authenticationBloc: authenticationBloc,
-        );
+        await mockHydratedStorageAsync(() async {
+          await tester.pumpApp(
+            SplashPage(),
+            authenticationRepository: authenticationRepository,
+            authenticationBloc: authenticationBloc,
+          );
+        });
 
         authenticationBlocController.add(
           AuthenticationState(
@@ -87,8 +89,6 @@ void main() {
             user: User.anonymous(),
           ),
         );
-
-        await tester.pumpAndSettle();
 
         expect(find.byType(SplashView), findsOneWidget);
       },
@@ -197,7 +197,7 @@ void main() {
           );
 
           await mockHydratedStorage(() async {
-            return tester.pumpApp(
+            await tester.pumpApp(
               BlocProvider.value(
                 value: autoLoginBloc,
                 child: SplashView(),

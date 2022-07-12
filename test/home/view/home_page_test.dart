@@ -15,6 +15,7 @@ import 'package:marvel/stories/view/stories_page.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/helpers.dart';
+import '../../helpers/mock_hydrated_storage.dart';
 
 class _MockSectionCubit extends Mock implements SectionCubit {}
 
@@ -29,9 +30,11 @@ void main() {
     testWidgets(
       'renders correctly',
       (tester) async {
-        await tester.pumpApp(
-          HomePage(),
-        );
+        await mockHydratedStorageAsync(() async {
+          await tester.pumpApp(
+            HomePage(),
+          );
+        });
 
         expect(find.byType(HomeView), findsOneWidget);
       },
