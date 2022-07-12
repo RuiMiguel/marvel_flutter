@@ -33,6 +33,8 @@ void main() {
   late AutoLoginBloc autoLoginBloc;
   late AuthenticationBloc authenticationBloc;
 
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   setUp(() {
     authenticationRepository = _MockAuthenticationRepository();
     autoLoginBloc = _MockAutoLoginBloc();
@@ -40,10 +42,6 @@ void main() {
   });
 
   group('SplashPage', () {
-    setUp(() async {
-      TestWidgetsFlutterBinding.ensureInitialized();
-    });
-
     test('is routable', () {
       expect(SplashPage.page(), isA<MaterialPage>());
     });
