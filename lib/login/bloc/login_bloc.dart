@@ -10,7 +10,7 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({
     required this.authenticationRepository,
-  }) : super(LoginState()) {
+  }) : super(const LoginState()) {
     on<PrivateKeySetted>(_onSetPrivateKey);
     on<PublicKeySetted>(_onSetPublicKey);
     on<Login>(_onLogin);

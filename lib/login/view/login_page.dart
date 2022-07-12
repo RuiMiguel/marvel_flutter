@@ -60,11 +60,11 @@ class LoginView extends StatelessWidget {
                 Expanded(
                   child: ColoredBox(
                     color: Theme.of(context).shadowColor,
-                    child: Center(
+                    child: const Center(
                       child: SingleChildScrollView(
                         child: Padding(
-                          padding: const EdgeInsets.all(30),
-                          child: const _LoginForm(),
+                          padding: EdgeInsets.all(30),
+                          child: _LoginForm(),
                           /*child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
