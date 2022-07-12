@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:marvel/app/bloc/authentication_bloc.dart';
 import 'package:marvel/l10n/l10n.dart';
+import 'package:marvel/login/widget/unauthenticated_description_view.dart';
 import 'package:marvel/splash/splash_page.dart';
 import 'package:marvel/styles/themes.dart';
 
@@ -73,7 +74,7 @@ class AppView extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const SplashPage(),
+      home: const UnauthenticatedDescription(),
     );
   }
 }

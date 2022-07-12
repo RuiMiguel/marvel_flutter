@@ -4,12 +4,12 @@ import 'package:marvel/l10n/l10n.dart';
 class AuthenticatedButtons extends StatelessWidget {
   const AuthenticatedButtons({
     super.key,
-    required this.onLogin,
+    required this.onSave,
     required this.onLogout,
     this.enabled = true,
   });
 
-  final Function() onLogin;
+  final Function() onSave;
   final Function() onLogout;
   final bool enabled;
 
@@ -21,14 +21,16 @@ class AuthenticatedButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
+          key: const Key('save_button'),
           style: Theme.of(context).elevatedButtonTheme.style,
-          onPressed: enabled ? onLogin : null,
+          onPressed: enabled ? onSave : null,
           child: Text(
             l10n.save,
           ),
         ),
         const SizedBox(width: 30),
         ElevatedButton(
+          key: const Key('logout_button'),
           onPressed: enabled ? onLogout : null,
           child: Text(
             l10n.logout,

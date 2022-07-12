@@ -18,9 +18,11 @@ class UnauthenticatedDescription extends StatelessWidget {
             fontSize: 24,
             color: red,
           ),
-      onOpen: (link) => Navigator.of(context).push<void>(
-        WebViewPage.page(link.url),
-      ),
+      onOpen: (link) {
+        Navigator.of(context).push<void>(
+          WebViewPage.page(link.url),
+        );
+      },
     );
   }
 }

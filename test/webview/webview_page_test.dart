@@ -42,6 +42,19 @@ void main() {
     );
 
     testWidgets(
+      'shows progress indicator on creation',
+      (tester) async {
+        await tester.pumpApp(
+          WebViewPage(
+            url: url,
+          ),
+        );
+
+        expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      },
+    );
+
+    testWidgets(
       'shows progress indicator while loading',
       (tester) async {
         await tester.pumpApp(

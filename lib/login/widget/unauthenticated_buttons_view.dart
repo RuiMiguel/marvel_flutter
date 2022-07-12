@@ -4,11 +4,11 @@ import 'package:marvel/l10n/l10n.dart';
 class UnauthenticatedButtons extends StatelessWidget {
   const UnauthenticatedButtons({
     super.key,
-    required this.onUpdate,
+    required this.onLogin,
     this.enabled = true,
   });
 
-  final Function() onUpdate;
+  final Function() onLogin;
   final bool enabled;
 
   @override
@@ -17,7 +17,7 @@ class UnauthenticatedButtons extends StatelessWidget {
 
     return ElevatedButton(
       style: Theme.of(context).elevatedButtonTheme.style,
-      onPressed: enabled ? onUpdate : null,
+      onPressed: enabled ? onLogin : null,
       child: Text(
         l10n.login,
       ),

@@ -7,7 +7,7 @@ import 'package:marvel/login/view/login_page.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
-  group('HomePage', () {
+  group('LoginPage', () {
     setUp(() async {
       TestWidgetsFlutterBinding.ensureInitialized();
     });

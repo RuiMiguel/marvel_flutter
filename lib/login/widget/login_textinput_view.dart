@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marvel/styles/colors.dart';
 
-class LoginTextInput extends StatelessWidget {
+class LoginTextInput extends StatefulWidget {
   const LoginTextInput({
     super.key,
     this.hint = '*****',
@@ -18,16 +18,39 @@ class LoginTextInput extends StatelessWidget {
   final Function(String) onChanged;
 
   @override
+  State<LoginTextInput> createState() => _LoginTextInputState();
+}
+
+class _LoginTextInputState extends State<LoginTextInput> {
+  final _textController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _textController
+      ..addListener(
+        () => widget.onChanged(_textController.text),
+      )
+      ..text = widget.text;
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: text,
+      controller: _textController,
       autocorrect: false,
       cursorColor: Theme.of(context).textTheme.bodyText1!.color,
       style: Theme.of(context).textTheme.bodyText2,
-      enabled: enabled,
+      enabled: widget.enabled,
       decoration: InputDecoration(
-        hintText: hint,
-        labelText: labelText,
+        hintText: widget.hint,
+        labelText: widget.labelText,
         hintStyle: Theme.of(context).textTheme.subtitle1,
         labelStyle: Theme.of(context).textTheme.subtitle1,
         enabledBorder: const UnderlineInputBorder(
@@ -38,7 +61,6 @@ class LoginTextInput extends StatelessWidget {
         ),
         border: const UnderlineInputBorder(),
       ),
-      onChanged: (value) async => onChanged(value),
     );
   }
 }

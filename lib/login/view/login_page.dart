@@ -157,7 +157,7 @@ class _AuthenticatedLoginForm extends StatelessWidget {
             ),
             const SizedBox(height: 80),
             AuthenticatedButtons(
-              onLogin: () => loginBloc.add(Login()),
+              onSave: () => loginBloc.add(Login()),
               onLogout: () => loginBloc.add(Logout()),
               enabled: !state.status.isLoading,
             ),
@@ -201,7 +201,7 @@ class _UnauthenticatedLoginForm extends StatelessWidget {
             ),
             const SizedBox(height: 80),
             UnauthenticatedButtons(
-              onUpdate: () => loginBloc.add(Login()),
+              onLogin: () => loginBloc.add(Login()),
               enabled: !state.status.isLoading,
             ),
             const SizedBox(height: 80),
@@ -253,13 +253,13 @@ class LoginForm extends StatelessWidget {
             const SizedBox(height: 80),
             if (authState.status == AuthenticationStatus.authenticated)
               AuthenticatedButtons(
-                onLogin: () => loginBloc.add(Login()),
+                onSave: () => loginBloc.add(Login()),
                 onLogout: () => loginBloc.add(Logout()),
                 enabled: !state.status.isLoading,
               ),
             if (authState.status == AuthenticationStatus.unauthenticated)
               UnauthenticatedButtons(
-                onUpdate: () => loginBloc.add(Login()),
+                onLogin: () => loginBloc.add(Login()),
                 enabled: !state.status.isLoading,
               ),
             const SizedBox(height: 80),
