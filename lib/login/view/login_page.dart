@@ -60,11 +60,24 @@ class LoginView extends StatelessWidget {
                 Expanded(
                   child: ColoredBox(
                     color: Theme.of(context).shadowColor,
-                    child: const Center(
+                    child: Center(
                       child: SingleChildScrollView(
                         child: Padding(
-                          padding: EdgeInsets.all(30),
-                          child: _LoginForm(),
+                          padding: const EdgeInsets.all(30),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (authState.status ==
+                                  AuthenticationStatus.authenticated)
+                                _AuthenticatedLoginForm(
+                                  privateKey: privateKey,
+                                  publicKey: publicKey,
+                                ),
+                              if (authState.status ==
+                                  AuthenticationStatus.unauthenticated)
+                                const _UnauthenticatedLoginForm(),
+                            ],
+                          ),
                           /*child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -92,30 +105,6 @@ class LoginView extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class _LoginForm extends StatelessWidget {
-  const _LoginForm({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final authState = context.watch<AuthenticationBloc>().state;
-    final privateKey = authState.user?.privateKey ?? '';
-    final publicKey = authState.user?.publicKey ?? '';
-
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        if (authState.status == AuthenticationStatus.authenticated)
-          _AuthenticatedLoginForm(
-            privateKey: privateKey,
-            publicKey: publicKey,
-          ),
-        if (authState.status == AuthenticationStatus.unauthenticated)
-          const _UnauthenticatedLoginForm(),
-      ],
     );
   }
 }
@@ -209,60 +198,6 @@ class _UnauthenticatedLoginForm extends StatelessWidget {
               const CircularProgressIndicator(
                 color: red,
               ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class LoginForm extends StatelessWidget {
-  const LoginForm({
-    super.key,
-    required this.authState,
-  });
-
-  final AuthenticationState authState;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final loginBloc = context.read<LoginBloc>();
-
-    final privateKey = authState.user?.privateKey ?? '';
-    final publicKey = authState.user?.publicKey ?? '';
-
-    return BlocBuilder<LoginBloc, LoginState>(
-      builder: (context, state) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            LoginTextInput(
-              labelText: l10n.private_key,
-              text: privateKey,
-              enabled: !state.status.isLoading,
-              onChanged: (value) => loginBloc.add(PrivateKeySetted(value)),
-            ),
-            const SizedBox(height: 30),
-            LoginTextInput(
-              labelText: l10n.public_key,
-              text: publicKey,
-              enabled: !state.status.isLoading,
-              onChanged: (value) => loginBloc.add(PublicKeySetted(value)),
-            ),
-            const SizedBox(height: 80),
-            if (authState.status == AuthenticationStatus.authenticated)
-              AuthenticatedButtons(
-                onSave: () => loginBloc.add(Login()),
-                onLogout: () => loginBloc.add(Logout()),
-                enabled: !state.status.isLoading,
-              ),
-            if (authState.status == AuthenticationStatus.unauthenticated)
-              UnauthenticatedButtons(
-                onLogin: () => loginBloc.add(Login()),
-                enabled: !state.status.isLoading,
-              ),
-            const SizedBox(height: 80),
           ],
         );
       },
