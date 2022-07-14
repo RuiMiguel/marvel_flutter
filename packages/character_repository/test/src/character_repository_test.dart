@@ -31,7 +31,7 @@ void main() {
         ).thenThrow(Exception());
 
         expect(
-          characterRepository.getCharactersResult(1, 1),
+          characterRepository.getCharactersResult(limit: 1, offset: 1),
           throwsA(isA<Exception>()),
         );
       });
@@ -45,7 +45,7 @@ void main() {
           ).thenAnswer((_) async => ApiResult<ApiCharacter>());
 
           expect(
-            await characterRepository.getCharactersResult(1, 1),
+            await characterRepository.getCharactersResult(limit: 1, offset: 1),
             isA<DataResult<Character>>(),
           );
         },

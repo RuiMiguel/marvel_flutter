@@ -11,11 +11,11 @@ void main() {
   late ComicService comicService;
   late ComicRepository comicRepository;
 
-  setUpAll(() {
-    comicService = _MockComicService();
-  });
-
   group('ComicRepository', () {
+    setUp(() {
+      comicService = _MockComicService();
+    });
+
     test('can be instantiated', () {
       expect(ComicRepository(comicService), isNotNull);
     });

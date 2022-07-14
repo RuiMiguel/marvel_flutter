@@ -10,14 +10,8 @@ abstract class StorageException implements Exception {
 
 class ReadException extends StorageException {
   const ReadException(super.error, [super.stackTrace]);
-
-  @override
-  String toString() => '[ReadException] $error';
 }
 
 class WriteException extends StorageException {
   const WriteException(super.error, [super.stackTrace]);
-
-  @override
-  String toString() => '[WriteException] $error';
 }

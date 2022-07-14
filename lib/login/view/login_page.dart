@@ -78,23 +78,6 @@ class LoginView extends StatelessWidget {
                                 const _UnauthenticatedLoginForm(),
                             ],
                           ),
-                          /*child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              if (authState.status ==
-                                  AuthenticationStatus.authenticated)
-                                const AuthenticatedDescription(),
-                              if (authState.status ==
-                                  AuthenticationStatus.unauthenticated)
-                                const UnauthenticatedDescription(),
-                              const SizedBox(height: 20),
-                              LoginForm(authState: authState),
-                              if (state.status == LoginStatus.loading)
-                                const CircularProgressIndicator(
-                                  color: red,
-                                ),
-                            ],
-                          ),*/
                         ),
                       ),
                     ),

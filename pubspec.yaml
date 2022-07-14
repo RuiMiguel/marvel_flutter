@@ -12,11 +12,14 @@ dependencies:
   authentication_repository: 
     path: packages/authentication_repository
   bloc: ^8.0.3
+  cached_network_image: ^3.2.1
   character_repository: 
     path: packages/character_repository
   comic_repository: 
     path: packages/comic_repository
   dio: ^4.0.6
+  domain: 
+    path: packages/domain
   equatable: ^2.0.3
   flow_builder: ^0.0.9
   flutter:

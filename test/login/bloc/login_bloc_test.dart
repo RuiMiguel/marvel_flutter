@@ -83,21 +83,21 @@ void main() {
             LoginStatus.loading,
           ),
           isA<LoginState>()
-            ..having(
-              (e) => e.status,
-              'status',
-              LoginStatus.success,
-            )
-            ..having(
-              (e) => e.privateKey,
-              'privateKey',
-              privateKey,
-            )
-            ..having(
-              (e) => e.publicKey,
-              'publicKey',
-              publicKey,
-            ),
+              .having(
+                (e) => e.status,
+                'status',
+                LoginStatus.success,
+              )
+              .having(
+                (e) => e.privateKey,
+                'privateKey',
+                privateKey,
+              )
+              .having(
+                (e) => e.publicKey,
+                'publicKey',
+                publicKey,
+              ),
         ],
       );
 
@@ -158,21 +158,21 @@ void main() {
             LoginStatus.loading,
           ),
           isA<LoginState>()
-            ..having(
-              (e) => e.status,
-              'status',
-              LoginStatus.success,
-            )
-            ..having(
-              (e) => e.privateKey,
-              'privateKey',
-              isEmpty,
-            )
-            ..having(
-              (e) => e.publicKey,
-              'publicKey',
-              isEmpty,
-            ),
+              .having(
+                (e) => e.status,
+                'status',
+                LoginStatus.success,
+              )
+              .having(
+                (e) => e.privateKey,
+                'privateKey',
+                isEmpty,
+              )
+              .having(
+                (e) => e.publicKey,
+                'publicKey',
+                isEmpty,
+              ),
         ],
       );
 

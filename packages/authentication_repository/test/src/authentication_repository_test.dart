@@ -27,6 +27,28 @@ void main() {
       expect(AuthenticationRepository(storage), isNotNull);
     });
 
+    test('returns privateKey from storage', () async {
+      when(
+        () => storage.privateKey(),
+      ).thenAnswer((_) async => Future.value(privateKey));
+
+      expect(
+        await authenticationRepository.privateKey(),
+        privateKey,
+      );
+    });
+
+    test('returns publicKey from storage', () async {
+      when(
+        () => storage.publicKey(),
+      ).thenAnswer((_) async => Future.value(publicKey));
+
+      expect(
+        await authenticationRepository.publicKey(),
+        publicKey,
+      );
+    });
+
     group('login', () {
       test('completes when secureStorage saveCredentials succeeded', () async {
         when(

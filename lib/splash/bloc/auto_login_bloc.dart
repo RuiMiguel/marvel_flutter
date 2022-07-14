@@ -10,12 +10,12 @@ part 'auto_login_state.dart';
 class AutoLoginBloc extends Bloc<AutoLoginEvent, AutoLoginState> {
   AutoLoginBloc({required this.authenticationRepository})
       : super(const AutoLoginState.initial()) {
-    on<AutoLogin>(onAutoLogin);
+    on<AutoLogin>(_onAutoLogin);
   }
 
   final AuthenticationRepository authenticationRepository;
 
-  Future<void> onAutoLogin(
+  Future<void> _onAutoLogin(
     AutoLogin event,
     Emitter<AutoLoginState> emit,
   ) async {
