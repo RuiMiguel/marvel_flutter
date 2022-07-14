@@ -1,5 +1,6 @@
 import 'package:api_client/api_client.dart';
 import 'package:domain/domain.dart';
+import 'package:intl/intl.dart';
 
 extension DataResultMapper on ApiResult {
   DataResult<Comic> toResultComic() {
@@ -137,5 +138,19 @@ extension ComicImageMapper on ApiComicImage {
       path: path ?? '',
       extension: extension ?? '',
     );
+  }
+}
+
+extension DateParser on String? {
+  String parseDate({String dateFormat = 'yyyy-mm-dd HH:mm a'}) {
+    if (this == null) return '';
+
+    try {
+      final datetime = DateTime.parse(this!);
+      final format = DateFormat(dateFormat);
+      return format.format(datetime);
+    } catch (_) {
+      return this!;
+    }
   }
 }

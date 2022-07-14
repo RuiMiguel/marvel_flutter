@@ -1,5 +1,6 @@
 import 'package:api_client/api_client.dart';
 import 'package:domain/domain.dart';
+import 'package:intl/intl.dart';
 
 extension DataResultMapper on ApiResult {
   DataResult<Character> toResultCharacter() {
@@ -46,7 +47,7 @@ extension CharacterMapper on ApiCharacter {
       id: id ?? 0,
       name: name ?? '',
       description: description ?? '',
-      modified: modified ?? '',
+      modified: modified.parseDate(),
       resourceURI: resourceURI ?? '',
       urls: urls.toCharactersUrl(),
       thumbnail: thumbnail.toThumbnail(),
@@ -67,5 +68,19 @@ extension CharacterUrlMapper on ApiCharacterUrl {
       type: type ?? '',
       url: url ?? '',
     );
+  }
+}
+
+extension DateParser on String? {
+  String parseDate({String dateFormat = 'yyyy-mm-dd HH:mm a'}) {
+    if (this == null) return '';
+
+    try {
+      final datetime = DateTime.parse(this!);
+      final format = DateFormat(dateFormat);
+      return format.format(datetime);
+    } catch (_) {
+      return this!;
+    }
   }
 }
