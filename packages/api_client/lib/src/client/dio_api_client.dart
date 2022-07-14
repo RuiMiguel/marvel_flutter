@@ -33,7 +33,7 @@ class DioApiClient {
     Map<String, String>? headers,
   }) async {
     return _makeCall(
-      _dio.get<T>(
+      _dio.get<Map<String, dynamic>>(
         url.toString(),
         queryParameters: headers,
       ),
@@ -52,7 +52,7 @@ class DioApiClient {
     Encoding? encoding,
   }) {
     return _makeCall(
-      _dio.post<T>(
+      _dio.post<Map<String, dynamic>>(
         url.toString(),
         data: body,
       ),
@@ -69,15 +69,13 @@ class DioApiClient {
     Response result;
     try {
       result = await call;
-      return _parseResponse(result, parseSuccess, parseError);
-    } on DioError catch (error, stackTrace) {
+    } catch (error, stackTrace) {
       Error.throwWithStackTrace(
         NetworkException(error),
-        error.stackTrace ?? stackTrace,
+        error is DioError ? error.stackTrace ?? stackTrace : stackTrace,
       );
-    } catch (error, stackTrace) {
-      Error.throwWithStackTrace(NetworkException(error), stackTrace);
     }
+    return _parseResponse(result, parseSuccess, parseError);
   }
 
   T _parseResponse<T>(
@@ -101,16 +99,24 @@ class DioApiClient {
     Response response,
     Success<T> parseSuccess,
   ) {
-    return parseSuccess(response.data as Map<String, dynamic>);
+    try {
+      return parseSuccess(response.data as Map<String, dynamic>);
+    } catch (error, stackTrace) {
+      throw DeserializationException(error, stackTrace);
+    }
   }
 
   T _parseResponseError<T>(
     Response response,
     Failure<T> parseError,
   ) {
-    return parseError(
-      response.statusCode,
-      response.data as Map<String, dynamic>,
-    );
+    try {
+      return parseError(
+        response.statusCode,
+        response.data as Map<String, dynamic>,
+      );
+    } catch (error, stackTrace) {
+      throw DeserializationException(error, stackTrace);
+    }
   }
 }

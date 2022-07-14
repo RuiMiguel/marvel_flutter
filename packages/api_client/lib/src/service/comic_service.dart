@@ -50,16 +50,14 @@ class ComicService {
 
     return _apiClient.get<ApiResult<ApiComic>>(
       comicsRequest,
-      (Map<String, dynamic> success) {
+      (success) {
         final response = ApiResult<ApiComic>.fromJson(
           success,
-          (data) => data != null
-              ? ApiComic.fromJson(data as Map<String, dynamic>)
-              : throw const DeserializationException.emptyResponseBody(),
+          (data) => ApiComic.fromJson(data! as Map<String, dynamic>),
         );
         return response;
       },
-      (code, Map<String, dynamic> error) {
+      (code, error) {
         final response = ApiError.fromJson(error);
         throw ServerException(response);
       },

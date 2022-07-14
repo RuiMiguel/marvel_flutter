@@ -8,39 +8,16 @@ import 'package:domain/domain.dart';
 class CharacterRepository {
   /// {@macro character_repository}
   CharacterRepository(CharacterService characterService)
-      : _characterService = characterService {
-    _cache = DataResult.empty();
-  }
+      : _characterService = characterService;
 
   final CharacterService _characterService;
 
-  late DataResult<Character> _cache;
-
   /// Gets [DataResult] of [Character] and cache data.
-  Future<DataResult<Character>> getCharactersResult(
-    int limit,
-    int offset,
-  ) async {
+  Future<DataResult<Character>> getCharactersResult({
+    required int limit,
+    required int offset,
+  }) async {
     final result = await _characterService.getCharactersResult(limit, offset);
-    _updateCache(result.toResultCharacter());
-    return _cache;
-  }
-
-  void _updateCache(DataResult<Character> dataResult) {
-    _cache = DataResult(
-      code: dataResult.code,
-      status: dataResult.status,
-      copyright: dataResult.copyright,
-      attributionText: dataResult.attributionText,
-      attributionHTML: dataResult.attributionHTML,
-      data: Data(
-        offset: dataResult.data.offset,
-        limit: dataResult.data.limit,
-        total: dataResult.data.total,
-        count: dataResult.data.count,
-        results: [..._cache.data.results, ...dataResult.data.results],
-      ),
-      etag: dataResult.etag,
-    );
+    return result.toResultCharacter();
   }
 }
