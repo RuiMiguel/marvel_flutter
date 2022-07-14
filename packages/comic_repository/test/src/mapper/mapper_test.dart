@@ -22,21 +22,21 @@ void main() {
         expect(
           apiResult.toResultComic(),
           isA<DataResult<Comic>>()
-            ..having((e) => e.code, 'code', 1)
-            ..having((e) => e.status, 'status', 'status')
-            ..having((e) => e.copyright, 'copyright', 'copyright')
-            ..having(
-              (e) => e.attributionText,
-              'attributionText',
-              'attributionText',
-            )
-            ..having(
-              (e) => e.attributionHTML,
-              'attributionHTML',
-              'attributionHTML',
-            )
-            ..having((e) => e.etag, 'etag', 'etag')
-            ..having((e) => e.data, 'data', isA<Data<Comic>>()),
+              .having((e) => e.code, 'code', 1)
+              .having((e) => e.status, 'status', 'status')
+              .having((e) => e.copyright, 'copyright', 'copyright')
+              .having(
+                (e) => e.attributionText,
+                'attributionText',
+                'attributionText',
+              )
+              .having(
+                (e) => e.attributionHTML,
+                'attributionHTML',
+                'attributionHTML',
+              )
+              .having((e) => e.etag, 'etag', 'etag')
+              .having((e) => e.data, 'data', isA<Data<Comic>>()),
         );
       });
     });
@@ -56,12 +56,12 @@ void main() {
         expect(
           apiData.toDataComic(),
           isA<Data<Comic>>()
-            ..having((e) => e.offset, 'offset', 1)
-            ..having((e) => e.limit, 'limit', 2)
-            ..having((e) => e.total, 'total', 3)
-            ..having((e) => e.count, 'count', 4)
-            ..having((e) => e.results, 'results', isA<List<Comic>>())
-            ..having((e) => e.results, 'results', isNotEmpty),
+              .having((e) => e.offset, 'offset', 1)
+              .having((e) => e.limit, 'limit', 2)
+              .having((e) => e.total, 'total', 3)
+              .having((e) => e.count, 'count', 4)
+              .having((e) => e.results, 'results', isA<List<Comic>>())
+              .having((e) => e.results, 'results', isNotEmpty),
         );
       });
     });
@@ -76,8 +76,8 @@ void main() {
         expect(
           apiThumbnail.toThumbnail(),
           isA<Thumbnail>()
-            ..having((e) => e.path, 'path', 'path')
-            ..having((e) => e.extension, 'extension', 'extension'),
+              .having((e) => e.path, 'path', 'path')
+              .having((e) => e.extension, 'extension', 'extension'),
         );
       });
     });
@@ -93,9 +93,9 @@ void main() {
         expect(
           apiTextObject.toTextObject(),
           isA<TextObject>()
-            ..having((e) => e.type, 'type', 'type')
-            ..having((e) => e.language, 'language', 'language')
-            ..having((e) => e.text, 'text', 'text'),
+              .having((e) => e.type, 'type', 'type')
+              .having((e) => e.language, 'language', 'language')
+              .having((e) => e.text, 'text', 'text'),
         );
       });
     });
@@ -107,8 +107,8 @@ void main() {
         expect(
           apiComicUrl.toComicUrl(),
           isA<ComicUrl>()
-            ..having((e) => e.type, 'type', 'type')
-            ..having((e) => e.url, 'url', 'url'),
+              .having((e) => e.type, 'type', 'type')
+              .having((e) => e.url, 'url', 'url'),
         );
       });
     });
@@ -120,8 +120,8 @@ void main() {
         expect(
           apiPrice.toPrice(),
           isA<Price>()
-            ..having((e) => e.type, 'type', 'type')
-            ..having((e) => e.price, 'price', 9.99),
+              .having((e) => e.type, 'type', 'type')
+              .having((e) => e.price, 'price', 9.99),
         );
       });
     });
@@ -133,8 +133,8 @@ void main() {
         expect(
           apiImage.toComicImage(),
           isA<ComicImage>()
-            ..having((e) => e.path, 'path', 'path')
-            ..having((e) => e.extension, 'extension', 'extension'),
+              .having((e) => e.path, 'path', 'path')
+              .having((e) => e.extension, 'extension', 'extension'),
         );
       });
     });
@@ -174,33 +174,61 @@ void main() {
         expect(
           apiComic.toComic(),
           isA<Comic>()
-            ..having((e) => e.id, 'id', 1)
-            ..having((e) => e.digitalId, 'digitalId', 2)
-            ..having((e) => e.title, 'title', 'title')
-            ..having((e) => e.issueNumber, 'issueNumber', 3)
-            ..having(
-              (e) => e.variantDescription,
-              'variantDescription',
-              'variantDescription',
-            )
-            ..having((e) => e.description, 'description', 'description')
-            ..having((e) => e.modified, 'modified', 'modified')
-            ..having((e) => e.isbn, 'isbn', 'isbn')
-            ..having((e) => e.upc, 'upc', 'upc')
-            ..having((e) => e.diamondCode, 'diamondCode', 'diamondCode')
-            ..having((e) => e.ean, 'ean', 'ean')
-            ..having((e) => e.issn, 'issn', 'issn')
-            ..having((e) => e.format, 'format', 'format')
-            ..having((e) => e.pageCount, 'pageCount', 4)
-            ..having(
-              (e) => e.textObjects,
-              'textObjects',
-              isA<List<TextObject>>(),
-            )
-            ..having((e) => e.urls, 'urls', isA<List<ComicUrl>>())
-            ..having((e) => e.prices, 'prices', isA<List<Price>>())
-            ..having((e) => e.thumbnail, 'thumbnail', isA<ComicImage>())
-            ..having((e) => e.images, 'images', isA<ComicImage>()),
+              .having((e) => e.id, 'id', 1)
+              .having((e) => e.digitalId, 'digitalId', 2)
+              .having((e) => e.title, 'title', 'title')
+              .having((e) => e.issueNumber, 'issueNumber', 3)
+              .having(
+                (e) => e.variantDescription,
+                'variantDescription',
+                'variantDescription',
+              )
+              .having((e) => e.description, 'description', 'description')
+              .having((e) => e.modified, 'modified', 'modified')
+              .having((e) => e.isbn, 'isbn', 'isbn')
+              .having((e) => e.upc, 'upc', 'upc')
+              .having((e) => e.diamondCode, 'diamondCode', 'diamondCode')
+              .having((e) => e.ean, 'ean', 'ean')
+              .having((e) => e.issn, 'issn', 'issn')
+              .having((e) => e.format, 'format', 'format')
+              .having((e) => e.pageCount, 'pageCount', 4)
+              .having(
+                (e) => e.textObjects,
+                'textObjects',
+                isA<List<TextObject>>(),
+              )
+              .having((e) => e.urls, 'urls', isA<List<ComicUrl>>())
+              .having((e) => e.prices, 'prices', isA<List<Price>>())
+              .having((e) => e.thumbnail, 'thumbnail', isA<Thumbnail>())
+              .having((e) => e.images, 'images', isA<List<ComicImage>>()),
+        );
+      });
+    });
+
+    group('on String', () {
+      test('parseDate return parsed date if correct format', () {
+        expect(
+          '2014-04-29T14:18:17-0400'.parseDate(),
+          equals('2014-04-29 18:18 PM'),
+        );
+
+        expect(
+          '2020-04-29T06:34:19-0300'.parseDate(),
+          equals('2020-04-29 09:34 AM'),
+        );
+      });
+
+      test('parseDate return empty if null', () {
+        expect(
+          null.parseDate(),
+          equals(''),
+        );
+      });
+
+      test('parseDate return this if wrong format', () {
+        expect(
+          'not a date'.parseDate(),
+          equals('not a date'),
         );
       });
     });

@@ -142,7 +142,7 @@ extension ComicImageMapper on ApiComicImage {
 }
 
 extension DateParser on String? {
-  String parseDate({String dateFormat = 'yyyy-mm-dd HH:mm a'}) {
+  String parseDate({String dateFormat = 'yyyy-MM-dd HH:mm a'}) {
     if (this == null) return '';
 
     try {
