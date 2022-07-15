@@ -24,9 +24,6 @@ class ApiResult<T> {
   ) =>
       _$ApiResultFromJson(json, fromJsonT);
 
-  Map<String, dynamic> toJson(Object Function(T value) toJsonT) =>
-      _$ApiResultToJson(this, toJsonT);
-
   @JsonKey(name: 'code')
   final int? code;
 
@@ -68,9 +65,6 @@ class ApiData<T> {
   ) =>
       _$ApiDataFromJson(json, fromJsonT);
 
-  Map<String, dynamic> toJson(Object Function(T value) toJsonT) =>
-      _$ApiDataToJson(this, toJsonT);
-
   @JsonKey(name: 'offset')
   final int? offset;
 
@@ -96,8 +90,6 @@ class ApiThumbnail {
 
   factory ApiThumbnail.fromJson(Map<String, dynamic> json) =>
       _$ApiThumbnailFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ApiThumbnailToJson(this);
 
   @JsonKey(name: 'path')
   final String? path;

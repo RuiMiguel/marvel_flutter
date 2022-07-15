@@ -1,6 +1,5 @@
 import 'package:api_client/api_client.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:mocktail/mocktail.dart';
@@ -19,6 +18,11 @@ void main() {
   late DioApiClient dioApiClient;
 
   group('DioApiClient', () {
+    setUp(() {
+      dio = Dio(BaseOptions());
+      dioApiClient = DioApiClient(dio: dio);
+    });
+
     group('constructor', () {
       test('can be instantiated', () async {
         dio = _MockDio();
@@ -42,79 +46,199 @@ void main() {
     });
 
     group('get', () {
-      setUp(() {
-        dio = Dio(BaseOptions());
-
-        dioApiClient = DioApiClient(dio: dio);
-      });
-
-      group('error', () {
-        test('description', () async {
-          const statusCode = 200;
-          final data =
-              await rootBundle.loadString('test/assets/json/comics_error.json');
-          const expected = ApiError();
-          var called = false;
-
-          dioAdapter = DioAdapter(dio: dio)
-            ..onGet(
-              'https://test.com/endpoint',
-              (server) => server.reply(
-                statusCode,
-                data,
+      test(
+          'throws NetworkException '
+          'when dio fails', () async {
+        dioAdapter = DioAdapter(dio: dio)
+          ..onGet(
+            'https://test.com/endpoint',
+            (server) => server.throws(
+              500,
+              DioError(
+                requestOptions: RequestOptions(path: path),
               ),
-            );
-          dio.httpClientAdapter = dioAdapter;
-
-          await dioApiClient.get<ApiError>(
-            Uri.https(path, endpoint),
-            (Map<String, dynamic> success) {
-              return expected;
-            },
-            (code, Map<String, dynamic> error) {
-              called = true;
-              return expected;
-            },
-          );
-
-          expect(called, isTrue);
-        });
-      });
-
-      group('success', () {
-        test('description', () async {
-          const statusCode = 200;
-          final data = await rootBundle
-              .loadString('test/assets/json/comics_success.json');
-          const expected = ApiResult<ApiComic>();
-          var called = false;
-
-          final pattern = Uri.https(path, endpoint).toString();
-
-          dioAdapter.onGet(
-            pattern,
-            (server) => server.reply(
-              statusCode,
-              data,
             ),
           );
+        dio.httpClientAdapter = dioAdapter;
 
+        try {
           await dioApiClient.get(
             Uri.https(path, endpoint),
-            (Map<String, dynamic> success) {
-              called = true;
-              return expected;
-            },
-            (code, Map<String, dynamic> error) {
-              return;
-            },
           );
+          fail('should throw');
+        } catch (error) {
+          expect(error, isA<NetworkException>());
+        }
+      });
 
-          expect(called, isTrue);
-        });
+      test(
+          'throws DeserializationException '
+          'when dio returns an wrong empty response', () async {
+        const statusCode = 200;
+
+        dioAdapter = DioAdapter(dio: dio)
+          ..onGet(
+            'https://test.com/endpoint',
+            (server) => server.reply(
+              statusCode,
+              null,
+            ),
+          );
+        dio.httpClientAdapter = dioAdapter;
+
+        try {
+          await dioApiClient.get(
+            Uri.https(path, endpoint),
+          );
+          fail('should throw');
+        } catch (error) {
+          expect(error, isA<DeserializationException>());
+        }
+      });
+
+      test(
+          'returns response '
+          'when dio succeeds with data', () async {
+        dioAdapter = DioAdapter(dio: dio)
+          ..onGet(
+            'https://test.com/endpoint',
+            (server) => server.reply(
+              200,
+              {'data': ''},
+            ),
+          );
+        dio.httpClientAdapter = dioAdapter;
+
+        expect(
+          dioApiClient.get(
+            Uri.https(path, endpoint),
+          ),
+          completes,
+        );
+      });
+
+      test(
+          'returns response '
+          'when dio succeeds with empty data', () async {
+        dioAdapter = DioAdapter(dio: dio)
+          ..onGet(
+            'https://test.com/endpoint',
+            (server) => server.reply(
+              204,
+              null,
+            ),
+          );
+        dio.httpClientAdapter = dioAdapter;
+
+        expect(
+          dioApiClient.get(
+            Uri.https(path, endpoint),
+          ),
+          completes,
+        );
       });
     });
 
-    group('post', () {});
+    group('post', () {
+      test(
+          'throws NetworkException '
+          'when dio fails', () async {
+        dioAdapter = DioAdapter(dio: dio)
+          ..onPost(
+            'https://test.com/endpoint',
+            data: <String, String>{'key': 'value'},
+            (server) => server.throws(
+              500,
+              DioError(
+                requestOptions: RequestOptions(path: path),
+              ),
+            ),
+          );
+        dio.httpClientAdapter = dioAdapter;
+
+        try {
+          await dioApiClient.post(
+            Uri.https(path, endpoint),
+            body: <String, String>{'key': 'value'},
+          );
+          fail('should throw');
+        } catch (error) {
+          expect(error, isA<NetworkException>());
+        }
+      });
+
+      test(
+          'throws DeserializationException '
+          'when dio returns an wrong empty response', () async {
+        const statusCode = 200;
+
+        dioAdapter = DioAdapter(dio: dio)
+          ..onPost(
+            'https://test.com/endpoint',
+            data: <String, String>{'key': 'value'},
+            (server) => server.reply(
+              statusCode,
+              null,
+            ),
+          );
+        dio.httpClientAdapter = dioAdapter;
+
+        try {
+          await dioApiClient.post(
+            Uri.https(path, endpoint),
+            body: <String, String>{'key': 'value'},
+          );
+          fail('should throw');
+        } catch (error) {
+          expect(error, isA<DeserializationException>());
+        }
+      });
+
+      test(
+          'returns response '
+          'when dio succeeds with data', () async {
+        dioAdapter = DioAdapter(dio: dio)
+          ..onPost(
+            'https://test.com/endpoint',
+            data: <String, String>{'key': 'value'},
+            (server) => server.reply(
+              200,
+              {'data': ''},
+            ),
+          );
+        dio.httpClientAdapter = dioAdapter;
+
+        expect(
+          dioApiClient.post(
+            Uri.https(path, endpoint),
+            body: <String, String>{'key': 'value'},
+          ),
+          completes,
+        );
+      });
+
+      test(
+          'returns response '
+          'when dio succeeds with empty data', () async {
+        dioAdapter = DioAdapter(dio: dio)
+          ..onPost(
+            'https://test.com/endpoint',
+            data: <String, String>{'key': 'value'},
+            (server) => server.reply(
+              204,
+              null,
+            ),
+          );
+        dio.httpClientAdapter = dioAdapter;
+
+        expect(
+          dioApiClient.post(
+            Uri.https(path, endpoint),
+            body: <String, String>{'key': 'value'},
+          ),
+          completes,
+        );
+      });
+    });
   });
 }

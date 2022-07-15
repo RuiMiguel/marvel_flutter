@@ -16,8 +16,6 @@ class ApiError {
   ) =>
       _$ApiErrorFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ApiErrorToJson(this);
-
   @JsonKey(name: 'code')
   final String? code;
 

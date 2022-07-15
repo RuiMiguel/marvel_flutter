@@ -48,19 +48,20 @@ class ComicService {
       },
     );
 
-    return _apiClient.get<ApiResult<ApiComic>>(
-      comicsRequest,
-      (success) {
-        final response = ApiResult<ApiComic>.fromJson(
-          success,
-          (data) => ApiComic.fromJson(data! as Map<String, dynamic>),
-        );
-        return response;
-      },
-      (code, error) {
-        final response = ApiError.fromJson(error);
-        throw ServerException(response);
-      },
-    );
+    final response = await _apiClient.get(comicsRequest);
+
+    try {
+      return ApiResult<ApiComic>.fromJson(
+        response,
+        (data) => ApiComic.fromJson(data! as Map<String, dynamic>),
+      );
+    } catch (error, stackTrace) {
+      final responseError = ApiError.fromJson(response);
+      if (error is DeserializationException) {
+        rethrow;
+      } else {
+        throw DeserializationException(responseError, stackTrace);
+      }
+    }
   }
 }

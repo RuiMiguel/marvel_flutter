@@ -41,29 +41,6 @@ ApiComic _$ApiComicFromJson(Map<String, dynamic> json) => ApiComic(
           .toList(),
     );
 
-Map<String, dynamic> _$ApiComicToJson(ApiComic instance) => <String, dynamic>{
-      'id': instance.id,
-      'digitalId': instance.digitalId,
-      'title': instance.title,
-      'issueNumber': instance.issueNumber,
-      'variantDescription': instance.variantDescription,
-      'description': instance.description,
-      'modified': instance.modified,
-      'isbn': instance.isbn,
-      'upc': instance.upc,
-      'diamondCode': instance.diamondCode,
-      'ean': instance.ean,
-      'issn': instance.issn,
-      'format': instance.format,
-      'pageCount': instance.pageCount,
-      'textObjects': instance.textObjects,
-      'resourceURI': instance.resourceURI,
-      'urls': instance.urls,
-      'prices': instance.prices,
-      'thumbnail': instance.thumbnail,
-      'images': instance.images,
-    };
-
 ApiTextObject _$ApiTextObjectFromJson(Map<String, dynamic> json) =>
     ApiTextObject(
       type: json['type'] as String?,
@@ -71,42 +48,18 @@ ApiTextObject _$ApiTextObjectFromJson(Map<String, dynamic> json) =>
       text: json['text'] as String?,
     );
 
-Map<String, dynamic> _$ApiTextObjectToJson(ApiTextObject instance) =>
-    <String, dynamic>{
-      'type': instance.type,
-      'language': instance.language,
-      'text': instance.text,
-    };
-
 ApiComicUrl _$ApiComicUrlFromJson(Map<String, dynamic> json) => ApiComicUrl(
       type: json['type'] as String?,
       url: json['url'] as String?,
     );
-
-Map<String, dynamic> _$ApiComicUrlToJson(ApiComicUrl instance) =>
-    <String, dynamic>{
-      'type': instance.type,
-      'url': instance.url,
-    };
 
 ApiPrice _$ApiPriceFromJson(Map<String, dynamic> json) => ApiPrice(
       type: json['type'] as String?,
       price: (json['price'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$ApiPriceToJson(ApiPrice instance) => <String, dynamic>{
-      'type': instance.type,
-      'price': instance.price,
-    };
-
 ApiComicImage _$ApiComicImageFromJson(Map<String, dynamic> json) =>
     ApiComicImage(
       path: json['path'] as String?,
       extension: json['extension'] as String?,
     );
-
-Map<String, dynamic> _$ApiComicImageToJson(ApiComicImage instance) =>
-    <String, dynamic>{
-      'path': instance.path,
-      'extension': instance.extension,
-    };

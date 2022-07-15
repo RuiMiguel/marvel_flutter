@@ -3,12 +3,6 @@ import 'package:api_client/src/exception/api_exception.dart';
 import 'package:api_client/src/interceptor/interceptor.dart';
 import 'package:dio/dio.dart';
 
-/// Parse success function typedef
-typedef Success<T> = T Function(Map<String, dynamic>);
-
-/// Parse failure function typedef
-typedef Failure<T> = T Function(int?, Map<String, dynamic>);
-
 /// {@template dio_api_client}
 /// Simple API client implemented with [Dio].
 /// {@endtemplate}
@@ -26,97 +20,54 @@ class DioApiClient {
   late final Dio _dio;
 
   ///
-  Future<T> get<T>(
-    Uri url,
-    Success<T> onSuccess,
-    Failure<T> onError, {
-    Map<String, String>? headers,
-  }) async {
-    return _makeCall(
-      _dio.get<Map<String, dynamic>>(
-        url.toString(),
-        queryParameters: headers,
-      ),
-      onSuccess,
-      onError,
-    );
-  }
+  Future<Map<String, dynamic>> get(
+    Uri url, {
+    Map<String, String>? queryParameters,
+  }) async =>
+      _makeCall(
+        _dio.get<Map<String, dynamic>>(
+          url.toString(),
+          queryParameters: queryParameters,
+        ),
+      );
 
   ///
-  Future<T> post<T>(
-    Uri url,
-    Success<T> onSuccess,
-    Failure<T> onError, {
-    Map<String, String>? headers,
+  Future<Map<String, dynamic>> post(
+    Uri url, {
+    Map<String, String>? queryParameters,
     Object? body,
-    Encoding? encoding,
-  }) {
-    return _makeCall(
-      _dio.post<Map<String, dynamic>>(
-        url.toString(),
-        data: body,
-      ),
-      onSuccess,
-      onError,
-    );
-  }
+  }) async =>
+      _makeCall(
+        _dio.post<Map<String, dynamic>>(
+          url.toString(),
+          data: body,
+          queryParameters: queryParameters,
+        ),
+      );
 
-  Future<T> _makeCall<T>(
-    Future<Response> call,
-    Success<T> parseSuccess,
-    Failure<T> parseError,
+  Future<Map<String, dynamic>> _makeCall(
+    Future<Response<Map<String, dynamic>>> call,
   ) async {
-    Response result;
+    late final Response<Map<String, dynamic>> response;
     try {
-      result = await call;
+      response = await call;
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
         NetworkException(error),
-        error is DioError ? error.stackTrace ?? stackTrace : stackTrace,
+        (error is DioError) ? error.stackTrace ?? stackTrace : stackTrace,
       );
     }
-    return _parseResponse(result, parseSuccess, parseError);
-  }
 
-  T _parseResponse<T>(
-    Response response,
-    Success<T> parseSuccess,
-    Failure<T> parseError,
-  ) {
+    final data = response.data;
     if (_isSuccessful(response)) {
-      return _parseResponseSuccess(response, parseSuccess);
+      return data ?? <String, dynamic>{};
     } else {
-      return _parseResponseError(response, parseError);
+      throw const DeserializationException.emptyResponseBody();
     }
   }
 
   bool _isSuccessful(Response response) {
-    return (response.statusCode == 200) ||
+    return (response.statusCode == 200 && response.data != null) ||
         (response.statusCode == 204 && response.data == null);
-  }
-
-  T _parseResponseSuccess<T>(
-    Response response,
-    Success<T> parseSuccess,
-  ) {
-    try {
-      return parseSuccess(response.data as Map<String, dynamic>);
-    } catch (error, stackTrace) {
-      throw DeserializationException(error, stackTrace);
-    }
-  }
-
-  T _parseResponseError<T>(
-    Response response,
-    Failure<T> parseError,
-  ) {
-    try {
-      return parseError(
-        response.statusCode,
-        response.data as Map<String, dynamic>,
-      );
-    } catch (error, stackTrace) {
-      throw DeserializationException(error, stackTrace);
-    }
   }
 }

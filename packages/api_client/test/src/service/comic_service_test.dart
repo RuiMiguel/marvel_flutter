@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:api_client/src/client/dio_api_client.dart';
 import 'package:api_client/src/exception/api_exception.dart';
 import 'package:api_client/src/model/model.dart';
 import 'package:api_client/src/security/security.dart';
 import 'package:api_client/src/service/comic_service.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -13,6 +16,8 @@ class _MockSecurity extends Mock implements Security {}
 class _FakeUri extends Fake implements Uri {}
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   setUpAll(() {
     registerFallbackValue(_FakeUri());
   });
@@ -47,7 +52,7 @@ void main() {
     });
 
     group('getComicsResult', () {
-      Future<Map<String, String>> _generateHeaders() async {
+      Future<Map<String, String>> _generateQueryParameters() async {
         final hashTimestamp = await security.hashTimestamp();
 
         return <String, String>{
@@ -60,18 +65,16 @@ void main() {
       }
 
       test('returns NetworkException when request Get fails', () async {
-        final _headers = await _generateHeaders();
+        final _queryParameters = await _generateQueryParameters();
         const expected = NetworkException('error');
 
         when(
-          () => apiClient.get<ApiResult<ApiComic>>(
+          () => apiClient.get(
             Uri.https(
               baseUrl,
               ComicService.comicsEndpoint,
-              _headers,
+              _queryParameters,
             ),
-            any(),
-            any(),
           ),
         ).thenThrow(expected);
 
@@ -91,51 +94,64 @@ void main() {
         );
       });
 
-      test('returns data when request Get succeeded', () async {
-        final _headers = await _generateHeaders();
-        const expected = ApiResult<ApiComic>();
-
-        when(
-          () => apiClient.get<ApiResult<ApiComic>>(
-            Uri.https(
-              baseUrl,
-              ComicService.comicsEndpoint,
-              _headers,
-            ),
-            any(),
-            any(),
-          ),
-        ).thenAnswer((_) async => expected);
-
-        expect(
-          await comicService.getComicsResult(limit, offset),
-          expected,
-        );
-      });
-
       test('returns data error when request Get succeeded but with error',
           () async {
-        final _headers = await _generateHeaders();
-        const error = ApiError();
-        const expected = ServerException(error);
+        final _queryParameters = await _generateQueryParameters();
+        final data = jsonDecode(
+          await rootBundle.loadString('test/assets/json/error.json'),
+        ) as Map<String, dynamic>;
 
         when(
-          () => apiClient.get<ApiResult<ApiComic>>(
+          () => apiClient.get(
             Uri.https(
               baseUrl,
               ComicService.comicsEndpoint,
-              _headers,
+              _queryParameters,
             ),
-            any(),
-            any(),
           ),
-        ).thenThrow(expected);
+        ).thenAnswer((_) async => data);
 
         expect(
           comicService.getComicsResult(limit, offset),
           throwsA(
-            isA<ServerException>().having((e) => e.error, 'error', error),
+            isA<DeserializationException>().having(
+              (element) => element.error,
+              'error',
+              isA<ApiError>()
+                  .having(
+                    (error) => error.code,
+                    'error.code',
+                    '1',
+                  )
+                  .having(
+                    (error) => error.message,
+                    'error.message',
+                    'error',
+                  ),
+            ),
           ),
+        );
+      });
+
+      test('returns data when request Get succeeded', () async {
+        final _queryParameters = await _generateQueryParameters();
+        final data = jsonDecode(
+          await rootBundle.loadString('test/assets/json/comics_success.json'),
+        ) as Map<String, dynamic>;
+
+        when(
+          () => apiClient.get(
+            Uri.https(
+              baseUrl,
+              ComicService.comicsEndpoint,
+              _queryParameters,
+            ),
+          ),
+        ).thenAnswer((_) async => data);
+
+        expect(
+          await comicService.getComicsResult(limit, offset),
+          isA<ApiResult<ApiComic>>(),
         );
       });
     });

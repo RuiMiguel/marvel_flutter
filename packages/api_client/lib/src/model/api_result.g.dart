@@ -23,22 +23,6 @@ ApiResult<T> _$ApiResultFromJson<T>(
       etag: json['etag'] as String?,
     );
 
-Map<String, dynamic> _$ApiResultToJson<T>(
-  ApiResult<T> instance,
-  Object Function(T value) toJsonT,
-) =>
-    <String, dynamic>{
-      'code': instance.code,
-      'status': instance.status,
-      'copyright': instance.copyright,
-      'attributionText': instance.attributionText,
-      'attributionHTML': instance.attributionHTML,
-      'data': instance.data?.toJson(
-        (value) => toJsonT(value),
-      ),
-      'etag': instance.etag,
-    };
-
 ApiData<T> _$ApiDataFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
@@ -51,25 +35,7 @@ ApiData<T> _$ApiDataFromJson<T>(
       results: (json['results'] as List<dynamic>?)?.map(fromJsonT).toList(),
     );
 
-Map<String, dynamic> _$ApiDataToJson<T>(
-  ApiData<T> instance,
-  Object? Function(T value) toJsonT,
-) =>
-    <String, dynamic>{
-      'offset': instance.offset,
-      'limit': instance.limit,
-      'total': instance.total,
-      'count': instance.count,
-      'results': instance.results?.map(toJsonT).toList(),
-    };
-
 ApiThumbnail _$ApiThumbnailFromJson(Map<String, dynamic> json) => ApiThumbnail(
       path: json['path'] as String?,
       extension: json['extension'] as String?,
     );
-
-Map<String, dynamic> _$ApiThumbnailToJson(ApiThumbnail instance) =>
-    <String, dynamic>{
-      'path': instance.path,
-      'extension': instance.extension,
-    };

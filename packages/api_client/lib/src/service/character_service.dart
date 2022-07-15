@@ -1,9 +1,7 @@
 import 'package:api_client/src/client/client.dart';
 import 'package:api_client/src/exception/api_exception.dart';
-import 'package:api_client/src/interceptor/interceptor.dart';
 import 'package:api_client/src/model/model.dart';
 import 'package:api_client/src/security/security.dart';
-import 'package:dio/dio.dart';
 
 /// {@template character_service}
 /// Service to access characters data from Marvel API server.
@@ -50,18 +48,20 @@ class CharacterService {
       },
     );
 
-    return _apiClient.get<ApiResult<ApiCharacter>>(
-      charactersRequest,
-      (success) {
-        return ApiResult<ApiCharacter>.fromJson(
-          success,
-          (data) => ApiCharacter.fromJson(data! as Map<String, dynamic>),
-        );
-      },
-      (code, error) {
-        final response = ApiError.fromJson(error);
-        throw ServerException(response);
-      },
-    );
+    final response = await _apiClient.get(charactersRequest);
+
+    try {
+      return ApiResult<ApiCharacter>.fromJson(
+        response,
+        (data) => ApiCharacter.fromJson(data! as Map<String, dynamic>),
+      );
+    } catch (error, stackTrace) {
+      final responseError = ApiError.fromJson(response);
+      if (error is DeserializationException) {
+        rethrow;
+      } else {
+        throw DeserializationException(responseError, stackTrace);
+      }
+    }
   }
 }

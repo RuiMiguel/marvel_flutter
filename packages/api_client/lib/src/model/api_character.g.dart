@@ -21,25 +21,8 @@ ApiCharacter _$ApiCharacterFromJson(Map<String, dynamic> json) => ApiCharacter(
           : ApiThumbnail.fromJson(json['thumbnail'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$ApiCharacterToJson(ApiCharacter instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'modified': instance.modified,
-      'resourceURI': instance.resourceURI,
-      'urls': instance.urls,
-      'thumbnail': instance.thumbnail,
-    };
-
 ApiCharacterUrl _$ApiCharacterUrlFromJson(Map<String, dynamic> json) =>
     ApiCharacterUrl(
       type: json['type'] as String?,
       url: json['url'] as String?,
     );
-
-Map<String, dynamic> _$ApiCharacterUrlToJson(ApiCharacterUrl instance) =>
-    <String, dynamic>{
-      'type': instance.type,
-      'url': instance.url,
-    };

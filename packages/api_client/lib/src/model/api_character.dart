@@ -20,8 +20,6 @@ class ApiCharacter {
   factory ApiCharacter.fromJson(Map<String, dynamic> json) =>
       _$ApiCharacterFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ApiCharacterToJson(this);
-
   final int? id;
   final String? name;
   final String? description;
@@ -40,8 +38,6 @@ class ApiCharacterUrl {
 
   factory ApiCharacterUrl.fromJson(Map<String, dynamic> json) =>
       _$ApiCharacterUrlFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ApiCharacterUrlToJson(this);
 
   final String? type;
   final String? url;
