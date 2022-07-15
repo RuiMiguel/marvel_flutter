@@ -50,6 +50,8 @@ class ComicService {
 
     final response = await _apiClient.get(comicsRequest);
 
+    // TODO(ruimiguel): think on put onSuccess and onError callbacks into
+    // apiClient call.
     try {
       return ApiResult<ApiComic>.fromJson(
         response,

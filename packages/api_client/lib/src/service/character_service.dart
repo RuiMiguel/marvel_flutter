@@ -50,6 +50,8 @@ class CharacterService {
 
     final response = await _apiClient.get(charactersRequest);
 
+    // TODO(ruimiguel): think on put onSuccess and onError callbacks into
+    // apiClient call.
     try {
       return ApiResult<ApiCharacter>.fromJson(
         response,

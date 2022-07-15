@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:api_client/src/exception/api_exception.dart';
 import 'package:api_client/src/interceptor/interceptor.dart';
 import 'package:dio/dio.dart';
