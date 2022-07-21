@@ -31,7 +31,7 @@ class SplashView extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
 
-    setStatusBarTheme(color: red);
+    Theme.of(context).setStatusBarTheme(color: red);
 
     return BlocConsumer<AutoLoginBloc, AutoLoginState>(
       listener: (context, state) {

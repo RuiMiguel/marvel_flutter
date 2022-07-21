@@ -55,7 +55,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        setStatusBarTheme(
+        Theme.of(context).setStatusBarTheme(
           color: Theme.of(context).primaryColor,
         );
         return Future.value(true);
@@ -227,33 +227,56 @@ class _LinksView extends StatelessWidget {
 
       for (final element in character.urls) {
         (view as Column).children.add(
-              GestureDetector(
+              TextLink(
+                url: element.url,
+                type: element.type,
                 onTap: () {
                   Navigator.of(context).push<void>(
                     WebViewPage.page(element.url),
                   );
                 },
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.link,
-                      color: red,
-                    ),
-                    const SizedBox(width: 10),
-                    Text(
-                      element.type,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            fontSize: 24,
-                            color: red,
-                          ),
-                    ),
-                  ],
-                ),
               ),
             );
       }
     }
     return view;
+  }
+}
+
+@visibleForTesting
+class TextLink extends StatelessWidget {
+  const TextLink({
+    super.key,
+    required this.url,
+    required this.type,
+    required this.onTap,
+  });
+
+  final String url;
+  final String type;
+  final GestureTapCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Row(
+        children: [
+          const Icon(
+            Icons.link,
+            color: red,
+          ),
+          const SizedBox(width: 10),
+          Text(
+            type,
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  fontSize: 24,
+                  color: red,
+                ),
+          ),
+        ],
+      ),
+    );
   }
 }
 

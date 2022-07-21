@@ -1,3 +1,3 @@
 export 'empty_view.dart';
-export 'legal_info.dart';
+export 'info_view.dart';
 export 'loading_view.dart';

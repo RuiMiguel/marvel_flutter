@@ -53,7 +53,7 @@ class CharactersView extends StatelessWidget {
               Expanded(
                 child: Stack(
                   children: [
-                    _CharactersViewContent(characters: state.characters),
+                    CharactersViewContent(characters: state.characters),
                     Visibility(
                       visible: state.status.isLoading,
                       child: const LoadingView(),
@@ -61,7 +61,7 @@ class CharactersView extends StatelessWidget {
                   ],
                 ),
               ),
-              LegalInfo(
+              InfoView(
                 legal: state.legal,
                 count: state.count,
                 total: state.total,
@@ -74,8 +74,9 @@ class CharactersView extends StatelessWidget {
   }
 }
 
-class _CharactersViewContent extends StatelessWidget {
-  const _CharactersViewContent({
+@visibleForTesting
+class CharactersViewContent extends StatelessWidget {
+  const CharactersViewContent({
     super.key,
     required this.characters,
   });
@@ -151,7 +152,7 @@ class _CharactersListView extends StatelessWidget {
     return ListView.separated(
       itemCount: characters.length,
       itemBuilder: (context, index) {
-        return _CharacterElement(
+        return CharacterElement(
           index: index,
           character: characters[index],
         );
@@ -166,8 +167,9 @@ class _CharactersListView extends StatelessWidget {
   }
 }
 
-class _CharacterElement extends StatelessWidget {
-  const _CharacterElement({
+@visibleForTesting
+class CharacterElement extends StatelessWidget {
+  const CharacterElement({
     super.key,
     required this.index,
     required this.character,

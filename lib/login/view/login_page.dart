@@ -29,7 +29,7 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    setStatusBarTheme(color: Theme.of(context).primaryColor);
+    Theme.of(context).setStatusBarTheme(color: Theme.of(context).primaryColor);
 
     final authState = context.watch<AuthenticationBloc>().state;
     final loginBloc = context.read<LoginBloc>();

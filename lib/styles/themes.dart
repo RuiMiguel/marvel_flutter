@@ -2,28 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:marvel/styles/colors.dart';
 
-void setStatusBarTheme({
-  Color? color = white,
-  Brightness? brightness = Brightness.light,
-}) {
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarColor: color,
-      statusBarIconBrightness: brightness,
-    ),
-  );
-}
+extension ThemeDataX on ThemeData {
+  void setStatusBarTheme({
+    Color? color = white,
+    Brightness? brightness = Brightness.light,
+  }) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: color,
+        statusBarIconBrightness: brightness,
+      ),
+    );
+  }
 
-void setSystemNavigationTheme({
-  Color? color = white,
-  Brightness? brightness = Brightness.light,
-}) {
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      systemNavigationBarColor: color,
-      systemNavigationBarIconBrightness: brightness,
-    ),
-  );
+  void setSystemNavigationTheme({
+    Color? color = white,
+    Brightness? brightness = Brightness.light,
+  }) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor: color,
+        systemNavigationBarIconBrightness: brightness,
+      ),
+    );
+  }
 }
 
 ThemeData lightThemeData() {

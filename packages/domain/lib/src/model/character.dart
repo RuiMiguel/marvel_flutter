@@ -18,6 +18,26 @@ class Character {
   final String resourceURI;
   final List<CharacterUrl> urls;
   final Thumbnail thumbnail;
+
+  Character copyWith({
+    int? id,
+    String? name,
+    String? description,
+    String? modified,
+    String? resourceURI,
+    List<CharacterUrl>? urls,
+    Thumbnail? thumbnail,
+  }) {
+    return Character(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      modified: modified ?? this.modified,
+      resourceURI: resourceURI ?? this.resourceURI,
+      urls: urls ?? this.urls,
+      thumbnail: thumbnail ?? this.thumbnail,
+    );
+  }
 }
 
 class CharacterUrl {

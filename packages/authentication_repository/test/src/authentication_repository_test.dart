@@ -38,6 +38,18 @@ void main() {
       );
     });
 
+    test('throws ReadException when secureStorage privateKey fails', () async {
+      when(
+        () => storage.privateKey(),
+      ).thenThrow(ReadException('error'));
+
+      try {
+        await authenticationRepository.privateKey();
+      } catch (e) {
+        expect(e, isA<ReadException>());
+      }
+    });
+
     test('returns publicKey from storage', () async {
       when(
         () => storage.publicKey(),
@@ -47,6 +59,18 @@ void main() {
         await authenticationRepository.publicKey(),
         publicKey,
       );
+    });
+
+    test('throws ReadException when secureStorage publicKey fails', () async {
+      when(
+        () => storage.publicKey(),
+      ).thenThrow(ReadException('error'));
+
+      try {
+        await authenticationRepository.publicKey();
+      } catch (e) {
+        expect(e, isA<ReadException>());
+      }
     });
 
     group('login', () {

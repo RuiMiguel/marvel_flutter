@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/styles/styles.dart';
 
-class LegalInfo extends StatelessWidget {
-  const LegalInfo({
+class InfoView extends StatelessWidget {
+  const InfoView({
     super.key,
     required this.legal,
     required this.count,

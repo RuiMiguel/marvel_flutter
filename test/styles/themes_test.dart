@@ -8,7 +8,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('Themes', () {
-    group('SystemChrome', () {
+    group('ThemeDataX', () {
       final log = <MethodCall>[];
 
       TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
@@ -26,7 +26,7 @@ void main() {
         'setStatusBarTheme calls setSystemUIOverlayStyle '
         'with color and brightness',
         (tester) async {
-          setStatusBarTheme(
+          ThemeData().setStatusBarTheme(
             color: Colors.black,
             brightness: Brightness.dark,
           );
@@ -58,7 +58,7 @@ void main() {
         'setSystemNavigationTheme calls setSystemUIOverlayStyle '
         'with color and brightness',
         (tester) async {
-          setSystemNavigationTheme(
+          ThemeData().setSystemNavigationTheme(
             color: Colors.black,
             brightness: Brightness.dark,
           );

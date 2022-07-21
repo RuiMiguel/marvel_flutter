@@ -6,7 +6,7 @@ import 'package:marvel/styles/colors.dart';
 class HeroesBottomNavigationBar extends StatelessWidget {
   const HeroesBottomNavigationBar({super.key, required this.items});
 
-  final List<CustomBottomNavigationItem> items;
+  final List<HeroeBottomNavigationItem> items;
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +60,8 @@ class HeroesBottomNavigationBar extends StatelessWidget {
   }
 }
 
-class CustomBottomNavigationItem {
-  CustomBottomNavigationItem({
+class HeroeBottomNavigationItem {
+  HeroeBottomNavigationItem({
     required this.image,
     required this.label,
     required this.color,

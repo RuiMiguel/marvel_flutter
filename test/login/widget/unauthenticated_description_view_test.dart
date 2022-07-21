@@ -46,7 +46,9 @@ void main() {
         await tester.pump();
 
         expect(
-          find.byType(WebViewPage),
+          find.byWidgetPredicate(
+            (widget) => widget is WebViewPage && widget.url == link.url,
+          ),
           findsOneWidget,
         );
       },
