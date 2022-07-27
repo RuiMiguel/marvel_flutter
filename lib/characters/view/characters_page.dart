@@ -130,7 +130,7 @@ class _CharactersGridView extends StatelessWidget {
         crossAxisCount: _crossAxisCount,
       ),
       itemBuilder: (context, index) {
-        return _CharacterElement(
+        return CharacterElement(
           index: index,
           character: characters[index],
         );

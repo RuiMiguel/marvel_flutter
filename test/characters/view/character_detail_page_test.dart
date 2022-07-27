@@ -9,7 +9,6 @@ import 'package:marvel/characters/view/character_detail_page.dart';
 import 'package:marvel/characters/widget/empty_view.dart';
 import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/webview/webview_page.dart';
-import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -148,16 +147,18 @@ void main() {
         expect(find.text(l10n.links), findsOneWidget);
         expect(find.byType(TextLink), findsNWidgets(character.urls.length));
         for (final element in character.urls) {
-          expect(
-            tester.widget<TextLink>(
-              find.byWidgetPredicate(
-                (widget) =>
-                    widget is TextLink &&
-                    widget.url == element.url &&
-                    widget.type == element.type,
-              ),
+          final textLink = tester.widget<TextLink>(
+            find.byWidgetPredicate(
+              (widget) =>
+                  widget is TextLink &&
+                  widget.url == element.url &&
+                  widget.type == element.type,
             ),
-            findsOneWidget,
+          );
+
+          expect(
+            textLink,
+            isNotNull,
           );
         }
       });

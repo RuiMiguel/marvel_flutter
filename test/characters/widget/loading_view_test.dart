@@ -15,7 +15,7 @@ void main() {
     });
 
     testWidgets(
-      'test isShrink and scrollListener',
+      'test animationController repeat and forward',
       (tester) async {},
     );
   });

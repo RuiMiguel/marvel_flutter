@@ -178,6 +178,8 @@ void main() {
       testWidgets(
         'navigates to HomePage when AutoLoginStatus success',
         (tester) async {
+          authenticationBloc = _MockAuthenticationBloc();
+
           whenListen(
             authenticationBloc,
             Stream.value(
@@ -190,6 +192,7 @@ void main() {
 
           final autoLoginBlocController = StreamController<AutoLoginState>();
 
+          autoLoginBloc = _MockAutoLoginBloc();
           whenListen(
             autoLoginBloc,
             autoLoginBlocController.stream,
@@ -220,6 +223,7 @@ void main() {
       testWidgets(
         'shows SnackBar when AutoLoginStatus error',
         (tester) async {
+          authenticationBloc = _MockAuthenticationBloc();
           whenListen(
             authenticationBloc,
             Stream.value(AuthenticationState.unauthenticated()),
@@ -227,7 +231,7 @@ void main() {
           );
 
           final autoLoginBlocController = StreamController<AutoLoginState>();
-
+          autoLoginBloc = _MockAutoLoginBloc();
           whenListen(
             autoLoginBloc,
             autoLoginBlocController.stream,
@@ -239,14 +243,12 @@ void main() {
               value: autoLoginBloc,
               child: SplashView(),
             ),
-            authenticationRepository: authenticationRepository,
             authenticationBloc: authenticationBloc,
           );
 
           autoLoginBlocController.add(
             AutoLoginState(status: AutoLoginStatus.error),
           );
-
           await tester.pumpAndSettle();
 
           expect(find.byType(SnackBar), findsOneWidget);
