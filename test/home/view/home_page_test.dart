@@ -43,13 +43,12 @@ void main() {
     group('HomeView', () {
       late SectionCubit sectionCubit;
 
-      setUp(() {
-        sectionCubit = _MockSectionCubit();
-      });
+      setUp(() {});
 
       testWidgets(
         'renders correctly',
         (tester) async {
+          sectionCubit = _MockSectionCubit();
           whenListen(
             sectionCubit,
             Stream.value(1),
@@ -79,6 +78,7 @@ void main() {
       testWidgets(
         'page selected is SectionCubit state',
         (tester) async {
+          sectionCubit = _MockSectionCubit();
           whenListen(
             sectionCubit,
             Stream.value(1),

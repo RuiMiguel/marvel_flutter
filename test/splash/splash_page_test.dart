@@ -37,8 +37,22 @@ void main() {
 
   setUp(() {
     authenticationRepository = _MockAuthenticationRepository();
-    autoLoginBloc = _MockAutoLoginBloc();
-    authenticationBloc = _MockAuthenticationBloc();
+
+    when(
+      () => authenticationRepository.privateKey(),
+    ).thenAnswer((_) async => privateKey);
+    when(
+      () => authenticationRepository.publicKey(),
+    ).thenAnswer((_) async => publicKey);
+    when(
+      () => authenticationRepository.login(
+        privateKey: any(named: 'privateKey'),
+        publicKey: any(named: 'publicKey'),
+      ),
+    ).thenAnswer((_) async {});
+    when(
+      () => authenticationRepository.logout(),
+    ).thenAnswer((_) async {});
   });
 
   group('SplashPage', () {
@@ -49,23 +63,7 @@ void main() {
     testWidgets(
       'renders correctly',
       (tester) async {
-        authenticationBloc = _MockAuthenticationBloc();
-        when(
-          () => authenticationRepository.privateKey(),
-        ).thenAnswer((_) async => privateKey);
-        when(
-          () => authenticationRepository.publicKey(),
-        ).thenAnswer((_) async => publicKey);
-        when(
-          () => authenticationRepository.login(
-            privateKey: any(named: 'privateKey'),
-            publicKey: any(named: 'publicKey'),
-          ),
-        ).thenAnswer((_) async {});
-        when(
-          () => authenticationRepository.logout(),
-        ).thenAnswer((_) async {});
-
+        final authenticationBloc = _MockAuthenticationBloc();
         final authenticationBlocController =
             StreamController<AuthenticationState>();
 
@@ -98,6 +96,7 @@ void main() {
       testWidgets(
         'renders correctly',
         (tester) async {
+          autoLoginBloc = _MockAutoLoginBloc();
           final autoLoginBlocController = StreamController<AutoLoginState>();
           whenListen(
             autoLoginBloc,
@@ -126,6 +125,7 @@ void main() {
         "doesn't show CircularProgressIndicator "
         'when AutoLoginStatus is not loading',
         (tester) async {
+          autoLoginBloc = _MockAutoLoginBloc();
           final autoLoginBlocController = StreamController<AutoLoginState>();
           whenListen(
             autoLoginBloc,
@@ -150,6 +150,7 @@ void main() {
       testWidgets(
         'shows CircularProgressIndicator when AutoLoginStatus loading',
         (tester) async {
+          autoLoginBloc = _MockAutoLoginBloc();
           final autoLoginBlocController = StreamController<AutoLoginState>();
           whenListen(
             autoLoginBloc,
@@ -179,7 +180,6 @@ void main() {
         'navigates to HomePage when AutoLoginStatus success',
         (tester) async {
           authenticationBloc = _MockAuthenticationBloc();
-
           whenListen(
             authenticationBloc,
             Stream.value(
@@ -190,9 +190,8 @@ void main() {
             initialState: AuthenticationState.unauthenticated(),
           );
 
-          final autoLoginBlocController = StreamController<AutoLoginState>();
-
           autoLoginBloc = _MockAutoLoginBloc();
+          final autoLoginBlocController = StreamController<AutoLoginState>();
           whenListen(
             autoLoginBloc,
             autoLoginBlocController.stream,
@@ -230,8 +229,8 @@ void main() {
             initialState: AuthenticationState.unauthenticated(),
           );
 
-          final autoLoginBlocController = StreamController<AutoLoginState>();
           autoLoginBloc = _MockAutoLoginBloc();
+          final autoLoginBlocController = StreamController<AutoLoginState>();
           whenListen(
             autoLoginBloc,
             autoLoginBlocController.stream,
@@ -258,14 +257,15 @@ void main() {
       testWidgets(
         'navigates to LoginPage when AutoLoginStatus error',
         (tester) async {
+          authenticationBloc = _MockAuthenticationBloc();
           whenListen(
             authenticationBloc,
             Stream.value(AuthenticationState.unauthenticated()),
             initialState: AuthenticationState.unauthenticated(),
           );
 
+          autoLoginBloc = _MockAutoLoginBloc();
           final autoLoginBlocController = StreamController<AutoLoginState>();
-
           whenListen(
             autoLoginBloc,
             autoLoginBlocController.stream,

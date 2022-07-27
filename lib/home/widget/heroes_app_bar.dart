@@ -36,6 +36,7 @@ class HeroesAppBar extends StatelessWidget with PreferredSizeWidget {
     if (withActions) {
       list = [
         IconButton(
+          key: const Key('login_icon_button_key'),
           onPressed: () {
             Navigator.of(context).push<void>(
               LoginPage.page(),
