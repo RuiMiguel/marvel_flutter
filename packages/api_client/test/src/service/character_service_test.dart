@@ -54,8 +54,6 @@ void main() {
 
     group('getCharactersResult', () {
       Future<Map<String, String>> _generateQueryParameters() async {
-        final hashTimestamp = await security.hashTimestamp();
-
         return <String, String>{'limit': '$limit', 'offset': '$offset'};
       }
 

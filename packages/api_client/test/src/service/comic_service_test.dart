@@ -21,7 +21,6 @@ void main() {
 
   group('ComicService', () {
     const baseUrl = 'test.com';
-    const publicKey = 'publicKey';
     const limit = 100;
     const offset = 50;
 

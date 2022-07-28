@@ -14,9 +14,6 @@ class _MockRequestInterceptorHandler extends Mock
 
 class _MockResponse extends Mock implements Response<dynamic> {}
 
-class _MockResponseInterceptorHandler extends Mock
-    implements ResponseInterceptorHandler {}
-
 void main() {
   group('AuthInterceptor', () {
     const timestamp = 'timestamp';
@@ -26,7 +23,6 @@ void main() {
     late final RequestOptions requestOptions;
     late final RequestInterceptorHandler requestInterceptorHandler;
     late final Response response;
-    late final ResponseInterceptorHandler responseInterceptorHandler;
     late Security security;
     late AuthInterceptor authInterceptor;
 
@@ -46,7 +42,6 @@ void main() {
       requestInterceptorHandler = _MockRequestInterceptorHandler();
 
       response = _MockResponse();
-      responseInterceptorHandler = _MockResponseInterceptorHandler();
 
       when(() => requestOptions.method).thenReturn('method');
       when(() => requestOptions.baseUrl).thenReturn('baseUrl');
