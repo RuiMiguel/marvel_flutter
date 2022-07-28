@@ -30,12 +30,10 @@ Future<void> _setDefaultCredentials(SecureStorage secureStorage) async {
     publicKey = dotenv.get('PUBLIC_KEY', fallback: 'PUBLIC_KEY not found');
   }
 
-  if (privateKey != null && publicKey != null) {
-    await secureStorage.saveCredentials(
-      privateKey: privateKey,
-      publicKey: publicKey,
-    );
-  }
+  await secureStorage.saveCredentials(
+    privateKey: privateKey,
+    publicKey: publicKey,
+  );
 }
 
 void main() {
