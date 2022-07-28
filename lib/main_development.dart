@@ -26,8 +26,8 @@ Future<void> _setDefaultCredentials(SecureStorage secureStorage) async {
     privateKey = await secureStorage.privateKey();
     publicKey = await secureStorage.publicKey();
   } catch (e) {
-    privateKey = dotenv.env['PRIVATE_KEY'];
-    publicKey = dotenv.env['PUBLIC_KEY'];
+    privateKey = dotenv.get('PRIVATE_KEY', fallback: 'PRIVATE_KEY not found');
+    publicKey = dotenv.get('PUBLIC_KEY', fallback: 'PUBLIC_KEY not found');
   }
 
   if (privateKey != null && publicKey != null) {
