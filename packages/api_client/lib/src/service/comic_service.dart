@@ -1,7 +1,6 @@
 import 'package:api_client/src/client/client.dart';
 import 'package:api_client/src/exception/api_exception.dart';
 import 'package:api_client/src/model/model.dart';
-import 'package:api_client/src/security/security.dart';
 
 /// {@template comic_service}
 /// Service to access comics data from Marvel API server.
@@ -11,12 +10,9 @@ class ComicService {
   ComicService(
     this._baseUrl, {
     required DioApiClient apiClient,
-    required Security security,
-  })  : _apiClient = apiClient,
-        _security = security;
+  }) : _apiClient = apiClient;
 
   final DioApiClient _apiClient;
-  final Security _security;
   final String _baseUrl;
 
   /// Endpoint for [ApiComic].
@@ -27,25 +23,10 @@ class ComicService {
     int limit,
     int offset,
   ) async {
-    final hashTimestamp = await _security.hashTimestamp();
-    String publicKey;
-
-    try {
-      publicKey = await _security.publicKey;
-    } catch (error, stackTrace) {
-      throw AuthenticationException(error, stackTrace);
-    }
-
     final comicsRequest = Uri.https(
       _baseUrl,
       comicsEndpoint,
-      <String, String>{
-        'ts': hashTimestamp['timestamp']!,
-        'hash': hashTimestamp['hash']!,
-        'apikey': publicKey,
-        'limit': '$limit',
-        'offset': '$offset'
-      },
+      <String, String>{'limit': '$limit', 'offset': '$offset'},
     );
 
     final response = await _apiClient.get(comicsRequest);

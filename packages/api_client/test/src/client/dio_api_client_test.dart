@@ -1,4 +1,7 @@
-import 'package:api_client/api_client.dart';
+import 'package:api_client/src/client/dio_api_client.dart';
+import 'package:api_client/src/exception/api_exception.dart';
+import 'package:api_client/src/interceptor/auth_interceptor.dart';
+import 'package:api_client/src/interceptor/logging_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
@@ -7,6 +10,8 @@ import 'package:mocktail/mocktail.dart';
 class _MockDio extends Mock implements Dio {}
 
 class _MockLoggingInterceptor extends Mock implements LoggingInterceptor {}
+
+class _MockAuthInterceptor extends Mock implements AuthInterceptor {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -42,6 +47,21 @@ void main() {
         );
 
         expect(dio.interceptors, contains(loggingInterceptor));
+      });
+
+      test('instantiates with authInterceptor adds it to Dio', () async {
+        dio = Dio(BaseOptions());
+        final authInterceptor = _MockAuthInterceptor();
+
+        expect(
+          DioApiClient(
+            dio: dio,
+            authInterceptor: authInterceptor,
+          ),
+          isNotNull,
+        );
+
+        expect(dio.interceptors, contains(authInterceptor));
       });
     });
 

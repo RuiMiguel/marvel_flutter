@@ -10,12 +10,18 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:character_repository/character_repository.dart';
 import 'package:comic_repository/comic_repository.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:marvel/app/app.dart';
 import 'package:marvel/bootstrap.dart';
 import 'package:secure_storage/secure_storage.dart';
 
 void main() {
   bootstrap(() async {
+    const secureStorage = SecureStorage();
+    final security = Security(
+      storage: secureStorage,
+    );
+
     const baseUrl = 'gateway.marvel.com:443';
 
     final dio = Dio(
@@ -24,34 +30,31 @@ void main() {
         receiveTimeout: 15000,
       ),
     );
+    final authInterceptor = AuthInterceptor(security: security);
     final apiClient = DioApiClient(
       dio: dio,
-    );
-
-    const secureStorage = SecureStorage();
-    final security = Security(
-      storage: secureStorage,
+      authInterceptor: authInterceptor,
     );
 
     final characterService = CharacterService(
       baseUrl,
       apiClient: apiClient,
-      security: security,
     );
     final comicService = ComicService(
       baseUrl,
       apiClient: apiClient,
-      security: security,
     );
 
     final authenticationRepository = AuthenticationRepository(secureStorage);
     final characterRepository = CharacterRepository(characterService);
     final comicRepository = ComicRepository(comicService);
+    final defaultCacheManager = DefaultCacheManager();
 
     return App(
       authenticationRepository: authenticationRepository,
       characterRepository: characterRepository,
       comicRepository: comicRepository,
+      cacheManager: defaultCacheManager,
     );
   });
 }

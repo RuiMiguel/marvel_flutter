@@ -10,9 +10,13 @@ class DioApiClient {
   DioApiClient({
     required Dio dio,
     LoggingInterceptor? loggingInterceptor,
+    AuthInterceptor? authInterceptor,
   }) : _dio = dio {
     if (loggingInterceptor != null) {
       _dio.interceptors.add(loggingInterceptor);
+    }
+    if (authInterceptor != null) {
+      _dio.interceptors.add(authInterceptor);
     }
   }
 

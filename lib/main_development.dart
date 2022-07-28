@@ -10,6 +10,7 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:character_repository/character_repository.dart';
 import 'package:comic_repository/comic_repository.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:marvel/app/app.dart';
 import 'package:marvel/bootstrap.dart';
@@ -39,6 +40,14 @@ Future<void> _setDefaultCredentials(SecureStorage secureStorage) async {
 
 void main() {
   bootstrap(() async {
+    const secureStorage = SecureStorage();
+
+    await _setDefaultCredentials(secureStorage);
+
+    final security = Security(
+      storage: secureStorage,
+    );
+
     const baseUrl = 'gateway.marvel.com:443';
 
     final dio = Dio(
@@ -48,38 +57,32 @@ void main() {
       ),
     );
     final loggingInterceptor = LoggingInterceptor(logEnabled: true);
+    final authInterceptor = AuthInterceptor(security: security);
     final apiClient = DioApiClient(
       dio: dio,
       loggingInterceptor: loggingInterceptor,
-    );
-
-    const secureStorage = SecureStorage();
-
-    await _setDefaultCredentials(secureStorage);
-
-    final security = Security(
-      storage: secureStorage,
+      authInterceptor: authInterceptor,
     );
 
     final characterService = CharacterService(
       baseUrl,
       apiClient: apiClient,
-      security: security,
     );
     final comicService = ComicService(
       baseUrl,
       apiClient: apiClient,
-      security: security,
     );
 
     final authenticationRepository = AuthenticationRepository(secureStorage);
     final characterRepository = CharacterRepository(characterService);
     final comicRepository = ComicRepository(comicService);
+    final defaultCacheManager = DefaultCacheManager();
 
     return App(
       authenticationRepository: authenticationRepository,
       characterRepository: characterRepository,
       comicRepository: comicRepository,
+      cacheManager: defaultCacheManager,
     );
   });
 }

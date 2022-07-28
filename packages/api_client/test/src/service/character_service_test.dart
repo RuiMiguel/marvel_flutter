@@ -49,7 +49,6 @@ void main() {
       characterService = CharacterService(
         baseUrl,
         apiClient: apiClient,
-        security: security,
       );
     });
 
@@ -57,13 +56,7 @@ void main() {
       Future<Map<String, String>> _generateQueryParameters() async {
         final hashTimestamp = await security.hashTimestamp();
 
-        return <String, String>{
-          'ts': hashTimestamp['timestamp']!,
-          'hash': hashTimestamp['hash']!,
-          'apikey': publicKey,
-          'limit': '$limit',
-          'offset': '$offset'
-        };
+        return <String, String>{'limit': '$limit', 'offset': '$offset'};
       }
 
       test('returns NetworkException when request Get fails', () async {
@@ -82,16 +75,6 @@ void main() {
         expect(
           characterService.getCharactersResult(limit, offset),
           throwsA(isA<NetworkException>()),
-        );
-      });
-
-      test('returns AuthenticationException when security fails', () async {
-        when(() => security.publicKey)
-            .thenThrow(const AuthenticationException(''));
-
-        expect(
-          characterService.getCharactersResult(limit, offset),
-          throwsA(isA<AuthenticationException>()),
         );
       });
 

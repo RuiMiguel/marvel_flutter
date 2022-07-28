@@ -3,15 +3,12 @@ import 'dart:convert';
 import 'package:api_client/src/client/dio_api_client.dart';
 import 'package:api_client/src/exception/api_exception.dart';
 import 'package:api_client/src/model/model.dart';
-import 'package:api_client/src/security/security.dart';
 import 'package:api_client/src/service/comic_service.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 class _MockDioApiClient extends Mock implements DioApiClient {}
-
-class _MockSecurity extends Mock implements Security {}
 
 class _FakeUri extends Fake implements Uri {}
 
@@ -30,38 +27,19 @@ void main() {
 
     late ComicService comicService;
     late DioApiClient apiClient;
-    late Security security;
 
     setUp(() {
       apiClient = _MockDioApiClient();
-      security = _MockSecurity();
-
-      when(() => security.hashTimestamp()).thenAnswer(
-        (_) async => {
-          'timestamp': 'timestamp',
-          'hash': 'hash',
-        },
-      );
-      when(() => security.publicKey).thenAnswer((_) async => publicKey);
 
       comicService = ComicService(
         baseUrl,
         apiClient: apiClient,
-        security: security,
       );
     });
 
     group('getComicsResult', () {
       Future<Map<String, String>> _generateQueryParameters() async {
-        final hashTimestamp = await security.hashTimestamp();
-
-        return <String, String>{
-          'ts': hashTimestamp['timestamp']!,
-          'hash': hashTimestamp['hash']!,
-          'apikey': publicKey,
-          'limit': '$limit',
-          'offset': '$offset'
-        };
+        return <String, String>{'limit': '$limit', 'offset': '$offset'};
       }
 
       test('returns NetworkException when request Get fails', () async {
@@ -81,16 +59,6 @@ void main() {
         expect(
           comicService.getComicsResult(limit, offset),
           throwsA(isA<NetworkException>()),
-        );
-      });
-
-      test('returns AuthenticationException when security fails', () async {
-        when(() => security.publicKey)
-            .thenThrow(const AuthenticationException(''));
-
-        expect(
-          comicService.getComicsResult(limit, offset),
-          throwsA(isA<AuthenticationException>()),
         );
       });
 
