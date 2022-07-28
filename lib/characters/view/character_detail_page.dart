@@ -103,7 +103,6 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
 
 class _CharacterSliverApp extends StatelessWidget {
   const _CharacterSliverApp({
-    super.key,
     required this.sliverAppHeight,
     required this.isShrink,
     required this.character,
@@ -117,7 +116,6 @@ class _CharacterSliverApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       expandedHeight: sliverAppHeight,
-      floating: false,
       pinned: true,
       title: Visibility(
         visible: isShrink,
@@ -129,7 +127,6 @@ class _CharacterSliverApp extends StatelessWidget {
       backgroundColor: Section.characters.color,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: false,
-        collapseMode: CollapseMode.parallax,
         title: Visibility(
           visible: !isShrink,
           child: DecoratedBox(
@@ -168,10 +165,7 @@ class _CharacterSliverApp extends StatelessWidget {
 }
 
 class _DescriptionView extends StatelessWidget {
-  const _DescriptionView({
-    super.key,
-    required this.character,
-  });
+  const _DescriptionView({required this.character});
 
   final Character character;
 
@@ -200,10 +194,7 @@ class _DescriptionView extends StatelessWidget {
 }
 
 class _LinksView extends StatelessWidget {
-  const _LinksView({
-    super.key,
-    required this.character,
-  });
+  const _LinksView({required this.character});
 
   final Character character;
 
@@ -283,10 +274,7 @@ class TextLink extends StatelessWidget {
 }
 
 class _DatesView extends StatelessWidget {
-  const _DatesView({
-    super.key,
-    required this.character,
-  });
+  const _DatesView({required this.character});
 
   final Character character;
 

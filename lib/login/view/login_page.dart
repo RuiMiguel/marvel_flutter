@@ -94,7 +94,6 @@ class LoginView extends StatelessWidget {
 
 class _AuthenticatedLoginForm extends StatelessWidget {
   const _AuthenticatedLoginForm({
-    super.key,
     required this.privateKey,
     required this.publicKey,
   });
@@ -146,7 +145,7 @@ class _AuthenticatedLoginForm extends StatelessWidget {
 }
 
 class _UnauthenticatedLoginForm extends StatelessWidget {
-  const _UnauthenticatedLoginForm({super.key});
+  const _UnauthenticatedLoginForm();
 
   @override
   Widget build(BuildContext context) {

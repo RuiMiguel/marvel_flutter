@@ -34,8 +34,6 @@ void main() {
     });
 
     testWidgets('renders correctly', (tester) async {
-      final l10n = await AppLocalizations.delegate.load(const Locale('en'));
-
       await tester.pumpApp(
         CharacterDetailPage(character: character),
       );

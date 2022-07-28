@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:marvel/characters/characters.dart';
 import 'package:marvel/characters/widget/widget.dart';
-import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/login/widget/widget.dart';
 import 'package:marvel/styles/styles.dart';
 
@@ -29,7 +28,6 @@ class CharactersView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
     final bloc = context.read<CharactersBloc>();
 
     return BlocConsumer<CharactersBloc, CharactersState>(
@@ -101,10 +99,7 @@ class CharactersViewContent extends StatelessWidget {
 }
 
 class _CharactersGridView extends StatelessWidget {
-  const _CharactersGridView({
-    super.key,
-    required this.characters,
-  });
+  const _CharactersGridView({required this.characters});
 
   final List<Character> characters;
 
@@ -141,10 +136,7 @@ class _CharactersGridView extends StatelessWidget {
 }
 
 class _CharactersListView extends StatelessWidget {
-  const _CharactersListView({
-    super.key,
-    required this.characters,
-  });
+  const _CharactersListView({required this.characters});
 
   final List<Character> characters;
 
