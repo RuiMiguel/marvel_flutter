@@ -3,6 +3,7 @@ import 'package:character_repository/character_repository.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:marvel/characters/characters.dart';
 import 'package:marvel/characters/widget/widget.dart';
 import 'package:marvel/l10n/l10n.dart';
@@ -198,6 +199,7 @@ class CharacterElement extends StatelessWidget {
                 child: CachedNetworkImage(
                   imageUrl:
                       '${character.thumbnail.path}/landscape_amazing.${character.thumbnail.extension}',
+                  cacheManager: context.read<CacheManager>(),
                   imageBuilder: (context, imageProvider) => DecoratedBox(
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -210,10 +212,8 @@ class CharacterElement extends StatelessWidget {
                     'assets/images/placeholder.png',
                     fit: BoxFit.contain,
                   ),
-                  errorWidget:
-                      (BuildContext context, String url, dynamic error) =>
-                          Image.asset(
-                    'assets/images/placeholder.png',
+                  errorWidget: (context, url, dynamic error) => Image.asset(
+                    'assets/images/error.jpeg',
                     fit: BoxFit.contain,
                   ),
                 ),

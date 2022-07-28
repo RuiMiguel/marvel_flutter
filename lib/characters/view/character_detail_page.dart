@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:marvel/characters/widget/widget.dart';
 import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/styles/styles.dart';
 import 'package:marvel/webview/webview_page.dart';
+import 'package:provider/provider.dart';
 
 class CharacterDetailPage extends StatefulWidget {
   const CharacterDetailPage({super.key, required this.character});
@@ -142,6 +144,7 @@ class _CharacterSliverApp extends StatelessWidget {
         background: CachedNetworkImage(
           imageUrl:
               '${character.thumbnail.path}/portrait_incredible.${character.thumbnail.extension}',
+          cacheManager: context.read<CacheManager>(),
           imageBuilder: (context, imageProvider) => DecoratedBox(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -154,9 +157,8 @@ class _CharacterSliverApp extends StatelessWidget {
             'assets/images/placeholder.png',
             fit: BoxFit.contain,
           ),
-          errorWidget: (BuildContext context, String url, dynamic error) =>
-              Image.asset(
-            'assets/images/placeholder.png',
+          errorWidget: (context, url, dynamic error) => Image.asset(
+            'assets/images/error.jpeg',
             fit: BoxFit.contain,
           ),
         ),

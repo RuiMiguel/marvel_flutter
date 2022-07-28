@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel/app/bloc/authentication_bloc.dart';
+import 'package:marvel/characters/widget/loading_view.dart';
 import 'package:marvel/home/home.dart';
 import 'package:marvel/login/login.dart';
 import 'package:marvel/splash/bloc/auto_login_bloc.dart';
@@ -122,7 +123,7 @@ void main() {
       );
 
       testWidgets(
-        "doesn't show CircularProgressIndicator "
+        "doesn't show LoadingView "
         'when AutoLoginStatus is not loading',
         (tester) async {
           autoLoginBloc = _MockAutoLoginBloc();
@@ -143,12 +144,12 @@ void main() {
           await tester.pump();
           await tester.pump();
 
-          expect(find.byType(CircularProgressIndicator), findsNothing);
+          expect(find.byType(LoadingView), findsNothing);
         },
       );
 
       testWidgets(
-        'shows CircularProgressIndicator when AutoLoginStatus loading',
+        'shows LoadingView when AutoLoginStatus loading',
         (tester) async {
           autoLoginBloc = _MockAutoLoginBloc();
           final autoLoginBlocController = StreamController<AutoLoginState>();
@@ -172,7 +173,7 @@ void main() {
           await tester.pump();
           await tester.pump();
 
-          expect(find.byType(CircularProgressIndicator), findsOneWidget);
+          expect(find.byType(LoadingView), findsOneWidget);
         },
       );
 

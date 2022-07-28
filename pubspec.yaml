@@ -25,6 +25,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_cache_manager: ^3.3.0
   flutter_dotenv: ^5.0.2
   flutter_linkify: ^5.0.2
   flutter_localizations:
@@ -33,6 +34,7 @@ dependencies:
   hydrated_bloc: ^8.1.0
   intl: ^0.17.0
   path_provider: ^2.0.11
+  provider: ^6.0.3
   secure_storage:
     path: packages/secure_storage
   webviewx: ^0.2.1
@@ -45,6 +47,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
+  mocktail_image_network: ^0.3.1
   very_good_analysis: ^3.0.0
 
 flutter_icons:

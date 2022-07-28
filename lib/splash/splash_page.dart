@@ -1,6 +1,7 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marvel/characters/widget/loading_view.dart';
 import 'package:marvel/home/home.dart';
 import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/login/login.dart';
@@ -58,20 +59,34 @@ class SplashView extends StatelessWidget {
       builder: (context, state) {
         return ColoredBox(
           color: red,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset('assets/images/placeholder.png'),
-                if (state.status == AutoLoginStatus.loading)
-                  const CircularProgressIndicator(
-                    color: white,
+          child: Stack(
+            alignment: AlignmentDirectional.center,
+            children: [
+              Center(
+                child: Image.asset('assets/images/placeholder.png'),
+              ),
+              if (state.status == AutoLoginStatus.loading)
+                const Positioned(
+                  bottom: 80,
+                  child: LoadingView(
+                    height: 150,
                   ),
-              ],
-            ),
+                ),
+            ],
           ),
         );
       },
     );
   }
 }
+/*
+Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/images/placeholder.png'),
+                if (state.status == AutoLoginStatus.loading)
+                  const LoadingView(),
+              ],
+            )
+*/
+

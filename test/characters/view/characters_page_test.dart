@@ -1,16 +1,49 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'package:bloc_test/bloc_test.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:domain/domain.dart';
+import 'package:file/local.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel/characters/characters.dart';
 import 'package:marvel/characters/widget/info_view.dart';
 import 'package:marvel/characters/widget/loading_view.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:provider/provider.dart';
 
 import '../../helpers/helpers.dart';
+
+class _MockDefaultCacheManager extends Mock implements DefaultCacheManager {
+  _MockDefaultCacheManager({this.fails = false});
+
+  final bool fails;
+  static const fileSystem = LocalFileSystem();
+
+  @override
+  Stream<FileResponse> getImageFile(
+    String url, {
+    String? key,
+    Map<String, String>? headers,
+    bool withProgress = false,
+    int? maxHeight,
+    int? maxWidth,
+  }) async* {
+    if (fails) {
+      throw Exception();
+    } else {
+      yield FileInfo(
+        fileSystem.file('test/assets/image/placeholder.png'),
+        FileSource.Cache,
+        DateTime(
+          DateTime.now().add(const Duration(days: 1)).year,
+        ),
+        url,
+      );
+    }
+  }
+}
 
 class _MockCharactersBloc extends Mock implements CharactersBloc {}
 
@@ -203,8 +236,70 @@ void main() {
 
         group('CharacterElement', () {
           testWidgets(
-            'test image and error builders',
-            (tester) async {},
+            'shows placeholder when load image returns error',
+            (tester) async {
+              final cacheManager = _MockDefaultCacheManager(
+                fails: true,
+              );
+
+              await tester.pumpApp(
+                Provider.value(
+                  value: cacheManager,
+                  child: CharacterElement(
+                    index: 1,
+                    character: characters.first,
+                  ),
+                ),
+              );
+
+              await tester.pumpAndSettle();
+
+              final finder = find.byWidgetPredicate(
+                (widget) =>
+                    widget is Image &&
+                    widget.image is AssetImage &&
+                    (widget.image as AssetImage).assetName ==
+                        'assets/images/error.jpeg',
+              );
+              expect(
+                finder,
+                findsOneWidget,
+              );
+            },
+          );
+
+          testWidgets(
+            'shows image when load image returns success',
+            (tester) async {
+              final character = characters.first;
+
+              final cacheManager = _MockDefaultCacheManager();
+
+              await tester.pumpApp(
+                Provider.value(
+                  value: cacheManager,
+                  child: CharacterElement(
+                    index: 1,
+                    character: character,
+                  ),
+                ),
+              );
+
+              await tester.pumpAndSettle();
+
+              final finder = find.byWidgetPredicate(
+                (widget) =>
+                    widget is Image &&
+                    widget.image is CachedNetworkImageProvider &&
+                    (widget.image as CachedNetworkImageProvider).url ==
+                        '${character.thumbnail.path}/landscape_amazing.${character.thumbnail.extension}',
+              );
+
+              expect(
+                finder,
+                findsOneWidget,
+              );
+            },
           );
         });
       });

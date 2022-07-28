@@ -1,8 +1,9 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 class LoadingView extends StatefulWidget {
-  const LoadingView({super.key});
+  const LoadingView({super.key, this.height});
+
+  final double? height;
 
   @override
   State<LoadingView> createState() => _LoadingViewState();
@@ -10,33 +11,16 @@ class LoadingView extends StatefulWidget {
 
 class _LoadingViewState extends State<LoadingView>
     with SingleTickerProviderStateMixin {
-  late AnimationController animationController;
+  late final AnimationController _animationController;
   late Animation<double> animation;
 
   @override
   void initState() {
     super.initState();
-    animationController = AnimationController(
+    _animationController = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
-    );
-
-    animation = Tween<double>(
-      begin: 2 * math.pi,
-      end: 0,
-    ).animate(animationController)
-      ..addListener(() {
-        setState(() {});
-      })
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          animationController.repeat();
-        } else if (status == AnimationStatus.dismissed) {
-          animationController.forward();
-        }
-      });
-
-    animationController.forward();
+    )..repeat();
   }
 
   @override
@@ -46,10 +30,12 @@ class _LoadingViewState extends State<LoadingView>
       child: Container(
         alignment: Alignment.center,
         padding: const EdgeInsets.all(20),
-        child: Transform.rotate(
-          angle: animation.value,
+        child: RotationTransition(
+          turns: _animationController,
           child: Image.asset(
             'assets/images/mjolnir.png',
+            fit: BoxFit.fill,
+            height: widget.height ?? 300,
           ),
         ),
       ),
@@ -58,7 +44,7 @@ class _LoadingViewState extends State<LoadingView>
 
   @override
   void dispose() {
-    animationController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 }
