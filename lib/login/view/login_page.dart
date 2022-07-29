@@ -2,7 +2,7 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marvel/app/bloc/authentication_bloc.dart';
-import 'package:marvel/home/widget/widget.dart';
+import 'package:marvel/common/widget/widget.dart';
 import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/login/login.dart';
 import 'package:marvel/styles/styles.dart';

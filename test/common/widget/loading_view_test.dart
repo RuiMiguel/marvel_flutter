@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:marvel/characters/widget/loading_view.dart';
+import 'package:marvel/common/widget/loading_view.dart';
 
 import '../../helpers/helpers.dart';
 

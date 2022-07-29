@@ -19,22 +19,22 @@ void main() {
   late SectionCubit sectionCubit;
 
   final items = [
-    HeroeBottomNavigationItem(
+    HeroBottomNavigationItem(
       label: 'item_1',
       image: 'assets/images/menu/captain-america.png',
       color: Section.characters.color,
     ),
-    HeroeBottomNavigationItem(
+    HeroBottomNavigationItem(
       label: 'item_2',
       image: 'assets/images/menu/hulk.png',
       color: Section.comics.color,
     ),
-    HeroeBottomNavigationItem(
+    HeroBottomNavigationItem(
       label: 'item_3',
       image: 'assets/images/menu/thor.png',
       color: Section.series.color,
     ),
-    HeroeBottomNavigationItem(
+    HeroBottomNavigationItem(
       label: 'item_4',
       image: 'assets/images/menu/iron-man.png',
       color: Section.stories.color,

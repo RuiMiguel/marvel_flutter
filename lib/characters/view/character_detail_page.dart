@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:marvel/characters/widget/widget.dart';
+import 'package:marvel/common/widget/widget.dart';
 import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/styles/styles.dart';
 import 'package:marvel/webview/webview_page.dart';

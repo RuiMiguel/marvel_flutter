@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel/app/bloc/authentication_bloc.dart';
-import 'package:marvel/characters/widget/loading_view.dart';
+import 'package:marvel/common/widget/loading_view.dart';
 import 'package:marvel/home/home.dart';
 import 'package:marvel/login/login.dart';
 import 'package:marvel/splash/bloc/auto_login_bloc.dart';

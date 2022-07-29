@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:marvel/characters/characters.dart';
-import 'package:marvel/characters/widget/widget.dart';
+import 'package:marvel/common/widget/widget.dart';
 import 'package:marvel/login/widget/widget.dart';
 import 'package:marvel/styles/styles.dart';
 

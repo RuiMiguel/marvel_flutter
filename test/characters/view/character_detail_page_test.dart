@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel/characters/view/character_detail_page.dart';
-import 'package:marvel/characters/widget/empty_view.dart';
+import 'package:marvel/common/widget/empty_view.dart';
 import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/webview/webview_page.dart';
 

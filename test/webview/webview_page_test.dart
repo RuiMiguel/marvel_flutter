@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:marvel/home/widget/heroes_app_bar.dart';
+import 'package:marvel/common/widget/heroes_app_bar.dart';
 import 'package:marvel/webview/webview_page.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:webviewx/webviewx.dart';

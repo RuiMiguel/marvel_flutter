@@ -1,7 +1,7 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marvel/characters/widget/loading_view.dart';
+import 'package:marvel/common/widget/loading_view.dart';
 import 'package:marvel/home/home.dart';
 import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/login/login.dart';

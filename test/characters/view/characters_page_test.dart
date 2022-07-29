@@ -8,8 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel/characters/characters.dart';
-import 'package:marvel/characters/widget/info_view.dart';
-import 'package:marvel/characters/widget/loading_view.dart';
+import 'package:marvel/common/widget/info_view.dart';
+import 'package:marvel/common/widget/loading_view.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:provider/provider.dart';
 

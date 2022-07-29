@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marvel/home/widget/widget.dart';
+import 'package:marvel/common/widget/widget.dart';
 import 'package:marvel/styles/colors.dart';
 import 'package:webviewx/webviewx.dart';
 
