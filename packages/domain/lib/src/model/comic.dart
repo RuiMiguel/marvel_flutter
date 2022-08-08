@@ -44,6 +44,52 @@ class Comic {
   final List<Price> prices;
   final Thumbnail thumbnail;
   final List<ComicImage> images;
+
+  Comic copyWith({
+    int? id,
+    int? digitalId,
+    String? title,
+    double? issueNumber,
+    String? variantDescription,
+    String? description,
+    String? modified,
+    String? isbn,
+    String? upc,
+    String? diamondCode,
+    String? ean,
+    String? issn,
+    String? format,
+    int? pageCount,
+    List<TextObject>? textObjects,
+    String? resourceURI,
+    List<ComicUrl>? urls,
+    List<Price>? prices,
+    Thumbnail? thumbnail,
+    List<ComicImage>? images,
+  }) {
+    return Comic(
+      id: id ?? this.id,
+      digitalId: digitalId ?? this.digitalId,
+      title: title ?? this.title,
+      issueNumber: issueNumber ?? this.issueNumber,
+      variantDescription: variantDescription ?? this.variantDescription,
+      description: description ?? this.description,
+      modified: modified ?? this.modified,
+      isbn: isbn ?? this.isbn,
+      upc: upc ?? this.upc,
+      diamondCode: diamondCode ?? this.diamondCode,
+      ean: ean ?? this.ean,
+      issn: issn ?? this.issn,
+      format: format ?? this.format,
+      pageCount: pageCount ?? this.pageCount,
+      textObjects: textObjects ?? this.textObjects,
+      resourceURI: resourceURI ?? this.resourceURI,
+      urls: urls ?? this.urls,
+      prices: prices ?? this.prices,
+      thumbnail: thumbnail ?? this.thumbnail,
+      images: images ?? this.images,
+    );
+  }
 }
 
 class TextObject {
@@ -86,4 +132,8 @@ class ComicImage {
 
   final String path;
   final String extension;
+}
+
+extension ComicImageX on ComicImage {
+  String get comicDetailGalleryPreview => '$path/portrait_fantastic.$extension';
 }

@@ -61,3 +61,12 @@ class Thumbnail {
   final String path;
   final String extension;
 }
+
+extension ThumbnailX on Thumbnail {
+  String get characterHomePreview => '$path/standard_xlarge.$extension';
+  String get comicHomePreview => '$path/portrait_xlarge.$extension';
+
+  String get characterDetailPreview => '$path/landscape_incredible.$extension';
+  String get comicDetailPreview => '$path/landscape_incredible.$extension';
+  String get comicDetailGalleryPreview => '$path/portrait_fantastic.$extension';
+}
