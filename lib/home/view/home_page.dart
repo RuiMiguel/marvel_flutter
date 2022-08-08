@@ -25,6 +25,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
+@visibleForTesting
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 

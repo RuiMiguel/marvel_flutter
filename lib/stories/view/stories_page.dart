@@ -11,6 +11,7 @@ class StoriesPage extends StatelessWidget {
   }
 }
 
+@visibleForTesting
 class StoriesView extends StatelessWidget {
   const StoriesView({super.key});
 

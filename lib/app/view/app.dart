@@ -14,7 +14,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:marvel/app/bloc/authentication_bloc.dart';
 import 'package:marvel/l10n/l10n.dart';
-import 'package:marvel/splash/splash_page.dart';
+import 'package:marvel/splash/view/splash_page.dart';
 import 'package:marvel/styles/themes.dart';
 import 'package:provider/provider.dart';
 

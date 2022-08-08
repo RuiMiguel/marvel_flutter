@@ -11,6 +11,7 @@ class SeriesPage extends StatelessWidget {
   }
 }
 
+@visibleForTesting
 class SeriesView extends StatelessWidget {
   const SeriesView({super.key});
 

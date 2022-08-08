@@ -24,6 +24,7 @@ class LoginPage extends StatelessWidget {
   }
 }
 
+@visibleForTesting
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
 
