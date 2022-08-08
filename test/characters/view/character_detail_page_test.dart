@@ -47,7 +47,7 @@ void main() {
           tester.widget<CachedNetworkImage>(find.byType(CachedNetworkImage));
       expect(
         characterImage.imageUrl,
-        '${character.thumbnail.path}/portrait_incredible.${character.thumbnail.extension}',
+        character.thumbnail.characterDetailPreview,
       );
     });
 

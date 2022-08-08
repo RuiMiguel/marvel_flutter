@@ -292,7 +292,7 @@ void main() {
                     widget is Image &&
                     widget.image is CachedNetworkImageProvider &&
                     (widget.image as CachedNetworkImageProvider).url ==
-                        '${character.thumbnail.path}/landscape_amazing.${character.thumbnail.extension}',
+                        character.thumbnail.characterHomePreview,
               );
 
               expect(

@@ -23,6 +23,7 @@ class CharactersPage extends StatelessWidget {
   }
 }
 
+@visibleForTesting
 class CharactersView extends StatelessWidget {
   const CharactersView({super.key});
 
@@ -126,9 +127,13 @@ class _CharactersGridView extends StatelessWidget {
         crossAxisCount: _crossAxisCount,
       ),
       itemBuilder: (context, index) {
-        return CharacterElement(
+        return GridBoxDecoratedCell(
           index: index,
-          character: characters[index],
+          gridViewCrossAxisCount: _crossAxisCount,
+          child: CharacterElement(
+            index: index,
+            character: characters[index],
+          ),
         );
       },
     );
@@ -152,8 +157,8 @@ class _CharactersListView extends StatelessWidget {
       },
       separatorBuilder: (context, index) {
         return Container(
-          color: Colors.black,
-          height: 2,
+          color: red,
+          height: 1.5,
         );
       },
     );
@@ -189,8 +194,7 @@ class CharacterElement extends StatelessWidget {
             children: [
               Positioned.fill(
                 child: CachedNetworkImage(
-                  imageUrl:
-                      '${character.thumbnail.path}/landscape_amazing.${character.thumbnail.extension}',
+                  imageUrl: character.thumbnail.characterHomePreview,
                   cacheManager: context.read<CacheManager>(),
                   imageBuilder: (context, imageProvider) => DecoratedBox(
                     decoration: BoxDecoration(

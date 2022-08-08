@@ -139,8 +139,7 @@ class _CharacterSliverApp extends StatelessWidget {
         ),
         titlePadding: const EdgeInsets.only(left: 40, bottom: 15, right: 20),
         background: CachedNetworkImage(
-          imageUrl:
-              '${character.thumbnail.path}/portrait_incredible.${character.thumbnail.extension}',
+          imageUrl: character.thumbnail.characterDetailPreview,
           cacheManager: context.read<CacheManager>(),
           imageBuilder: (context, imageProvider) => DecoratedBox(
             decoration: BoxDecoration(
