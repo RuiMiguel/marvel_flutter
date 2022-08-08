@@ -12,10 +12,10 @@ class ComicRepository {
   final ComicService _comicService;
 
   /// Gets [DataResult] of [Comic] and cache data.
-  Future<DataResult<Comic>> getComicsResult(
-    int limit,
-    int offset,
-  ) async {
+  Future<DataResult<Comic>> getComicsResult({
+    required int limit,
+    required int offset,
+  }) async {
     final result = await _comicService.getComicsResult(limit, offset);
     return result.toResultComic();
   }

@@ -102,7 +102,7 @@ void main() {
 
     group('on ApiComicUrl', () {
       test('toComicUrl', () {
-        const apiComicUrl = ApiComicUrl(type: 'type', url: 'url');
+        const apiComicUrl = ApiUrl(type: 'type', url: 'url');
 
         expect(
           apiComicUrl.toComicUrl(),
@@ -159,7 +159,7 @@ void main() {
           ApiTextObject(),
         ],
         urls: [
-          ApiComicUrl(),
+          ApiUrl(),
         ],
         prices: [
           ApiPrice(),

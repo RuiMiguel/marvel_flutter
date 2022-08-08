@@ -55,14 +55,14 @@ extension CharacterMapper on ApiCharacter {
   }
 }
 
-extension CharacterListUrlMapper on List<ApiCharacterUrl>? {
+extension ListUrlMapper on List<ApiUrl>? {
   List<CharacterUrl> toCharactersUrl() {
     return this?.map((element) => element.toCharacterUrl()).toList() ??
         List.empty();
   }
 }
 
-extension CharacterUrlMapper on ApiCharacterUrl {
+extension UrlMapper on ApiUrl {
   CharacterUrl toCharacterUrl() {
     return CharacterUrl(
       type: type ?? '',
@@ -76,9 +76,9 @@ extension DateParser on String? {
     if (this == null) return '';
 
     try {
-      final datetime = DateTime.parse(this!);
+      final dateTime = DateTime.parse(this!);
       final format = DateFormat(dateFormat);
-      return format.format(datetime);
+      return format.format(dateTime);
     } catch (_) {
       return this!;
     }

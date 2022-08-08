@@ -31,7 +31,7 @@ void main() {
         ).thenThrow(Exception());
 
         expect(
-          comicRepository.getComicsResult(1, 1),
+          comicRepository.getComicsResult(limit: 1, offset: 1),
           throwsA(isA<Exception>()),
         );
       });
@@ -45,7 +45,7 @@ void main() {
           ).thenAnswer((_) async => ApiResult<ApiComic>());
 
           expect(
-            await comicRepository.getComicsResult(1, 1),
+            await comicRepository.getComicsResult(limit: 1, offset: 1),
             isA<DataResult<Comic>>(),
           );
         },

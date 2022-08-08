@@ -50,7 +50,7 @@ extension ComicMapper on ApiComic {
       issueNumber: issueNumber ?? 0,
       variantDescription: variantDescription ?? '',
       description: description ?? '',
-      modified: modified ?? '',
+      modified: modified.parseDate(),
       isbn: isbn ?? '',
       upc: upc ?? '',
       diamondCode: diamondCode ?? '',
@@ -87,7 +87,7 @@ extension TextObjectMapper on ApiTextObject {
   }
 }
 
-extension ComicUrlListMapper on List<ApiComicUrl>? {
+extension UrlListMapper on List<ApiUrl>? {
   List<ComicUrl> toComicsUrl() {
     return this?.map((element) {
           return element.toComicUrl();
@@ -96,7 +96,7 @@ extension ComicUrlListMapper on List<ApiComicUrl>? {
   }
 }
 
-extension ComicUrlMapper on ApiComicUrl {
+extension UrlMapper on ApiUrl {
   ComicUrl toComicUrl() {
     return ComicUrl(
       type: type ?? '',
@@ -146,9 +146,9 @@ extension DateParser on String? {
     if (this == null) return '';
 
     try {
-      final datetime = DateTime.parse(this!);
+      final dateTime = DateTime.parse(this!);
       final format = DateFormat(dateFormat);
-      return format.format(datetime);
+      return format.format(dateTime);
     } catch (_) {
       return this!;
     }

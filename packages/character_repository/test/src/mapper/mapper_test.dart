@@ -83,7 +83,7 @@ void main() {
     });
 
     group('on ApiCharacterUrl', () {
-      const apiCharacterUrl = ApiCharacterUrl(type: 'type', url: 'url');
+      const apiCharacterUrl = ApiUrl(type: 'type', url: 'url');
 
       test('toCharacterUrl', () {
         expect(
@@ -103,7 +103,7 @@ void main() {
         modified: 'modified',
         resourceURI: 'resourceURI',
         urls: [
-          ApiCharacterUrl(),
+          ApiUrl(),
         ],
         thumbnail: ApiThumbnail(),
       );
