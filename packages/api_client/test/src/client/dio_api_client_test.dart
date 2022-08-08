@@ -166,13 +166,13 @@ void main() {
         dioAdapter = DioAdapter(dio: dio)
           ..onPost(
             'https://test.com/endpoint',
-            data: <String, String>{'key': 'value'},
             (server) => server.throws(
               500,
               DioError(
                 requestOptions: RequestOptions(path: path),
               ),
             ),
+            data: <String, String>{'key': 'value'},
           );
         dio.httpClientAdapter = dioAdapter;
 
@@ -195,11 +195,11 @@ void main() {
         dioAdapter = DioAdapter(dio: dio)
           ..onPost(
             'https://test.com/endpoint',
-            data: <String, String>{'key': 'value'},
             (server) => server.reply(
               statusCode,
               null,
             ),
+            data: <String, String>{'key': 'value'},
           );
         dio.httpClientAdapter = dioAdapter;
 
@@ -220,11 +220,11 @@ void main() {
         dioAdapter = DioAdapter(dio: dio)
           ..onPost(
             'https://test.com/endpoint',
-            data: <String, String>{'key': 'value'},
             (server) => server.reply(
               200,
               {'data': ''},
             ),
+            data: <String, String>{'key': 'value'},
           );
         dio.httpClientAdapter = dioAdapter;
 
@@ -243,11 +243,11 @@ void main() {
         dioAdapter = DioAdapter(dio: dio)
           ..onPost(
             'https://test.com/endpoint',
-            data: <String, String>{'key': 'value'},
             (server) => server.reply(
               204,
               null,
             ),
+            data: <String, String>{'key': 'value'},
           );
         dio.httpClientAdapter = dioAdapter;
 

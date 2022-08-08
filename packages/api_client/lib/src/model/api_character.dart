@@ -25,20 +25,6 @@ class ApiCharacter {
   final String? description;
   final String? modified;
   final String? resourceURI;
-  final List<ApiCharacterUrl>? urls;
+  final List<ApiUrl>? urls;
   final ApiThumbnail? thumbnail;
-}
-
-@JsonSerializable()
-class ApiCharacterUrl {
-  const ApiCharacterUrl({
-    this.type,
-    this.url,
-  });
-
-  factory ApiCharacterUrl.fromJson(Map<String, dynamic> json) =>
-      _$ApiCharacterUrlFromJson(json);
-
-  final String? type;
-  final String? url;
 }

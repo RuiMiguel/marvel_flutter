@@ -82,6 +82,19 @@ class ApiData<T> {
 }
 
 @JsonSerializable()
+class ApiUrl {
+  const ApiUrl({
+    this.type,
+    this.url,
+  });
+
+  factory ApiUrl.fromJson(Map<String, dynamic> json) => _$ApiUrlFromJson(json);
+
+  final String? type;
+  final String? url;
+}
+
+@JsonSerializable()
 class ApiThumbnail {
   const ApiThumbnail({
     this.path,
