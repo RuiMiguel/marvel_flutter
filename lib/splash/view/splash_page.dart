@@ -25,6 +25,7 @@ class SplashPage extends StatelessWidget {
   }
 }
 
+@visibleForTesting
 class SplashView extends StatelessWidget {
   const SplashView({super.key});
 

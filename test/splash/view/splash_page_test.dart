@@ -12,12 +12,12 @@ import 'package:marvel/common/widget/loading_view.dart';
 import 'package:marvel/home/home.dart';
 import 'package:marvel/login/login.dart';
 import 'package:marvel/splash/bloc/auto_login_bloc.dart';
-import 'package:marvel/splash/splash_page.dart';
+import 'package:marvel/splash/view/splash_page.dart';
 import 'package:marvel/styles/colors.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../helpers/mock_hydrated_storage.dart';
-import '../helpers/pump_app.dart';
+import '../../helpers/mock_hydrated_storage.dart';
+import '../../helpers/pump_app.dart';
 
 class _MockAuthenticationRepository extends Mock
     implements AuthenticationRepository {}
