@@ -1,0 +1,21 @@
+name: secure_storage
+
+on: 
+  push:
+    paths:
+      - "packages/secure_storage/**"
+      - ".github/workflows/secure_storage.yaml"
+
+  pull_request:
+    paths:
+      - "packages/secure_storage/**"
+      - ".github/workflows/secure_storage.yaml"
+
+
+jobs:
+  build:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    with:
+      working_directory: packages/secure_storage
+      flutter_channel: stable
+      flutter_version: 3.7.3

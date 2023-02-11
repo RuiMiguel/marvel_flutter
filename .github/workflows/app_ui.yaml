@@ -1,21 +1,21 @@
-name: api_client
+name: app_ui
 
 on: 
   push:
     paths:
-      - "packages/api_client/**"
-      - ".github/workflows/api_client.yaml"
+      - "packages/app_ui/**"
+      - ".github/workflows/app_ui.yaml"
 
   pull_request:
     paths:
-      - "packages/api_client/**"
-      - ".github/workflows/api_client.yaml"
+      - "packages/app_ui/**"
+      - ".github/workflows/app_ui.yaml"
 
 
 jobs:
   build:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
-      working_directory: packages/api_client
+      working_directory: packages/app_ui
       flutter_channel: stable
       flutter_version: 3.7.3
