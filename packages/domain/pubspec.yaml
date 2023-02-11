@@ -1,5 +1,5 @@
 name: domain
-description: A Very Good Project created by Very Good CLI.
+description: Domain models package.
 version: 1.0.0+1
 publish_to: none
 
