@@ -1,14 +1,13 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marvel/characters/characters.dart';
 import 'package:marvel/comics/comics.dart';
-import 'package:marvel/common/widget/widget.dart';
-import 'package:marvel/home/cubit/section_cubit.dart';
-import 'package:marvel/home/widget/widget.dart';
+import 'package:marvel/home/home.dart';
 import 'package:marvel/l10n/l10n.dart';
+import 'package:marvel/login/login.dart';
 import 'package:marvel/series/series.dart';
 import 'package:marvel/stories/stories.dart';
-import 'package:marvel/styles/styles.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -31,17 +30,23 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final l10n = context.l10n;
 
-    Theme.of(context).setStatusBarTheme(
-      color: Theme.of(context).primaryColor,
+    theme.setStatusBarTheme(
+      color: theme.primaryColor,
     );
 
     return SafeArea(
       child: BlocBuilder<SectionCubit, int>(
         builder: (context, state) {
           return Scaffold(
-            appBar: const HeroesAppBar(withActions: true),
+            appBar: HeroesAppBar(
+              withActions: true,
+              onLoginPressed: () => Navigator.of(context).push<void>(
+                LoginPage.page(),
+              ),
+            ),
             body: IndexedStack(
               index: state,
               children: const [
@@ -55,22 +60,22 @@ class HomeView extends StatelessWidget {
               items: [
                 HeroBottomNavigationItem(
                   label: l10n.menu_characters,
-                  image: 'assets/images/menu/captain-america.png',
+                  image: MarvelIcons.menu.captainAmerica,
                   color: state == 0 ? Section.characters.color : lightGrey,
                 ),
                 HeroBottomNavigationItem(
                   label: l10n.menu_comics,
-                  image: 'assets/images/menu/hulk.png',
+                  image: MarvelIcons.menu.hulk,
                   color: state == 1 ? Section.comics.color : lightGrey,
                 ),
                 HeroBottomNavigationItem(
                   label: l10n.menu_series,
-                  image: 'assets/images/menu/thor.png',
+                  image: MarvelIcons.menu.thor,
                   color: state == 2 ? Section.series.color : lightGrey,
                 ),
                 HeroBottomNavigationItem(
                   label: l10n.menu_stories,
-                  image: 'assets/images/menu/iron-man.png',
+                  image: MarvelIcons.menu.ironMan,
                   color: state == 3 ? Section.stories.color : lightGrey,
                 ),
               ],

@@ -1,6 +1,6 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:marvel/common/widget/widget.dart';
-import 'package:marvel/styles/colors.dart';
+import 'package:marvel/login/login.dart';
 import 'package:webviewx/webviewx.dart';
 
 class WebViewPage extends StatefulWidget {
@@ -43,8 +43,11 @@ class WebViewPageState extends State<WebViewPage> {
         }
       },
       child: Scaffold(
-        appBar: const HeroesAppBar(
+        appBar: HeroesAppBar(
           withActions: false,
+          onLoginPressed: () => Navigator.of(context).push<void>(
+            LoginPage.page(),
+          ),
         ),
         body: Stack(
           children: [

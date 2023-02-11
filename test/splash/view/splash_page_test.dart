@@ -2,18 +2,17 @@
 
 import 'dart:async';
 
+import 'package:app_ui/app_ui.dart';
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel/app/bloc/authentication_bloc.dart';
-import 'package:marvel/common/widget/loading_view.dart';
 import 'package:marvel/home/home.dart';
 import 'package:marvel/login/login.dart';
 import 'package:marvel/splash/bloc/auto_login_bloc.dart';
 import 'package:marvel/splash/view/splash_page.dart';
-import 'package:marvel/styles/colors.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/mock_hydrated_storage.dart';

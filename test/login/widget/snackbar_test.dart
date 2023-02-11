@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:marvel/login/widget/snackbar.dart';
+import 'package:marvel/login/widgets/snackbar.dart';
 
 import '../../helpers/helpers.dart';
 

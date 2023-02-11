@@ -1,13 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:app_ui/app_ui.dart';
 import 'package:character_repository/character_repository.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:marvel/character_detail/character_detail.dart';
 import 'package:marvel/characters/characters.dart';
-import 'package:marvel/common/widget/widget.dart';
-import 'package:marvel/login/widget/widget.dart';
-import 'package:marvel/styles/styles.dart';
+import 'package:marvel/l10n/l10n.dart';
+import 'package:marvel/login/widgets/widgets.dart';
 
 class CharactersPage extends StatelessWidget {
   const CharactersPage({super.key});
@@ -29,12 +29,14 @@ class CharactersView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     final bloc = context.read<CharactersBloc>();
 
     return BlocConsumer<CharactersBloc, CharactersState>(
       listenWhen: (previous, current) => current.status.isError,
       listener: (context, state) {
-        context.showErrorMessage('error');
+        context.showErrorMessage(l10n.generic_error);
       },
       builder: (context, state) {
         return NotificationListener<ScrollNotification>(
@@ -63,8 +65,7 @@ class CharactersView extends StatelessWidget {
               ),
               InfoView(
                 legal: state.legal,
-                count: state.count,
-                total: state.total,
+                counter: '${state.count} ${l10n.of_message} ${state.total}',
               ),
             ],
           ),
@@ -77,8 +78,8 @@ class CharactersView extends StatelessWidget {
 @visibleForTesting
 class CharactersViewContent extends StatelessWidget {
   const CharactersViewContent({
-    super.key,
     required this.characters,
+    super.key,
   });
 
   final List<Character> characters;
@@ -107,29 +108,29 @@ class _CharactersGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    var _crossAxisCount = 3;
+    var crossAxisCount = 3;
     if (screenWidth > 2400) {
-      _crossAxisCount = 15;
+      crossAxisCount = 15;
     }
     if (screenWidth <= 2400) {
-      _crossAxisCount = 10;
+      crossAxisCount = 10;
     }
     if (screenWidth <= 1920) {
-      _crossAxisCount = 5;
+      crossAxisCount = 5;
     }
     if (screenWidth <= 800) {
-      _crossAxisCount = 3;
+      crossAxisCount = 3;
     }
 
     return GridView.builder(
       itemCount: characters.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: _crossAxisCount,
+        crossAxisCount: crossAxisCount,
       ),
       itemBuilder: (context, index) {
         return GridBoxDecoratedCell(
           index: index,
-          gridViewCrossAxisCount: _crossAxisCount,
+          gridViewCrossAxisCount: crossAxisCount,
           child: CharacterElement(
             index: index,
             character: characters[index],
@@ -168,9 +169,9 @@ class _CharactersListView extends StatelessWidget {
 @visibleForTesting
 class CharacterElement extends StatelessWidget {
   const CharacterElement({
-    super.key,
     required this.index,
     required this.character,
+    super.key,
   });
 
   final int index;
@@ -178,6 +179,8 @@ class CharacterElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Material(
       color: index.isEven ? lightGrey : grey,
       child: InkWell(
@@ -193,25 +196,8 @@ class CharacterElement extends StatelessWidget {
           child: Stack(
             children: [
               Positioned.fill(
-                child: CachedNetworkImage(
+                child: MarvelNetworkImage(
                   imageUrl: character.thumbnail.characterHomePreview,
-                  cacheManager: context.read<CacheManager>(),
-                  imageBuilder: (context, imageProvider) => DecoratedBox(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  placeholder: (context, url) => Image.asset(
-                    'assets/images/placeholder.png',
-                    fit: BoxFit.contain,
-                  ),
-                  errorWidget: (context, url, dynamic error) => Image.asset(
-                    'assets/images/error.jpeg',
-                    fit: BoxFit.contain,
-                  ),
                 ),
               ),
               Positioned(
@@ -224,7 +210,7 @@ class CharacterElement extends StatelessWidget {
                   padding: const EdgeInsets.all(5),
                   child: Text(
                     character.name,
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: theme.textTheme.bodyText2,
                   ),
                 ),
               ),

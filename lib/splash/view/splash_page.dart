@@ -1,13 +1,11 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marvel/common/widget/loading_view.dart';
 import 'package:marvel/home/home.dart';
 import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/login/login.dart';
 import 'package:marvel/splash/bloc/auto_login_bloc.dart';
-import 'package:marvel/styles/colors.dart';
-import 'package:marvel/styles/themes.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -31,9 +29,10 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final l10n = context.l10n;
 
-    Theme.of(context).setStatusBarTheme(color: red);
+    theme.setStatusBarTheme(color: red);
 
     return BlocConsumer<AutoLoginBloc, AutoLoginState>(
       listener: (context, state) {
@@ -64,7 +63,7 @@ class SplashView extends StatelessWidget {
             alignment: AlignmentDirectional.center,
             children: [
               Center(
-                child: Image.asset('assets/images/placeholder.png'),
+                child: MarvelIcons.placeholder.image(),
               ),
               if (state.status == AutoLoginStatus.loading)
                 const Positioned(

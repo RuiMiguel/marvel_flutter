@@ -2,21 +2,21 @@
 
 import 'dart:async';
 
+import 'package:app_ui/app_ui.dart';
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel/app/bloc/authentication_bloc.dart';
-import 'package:marvel/common/widget/heroes_app_bar.dart';
 import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/login/bloc/login_bloc.dart';
 import 'package:marvel/login/view/login_page.dart';
-import 'package:marvel/login/widget/authenticated_buttons_view.dart';
-import 'package:marvel/login/widget/authenticated_description_view.dart';
-import 'package:marvel/login/widget/login_textinput_view.dart';
-import 'package:marvel/login/widget/unauthenticated_buttons_view.dart';
-import 'package:marvel/login/widget/unauthenticated_description_view.dart';
+import 'package:marvel/login/widgets/authenticated_buttons_view.dart';
+import 'package:marvel/login/widgets/authenticated_description_view.dart';
+import 'package:marvel/login/widgets/login_textinput_view.dart';
+import 'package:marvel/login/widgets/unauthenticated_buttons_view.dart';
+import 'package:marvel/login/widgets/unauthenticated_description_view.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/helpers.dart';

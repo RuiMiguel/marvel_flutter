@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel/l10n/l10n.dart';
-import 'package:marvel/login/widget/unauthenticated_buttons_view.dart';
+import 'package:marvel/login/widgets/unauthenticated_buttons_view.dart';
 
 import '../../helpers/helpers.dart';
 

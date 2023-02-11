@@ -5,6 +5,7 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'package:app_ui/app_ui.dart';
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:character_repository/character_repository.dart';
 import 'package:comic_repository/comic_repository.dart';
@@ -15,7 +16,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:marvel/app/bloc/authentication_bloc.dart';
 import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/splash/view/splash_page.dart';
-import 'package:marvel/styles/themes.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {

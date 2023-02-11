@@ -1,7 +1,7 @@
 import 'dart:math';
 
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:marvel/l10n/l10n.dart';
 
 class UnderConstructionView extends StatelessWidget {
@@ -9,7 +9,8 @@ class UnderConstructionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final l10n = context.l10n;
 
     return Expanded(
       child: SingleChildScrollView(
@@ -19,19 +20,16 @@ class UnderConstructionView extends StatelessWidget {
               padding: const EdgeInsets.all(15),
               child: Text(
                 l10n.under_construction,
-                style: Theme.of(context).textTheme.headline1,
+                style: theme.textTheme.headline1,
               ),
             ),
-            Image.asset(
-              'assets/images/wait.jpeg',
-              fit: BoxFit.fill,
-            ),
+            MarvelIcons.wait.image(fit: BoxFit.fill),
             Padding(
               padding: const EdgeInsets.all(15),
               child: Text(
                 key: const Key('UnderConstructionSentence'),
                 _getSentence(l10n),
-                style: Theme.of(context).textTheme.bodyText1,
+                style: theme.textTheme.bodyText1,
               ),
             )
           ],

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel/l10n/l10n.dart';
-import 'package:marvel/login/widget/unauthenticated_description_view.dart';
+import 'package:marvel/login/widgets/unauthenticated_description_view.dart';
 import 'package:marvel/webview/webview_page.dart';
 
 import '../../helpers/helpers.dart';

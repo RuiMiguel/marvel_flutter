@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:domain/domain.dart';
@@ -8,8 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel/characters/characters.dart';
-import 'package:marvel/common/widget/info_view.dart';
-import 'package:marvel/common/widget/loading_view.dart';
+import 'package:marvel/l10n/l10n.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:provider/provider.dart';
 
@@ -356,6 +356,9 @@ void main() {
         testWidgets(
           'shows data from state',
           (tester) async {
+            final l10n =
+                await AppLocalizations.delegate.load(const Locale('en'));
+
             whenListen(
               charactersBloc,
               Stream.value(
@@ -378,8 +381,7 @@ void main() {
             expect(find.byType(InfoView), findsOneWidget);
             final infoView = tester.widget<InfoView>(find.byType(InfoView));
             expect(infoView.legal, 'fake legal test');
-            expect(infoView.count, 1);
-            expect(infoView.total, 10);
+            expect(infoView.counter, '1 ${l10n.of_message} 10');
           },
         );
       });

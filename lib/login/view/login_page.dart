@@ -1,11 +1,10 @@
+import 'package:app_ui/app_ui.dart';
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marvel/app/bloc/authentication_bloc.dart';
-import 'package:marvel/common/widget/widget.dart';
 import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/login/login.dart';
-import 'package:marvel/styles/styles.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -30,7 +29,10 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Theme.of(context).setStatusBarTheme(color: Theme.of(context).primaryColor);
+    final theme = Theme.of(context);
+    final l10n = context.l10n;
+
+    theme.setStatusBarTheme(color: Theme.of(context).primaryColor);
 
     final authState = context.watch<AuthenticationBloc>().state;
     final loginBloc = context.read<LoginBloc>();
@@ -45,17 +47,22 @@ class LoginView extends StatelessWidget {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.status == LoginStatus.failure) {
-          context.showErrorMessage(context.l10n.login_fail);
+          context.showErrorMessage(l10n.login_fail);
         }
         if (state.status == LoginStatus.success) {
-          context.showSuccessMessage(context.l10n.success);
+          context.showSuccessMessage(l10n.success);
         }
       },
       listenWhen: (previous, current) => current.status != LoginStatus.loading,
       builder: (context, state) {
         return SafeArea(
           child: Scaffold(
-            appBar: const HeroesAppBar(withActions: false),
+            appBar: HeroesAppBar(
+              withActions: false,
+              onLoginPressed: () => Navigator.of(context).push<void>(
+                LoginPage.page(),
+              ),
+            ),
             body: Column(
               children: [
                 Expanded(
@@ -104,9 +111,10 @@ class _AuthenticatedLoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
-        final l10n = AppLocalizations.of(context);
         final loginBloc = context.read<LoginBloc>();
 
         return Column(
@@ -150,9 +158,10 @@ class _UnauthenticatedLoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
-        final l10n = AppLocalizations.of(context);
         final loginBloc = context.read<LoginBloc>();
 
         return Column(

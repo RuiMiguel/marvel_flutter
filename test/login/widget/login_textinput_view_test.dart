@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:marvel/login/widget/login_textinput_view.dart';
+import 'package:marvel/login/widgets/login_textinput_view.dart';
 
 import '../../helpers/helpers.dart';
 

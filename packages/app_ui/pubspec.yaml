@@ -1,0 +1,41 @@
+name: app_ui
+description: Library for common widget.
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.19.0 <3.0.0"
+  flutter: 3.7.3
+
+dependencies:
+  cached_network_image: ^3.2.1
+  flutter:
+    sdk: flutter
+  flutter_cache_manager: ^3.3.0
+  provider: ^6.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.3.0
+  very_good_analysis: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  generate: true
+  assets:
+    - assets/images/
+    - assets/images/menu/
+
+  fonts:
+    - family: Oswald
+      fonts:
+        - asset: assets/fonts/oswald.ttf
+          weight: 700
+
+flutter_gen:
+  assets:
+    outputs:
+      package_parameter_enabled: true
+  output: lib/src/generated/
+  line_length: 80

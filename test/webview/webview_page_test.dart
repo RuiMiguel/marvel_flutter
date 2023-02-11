@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:marvel/common/widget/heroes_app_bar.dart';
 import 'package:marvel/webview/webview_page.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:webviewx/webviewx.dart';

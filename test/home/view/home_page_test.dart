@@ -1,21 +1,20 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:app_ui/app_ui.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:marvel/characters/view/characters_page.dart';
 import 'package:marvel/comics/view/comics_page.dart';
-import 'package:marvel/common/widget/heroes_app_bar.dart';
 import 'package:marvel/home/cubit/section_cubit.dart';
 import 'package:marvel/home/view/home_page.dart';
-import 'package:marvel/home/widget/heroes_bottom_navigation_bar.dart';
+import 'package:marvel/home/widgets/heroes_bottom_navigation_bar.dart';
 import 'package:marvel/series/view/series_page.dart';
 import 'package:marvel/stories/view/stories_page.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/helpers.dart';
-import '../../helpers/mock_hydrated_storage.dart';
 
 class _MockSectionCubit extends Mock implements SectionCubit {}
 

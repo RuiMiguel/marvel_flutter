@@ -1,4 +1,6 @@
 // ignore_for_file: prefer_const_constructors
+import 'dart:async';
+
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:secure_storage/secure_storage.dart';
