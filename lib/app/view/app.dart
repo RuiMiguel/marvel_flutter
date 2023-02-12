@@ -20,11 +20,11 @@ import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
   const App({
-    super.key,
     required AuthenticationRepository authenticationRepository,
     required CharacterRepository characterRepository,
     required ComicRepository comicRepository,
     required CacheManager cacheManager,
+    super.key,
   })  : _authenticationRepository = authenticationRepository,
         _characterRepository = characterRepository,
         _comicRepository = comicRepository,
@@ -74,8 +74,8 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: lightThemeData(),
-      darkTheme: darkThemeData(),
+      theme: AppTheme().themeData,
+      darkTheme: AppDarkTheme().themeData,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

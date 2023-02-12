@@ -5,7 +5,7 @@ extension BuildContextX on BuildContext {
   void showErrorMessage(String message) =>
       ScaffoldMessenger.of(this).showSnackBar(
         SnackBar(
-          backgroundColor: red,
+          backgroundColor: AppColors.red,
           content: Text(message),
         ),
       );
@@ -13,7 +13,7 @@ extension BuildContextX on BuildContext {
   void showSuccessMessage(String message) =>
       ScaffoldMessenger.of(this).showSnackBar(
         SnackBar(
-          backgroundColor: green,
+          backgroundColor: AppColors.green,
           content: Text(message),
         ),
       );

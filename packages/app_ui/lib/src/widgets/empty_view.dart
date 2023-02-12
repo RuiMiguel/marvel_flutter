@@ -20,12 +20,12 @@ class EmptyView extends StatelessWidget {
         const SizedBox(height: 20),
         Text(
           title,
-          style: theme.textTheme.headline1,
+          style: theme.textTheme.displayLarge,
         ),
         const SizedBox(height: 10),
         Text(
           description,
-          style: theme.textTheme.bodyText1,
+          style: theme.textTheme.bodyLarge,
         ),
       ],
     );

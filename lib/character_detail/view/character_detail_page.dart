@@ -132,7 +132,7 @@ class _CharacterSliverApp extends StatelessWidget {
           visible: !isShrink,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              color: blue.withAlpha(200),
+              color: AppColors.blue.withAlpha(200),
               backgroundBlendMode: BlendMode.darken,
             ),
             child: Text(character.name),
@@ -168,12 +168,12 @@ class _DescriptionView extends StatelessWidget {
               const SizedBox(height: 20),
               Text(
                 l10n.description,
-                style: theme.textTheme.headline1,
+                style: theme.textTheme.displayLarge,
               ),
               const SizedBox(height: 10),
               Text(
                 character.description,
-                style: theme.textTheme.bodyText1,
+                style: theme.textTheme.bodyLarge,
               ),
             ],
           );
@@ -203,7 +203,7 @@ class _LinksView extends StatelessWidget {
           const SizedBox(height: 20),
           Text(
             l10n.links,
-            style: theme.textTheme.headline2,
+            style: theme.textTheme.displayMedium,
           ),
           const SizedBox(height: 10),
         ],
@@ -250,14 +250,14 @@ class TextLink extends StatelessWidget {
         children: [
           const Icon(
             Icons.link,
-            color: red,
+            color: AppColors.red,
           ),
           const SizedBox(width: 10),
           Text(
             type,
-            style: theme.textTheme.bodyText1!.copyWith(
+            style: theme.textTheme.bodyLarge!.copyWith(
               fontSize: 24,
-              color: red,
+              color: AppColors.red,
             ),
           ),
         ],
@@ -281,12 +281,12 @@ class _DatesView extends StatelessWidget {
       children: [
         Text(
           l10n.last_modified,
-          style: theme.textTheme.subtitle1,
+          style: theme.textTheme.titleMedium,
         ),
         const SizedBox(width: 10),
         Text(
           character.modified,
-          style: theme.textTheme.subtitle1,
+          style: theme.textTheme.titleMedium,
         ),
       ],
     );

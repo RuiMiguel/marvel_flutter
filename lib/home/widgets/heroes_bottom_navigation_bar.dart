@@ -22,16 +22,15 @@ class HeroesBottomNavigationBar extends StatelessWidget {
           children: [
             Container(
               height: 2,
-              color: red,
+              color: AppColors.red,
             ),
             Theme(
               data: theme.copyWith(canvasColor: theme.primaryColor),
               child: BlocBuilder<SectionCubit, int>(
                 builder: (context, state) {
                   return BottomNavigationBar(
-                    unselectedItemColor: lightGrey,
+                    unselectedItemColor: AppColors.lightGrey,
                     selectedItemColor: items[state].color,
-                    selectedLabelStyle: const TextStyle(fontFamily: MarvelFont),
                     iconSize: 32,
                     selectedFontSize: 12,
                     type: BottomNavigationBarType.fixed,

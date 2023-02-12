@@ -23,7 +23,7 @@ class HeroesAppBar extends StatelessWidget with PreferredSizeWidget {
         preferredSize: const Size.fromHeight(2),
         child: Container(
           height: 2,
-          color: red,
+          color: AppColors.red,
         ),
       ),
       centerTitle: true,
@@ -58,7 +58,6 @@ class LoginActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      key: const Key('login_icon_button_key'),
       onPressed: onLoginPressed,
       icon: const Icon(Icons.verified_user),
     );

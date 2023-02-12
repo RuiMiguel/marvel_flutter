@@ -17,7 +17,7 @@ class GridBoxDecoratedCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final borderColor = color ?? red;
+    final borderColor = color ?? AppColors.red;
 
     return DecoratedBox(
       decoration: BoxDecoration(

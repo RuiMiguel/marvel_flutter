@@ -14,10 +14,10 @@ class UnauthenticatedDescription extends StatelessWidget {
 
     return Linkify(
       text: l10n.add_your_developer_credentials_to_login,
-      style: theme.textTheme.bodyText1,
-      linkStyle: theme.textTheme.bodyText1!.copyWith(
+      style: theme.textTheme.bodyLarge,
+      linkStyle: theme.textTheme.bodyLarge!.copyWith(
         fontSize: 24,
-        color: red,
+        color: AppColors.red,
       ),
       onOpen: (link) {
         Navigator.of(context).push<void>(

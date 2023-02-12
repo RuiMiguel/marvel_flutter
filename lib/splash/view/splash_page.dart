@@ -32,7 +32,7 @@ class SplashView extends StatelessWidget {
     final theme = Theme.of(context);
     final l10n = context.l10n;
 
-    theme.setStatusBarTheme(color: red);
+    theme.setStatusBarTheme(color: AppColors.red);
 
     return BlocConsumer<AutoLoginBloc, AutoLoginState>(
       listener: (context, state) {
@@ -58,7 +58,7 @@ class SplashView extends StatelessWidget {
       },
       builder: (context, state) {
         return ColoredBox(
-          color: red,
+          color: AppColors.red,
           child: Stack(
             alignment: AlignmentDirectional.center,
             children: [

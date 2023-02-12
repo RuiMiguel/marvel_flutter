@@ -144,7 +144,7 @@ class _AuthenticatedLoginForm extends StatelessWidget {
             const SizedBox(height: 80),
             if (state.status.isLoading)
               const CircularProgressIndicator(
-                color: red,
+                color: AppColors.red,
               ),
           ],
         );
@@ -188,7 +188,7 @@ class _UnauthenticatedLoginForm extends StatelessWidget {
             const SizedBox(height: 80),
             if (state.status.isLoading)
               const CircularProgressIndicator(
-                color: red,
+                color: AppColors.red,
               ),
           ],
         );

@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:marvel/l10n/l10n.dart';
 import 'package:marvel/webview/webview_page.dart';
-import 'package:provider/provider.dart';
 
 class ComicDetailPage extends StatefulWidget {
-  const ComicDetailPage({super.key, required this.comic});
+  const ComicDetailPage({
+    required this.comic,
+    super.key,
+  });
 
   static PageRoute page(Comic comic) => MaterialPageRoute<void>(
         builder: (context) => ComicDetailPage(
@@ -139,7 +141,7 @@ class _ComicSliverApp extends StatelessWidget {
           visible: !isShrink,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              color: blue.withAlpha(200),
+              color: AppColors.blue.withAlpha(200),
               backgroundBlendMode: BlendMode.darken,
             ),
             child: Text(comic.title),
@@ -148,7 +150,6 @@ class _ComicSliverApp extends StatelessWidget {
         titlePadding: const EdgeInsets.only(left: 40, bottom: 15, right: 20),
         background: MarvelNetworkImage(
           imageUrl: comic.thumbnail.comicDetailPreview,
-          // cacheManager: context.read<CacheManager>(),
         ),
       ),
     );
@@ -176,12 +177,12 @@ class _DescriptionView extends StatelessWidget {
               const SizedBox(height: 20),
               Text(
                 l10n.description,
-                style: theme.textTheme.headline1,
+                style: theme.textTheme.displayLarge,
               ),
               const SizedBox(height: 10),
               Text(
                 comic.description,
-                style: theme.textTheme.bodyText1,
+                style: theme.textTheme.bodyLarge,
               ),
             ],
           );
@@ -211,7 +212,7 @@ class _LinksView extends StatelessWidget {
           const SizedBox(height: 20),
           Text(
             l10n.links,
-            style: theme.textTheme.headline2,
+            style: theme.textTheme.displayMedium,
           ),
           const SizedBox(height: 10),
         ],
@@ -238,10 +239,10 @@ class _LinksView extends StatelessWidget {
 @visibleForTesting
 class TextLink extends StatelessWidget {
   const TextLink({
-    super.key,
     required this.url,
     required this.type,
     required this.onTap,
+    super.key,
   });
 
   final String url;
@@ -258,14 +259,14 @@ class TextLink extends StatelessWidget {
         children: [
           const Icon(
             Icons.link,
-            color: red,
+            color: AppColors.red,
           ),
           const SizedBox(width: 10),
           Text(
             type,
-            style: theme.textTheme.bodyText1!.copyWith(
+            style: theme.textTheme.bodyLarge!.copyWith(
               fontSize: 24,
-              color: red,
+              color: AppColors.red,
             ),
           ),
         ],
@@ -297,7 +298,7 @@ class _PricesView extends StatelessWidget {
           const SizedBox(height: 20),
           Text(
             l10n.prices,
-            style: theme.textTheme.headline2,
+            style: theme.textTheme.displayMedium,
           ),
           const SizedBox(height: 10),
         ],
@@ -307,7 +308,7 @@ class _PricesView extends StatelessWidget {
         (view as Column).children.add(
               Text(
                 element.toCurrency(context),
-                style: theme.textTheme.bodyText1,
+                style: theme.textTheme.bodyLarge,
               ),
             );
       }
@@ -339,7 +340,7 @@ class _ImagesView extends StatelessWidget {
           const SizedBox(height: 20),
           Text(
             l10n.images,
-            style: theme.textTheme.headline2,
+            style: theme.textTheme.displayMedium,
           ),
           const SizedBox(height: 10),
           SizedBox(
@@ -383,12 +384,12 @@ class _DatesView extends StatelessWidget {
       children: [
         Text(
           l10n.last_modified,
-          style: theme.textTheme.subtitle1,
+          style: theme.textTheme.titleMedium,
         ),
         const SizedBox(width: 10),
         Text(
           comic.modified,
-          style: theme.textTheme.subtitle1,
+          style: theme.textTheme.titleMedium,
         ),
       ],
     );

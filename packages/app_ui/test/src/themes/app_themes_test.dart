@@ -1,5 +1,4 @@
-import 'package:app_ui/src/colors/app_colors.dart';
-import 'package:app_ui/src/themes/app_themes.dart';
+import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -88,28 +87,34 @@ void main() {
     });
 
     group('ThemeData', () {
-      test('lightThemeData', () {
-        final themeData = lightThemeData();
+      test('AppTheme', () {
+        final themeData = AppTheme().themeData;
 
-        expect(themeData.primaryColor, white);
-        expect(themeData.shadowColor, lightGrey);
+        expect(themeData.primaryColor, AppColors.white);
+        expect(themeData.shadowColor, AppColors.lightGrey);
         expect(themeData.brightness, Brightness.light);
-        expect(themeData.textTheme.headline1?.fontFamily, 'Oswald');
-        expect(themeData.textTheme.bodyText1?.fontFamily, 'Oswald');
-        expect(themeData.textTheme.subtitle1?.fontFamily, 'Oswald');
-        expect(themeData.snackBarTheme.contentTextStyle?.fontFamily, 'Oswald');
+        expect(themeData.textTheme.displayLarge?.fontFamily, FontFamily.oswald);
+        expect(themeData.textTheme.bodyLarge?.fontFamily, FontFamily.oswald);
+        expect(themeData.textTheme.titleMedium?.fontFamily, FontFamily.oswald);
+        expect(
+          themeData.snackBarTheme.contentTextStyle?.fontFamily,
+          FontFamily.oswald,
+        );
       });
 
-      test('darkThemeData', () {
-        final themeData = darkThemeData();
+      test('AppDarkTheme', () {
+        final themeData = AppDarkTheme().themeData;
 
-        expect(themeData.primaryColor, black);
-        expect(themeData.shadowColor, grey);
+        expect(themeData.primaryColor, AppColors.black);
+        expect(themeData.shadowColor, AppColors.grey);
         expect(themeData.brightness, Brightness.dark);
-        expect(themeData.textTheme.headline1?.fontFamily, 'Oswald');
-        expect(themeData.textTheme.bodyText1?.fontFamily, 'Oswald');
-        expect(themeData.textTheme.subtitle1?.fontFamily, 'Oswald');
-        expect(themeData.snackBarTheme.contentTextStyle?.fontFamily, 'Oswald');
+        expect(themeData.textTheme.displayLarge?.fontFamily, FontFamily.oswald);
+        expect(themeData.textTheme.bodyLarge?.fontFamily, FontFamily.oswald);
+        expect(themeData.textTheme.titleMedium?.fontFamily, FontFamily.oswald);
+        expect(
+          themeData.snackBarTheme.contentTextStyle?.fontFamily,
+          FontFamily.oswald,
+        );
       });
     });
   });

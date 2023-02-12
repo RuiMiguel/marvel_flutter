@@ -3,58 +3,58 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('Colors', () {
+  group('AppColors', () {
     test('colors are correct', () async {
       expect(
-        red.value,
+        AppColors.red.value,
         0xFFEC1D24,
       );
       expect(
-        lightRed.value,
+        AppColors.lightRed.value,
         0xFFEF9A9A,
       );
       expect(
-        white.value,
+        AppColors.white.value,
         Colors.white.value,
       );
       expect(
-        black.value,
+        AppColors.black.value,
         Colors.black.value,
       );
       expect(
-        grey.value,
+        AppColors.grey.value,
         0xFF202020,
       );
       expect(
-        lightGrey.value,
+        AppColors.lightGrey.value,
         0xFF757575,
       );
       expect(
-        blue.value,
+        AppColors.blue.value,
         0xFF1E88E5,
       );
       expect(
-        lightBlue.value,
+        AppColors.lightBlue.value,
         0xFF90CAF9,
       );
       expect(
-        yellow.value,
+        AppColors.yellow.value,
         0xFFFDD835,
       );
       expect(
-        lightYellow.value,
+        AppColors.lightYellow.value,
         0xFFFFF59D,
       );
       expect(
-        green.value,
+        AppColors.green.value,
         0xFF66BB6A,
       );
       expect(
-        lightGreen.value,
+        AppColors.lightGreen.value,
         0xFFA5D6A7,
       );
       expect(
-        red.value,
+        AppColors.red.value,
         0xFFEC1D24,
       );
     });
@@ -63,19 +63,19 @@ void main() {
       test('gets correct color for each enum', () async {
         expect(
           Section.characters.color,
-          lightBlue,
+          AppColors.lightBlue,
         );
         expect(
           Section.comics.color,
-          lightGreen,
+          AppColors.lightGreen,
         );
         expect(
           Section.series.color,
-          lightYellow,
+          AppColors.lightYellow,
         );
         expect(
           Section.stories.color,
-          lightRed,
+          AppColors.lightRed,
         );
       });
     });

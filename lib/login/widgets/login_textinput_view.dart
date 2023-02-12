@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 class LoginTextInput extends StatefulWidget {
   const LoginTextInput({
-    super.key,
-    this.hint = '*****',
     required this.labelText,
-    this.text = '',
     required this.onChanged,
+    this.hint = '*****',
+    this.text = '',
     this.enabled = true,
+    super.key,
   });
 
   final String hint;
@@ -47,19 +47,19 @@ class _LoginTextInputState extends State<LoginTextInput> {
     return TextFormField(
       controller: _textController,
       autocorrect: false,
-      cursorColor: theme.textTheme.bodyText1!.color,
-      style: theme.textTheme.bodyText2,
+      cursorColor: theme.textTheme.bodyLarge!.color,
+      style: theme.textTheme.bodyMedium,
       enabled: widget.enabled,
       decoration: InputDecoration(
         hintText: widget.hint,
         labelText: widget.labelText,
-        hintStyle: theme.textTheme.subtitle1,
-        labelStyle: theme.textTheme.subtitle1,
+        hintStyle: theme.textTheme.titleMedium,
+        labelStyle: theme.textTheme.titleMedium,
         enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: red),
+          borderSide: BorderSide(color: AppColors.red),
         ),
         focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: red),
+          borderSide: BorderSide(color: AppColors.red),
         ),
         border: const UnderlineInputBorder(),
       ),

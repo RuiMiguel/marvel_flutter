@@ -63,7 +63,7 @@ class WebViewPageState extends State<WebViewPage> {
               visible: _isLoading,
               child: const Center(
                 child: CircularProgressIndicator(
-                  color: red,
+                  color: AppColors.red,
                 ),
               ),
             ),

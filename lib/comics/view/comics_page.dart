@@ -153,15 +153,15 @@ class ComicElement extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Material(
-      color: index.isEven ? lightGrey : grey,
+      color: index.isEven ? AppColors.lightGrey : AppColors.grey,
       child: InkWell(
         onTap: () {
           Navigator.of(context).push<void>(
             ComicDetailPage.page(comic),
           );
         },
-        splashColor: blue,
-        highlightColor: lightBlue,
+        splashColor: AppColors.blue,
+        highlightColor: AppColors.lightBlue,
         child: SizedBox(
           height: 150,
           child: Stack(
@@ -176,12 +176,12 @@ class ComicElement extends StatelessWidget {
                 right: 0,
                 bottom: 0,
                 child: Container(
-                  color: blue.withOpacity(0.4),
+                  color: AppColors.blue.withOpacity(0.4),
                   alignment: Alignment.bottomCenter,
                   padding: const EdgeInsets.all(5),
                   child: Text(
                     comic.title,
-                    style: theme.textTheme.bodyText2,
+                    style: theme.textTheme.bodyMedium,
                   ),
                 ),
               ),

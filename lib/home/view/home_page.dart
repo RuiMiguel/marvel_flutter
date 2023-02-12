@@ -61,22 +61,27 @@ class HomeView extends StatelessWidget {
                 HeroBottomNavigationItem(
                   label: l10n.menu_characters,
                   image: MarvelIcons.menu.captainAmerica,
-                  color: state == 0 ? Section.characters.color : lightGrey,
+                  color: state == 0
+                      ? Section.characters.color
+                      : AppColors.lightGrey,
                 ),
                 HeroBottomNavigationItem(
                   label: l10n.menu_comics,
                   image: MarvelIcons.menu.hulk,
-                  color: state == 1 ? Section.comics.color : lightGrey,
+                  color:
+                      state == 1 ? Section.comics.color : AppColors.lightGrey,
                 ),
                 HeroBottomNavigationItem(
                   label: l10n.menu_series,
                   image: MarvelIcons.menu.thor,
-                  color: state == 2 ? Section.series.color : lightGrey,
+                  color:
+                      state == 2 ? Section.series.color : AppColors.lightGrey,
                 ),
                 HeroBottomNavigationItem(
                   label: l10n.menu_stories,
                   image: MarvelIcons.menu.ironMan,
-                  color: state == 3 ? Section.stories.color : lightGrey,
+                  color:
+                      state == 3 ? Section.stories.color : AppColors.lightGrey,
                 ),
               ],
             ),

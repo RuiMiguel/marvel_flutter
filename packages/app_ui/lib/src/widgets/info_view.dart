@@ -27,13 +27,13 @@ class InfoView extends StatelessWidget {
             left: 0,
             child: Container(
               height: 1,
-              color: red,
+              color: AppColors.red,
             ),
           ),
           Center(
             child: Text(
               legal,
-              style: theme.textTheme.subtitle1,
+              style: theme.textTheme.titleMedium,
             ),
           ),
           Positioned(
@@ -43,7 +43,7 @@ class InfoView extends StatelessWidget {
             child: Center(
               child: Text(
                 counter,
-                style: Theme.of(context).textTheme.subtitle2,
+                style: theme.textTheme.titleSmall,
               ),
             ),
           ),

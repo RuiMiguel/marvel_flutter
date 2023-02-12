@@ -20,7 +20,7 @@ class UnderConstructionView extends StatelessWidget {
               padding: const EdgeInsets.all(15),
               child: Text(
                 l10n.under_construction,
-                style: theme.textTheme.headline1,
+                style: theme.textTheme.displayLarge,
               ),
             ),
             MarvelIcons.wait.image(fit: BoxFit.fill),
@@ -29,7 +29,7 @@ class UnderConstructionView extends StatelessWidget {
               child: Text(
                 key: const Key('UnderConstructionSentence'),
                 _getSentence(l10n),
-                style: theme.textTheme.bodyText1,
+                style: theme.textTheme.bodyLarge,
               ),
             )
           ],

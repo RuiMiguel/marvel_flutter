@@ -2,9 +2,105 @@ import 'package:app_ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+class AppTheme {
+  ColorScheme get colorScheme => const ColorScheme.light(
+        primary: AppColors.black,
+        background: AppColors.lightGrey,
+        shadow: AppColors.grey,
+      );
+
+  ThemeData get themeData {
+    return ThemeData(
+      primaryColor: colorScheme.primary,
+      shadowColor: colorScheme.shadow,
+      brightness: colorScheme.brightness,
+      textTheme: _textTheme,
+      elevatedButtonTheme: _elevatedButtonThemeData,
+      snackBarTheme: _snackbarThemeData,
+    );
+  }
+
+  TextTheme get _textTheme {
+    final baseTextStyle = TextStyle(
+      package: 'app_ui',
+      fontFamily: FontFamily.oswald,
+      fontWeight: FontWeight.normal,
+      color: colorScheme.primary,
+      decoration: TextDecoration.none,
+    );
+
+    return TextTheme(
+      displayLarge: baseTextStyle.copyWith(
+        fontSize: 30,
+        height: 1.2,
+        fontWeight: FontWeight.bold,
+      ),
+      displayMedium: baseTextStyle.copyWith(
+        fontSize: 24,
+        height: 1.2,
+        fontWeight: FontWeight.bold,
+      ),
+      bodyLarge: baseTextStyle.copyWith(
+        fontSize: 22,
+        height: 1.4,
+      ),
+      bodyMedium: baseTextStyle.copyWith(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        height: 1.4,
+      ),
+      titleMedium: baseTextStyle.copyWith(
+        fontSize: 16,
+        height: 1.4,
+      ),
+      titleSmall: baseTextStyle.copyWith(
+        fontSize: 10,
+        height: 1.4,
+      ),
+    ).apply(
+      bodyColor: colorScheme.primary,
+      displayColor: colorScheme.primary,
+      decorationColor: colorScheme.primary,
+      package: 'app_ui',
+      fontFamily: FontFamily.oswald,
+    );
+  }
+
+  ElevatedButtonThemeData get _elevatedButtonThemeData {
+    return ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.red,
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+        textStyle: _textTheme.bodyMedium?.copyWith(
+          color: AppColors.white,
+        ),
+      ),
+    );
+  }
+
+  SnackBarThemeData get _snackbarThemeData {
+    return SnackBarThemeData(
+      backgroundColor: AppColors.red,
+      actionTextColor: AppColors.white,
+      contentTextStyle: _textTheme.titleMedium?.copyWith(
+        color: AppColors.white,
+      ),
+    );
+  }
+}
+
+class AppDarkTheme extends AppTheme {
+  @override
+  ColorScheme get colorScheme => const ColorScheme.dark(
+        primary: AppColors.white,
+        background: AppColors.grey,
+        shadow: AppColors.lightGrey,
+      );
+}
+
 extension ThemeDataX on ThemeData {
   void setStatusBarTheme({
-    Color? color = white,
+    Color? color = AppColors.white,
     Brightness? brightness = Brightness.light,
   }) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -16,7 +112,7 @@ extension ThemeDataX on ThemeData {
   }
 
   void setSystemNavigationTheme({
-    Color? color = white,
+    Color? color = AppColors.white,
     Brightness? brightness = Brightness.light,
   }) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -26,111 +122,4 @@ extension ThemeDataX on ThemeData {
       ),
     );
   }
-}
-
-ThemeData lightThemeData() {
-  return ThemeData(
-    primaryColor: white,
-    shadowColor: lightGrey,
-    brightness: Brightness.light,
-    fontFamily: 'Oswald',
-    textTheme: _lightTextTheme(),
-    elevatedButtonTheme: _elevatedButtonTheme(),
-    snackBarTheme: _snackbarTheme(),
-  );
-}
-
-ThemeData darkThemeData() {
-  return ThemeData(
-    primaryColor: black,
-    shadowColor: grey,
-    brightness: Brightness.dark,
-    fontFamily: 'Oswald',
-    textTheme: _darkTextTheme(),
-    elevatedButtonTheme: _elevatedButtonTheme(),
-    snackBarTheme: _snackbarTheme(),
-  );
-}
-
-TextTheme _lightTextTheme() {
-  return _textTheme(black);
-}
-
-TextTheme _darkTextTheme() {
-  return _textTheme(white);
-}
-
-TextTheme _textTheme(Color textColor) {
-  return TextTheme(
-    headline1: TextStyle(
-      fontSize: 30,
-      color: textColor,
-      fontWeight: FontWeight.bold,
-      height: 1.2,
-      decoration: TextDecoration.none,
-    ),
-    headline2: TextStyle(
-      fontSize: 24,
-      color: textColor,
-      fontWeight: FontWeight.bold,
-      height: 1.2,
-      decoration: TextDecoration.none,
-    ),
-    bodyText1: TextStyle(
-      fontSize: 22,
-      color: textColor,
-      fontWeight: FontWeight.normal,
-      height: 1.4,
-      decoration: TextDecoration.none,
-    ),
-    bodyText2: TextStyle(
-      fontSize: 20,
-      color: textColor,
-      fontWeight: FontWeight.bold,
-      height: 1.4,
-      decoration: TextDecoration.none,
-    ),
-    subtitle1: TextStyle(
-      fontSize: 16,
-      color: textColor,
-      fontWeight: FontWeight.normal,
-      height: 1.4,
-      decoration: TextDecoration.none,
-    ),
-    subtitle2: TextStyle(
-      fontSize: 10,
-      color: textColor,
-      fontWeight: FontWeight.normal,
-      height: 1.4,
-      decoration: TextDecoration.none,
-    ),
-  );
-}
-
-ElevatedButtonThemeData _elevatedButtonTheme() {
-  return ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      primary: red,
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-      textStyle: const TextStyle(
-        fontSize: 20,
-        color: white,
-        fontFamily: 'Oswald',
-        fontWeight: FontWeight.bold,
-        height: 1.2,
-      ),
-    ),
-  );
-}
-
-SnackBarThemeData _snackbarTheme() {
-  return const SnackBarThemeData(
-    backgroundColor: red,
-    actionTextColor: white,
-    contentTextStyle: TextStyle(
-      color: white,
-      fontFamily: 'Oswald',
-      fontSize: 18,
-    ),
-  );
 }

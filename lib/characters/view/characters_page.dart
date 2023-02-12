@@ -3,7 +3,6 @@ import 'package:character_repository/character_repository.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:marvel/character_detail/character_detail.dart';
 import 'package:marvel/characters/characters.dart';
 import 'package:marvel/l10n/l10n.dart';
@@ -158,7 +157,7 @@ class _CharactersListView extends StatelessWidget {
       },
       separatorBuilder: (context, index) {
         return Container(
-          color: red,
+          color: AppColors.red,
           height: 1.5,
         );
       },
@@ -182,15 +181,15 @@ class CharacterElement extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Material(
-      color: index.isEven ? lightGrey : grey,
+      color: index.isEven ? AppColors.lightGrey : AppColors.grey,
       child: InkWell(
         onTap: () {
           Navigator.of(context).push<void>(
             CharacterDetailPage.page(character),
           );
         },
-        splashColor: blue,
-        highlightColor: lightBlue,
+        splashColor: AppColors.blue,
+        highlightColor: AppColors.lightBlue,
         child: SizedBox(
           height: 150,
           child: Stack(
@@ -205,12 +204,12 @@ class CharacterElement extends StatelessWidget {
                 right: 0,
                 bottom: 0,
                 child: Container(
-                  color: blue.withOpacity(0.4),
+                  color: AppColors.blue.withOpacity(0.4),
                   alignment: Alignment.bottomCenter,
                   padding: const EdgeInsets.all(5),
                   child: Text(
                     character.name,
-                    style: theme.textTheme.bodyText2,
+                    style: theme.textTheme.bodyMedium,
                   ),
                 ),
               ),
